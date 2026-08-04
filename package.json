@@ -1,0 +1,24 @@
+{
+  "name": "dual-stack-studio",
+  "version": "1.0.0",
+  "description": "Dual-Stack Studio — We build full-stack products",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "keywords": [
+    "studio",
+    "web",
+    "mobile",
+    "full-stack"
+  ],
+  "author": "Sebastian Rodriguez",
+  "license": "MIT",
+  "dependencies": {
+    "astro": "^7.1.6",
+    "typescript": "^7.0.2"
+  }
+}
