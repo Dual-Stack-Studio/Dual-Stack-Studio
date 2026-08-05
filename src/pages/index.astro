@@ -1060,7 +1060,7 @@ function lineIcon(name: string, size = 20, strokeWidth = 2) {
 
     <form id="contact-form" class="contact-form" novalidate>
       <!-- Web3Forms: replace with your real access key, see https://web3forms.com -->
-      <input type="hidden" name="access_key" value="48681888-2c2b-4ece-9089-eaeec501fbcd" />
+      <input type="hidden" name="access_key" value={import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY} />
       <input type="hidden" name="subject" value="New inquiry from dualstackstudio.com" />
       <input type="hidden" name="from_name" value="Dual-Stack Studio site" />
       <input type="checkbox" name="botcheck" class="cf-honeypot" tabindex="-1" autocomplete="off" />
