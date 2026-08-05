@@ -1,0 +1,600 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+export function getStaticPaths() {
+  const projects = {
+  astrofell: {
+    client: 'Client project · Dual-Stack Studio',
+    title: 'Astrofell',
+    tagline: 'Astronomy for everyone',
+    description: 'Migration and complete redesign of the Castelldefels Astronomical Association (ASTROFELS) website, going from a Blogger blog to a modern site built from scratch, with a centerpiece: a fully interactive, custom-made 3D solar system.',
+    features: [
+      'Built with Astro (SSG) and React for interactive islands',
+      'Three.js (WebGL) integration with a custom GLTF parser supporting the KHR_materials_pbrSpecularGlossiness legacy extension',
+      'Custom 3D camera physics utilizing camera.setViewOffset for distortion-free viewport scaling',
+      'Interactive 3D solar system featuring raycasting-based smooth fly-to camera transitions and drag-to-rotate controls',
+      'Performance-optimized UX that delays 3D rendering and container expansion until user interaction to save CPU/GPU',
+      'Parallel 3D asset loading via Promise.all, significantly reducing initial load times for the planetary models',
+      'Dynamic, backend-free news section powered by build-time data fetching from a public Blogger JSON feed',
+      'Full content migration of institutional history, foundation details, and observatory documentation from the legacy site',
+      'Pure CSS custom design system featuring a responsive dark theme with gold and cyan accents',
+      'Fully responsive architecture with mobile-adapted panels, preserving the 3D WebGL experience on small screens',
+    ],
+    stack: ['Astro 7', 'TypeScript', 'Three.js', 'Vercel', 'Fontsource', 'Vanilla CSS'],
+    status: 'Live · Lighthouse 95+, LCP ~1.2s, CLS < 0.05',
+    image: '/images/astrofell.png',
+    url: null,
+  },
+  bumeran: {
+    client: 'Personal project · Dual-Stack Studio',
+    title: 'Bumerán',
+    tagline: '"Lo que das, vuelve" — neighborhood favor exchange',
+    description: 'A neighborhood favor-exchange app for requesting help, offering assistance, or giving items away — filtered by GPS across 13 categories.',
+    features: [
+      'Three post types — necesito, ofrezco, regalo — with intent-aware feed filtering',
+      'GPS proximity search with swipeable list and map views',
+      'Safety modal with real-world tips before WhatsApp handoff',
+      'Twilio SMS verification, one phone number per account',
+      'Review system for building local reputation',
+      'Spanish, English and German localization, GDPR-compliant',
+    ],
+    stack: ['React Native', 'Expo SDK 56', 'NestJS 11', 'Prisma', 'PostgreSQL', 'Google OAuth', 'Twilio'],
+    status: 'Active development · closed testing on Google Play',
+    image: null,
+    url: null,
+  },
+  nonna: {
+    client: 'El Dulce de la Nonna · Live client project',
+    title: 'Bakery e-commerce',
+    tagline: 'Zero-friction ordering for an artisan alfajores bakery',
+    description: "An e-commerce site for an artisan alfajores bakery in Miami, built for Argentine expats. Every order is handcrafted to spec with a 48-hour advance window — and the whole flow runs on email, with no database or admin panel to maintain.",
+    features: [
+      'Email-first order flow — no DB persistence, two Mailables per order',
+      '48-hour minimum advance window enforced server-side with Carbon',
+      'Allergen disclosure and FDUTPA/FDBR legal compliance built in',
+      'Server-rendered Blade monolith — zero client-side JS framework',
+      "Custom Tailwind v4 branding tokens matching the bakery's identity",
+    ],
+    stack: ['Laravel 13', 'PHP 8.3', 'Vite', 'Blade', 'Tailwind CSS v4', 'Carbon'],
+    status: 'Live · active development',
+    image: '/images/nonna-hero.jpg',
+    url: 'https://losalfajoresdelanona.com',
+  },
+  mvg: {
+    client: 'MVG Lash & Brow · Live client project',
+    title: 'Salon website',
+    tagline: 'Static, private-by-default site for a Trondheim salon',
+    description: 'A single-page site for a lashes and brow salon in Trondheim, Norway — statically generated, self-hosted fonts, zero cookies or tracking, and built to stay accessible without sacrificing speed.',
+    features: [
+      'Astro 7 static generation — flat HTML, config-driven content',
+      'Native HTML5 modal for the "About" section, no extra libraries',
+      'Self-hosted fonts via Fontsource — no third-party font requests',
+      'Privacy-first: no cookies, no analytics, no tracking',
+      'WCAG 2.1 AA accessible throughout',
+      'Booking integration with the Timma salon management system',
+    ],
+    stack: ['Astro 7', 'TypeScript', 'Vercel', 'Fontsource', 'Vanilla CSS'],
+    status: 'Live · Lighthouse 95+, LCP ~1.2s, CLS < 0.05',
+    image: '/images/mvg-hero.jpg',
+    url: 'https://mvglashes.no',
+  },
+  };
+
+  return Object.entries(projects).map(([slug, project]) => ({
+    params: { slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+---
+
+<Layout title={`${project.title} — Dual-Stack Studio`} description={project.tagline}>
+  <header id="site-header" style="position: sticky; top: 0; padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; z-index: 100; background: rgba(92, 92, 92, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
+    <a href="/" style="font-size: 20px; font-weight: 800; letter-spacing: -0.5px; display: flex; align-items: center; gap: 10px; text-decoration: none; color: #ffffff;">
+      <img src="/logo.svg" alt="Dual-Stack Studio" width="30" height="30" style="border-radius: 7px;" />
+      Dual-Stack
+    </a>
+    <a href="/#work" style="font-size: 14px; font-weight: 600; color: #ccc; text-decoration: none;">← Back to projects</a>
+    <a href="/#contact" style="background: #ccff33; color: #0a0a0a; padding: 12px 26px; border-radius: 100px; text-decoration: none; font-size: 14px; font-weight: 600; box-shadow: 0 8px 20px rgba(204, 255, 51, 0.3);">
+      Get proposal
+    </a>
+  </header>
+
+  <div class="pd-page-bg">
+  <main style="position: relative; min-height: 100vh; padding: 5rem 2rem 7rem; overflow: hidden;">
+    <canvas id="pd-network" style="position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0;"></canvas>
+
+    <div style="max-width: 1000px; margin: 0 auto; position: relative; z-index: 1;">
+
+      <span class="pd-client">{project.client}</span>
+      <h1 class="pd-title">{project.title}</h1>
+      <p class="pd-tagline">{project.tagline}</p>
+
+      <div class="pd-media">
+        {project.image ? (
+          <img src={project.image} alt={project.title} />
+        ) : (
+          <div class="pd-media-placeholder">
+            <span>{project.title}</span>
+          </div>
+        )}
+      </div>
+
+      <div class="pd-grid">
+        <div class="pd-main">
+          <h2>About the project</h2>
+          <p class="pd-desc">{project.description}</p>
+
+          <h2>Key features</h2>
+          <ul class="pd-features">
+            {project.features.map((f) => <li>{f}</li>)}
+          </ul>
+        </div>
+
+        <aside class="pd-sidebar">
+          <div class="pd-sidebar-block">
+            <h3>Tech stack</h3>
+            <div class="pd-stack">
+              {project.stack.map((s) => <span>{s}</span>)}
+            </div>
+          </div>
+
+          <div class="pd-sidebar-block">
+            <h3>Status</h3>
+            <p>{project.status}</p>
+          </div>
+
+          {project.url ? (
+            <a href={project.url} target="_blank" rel="noopener" class="pd-cta">Visit live site <i>↗</i></a>
+          ) : (
+            <span class="pd-cta pd-cta-disabled">Not publicly available</span>
+          )}
+        </aside>
+      </div>
+
+    </div>
+  </main>
+
+  <footer style="position: relative; padding: 5rem 2rem 2.5rem; border-top: 1px solid rgba(255, 255, 255, 0.05); overflow: hidden;">
+    <canvas id="pd-footer-network" style="position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; opacity: 0.6;"></canvas>
+    <div style="max-width: 1200px; margin: 0 auto; position: relative; z-index: 1;">
+
+      <div class="footer-grid">
+
+        <div class="footer-brand">
+          <div style="font-size: 20px; font-weight: 800; color: #ffffff; margin-bottom: 1rem; display: flex; align-items: center; gap: 10px;">
+            <img src="/logo.svg" alt="Dual-Stack Studio" width="28" height="28" style="border-radius: 7px;" />
+            Dual-Stack Studio
+          </div>
+          <p>Independent full-stack studio. React, React Native and Node.js products, designed and shipped end to end.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navigate</h4>
+          <a href="/#work">Work</a>
+          <a href="/#services">Services</a>
+          <a href="/#team">Team</a>
+          <a href="/#testimonials">Testimonials</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="/privacy-policy">Privacy Policy</a>
+          <a href="/terms-of-service">Terms of Service</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Get in touch</h4>
+          <a href="mailto:hello@dualstackstudio.com">hello@dualstackstudio.com</a>
+          <span class="footer-note">Usually replies within 1–2 business days.</span>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 Dual-Stack Studio. Independently operated — not a registered legal entity.</p>
+        <p>Built with Astro, deployed on Vercel.</p>
+      </div>
+
+    </div>
+  </footer>
+  </div>
+
+  <style>
+    /* Fixed-size radial (not %-of-element) so it fades into the solid base color
+       cleanly no matter how tall the page is — main and footer share one
+       continuous backdrop instead of each having its own gradient that could
+       leave a seam where they meet. */
+    .pd-page-bg {
+      background-color: #0a0a0a;
+      background-repeat: no-repeat;
+      background-image:
+        radial-gradient(circle at 85% 12%, rgba(204, 255, 51, 0.14) 0%, transparent 40%),
+        radial-gradient(circle at 8% 10%, rgba(204, 255, 51, 0.07) 0%, transparent 32%),
+        radial-gradient(1400px 950px at 50% 0%, #a3a3a3 0%, #7a7a7a 35%, #3a3a3a 62%, transparent 88%);
+    }
+
+    .pd-client {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: #ccff33;
+      margin-bottom: 0.75rem;
+    }
+
+    .pd-title {
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      color: #ffffff;
+      margin: 0 0 0.75rem 0;
+    }
+
+    .pd-tagline {
+      font-size: 18px;
+      color: #bbb;
+      font-style: italic;
+      margin: 0 0 2.5rem 0;
+      max-width: 640px;
+    }
+
+    .pd-media {
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 30px 80px -25px rgba(204, 255, 51, 0.25), 0 20px 50px -20px rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 3.5rem;
+      transition: box-shadow 0.4s ease, transform 0.4s ease;
+    }
+
+    .pd-media:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 40px 100px -20px rgba(204, 255, 51, 0.4), 0 25px 60px -20px rgba(0, 0, 0, 0.7);
+    }
+
+    .pd-media img {
+      width: 100%;
+      display: block;
+    }
+
+    .pd-media-placeholder {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #2a2a2a 0%, #0a0a0a 140%);
+    }
+
+    .pd-media-placeholder span {
+      font-size: 32px;
+      font-weight: 800;
+      color: #ccff33;
+    }
+
+    .pd-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      gap: 3.5rem;
+    }
+
+    .pd-main h2 {
+      font-size: 22px;
+      font-weight: 800;
+      color: #ffffff;
+      margin: 0 0 1rem 0;
+    }
+
+    .pd-main h2:not(:first-child) {
+      margin-top: 2.5rem;
+    }
+
+    .pd-desc {
+      font-size: 16px;
+      line-height: 1.75;
+      color: #bbb;
+      margin: 0;
+    }
+
+    .pd-features {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .pd-features li {
+      position: relative;
+      padding-left: 1.6rem;
+      font-size: 15px;
+      line-height: 1.6;
+      color: #ccc;
+    }
+
+    .pd-features li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: #ccff33;
+      font-weight: 700;
+    }
+
+    .pd-sidebar-block {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+      backdrop-filter: blur(8px);
+      transition: border-color 0.3s ease, background 0.3s ease;
+    }
+
+    .pd-sidebar-block:hover {
+      border-color: rgba(204, 255, 51, 0.35);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .pd-sidebar-block h3 {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      color: #888;
+      margin: 0 0 1rem 0;
+    }
+
+    .pd-sidebar-block p {
+      font-size: 14px;
+      color: #ccc;
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    .pd-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .pd-stack span {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
+      background: rgba(204, 255, 51, 0.12);
+      color: #ccff33;
+      border: 1px solid rgba(204, 255, 51, 0.3);
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s ease;
+    }
+
+    .pd-stack span:hover {
+      transform: scale(1.08);
+      background: rgba(204, 255, 51, 0.22);
+    }
+
+    .pd-cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: #ccff33;
+      color: #0a0a0a;
+      padding: 14px 24px;
+      border-radius: 100px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 700;
+      box-shadow: 0 12px 28px rgba(204, 255, 51, 0.3);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .pd-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 36px rgba(204, 255, 51, 0.45);
+    }
+
+    .pd-cta i {
+      font-style: normal;
+    }
+
+    .pd-cta-disabled {
+      background: rgba(255, 255, 255, 0.08);
+      color: #888;
+      box-shadow: none;
+      cursor: not-allowed;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      gap: 2.5rem;
+      padding-bottom: 3rem;
+      margin-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .footer-brand p {
+      font-size: 14px;
+      color: #999;
+      line-height: 1.7;
+      margin: 0;
+      max-width: 280px;
+    }
+
+    .footer-col h4 {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #888;
+      margin: 0 0 1.1rem 0;
+    }
+
+    .footer-col a {
+      display: block;
+      font-size: 14px;
+      color: #999;
+      text-decoration: none;
+      margin-bottom: 0.75rem;
+      transition: color 0.3s;
+      word-break: break-word;
+    }
+
+    .footer-col a:hover {
+      color: #ccff33;
+    }
+
+    .footer-note {
+      display: block;
+      font-size: 12px;
+      color: #666;
+      margin-top: 0.5rem;
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .footer-bottom p {
+      margin: 0;
+      font-size: 12.5px;
+      color: #666;
+    }
+
+    @media (max-width: 500px) {
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 800px) {
+      .pd-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  </style>
+
+  <script>
+    function initNetworkCluster(canvasId, lineColor) {
+      const line = lineColor || '10, 10, 10';
+      const canvas = document.getElementById(canvasId);
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let particles = [];
+      let raf;
+      const mouse = { x: -9999, y: -9999 };
+
+      function resizeCanvas() {
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = rect.width;
+        canvas.height = rect.height;
+      }
+
+      function initParticles() {
+        const count = Math.round((canvas.width * canvas.height) / 55000);
+        particles = Array.from({ length: Math.max(14, Math.min(count, 30)) }, () => ({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          vx: (Math.random() - 0.5) * 0.25,
+          vy: (Math.random() - 0.5) * 0.25,
+          r: Math.random() * 1.6 + 1,
+        }));
+      }
+
+      canvas.addEventListener('mousemove', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        mouse.x = e.clientX - rect.left;
+        mouse.y = e.clientY - rect.top;
+      });
+
+      canvas.addEventListener('mouseleave', () => {
+        mouse.x = -9999;
+        mouse.y = -9999;
+      });
+
+      function tick() {
+        const w = canvas.width;
+        const h = canvas.height;
+        ctx.clearRect(0, 0, w, h);
+
+        particles.forEach((p) => {
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.x < 0 || p.x > w) p.vx *= -1;
+          if (p.y < 0 || p.y > h) p.vy *= -1;
+
+          const dx = p.x - mouse.x;
+          const dy = p.y - mouse.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 100) {
+            p.x += (dx / dist) * 0.9;
+            p.y += (dy / dist) * 0.9;
+          }
+        });
+
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 190) {
+              ctx.strokeStyle = `rgba(${line}, ${(1 - dist / 190) * 0.35})`;
+              ctx.lineWidth = 1;
+              ctx.beginPath();
+              ctx.moveTo(particles[i].x, particles[i].y);
+              ctx.lineTo(particles[j].x, particles[j].y);
+              ctx.stroke();
+            }
+          }
+        }
+
+        particles.forEach((p) => {
+          const glow = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 4);
+          glow.addColorStop(0, 'rgba(204, 255, 51, 0.5)');
+          glow.addColorStop(1, 'rgba(204, 255, 51, 0)');
+          ctx.fillStyle = glow;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r * 4, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.fillStyle = '#ccff33';
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fill();
+        });
+
+        raf = requestAnimationFrame(tick);
+      }
+
+      resizeCanvas();
+      initParticles();
+      tick();
+
+      window.addEventListener('resize', () => {
+        cancelAnimationFrame(raf);
+        resizeCanvas();
+        initParticles();
+        tick();
+      });
+    }
+
+    initNetworkCluster('pd-network', '10, 10, 10');
+    initNetworkCluster('pd-footer-network', '255, 255, 255');
+  </script>
+</Layout>
