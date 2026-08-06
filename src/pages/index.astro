@@ -43,19 +43,18 @@ function lineIcon(name: string, size = 20, strokeWidth = 2) {
 <Layout title="Dual-Stack Studio — We build full-stack products">
 
   <!-- Hero Section (visualidentity.studio-style: gray vignette, giant black wordmark, lime accent, rotating 3D glass asterisk) -->
-  <section style="position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at 85% 88%, rgba(204, 255, 51, 0.16) 0%, transparent 45%), radial-gradient(circle at 8% 15%, rgba(204, 255, 51, 0.08) 0%, transparent 35%), radial-gradient(ellipse 140% 120% at 50% 0%, #8c8c8c 0%, #5c5c5c 50%, #242424 78%, #0a0a0a 100%); overflow: hidden; border-bottom: 2px solid #242424;">
+  <section style="position: relative; min-height: 100vh; padding-top: 90px; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at 85% 88%, rgba(204, 255, 51, 0.16) 0%, transparent 45%), radial-gradient(circle at 8% 15%, rgba(204, 255, 51, 0.08) 0%, transparent 35%), radial-gradient(ellipse 140% 120% at 50% 0%, #8c8c8c 0%, #5c5c5c 50%, #242424 78%, #0a0a0a 100%); overflow: hidden; border-bottom: 2px solid #242424;">
 
     <!-- Header -->
     <header id="site-header" style="position: fixed; top: 0; left: 0; width: 100%; padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; z-index: 100; transition: background 0.3s, box-shadow 0.3s, padding 0.3s;">
       <a href="/" style="font-size: 22px; font-weight: 800; letter-spacing: -0.5px; cursor: pointer; display: flex; align-items: center; gap: 10px; text-decoration: none;">
         <img src="/logo.svg" alt="Dual-Stack Studio" width="32" height="32" style="border-radius: 8px;" />
-        <span class="logo-text" style="color: #0a0a0a;">Dual-Stack</span>
+        <span class="logo-text">Dual-Stack</span>
       </a>
       <nav style="display: flex; gap: 2.25rem; font-size: 14px; font-weight: 500;">
-        <a href="#work" class="nav-link" style="color: #0a0a0a;">Work</a>
-        <a href="#services" class="nav-link" style="color: #0a0a0a;">Services</a>
-        <a href="#team" class="nav-link" style="color: #0a0a0a;">Team</a>
-        <a href="#testimonials" class="nav-link" style="color: #0a0a0a;">Testimonials</a>
+        <a href="#work" class="nav-link">Work</a>
+        <a href="#services" class="nav-link">Services</a>
+        <a href="#team" class="nav-link">Team</a>
       </nav>
       <a href="#contact" style="background: #ccff33; color: #0a0a0a; padding: 14px 32px; border-radius: 100px; text-decoration: none; font-size: 14px; font-weight: 600; box-shadow: 0 8px 24px rgba(204, 255, 51, 0.35); transition: transform 0.2s;">
         Get proposal
@@ -63,10 +62,7 @@ function lineIcon(name: string, size = 20, strokeWidth = 2) {
     </header>
 
     <!-- Status badge, vertical, left edge -->
-    <div style="position: absolute; left: 0; top: 45%; z-index: 20; background: #0a0a0a; padding: 0.6rem 0.5rem; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; border-radius: 0 8px 8px 0;">
-      <span style="width: 8px; height: 8px; border-radius: 50%; background: #ccff33; animation: pulseDot 2s infinite;"></span>
-      <span style="writing-mode: vertical-rl; transform: rotate(180deg); font-size: 11px; font-weight: 700; letter-spacing: 1px; color: #ffffff; text-transform: uppercase;">Open for projects</span>
-    </div>
+   
 
     <!-- Sparse full-hero particle network, ambient constellation -->
     <canvas id="hero-network-full" style="position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1;"></canvas>
@@ -74,11 +70,11 @@ function lineIcon(name: string, size = 20, strokeWidth = 2) {
     <!-- Main Content (pointer-events: none so mouse reaches the network canvases beneath the text) -->
     <div style="position: relative; z-index: 10; width: 100%; max-width: 1300px; padding: 2rem 1.5rem; text-align: center; pointer-events: none;">
 
-      <span style="display: inline-block; font-size: 13px; color: #818478; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 1rem;">
+      <span style="display: inline-block; font-size: 13px; color: #ccff33; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 1rem;">
         Full-stack development studio
       </span>
 
-      <h1 style="font-size: clamp(56px, 12vw, 180px); margin: 0; font-weight: 800; letter-spacing: -4px; line-height: 0.88; color: #0a0a0a;">
+      <h1 style="font-size: clamp(56px, 12vw, 180px); margin: 0; font-weight: 800; letter-spacing: -4px; line-height: 0.88; color: #c8c8c8;">
         Dual-Stack<br />Studio
       </h1>
 
@@ -247,98 +243,29 @@ function lineIcon(name: string, size = 20, strokeWidth = 2) {
   </script>
 
   <!-- Projects Section (editorial zigzag, big media, no card boxes) -->
-  <section id="work" style="position: relative; padding: 8rem 2rem 6rem; overflow: hidden;">
+  <section id="work" style="position: relative; padding: 8rem 0 4rem; overflow: hidden;">
 
     <div style="position: absolute; top: 5%; right: -8%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(204, 255, 51, 0.06) 0%, transparent 70%); pointer-events: none;"></div>
     <div style="position: absolute; bottom: 10%; left: -10%; width: 450px; height: 450px; background: radial-gradient(circle, rgba(217, 70, 239, 0.05) 0%, transparent 70%); pointer-events: none;"></div>
 
-    <div style="max-width: 1200px; margin: 0 auto; position: relative; z-index: 1;">
-      <div style="margin-bottom: 5rem;">
-        <span class="eyebrow" style="color: #0a0a0a;">Our work</span>
-        <div style="display: flex; align-items: baseline; gap: 1rem; margin-top: 0.75rem;">
-          <h2 style="font-size: 42px; margin: 0; font-weight: 800; letter-spacing: -1.5px; color: #0a0a0a;">Our Projects</h2>
-          <span style="font-size: 14px; color: #666; font-weight: 500;">03 shipped products</span>
+    <div style="max-width: 1200px; margin: 0 auto 3.5rem; padding: 0 2rem; position: relative; z-index: 1;">
+      <span class="eyebrow work-eyebrow">Our work</span>
+      <div style="display: flex; align-items: baseline; gap: 1rem; margin-top: 0.75rem;">
+        <h2 class="work-heading" style="font-size: 42px; margin: 0; font-weight: 800; letter-spacing: -1.5px;">Our Projects</h2>
+        <span class="work-count" style="font-size: 14px; font-weight: 500;">04 shipped products</span>
+      </div>
+    </div>
+
+    <div class="work-carousel-wrap">
+      <div id="work-carousel" class="mdw-curved-slider-speed-16-gap-9-curve-9-size-20">
+        <div class="carousel-source">
+          <a href="/work/astrofell" data-img="/images/astrofell.png">Astrofell — Astronomy web site</a>
+          <a href="/work/bumeran" data-img="/images/bumeran-hero.svg">Bumerán — Neighborhood favor exchange</a>
+          <a href="/work/nonna" data-img="/images/nonna-hero.jpg">El Dulce de la Nonna — Bakery e-commerce</a>
+          <a href="/work/mvg" data-img="/images/mvg-hero.jpg">MVG Lash &amp; Brow — Salon website</a>
         </div>
       </div>
-
-      <div class="work-stack">
-
-      <a href="/work/astrofell" class="work-item work-item-reverse" style="--accent: #ccff33; --accent2: #96c81e;">
-          <div class="work-media">
-            <img src="/images/astrofell.png" alt="Astrofell" class="work-media-img" />
-            <div class="work-media-overlay"></div>
-          </div>
-          <div class="work-info">
-            
-            <div class="work-tags">
-               <span class="tag-pink">Astro 7</span>
-              <span class="tag-pink">TypeScript</span>
-              <span class="tag-blue">Vercel</span>
-            </div>
-            <span class="work-client">Astrofell</span>
-            <h3>Astronomy web site</h3>
-            <p>Live astronomy website. Full order management.</p>
-            <span class="work-link">View project <i>↗</i></span>
-          </div>
-        </a>
-
-        <a href="/work/bumeran" class="work-item" style="--accent: #888888; --accent2: #ccff33;">
-          <div class="work-media" style="background: linear-gradient(135deg, #2a2a2a 0%, #0a0a0a 140%);">
-            <span class="work-media-icon" style="color: #ccff33;"><Fragment set:html={lineIcon('repeat', 64, 1.5)} /></span>
-          </div>
-          <div class="work-info">
-            
-            <div class="work-tags">
-              <span class="tag-pink">React Native</span>
-              <span class="tag-pink">NestJS</span>
-              <span class="tag-blue">PostgreSQL</span>
-            </div>
-            <span class="work-client">Personal project</span>
-            <h3>Bumerán</h3>
-            <p>Neighborhood favor exchange. GPS matching, real-time updates, 13 categories.</p>
-            <span class="work-link">View project <i>↗</i></span>
-          </div>
-        </a>
-
-        <a href="/work/nonna" class="work-item work-item-reverse" style="--accent: #ccff33; --accent2: #888888;">
-          <div class="work-media">
-            <img src="/images/nonna-hero.jpg" alt="El Dulce de la Nonna website" class="work-media-img" />
-            <div class="work-media-overlay"></div>
-          </div>
-          <div class="work-info">
-          
-            <div class="work-tags">
-              <span class="tag-pink">Laravel</span>
-              <span class="tag-pink">Blade</span>
-              <span class="tag-blue">Live</span>
-            </div>
-            <span class="work-client">El Dulce de la Nonna</span>
-            <h3>Bakery e-commerce</h3>
-            <p>Live e-commerce for an artisan bakery. Full order management.</p>
-            <span class="work-link">View project <i>↗</i></span>
-          </div>
-        </a>
-
-        <a href="/work/mvg" class="work-item" style="--accent: #96c81e; --accent2: #ccff33;">
-          <div class="work-media">
-            <img src="/images/mvg-hero.jpg" alt="MVG Lash & Brow website" class="work-media-img" />
-            <div class="work-media-overlay"></div>
-          </div>
-          <div class="work-info">
-          
-            <div class="work-tags">
-              <span class="tag-pink">Astro 7</span>
-              <span class="tag-pink">TypeScript</span>
-              <span class="tag-blue">Vercel</span>
-            </div>
-            <span class="work-client">MVG Lash & Brow</span>
-            <h3>Salon website</h3>
-            <p>Live salon site in Trondheim. Lighthouse 95+. Performance first.</p>
-            <span class="work-link">View project <i>↗</i></span>
-          </div>
-        </a>
-
-      </div>
+      <p class="work-carousel-hint">Hover a project to preview · Click to open</p>
     </div>
 
   </section>
@@ -372,273 +299,261 @@ function lineIcon(name: string, size = 20, strokeWidth = 2) {
       font-style: normal;
     }
 
-    .work-stack {
-      display: flex;
-      flex-direction: column;
-      gap: 7rem;
-    }
-
-    .work-item {
-      position: relative;
-      display: flex;
-      align-items: center;
-      gap: 3.5rem;
-      text-decoration: none;
-      cursor: pointer;
-    }
-
-    /* Whole section darkens when any project card is hovered; the hovered card's
-       text pops lime, the rest dim to a muted gray so they stay readable on dark. */
     #work {
-      background: transparent;
-      transition: background 0.6s ease;
-    }
-
-    #work:has(.work-item:hover) {
       background:
-        linear-gradient(180deg, transparent 0%, transparent 82%, #eeeeee 100%),
-        radial-gradient(circle at 85% 88%, rgba(204, 255, 51, 0.16) 0%, transparent 45%),
-        radial-gradient(circle at 8% 15%, rgba(204, 255, 51, 0.08) 0%, transparent 35%),
-        radial-gradient(ellipse 140% 120% at 50% 0%, #8c8c8c 0%, #5c5c5c 50%, #242424 78%, #0a0a0a 100%);
+        radial-gradient(ellipse 120% 90% at 50% 0%, rgba(204, 255, 51, 0.1) 0%, transparent 60%),
+        #d8d8d8;
     }
 
-    #work:has(.work-item:hover) .work-client { color: #777; }
-    #work:has(.work-item:hover) .work-info h3 { color: #e5e5e5; }
-    #work:has(.work-item:hover) .work-info p { color: #888; }
-    #work:has(.work-item:hover) .work-link { color: rgba(255, 255, 255, 0.4); }
-    #work:has(.work-item:hover) .work-tags span { opacity: 0.55; }
-
-    #work:has(.work-item:hover) .work-item:hover .work-client,
-    #work:has(.work-item:hover) .work-item:hover .work-info h3 {
-      color: #ccff33;
+    .work-heading {
+      color: #0a0a0a;
     }
 
-    #work:has(.work-item:hover) .work-item:hover .work-info p {
-      color: #d8d8c8;
+    .work-count {
+      color: #666;
     }
 
-    #work:has(.work-item:hover) .work-item:hover .work-link {
-      color: var(--accent);
+    .work-eyebrow {
+      color: #6b7a1e;
     }
 
-    #work:has(.work-item:hover) .work-item:hover .work-tags span {
-      opacity: 1;
-    }
-
-    .work-item-reverse {
-      flex-direction: row-reverse;
-    }
-
-    .work-media {
+    .work-carousel-wrap {
       position: relative;
-      flex: 0 0 60%;
-      aspect-ratio: 16 / 10;
-      border-radius: 14px;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s;
-      box-shadow: 0 30px 70px -28px rgba(0, 0, 0, 0.35);
-      border: 1px solid rgba(0, 0, 0, 0.06);
+      height: var(--min-height, 58vh);
+      --min-height: 58vh;
     }
 
-    .work-media-img {
+    [class^='mdw-curved-slider'] {
       position: absolute;
-      inset: 0;
+      top: -32px;
+      bottom: -56px;
+      left: 0;
+      right: 0;
+      width: 100%;
+      cursor: pointer;
+      background:
+        radial-gradient(ellipse 90% 90% at 50% 50%, rgba(204, 255, 51, 0.1) 0%, transparent 60%),
+        #d8d8d8;
+    }
+
+    [class^='mdw-curved-slider'] canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      object-position: center;
     }
 
-    .work-media-overlay {
+    .carousel-source {
       position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.1) 100%);
-      z-index: 1;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
     }
 
-    .work-media:not(:has(img))::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0px, rgba(255, 255, 255, 0.05) 2px, transparent 2px, transparent 14px);
-    }
-
-    .work-item:hover .work-media {
-      transform: scale(1.02);
-      box-shadow: 0 40px 80px -20px var(--accent);
-    }
-
-    .work-media-icon {
-      position: relative;
-      z-index: 1;
-      display: inline-flex;
-      color: rgba(255, 255, 255, 0.9);
-      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    .work-item:hover .work-media-icon {
-      transform: scale(1.15) rotate(-6deg);
-    }
-
-    .work-info {
-      position: relative;
-      flex: 1;
-      min-width: 0;
-    }
-
-    .work-index {
-      position: absolute;
-      top: -2.5rem;
-      right: 0;
-      font-size: 90px;
-      font-weight: 800;
-      line-height: 1;
-      color: rgba(0, 0, 0, 0.04);
-      user-select: none;
-      z-index: 0;
-    }
-
-    .work-item-reverse .work-index {
-      right: auto;
-      left: 0;
-    }
-
-    .work-tags {
-      position: relative;
-      display: flex;
-      gap: 0.4rem;
-      flex-wrap: wrap;
-      margin-bottom: 1rem;
-    }
-
-    .work-tags span {
-      display: inline-block;
-      font-size: 10.5px;
-      font-weight: 700;
-      letter-spacing: 0.4px;
-      text-transform: uppercase;
-      padding: 0.35rem 0.75rem;
-      border-radius: 6px;
-      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.4s ease, border-color 0.4s ease, color 0.4s ease;
-    }
-
-    .work-item:hover .work-tags span {
-      transform: scale(1.08);
-    }
-
-    .tag-pink {
-      background: color-mix(in srgb, var(--accent2) 7%, white);
-      color: color-mix(in srgb, var(--accent2) 72%, black);
-      border: 1px solid color-mix(in srgb, var(--accent2) 22%, transparent);
-    }
-
-    .tag-blue {
-      background: color-mix(in srgb, var(--accent) 7%, white);
-      color: color-mix(in srgb, var(--accent) 72%, black);
-      border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent);
-    }
-
-    .work-item:hover .tag-pink,
-    .work-item:hover .tag-blue {
-      background: rgba(204, 255, 51, 0.16);
-      color: #ccff33;
-      border-color: rgba(204, 255, 51, 0.45);
-    }
-
-    .work-client {
-      position: relative;
-      display: block;
+    .work-carousel-hint {
+      text-align: center;
+      margin: 1.75rem 0 0;
       font-size: 12px;
       font-weight: 600;
       letter-spacing: 0.5px;
-      text-transform: uppercase;
       color: #999;
-      margin-bottom: 0.6rem;
-      transition: color 0.4s ease;
-    }
-
-    .work-item:hover .work-client {
-      color: #ccff33;
-    }
-
-    .work-info h3 {
-      position: relative;
-      margin: 0 0 1rem 0;
-      font-size: clamp(26px, 3vw, 38px);
-      font-weight: 800;
-      letter-spacing: -1px;
-      color: #0a0a0a;
-      transition: color 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      transform-origin: left center;
-    }
-
-    .work-item:hover .work-info h3 {
-      color: #ccff33;
-      transform: scale(1.04);
-    }
-
-    .work-info p {
-      position: relative;
-      margin: 0 0 1.5rem 0;
-      font-size: 15px;
-      color: #555;
-      line-height: 1.7;
-      max-width: 420px;
-      transition: color 0.4s ease;
-    }
-
-    .work-item:hover .work-info p {
-      color: #d8d8c8;
-    }
-
-    .work-link {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 14px;
-      font-weight: 600;
-      color: rgba(0, 0, 0, 0.55);
-      transition: color 0.3s, gap 0.3s;
-    }
-
-    .work-item:hover .work-link {
-      color: var(--accent);
-      gap: 0.85rem;
-    }
-
-    .work-link i {
-      font-style: normal;
-      transition: transform 0.3s;
-    }
-
-    .work-item:hover .work-link i {
-      transform: translate(2px, -2px);
     }
 
     @media (max-width: 800px) {
-      .work-item,
-      .work-item-reverse {
-        flex-direction: column;
-        align-items: stretch;
-      }
-
-      .work-media {
-        flex: none;
-      }
-
-      .work-index {
-        display: none;
+      .work-carousel-wrap {
+        --min-height: 36vh;
       }
     }
   </style>
 
-  <!-- Services -->
-  <section id="services" style="position: relative; padding: 8rem 0 8rem; background: transparent; overflow: hidden;">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js" is:inline></script>
 
+  <script>
+    addEventListener('DOMContentLoaded', function () {
+      const el = document.getElementById('work-carousel');
+      if (!el || typeof THREE === 'undefined') return;
+
+      const className = el.getAttribute('class') ?? '';
+      const parts = className.split('-');
+      const options = { speed: 16, gap: 9, curve: 9, size: 17, direction: -1 };
+      parts.forEach((value, i) => {
+        const next = parts[i + 1];
+        if (value === 'speed' && next) options.speed = Number(next);
+        if (value === 'gap' && next) options.gap = Number(next);
+        if (value === 'curve' && next) options.curve = Number(next);
+        if (value === 'size' && next) options.size = Number(next);
+        if (value === 'reverse') options.direction = 1;
+      });
+
+      const getGapWidth = (gap) => 1 + gap / 100;
+      const getPixelsPerUnit = (container, camera) => {
+        const vFov = (camera.fov * Math.PI) / 180;
+        const height = 2 * Math.tan(vFov / 2) * camera.position.z;
+        const width = height * (container.clientWidth / container.clientHeight);
+        return container.clientWidth / width;
+      };
+
+      const planeWidth = options.size / 10;
+      const planeHeight = planeWidth * 0.625;
+
+      const links = Array.from(el.querySelectorAll('.carousel-source a'));
+      const baseImages = links.map((a) => a.getAttribute('data-img'));
+      const baseHrefs = links.map((a) => a.getAttribute('href'));
+      const slideCount = baseImages.length;
+
+      let scene, camera, renderer, raycaster, mouseNDC, planes;
+
+      function build() {
+        const oldCanvas = el.querySelector('canvas');
+        if (oldCanvas) el.removeChild(oldCanvas);
+
+        scene = new THREE.Scene();
+        camera = new THREE.PerspectiveCamera(75, el.clientWidth / el.clientHeight, 0.1, 20);
+        camera.position.z = 1.9;
+
+        renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        renderer.setSize(el.clientWidth, el.clientHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.domElement.style.position = 'absolute';
+        renderer.domElement.style.top = '0';
+        renderer.domElement.style.left = '0';
+        const edgeMask = 'linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%)';
+        renderer.domElement.style.maskImage = edgeMask;
+        renderer.domElement.style.webkitMaskImage = edgeMask;
+        el.appendChild(renderer.domElement);
+
+        const pxPerUnit = getPixelsPerUnit(el, camera);
+        const planeSpacePx = pxPerUnit * planeWidth * getGapWidth(options.gap);
+        const totalImages = Math.ceil(el.clientWidth / planeSpacePx) + 1 + slideCount;
+        const initialOffset = Math.ceil(el.clientWidth / (2 * planeSpacePx) - 0.5);
+
+        const images = baseImages.slice();
+        const hrefs = baseHrefs.slice();
+        for (let i = slideCount; i < totalImages; i++) {
+          images.push(baseImages[i % slideCount]);
+          hrefs.push(baseHrefs[i % slideCount]);
+        }
+
+        const geometry = new THREE.PlaneGeometry(planeWidth, planeHeight, 20, 20);
+        planes = new Array(images.length).fill(null);
+
+        images.forEach((src, i) => {
+          new THREE.TextureLoader().load(src, (texture) => {
+            texture.colorSpace = THREE.SRGBColorSpace;
+            const material = new THREE.ShaderMaterial({
+              uniforms: {
+                tex: { value: texture },
+                curve: { value: options.curve },
+                hoverStrength: { value: 0 },
+              },
+              vertexShader: `
+                uniform float curve;
+                varying vec2 vertexUV;
+                void main() {
+                  vertexUV = uv;
+                  vec3 newPosition = position;
+                  float distanceFromCenter = abs((modelMatrix * vec4(position, 1.0)).x);
+                  newPosition.y *= 1.0 + (curve / 100.0) * pow(distanceFromCenter, 2.0);
+                  gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
+                }
+              `,
+              fragmentShader: `
+                uniform sampler2D tex;
+                uniform float hoverStrength;
+                varying vec2 vertexUV;
+                void main() {
+                  vec4 texColor = texture2D(tex, vertexUV);
+                  vec3 dimmed = texColor.rgb * 0.4;
+                  vec3 finalColor = mix(dimmed, texColor.rgb, hoverStrength);
+                  gl_FragColor = vec4(finalColor, texColor.a);
+                }
+              `,
+            });
+
+            const mesh = new THREE.Mesh(geometry, material);
+            mesh.position.x = -1 * options.direction * (i - initialOffset) * planeWidth * getGapWidth(options.gap);
+            mesh.userData.href = hrefs[i];
+            planes[i] = mesh;
+            scene.add(mesh);
+          });
+        });
+
+        raycaster = new THREE.Raycaster();
+        mouseNDC = new THREE.Vector2(-10, -10);
+      }
+
+      build();
+
+      el.addEventListener('mousemove', (e) => {
+        const rect = el.getBoundingClientRect();
+        mouseNDC.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+        mouseNDC.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+      });
+
+      el.addEventListener('mouseleave', () => mouseNDC.set(-10, -10));
+
+      el.addEventListener('click', () => {
+        raycaster.setFromCamera(mouseNDC, camera);
+        const hit = raycaster.intersectObjects(planes.filter(Boolean))[0];
+        if (hit && hit.object.userData.href) window.location.href = hit.object.userData.href;
+      });
+
+      const resetThreshold = planeWidth * getGapWidth(options.gap) * slideCount;
+      let time = 0;
+      let previousTime = 0;
+
+      function animate(currentTime) {
+        const delta = currentTime - previousTime;
+        previousTime = currentTime;
+
+        raycaster.setFromCamera(mouseNDC, camera);
+        const hit = raycaster.intersectObjects(planes.filter(Boolean))[0];
+        const hoveredMesh = hit ? hit.object : null;
+        el.style.cursor = hoveredMesh ? 'pointer' : 'default';
+
+        if (!hoveredMesh) {
+          if (Math.abs(scene.position.x) >= resetThreshold) time = 0;
+          time += options.direction * delta * 0.00001;
+          scene.position.x = time * options.speed;
+        }
+
+        planes.forEach((mesh) => {
+          if (!mesh) return;
+          const isHovered = mesh === hoveredMesh;
+          const hoverTarget = isHovered ? 1 : 0;
+          mesh.material.uniforms.hoverStrength.value += (hoverTarget - mesh.material.uniforms.hoverStrength.value) * 0.12;
+
+          const scaleTarget = isHovered ? 1.25 : 1;
+          mesh.scale.x += (scaleTarget - mesh.scale.x) * 0.1;
+          mesh.scale.y += (scaleTarget - mesh.scale.y) * 0.1;
+
+          const zTarget = isHovered ? 0.3 : 0;
+          mesh.position.z += (zTarget - mesh.position.z) * 0.1;
+
+          const curveTarget = isHovered ? options.curve * 0.6 : options.curve;
+          mesh.material.uniforms.curve.value += (curveTarget - mesh.material.uniforms.curve.value) * 0.1;
+        });
+
+        renderer.render(scene, camera);
+        requestAnimationFrame(animate);
+      }
+      requestAnimationFrame(animate);
+
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(build, 150);
+      });
+    });
+  </script>
+
+  <!-- Services -->
+  <section id="services" style="position: relative; padding: 5rem 0 8rem; background: transparent; overflow: hidden;">
+
+    <div style="position: absolute; top: 0; left: 0; right: 0; height: 220px; background: linear-gradient(180deg, rgba(58, 61, 50, 0.14) 0%, rgba(204, 255, 51, 0.05) 45%, transparent 100%); pointer-events: none;"></div>
     <div style="position: absolute; top: 15%; left: -8%; width: 450px; height: 450px; background: radial-gradient(circle, rgba(10, 10, 10, 0.04) 0%, transparent 70%); pointer-events: none;"></div>
 
     <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 1;">
@@ -667,7 +582,7 @@ function lineIcon(name: string, size = 20, strokeWidth = 2) {
       <div class="service-cards">
 
         <div class="service-card">
-          <div class="service-card-icon" style="--accent: #0ea5e9;"><Fragment set:html={lineIcon('code', 26)} /></div>
+          <div class="service-card-icon" style="--accent: #ccff33;"><Fragment set:html={lineIcon('code', 26)} /></div>
           <h3>Full-Stack Development</h3>
           <p>End-to-end product development — frontend, backend, database and deployment, all handled by the same team.</p>
           <div class="service-checklist">
@@ -970,71 +885,6 @@ function lineIcon(name: string, size = 20, strokeWidth = 2) {
     }
   </style>
 
-  <!-- Testimonials -->
-  <section id="testimonials" style="padding: 8rem 2rem; background: transparent;">
-    <div style="max-width: 1200px; margin: 0 auto;">
-      <h2 style="font-size: 42px; margin: 0 0 3.5rem 0; font-weight: 800; letter-spacing: -1.5px; color: #0a0a0a;">What clients say</h2>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
-
-        <div class="testimonial-card">
-          <div class="stars">★★★★★</div>
-          <p>"They understood the product vision immediately and shipped faster than expected. Quality work, professional team."</p>
-          <p class="testimonial-author">Founder, E-commerce Startup</p>
-        </div>
-
-        <div class="testimonial-card">
-          <div class="stars">★★★★★</div>
-          <p>"From mobile to backend, they handled everything seamlessly. A true full-stack team. Highly recommend."</p>
-          <p class="testimonial-author">CEO, Service Platform</p>
-        </div>
-
-        <div class="testimonial-card">
-          <div class="stars">★★★★★</div>
-          <p>"Passionate about code quality and user experience. They ask the right questions and deliver solid products."</p>
-          <p class="testimonial-author">Product Manager, Digital Agency</p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <style>
-    .testimonial-card {
-      background: #ffffff;
-      padding: 2.25rem;
-      border-radius: 16px;
-      border: 1px solid rgba(0, 0, 0, 0.06);
-      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-    }
-
-    .testimonial-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 24px 48px -20px rgba(0, 0, 0, 0.2);
-      border-color: rgba(0, 0, 0, 0.15);
-    }
-
-    .stars {
-      color: #0a0a0a;
-      font-size: 16px;
-      letter-spacing: 2px;
-      margin-bottom: 1.25rem;
-    }
-
-    .testimonial-card p {
-      margin: 0 0 1.5rem 0;
-      font-size: 15px;
-      color: #333;
-      line-height: 1.7;
-    }
-
-    .testimonial-author {
-      margin: 0 !important;
-      font-size: 14px;
-      font-weight: 600;
-      color: #666;
-    }
-  </style>
-
   <!-- Team -->
   <section id="team" style="position: relative; padding: 8rem 2rem; background: transparent; overflow: hidden;">
     <div style="max-width: 1200px; margin: 0 auto; position: relative; z-index: 1;">
@@ -1216,6 +1066,17 @@ function lineIcon(name: string, size = 20, strokeWidth = 2) {
     .cf-field select {
       cursor: pointer;
       color-scheme: dark;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23ccc' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      padding-right: 2.5rem;
+    }
+
+    .cf-field select option {
+      background: #1a1a1a;
+      color: #eee;
     }
 
     .cf-submit {
@@ -1352,7 +1213,6 @@ function lineIcon(name: string, size = 20, strokeWidth = 2) {
           <a href="#work">Work</a>
           <a href="#services">Services</a>
           <a href="#team">Team</a>
-          <a href="#testimonials">Testimonials</a>
         </div>
 
         <div class="footer-col">
