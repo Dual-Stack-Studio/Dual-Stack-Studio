@@ -51,15 +51,28 @@ function lineIcon(name: string, size = 20, strokeWidth = 2) {
         <img src="/logo.svg" alt="Dual-Stack Studio" width="32" height="32" style="border-radius: 8px;" />
         <span class="logo-text">Dual-Stack</span>
       </a>
-      <nav style="display: flex; gap: 2.25rem; font-size: 14px; font-weight: 500;">
+      <nav class="desktop-nav" style="display: flex; gap: 2.25rem; font-size: 14px; font-weight: 500;">
         <a href="#work" class="nav-link">Work</a>
         <a href="#services" class="nav-link">Services</a>
         <a href="#team" class="nav-link">Team</a>
       </nav>
-      <a href="#contact" style="background: #ccff33; color: #0a0a0a; padding: 14px 32px; border-radius: 100px; text-decoration: none; font-size: 14px; font-weight: 600; box-shadow: 0 8px 24px rgba(204, 255, 51, 0.35); transition: transform 0.2s;">
+      <a href="#contact" class="header-cta" style="background: #ccff33; color: #0a0a0a; padding: 14px 32px; border-radius: 100px; text-decoration: none; font-size: 14px; font-weight: 600; box-shadow: 0 8px 24px rgba(204, 255, 51, 0.35); transition: transform 0.2s;">
         Get proposal
       </a>
+      <button id="menu-toggle" class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span class="menu-toggle-bar"></span>
+        <span class="menu-toggle-bar"></span>
+        <span class="menu-toggle-bar"></span>
+      </button>
     </header>
+
+    <!-- Mobile menu overlay -->
+    <div id="mobile-menu" class="mobile-menu">
+      <a href="#work" class="mobile-nav-link">Work</a>
+      <a href="#services" class="mobile-nav-link">Services</a>
+      <a href="#team" class="mobile-nav-link">Team</a>
+      <a href="#contact" class="mobile-cta">Get proposal</a>
+    </div>
 
     <!-- Status badge, vertical, left edge -->
    
@@ -112,6 +125,114 @@ function lineIcon(name: string, size = 20, strokeWidth = 2) {
       padding: 1rem 3rem;
     }
 
+    /* Hamburger button — hidden on desktop */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      width: 40px;
+      height: 40px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      z-index: 200;
+    }
+
+    .menu-toggle-bar {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #ebebeb;
+      border-radius: 2px;
+      transition: transform 0.3s ease, opacity 0.3s ease, background 0.3s ease;
+    }
+
+    #site-header.scrolled .menu-toggle-bar {
+      background: #1a1a1a;
+    }
+
+    .menu-toggle.open .menu-toggle-bar:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .menu-toggle.open .menu-toggle-bar:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle.open .menu-toggle-bar:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* Mobile menu overlay */
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      z-index: 150;
+      background: #0a0a0a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-12px);
+      transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+    }
+
+    .mobile-menu.open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .mobile-nav-link {
+      font-size: 28px;
+      font-weight: 700;
+      color: #eee;
+      text-decoration: none;
+      letter-spacing: -0.5px;
+      transition: color 0.2s;
+    }
+
+    .mobile-nav-link:hover {
+      color: #ccff33;
+    }
+
+    .mobile-cta {
+      margin-top: 1rem;
+      background: #ccff33;
+      color: #0a0a0a;
+      padding: 14px 36px;
+      border-radius: 100px;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 700;
+      box-shadow: 0 8px 24px rgba(204, 255, 51, 0.35);
+    }
+
+    @media (max-width: 768px) {
+      #site-header {
+        padding: 1.1rem 1.25rem !important;
+      }
+
+      #site-header.scrolled {
+        padding: 0.9rem 1.25rem !important;
+      }
+
+      .desktop-nav,
+      .header-cta {
+        display: none !important;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+    }
+
   </style>
 
   <script>
@@ -130,6 +251,29 @@ function lineIcon(name: string, size = 20, strokeWidth = 2) {
       { threshold: 0 }
     );
     headerObserver.observe(darkZoneEnd);
+
+    // Mobile hamburger menu toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (menuToggle && mobileMenu) {
+      function closeMobileMenu() {
+        menuToggle.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        mobileMenu.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+
+      menuToggle.addEventListener('click', () => {
+        const isOpen = mobileMenu.classList.toggle('open');
+        menuToggle.classList.toggle('open', isOpen);
+        menuToggle.setAttribute('aria-expanded', String(isOpen));
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+      });
+
+      mobileMenu.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', closeMobileMenu);
+      });
+    }
 
     // Two hero-flanking particle networks — same algorithm as the Services canvas (black lines, lime dots, mouse-interactive), just denser
     function initNetworkCluster(canvasId, lineColor) {
@@ -265,7 +409,7 @@ function lineIcon(name: string, size = 20, strokeWidth = 2) {
           <a href="/work/mvg" data-img="/images/mvg-hero.jpg">MVG Lash &amp; Brow — Salon website</a>
         </div>
       </div>
-      <p class="work-carousel-hint">Hover a project to preview · Click to open</p>
+      <p class="work-carousel-hint"><span class="hint-desktop">Hover a project to preview · Click to open</span><span class="hint-mobile">Drag to browse · Tap to open</span></p>
     </div>
 
   </section>
@@ -331,6 +475,7 @@ function lineIcon(name: string, size = 20, strokeWidth = 2) {
       right: 0;
       width: 100%;
       cursor: pointer;
+      touch-action: pan-y;
       background:
         radial-gradient(ellipse 90% 90% at 50% 50%, rgba(204, 255, 51, 0.1) 0%, transparent 60%),
         #d8d8d8;
@@ -362,9 +507,21 @@ function lineIcon(name: string, size = 20, strokeWidth = 2) {
       color: #999;
     }
 
+    .work-carousel-hint .hint-mobile {
+      display: none;
+    }
+
     @media (max-width: 800px) {
       .work-carousel-wrap {
         --min-height: 36vh;
+      }
+
+      .work-carousel-hint .hint-desktop {
+        display: none;
+      }
+
+      .work-carousel-hint .hint-mobile {
+        display: inline;
       }
     }
   </style>
@@ -404,7 +561,7 @@ function lineIcon(name: string, size = 20, strokeWidth = 2) {
       const baseHrefs = links.map((a) => a.getAttribute('href'));
       const slideCount = baseImages.length;
 
-      let scene, camera, renderer, raycaster, mouseNDC, planes;
+      let scene, camera, renderer, raycaster, mouseNDC, planes, pxPerUnit;
 
       function build() {
         const oldCanvas = el.querySelector('canvas');
@@ -425,7 +582,7 @@ function lineIcon(name: string, size = 20, strokeWidth = 2) {
         renderer.domElement.style.webkitMaskImage = edgeMask;
         el.appendChild(renderer.domElement);
 
-        const pxPerUnit = getPixelsPerUnit(el, camera);
+        pxPerUnit = getPixelsPerUnit(el, camera);
         const planeSpacePx = pxPerUnit * planeWidth * getGapWidth(options.gap);
         const totalImages = Math.ceil(el.clientWidth / planeSpacePx) + 1 + slideCount;
         const initialOffset = Math.ceil(el.clientWidth / (2 * planeSpacePx) - 0.5);
@@ -482,19 +639,59 @@ function lineIcon(name: string, size = 20, strokeWidth = 2) {
 
       build();
 
-      el.addEventListener('mousemove', (e) => {
+      function updateNDC(clientX, clientY) {
         const rect = el.getBoundingClientRect();
-        mouseNDC.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-        mouseNDC.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
-      });
+        mouseNDC.x = ((clientX - rect.left) / rect.width) * 2 - 1;
+        mouseNDC.y = -((clientY - rect.top) / rect.height) * 2 + 1;
+      }
 
-      el.addEventListener('mouseleave', () => mouseNDC.set(-10, -10));
-
-      el.addEventListener('click', () => {
+      function navigateToHit() {
         raycaster.setFromCamera(mouseNDC, camera);
         const hit = raycaster.intersectObjects(planes.filter(Boolean))[0];
         if (hit && hit.object.userData.href) window.location.href = hit.object.userData.href;
+      }
+
+      el.addEventListener('mousemove', (e) => updateNDC(e.clientX, e.clientY));
+      el.addEventListener('mouseleave', () => mouseNDC.set(-10, -10));
+
+      // Pointer-based drag: works for touch (swipe the carousel side to side)
+      // and mouse (click-drag), unified via the Pointer Events API. A tap/click
+      // with negligible movement still navigates via the raycaster hit-test.
+      let isDragging = false;
+      let dragStartClientX = 0;
+      let dragStartSceneX = 0;
+      let dragMoved = false;
+      const DRAG_THRESHOLD_PX = 6;
+
+      el.addEventListener('pointerdown', (e) => {
+        isDragging = true;
+        dragMoved = false;
+        dragStartClientX = e.clientX;
+        dragStartSceneX = scene.position.x;
+        updateNDC(e.clientX, e.clientY);
+        el.setPointerCapture?.(e.pointerId);
       });
+
+      window.addEventListener('pointermove', (e) => {
+        if (!isDragging) return;
+        const deltaPx = e.clientX - dragStartClientX;
+        if (Math.abs(deltaPx) > DRAG_THRESHOLD_PX) dragMoved = true;
+        if (dragMoved) scene.position.x = dragStartSceneX + deltaPx / pxPerUnit;
+        updateNDC(e.clientX, e.clientY);
+      });
+
+      function endDrag(shouldNavigate) {
+        if (!isDragging) return;
+        isDragging = false;
+        if (dragMoved) {
+          time = scene.position.x / options.speed;
+        } else if (shouldNavigate) {
+          navigateToHit();
+        }
+      }
+
+      window.addEventListener('pointerup', () => endDrag(true));
+      window.addEventListener('pointercancel', () => endDrag(false));
 
       const resetThreshold = planeWidth * getGapWidth(options.gap) * slideCount;
       let time = 0;
@@ -509,7 +706,7 @@ function lineIcon(name: string, size = 20, strokeWidth = 2) {
         const hoveredMesh = hit ? hit.object : null;
         el.style.cursor = hoveredMesh ? 'pointer' : 'default';
 
-        if (!hoveredMesh) {
+        if (!hoveredMesh && !isDragging) {
           if (Math.abs(scene.position.x) >= resetThreshold) time = 0;
           time += options.direction * delta * 0.00001;
           scene.position.x = time * options.speed;
