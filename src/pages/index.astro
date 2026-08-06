@@ -447,7 +447,6 @@ function lineIcon(name: string, size = 20, strokeWidth = 2) {
               uniforms: {
                 tex: { value: texture },
                 curve: { value: options.curve },
-                hoverStrength: { value: 0 },
               },
               vertexShader: `
                 uniform float curve;
@@ -462,13 +461,9 @@ function lineIcon(name: string, size = 20, strokeWidth = 2) {
               `,
               fragmentShader: `
                 uniform sampler2D tex;
-                uniform float hoverStrength;
                 varying vec2 vertexUV;
                 void main() {
-                  vec4 texColor = texture2D(tex, vertexUV);
-                  vec3 dimmed = texColor.rgb * 0.4;
-                  vec3 finalColor = mix(dimmed, texColor.rgb, hoverStrength);
-                  gl_FragColor = vec4(finalColor, texColor.a);
+                  gl_FragColor = texture2D(tex, vertexUV);
                 }
               `,
             });
@@ -523,8 +518,6 @@ function lineIcon(name: string, size = 20, strokeWidth = 2) {
         planes.forEach((mesh) => {
           if (!mesh) return;
           const isHovered = mesh === hoveredMesh;
-          const hoverTarget = isHovered ? 1 : 0;
-          mesh.material.uniforms.hoverStrength.value += (hoverTarget - mesh.material.uniforms.hoverStrength.value) * 0.12;
 
           const scaleTarget = isHovered ? 1.25 : 1;
           mesh.scale.x += (scaleTarget - mesh.scale.x) * 0.1;

@@ -58,6 +58,13 @@ export function getStaticPaths() {
     stack: ['Laravel 13', 'PHP 8.3', 'Vite', 'Blade', 'Tailwind CSS v4', 'Carbon'],
     status: 'Live · active development',
     image: '/images/nonna-hero.jpg',
+    video: '/videos/nonna-hero.mp4',
+    gallery: [
+      '/images/nonna-gallery-2.jpg',
+      '/images/nonna-gallery-1.jpg',
+      '/images/nonna-gallery-3.jpg',
+      '/images/nonna-gallery-4.jpg',
+    ],
     url: 'https://losalfajoresdelanona.com',
   },
   mvg: {
@@ -72,21 +79,37 @@ export function getStaticPaths() {
       'Privacy-first: no cookies, no analytics, no tracking',
       'WCAG 2.1 AA accessible throughout',
       'Booking integration with the Timma salon management system',
+      'Passes Google Core Web Vitals and indexed in Google Search — verified via Search Console, meeting the page-experience quality bar Google uses for ranking',
     ],
     stack: ['Astro 7', 'TypeScript', 'Vercel', 'Fontsource', 'Vanilla CSS'],
     status: 'Live · Lighthouse 95+, LCP ~1.2s, CLS < 0.05',
     image: '/images/mvg-hero.jpg',
+    video: '/videos/mvg-demo.mp4',
+    gallery: [
+      '/images/mvg-gallery-1.jpg',
+      '/images/mvg-gallery-2.jpg',
+      '/images/mvg-gallery-3.jpg',
+      '/images/mvg-gallery-4.jpg',
+    ],
     url: 'https://mvglashes.no',
   },
   };
 
+  const allProjects = Object.entries(projects).map(([slug, p]) => ({
+    slug,
+    client: p.client,
+    title: p.title,
+    tagline: p.tagline,
+    image: p.image,
+  }));
+
   return Object.entries(projects).map(([slug, project]) => ({
     params: { slug },
-    props: { project },
+    props: { project, otherProjects: allProjects.filter((p) => p.slug !== slug) },
   }));
 }
 
-const { project } = Astro.props;
+const { project, otherProjects } = Astro.props;
 ---
 
 <Layout title={`${project.title} — Dual-Stack Studio`} description={project.tagline}>
@@ -102,7 +125,7 @@ const { project } = Astro.props;
   </header>
 
   <div class="pd-page-bg">
-  <main style="position: relative; min-height: 100vh; padding: 5rem 2rem 7rem; overflow: hidden;">
+  <main class="pd-main-bg" style="position: relative; min-height: 100vh; padding: 5rem 2rem 7rem; overflow: hidden;">
     <canvas id="pd-network" style="position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0;"></canvas>
 
     <div style="max-width: 1000px; margin: 0 auto; position: relative; z-index: 1;">
@@ -112,13 +135,40 @@ const { project } = Astro.props;
       <p class="pd-tagline">{project.tagline}</p>
 
       <div class="pd-media">
-        {project.image ? (
-          <img src={project.image} alt={project.title} />
+        {project.video ? (
+          <div class="pd-media-video">
+            <video
+              class="pd-hover-video"
+              src={project.video}
+              poster={project.image}
+              muted
+              loop
+              playsinline
+              preload="metadata"
+            />
+            <span class="pd-media-play-hint">▶ Hover to play</span>
+          </div>
+        ) : project.image ? (
+          <img src={project.image} alt={project.title} class="pd-lightbox-trigger" />
         ) : (
           <div class="pd-media-placeholder">
             <span>{project.title}</span>
           </div>
         )}
+      </div>
+
+      <div class="pd-gallery-wrap">
+        <div class="pd-gallery">
+          {(project.gallery ?? Array(6).fill(project.image)).map((src, i) => (
+            <div class="pd-gallery-item">
+              {src ? (
+                <img src={src} alt={`${project.title} preview ${i + 1}`} class="pd-lightbox-trigger" />
+              ) : (
+                <div class="pd-shot-placeholder"><span>{project.title}</span></div>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
 
       <div class="pd-grid">
@@ -153,8 +203,36 @@ const { project } = Astro.props;
         </aside>
       </div>
 
+      <div class="pd-more">
+        <div class="pd-more-head">
+          <span class="pd-client">Keep exploring</span>
+          <h2 class="pd-more-title">More projects</h2>
+        </div>
+        <div class="pd-more-grid">
+          {otherProjects.map((p) => (
+            <a href={`/work/${p.slug}`} class="pd-more-card">
+              <div class="pd-more-card-media">
+                {p.image ? (
+                  <img src={p.image} alt={p.title} />
+                ) : (
+                  <div class="pd-shot-placeholder"><span>{p.title}</span></div>
+                )}
+              </div>
+              <span class="pd-more-card-client">{p.client}</span>
+              <h3 class="pd-more-card-title">{p.title}</h3>
+              <p class="pd-more-card-tagline">{p.tagline}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+
     </div>
   </main>
+
+  <div id="pd-lightbox" class="pd-lightbox" hidden>
+    <button type="button" class="pd-lightbox-close" id="pd-lightbox-close" aria-label="Close">×</button>
+    <img src="" alt="" class="pd-lightbox-img" id="pd-lightbox-img" />
+  </div>
 
   <footer style="position: relative; padding: 5rem 2rem 2.5rem; border-top: 1px solid rgba(255, 255, 255, 0.05); overflow: hidden;">
     <canvas id="pd-footer-network" style="position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; opacity: 0.6;"></canvas>
@@ -202,17 +280,27 @@ const { project } = Astro.props;
   </div>
 
   <style>
-    /* Fixed-size radial (not %-of-element) so it fades into the solid base color
-       cleanly no matter how tall the page is — main and footer share one
-       continuous backdrop instead of each having its own gradient that could
-       leave a seam where they meet. */
     .pd-page-bg {
-      background-color: #0a0a0a;
+      background-color: #eeeeee;
+    }
+
+    /* Main keeps its own light backdrop and only fades to dark in a fixed-height
+       band right above its own bottom edge, so the fade always sits just before
+       the footer regardless of how much content main has (short or long page).
+       The fade is a full-width linear band (not a radial dome) so it reaches
+       #0a0a0a evenly edge-to-edge, matching the footer's flat color with no seam. */
+    .pd-main-bg {
       background-repeat: no-repeat;
+      background-position: center top, center top, center bottom;
+      background-size: auto, auto, 100% 420px;
       background-image:
-        radial-gradient(circle at 85% 12%, rgba(204, 255, 51, 0.14) 0%, transparent 40%),
-        radial-gradient(circle at 8% 10%, rgba(204, 255, 51, 0.07) 0%, transparent 32%),
-        radial-gradient(1400px 950px at 50% 0%, #a3a3a3 0%, #7a7a7a 35%, #3a3a3a 62%, transparent 88%);
+        radial-gradient(circle at 85% 12%, rgba(204, 255, 51, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 8% 10%, rgba(204, 255, 51, 0.06) 0%, transparent 32%),
+        linear-gradient(180deg, transparent 0%, #0a0a0a 100%);
+    }
+
+    footer {
+      background-color: #0a0a0a;
     }
 
     .pd-client {
@@ -221,43 +309,83 @@ const { project } = Astro.props;
       font-weight: 700;
       letter-spacing: 0.5px;
       text-transform: uppercase;
-      color: #ccff33;
+      color: #6b8a1e;
       margin-bottom: 0.75rem;
     }
 
     .pd-title {
-      font-size: clamp(36px, 5vw, 56px);
+      font-size: clamp(32px, 4vw, 46px);
       font-weight: 800;
       letter-spacing: -1.5px;
-      color: #ffffff;
+      color: #0a0a0a;
       margin: 0 0 0.75rem 0;
     }
 
     .pd-tagline {
-      font-size: 18px;
-      color: #bbb;
+      font-size: 16px;
+      color: #555;
       font-style: italic;
-      margin: 0 0 2.5rem 0;
-      max-width: 640px;
+      margin: 0 0 1rem 0;
+    }
+
+    .pd-desc {
+      font-size: 16px;
+      line-height: 1.75;
+      color: #444;
+      margin: 0;
     }
 
     .pd-media {
       border-radius: 18px;
       overflow: hidden;
-      box-shadow: 0 30px 80px -25px rgba(204, 255, 51, 0.25), 0 20px 50px -20px rgba(0, 0, 0, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      margin-bottom: 3.5rem;
+      box-shadow: 0 30px 80px -25px rgba(204, 255, 51, 0.25), 0 20px 50px -20px rgba(0, 0, 0, 0.15);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      margin-bottom: 2.5rem;
       transition: box-shadow 0.4s ease, transform 0.4s ease;
     }
 
     .pd-media:hover {
       transform: translateY(-4px);
-      box-shadow: 0 40px 100px -20px rgba(204, 255, 51, 0.4), 0 25px 60px -20px rgba(0, 0, 0, 0.7);
+      box-shadow: 0 40px 100px -20px rgba(204, 255, 51, 0.4), 0 25px 60px -20px rgba(0, 0, 0, 0.2);
     }
 
     .pd-media img {
       width: 100%;
       display: block;
+    }
+
+    .pd-media-video {
+      position: relative;
+    }
+
+    .pd-hover-video {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      display: block;
+      background: #0a0a0a;
+    }
+
+    .pd-media-play-hint {
+      position: absolute;
+      right: 16px;
+      bottom: 16px;
+      z-index: 2;
+      padding: 0.5rem 0.9rem;
+      border-radius: 100px;
+      background: rgba(10, 10, 10, 0.65);
+      backdrop-filter: blur(6px);
+      color: #eee;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      opacity: 1;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .pd-media:hover .pd-media-play-hint {
+      opacity: 0;
     }
 
     .pd-media-placeholder {
@@ -274,6 +402,116 @@ const { project } = Astro.props;
       color: #ccff33;
     }
 
+    .pd-lightbox-trigger {
+      cursor: zoom-in;
+    }
+
+    .pd-lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(10, 10, 10, 0.92);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 2rem;
+      animation: pdLightboxFade 0.2s ease;
+    }
+
+    .pd-lightbox[hidden] {
+      display: none;
+    }
+
+    @keyframes pdLightboxFade {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .pd-lightbox-img {
+      max-width: 100%;
+      max-height: 100%;
+      border-radius: 10px;
+      box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.6);
+    }
+
+    .pd-lightbox-close {
+      position: absolute;
+      top: 24px;
+      right: 28px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.06);
+      color: #fff;
+      font-size: 24px;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .pd-lightbox-close:hover {
+      background: rgba(204, 255, 51, 0.15);
+      border-color: rgba(204, 255, 51, 0.4);
+    }
+
+    /* Bold horizontal-scrolling gallery strip — a filmstrip of extra shots,
+       temporary placeholders until real screenshots are provided. */
+    .pd-gallery-wrap {
+      margin: 0 0 3.5rem 0;
+    }
+
+    .pd-gallery {
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+      scroll-snap-type: x mandatory;
+    }
+
+    .pd-gallery-item {
+      flex: 0 0 auto;
+      width: 300px;
+      aspect-ratio: 16 / 10;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 0 16px 40px -20px rgba(0, 0, 0, 0.25);
+      scroll-snap-align: start;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+
+    .pd-gallery-item:hover {
+      transform: translateY(-4px);
+      border-color: rgba(204, 255, 51, 0.5);
+      box-shadow: 0 20px 50px -18px rgba(204, 255, 51, 0.35);
+    }
+
+    .pd-gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .pd-shot-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #2a2a2a 0%, #0a0a0a 140%);
+    }
+
+    .pd-shot-placeholder span {
+      font-size: 20px;
+      font-weight: 800;
+      color: #ccff33;
+    }
+
     .pd-grid {
       display: grid;
       grid-template-columns: 1.6fr 1fr;
@@ -283,19 +521,12 @@ const { project } = Astro.props;
     .pd-main h2 {
       font-size: 22px;
       font-weight: 800;
-      color: #ffffff;
+      color: #0a0a0a;
       margin: 0 0 1rem 0;
     }
 
     .pd-main h2:not(:first-child) {
       margin-top: 2.5rem;
-    }
-
-    .pd-desc {
-      font-size: 16px;
-      line-height: 1.75;
-      color: #bbb;
-      margin: 0;
     }
 
     .pd-features {
@@ -311,7 +542,7 @@ const { project } = Astro.props;
       padding-left: 1.6rem;
       font-size: 15px;
       line-height: 1.6;
-      color: #ccc;
+      color: #333;
     }
 
     .pd-features li::before {
@@ -323,8 +554,8 @@ const { project } = Astro.props;
     }
 
     .pd-sidebar-block {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(0, 0, 0, 0.03);
+      border: 1px solid rgba(0, 0, 0, 0.08);
       border-radius: 14px;
       padding: 1.5rem;
       margin-bottom: 1.25rem;
@@ -333,8 +564,8 @@ const { project } = Astro.props;
     }
 
     .pd-sidebar-block:hover {
-      border-color: rgba(204, 255, 51, 0.35);
-      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(204, 255, 51, 0.5);
+      background: rgba(0, 0, 0, 0.05);
     }
 
     .pd-sidebar-block h3 {
@@ -342,13 +573,13 @@ const { project } = Astro.props;
       font-weight: 700;
       letter-spacing: 0.6px;
       text-transform: uppercase;
-      color: #888;
+      color: #666;
       margin: 0 0 1rem 0;
     }
 
     .pd-sidebar-block p {
       font-size: 14px;
-      color: #ccc;
+      color: #333;
       margin: 0;
       line-height: 1.6;
     }
@@ -366,15 +597,115 @@ const { project } = Astro.props;
       text-transform: uppercase;
       padding: 0.4rem 0.75rem;
       border-radius: 6px;
-      background: rgba(204, 255, 51, 0.12);
-      color: #ccff33;
-      border: 1px solid rgba(204, 255, 51, 0.3);
+      background: rgba(204, 255, 51, 0.16);
+      color: #5a6b12;
+      border: 1px solid rgba(204, 255, 51, 0.45);
       transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s ease;
     }
 
     .pd-stack span:hover {
       transform: scale(1.08);
-      background: rgba(204, 255, 51, 0.22);
+      background: rgba(204, 255, 51, 0.28);
+    }
+
+    .pd-more {
+      margin-top: 6rem;
+      padding-top: 4rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .pd-more-head {
+      margin-bottom: 2.5rem;
+    }
+
+    .pd-more-title {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      color: #0a0a0a;
+      margin: 0.5rem 0 0 0;
+    }
+
+    .pd-more-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .pd-more-card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .pd-more-card-media {
+      border-radius: 14px;
+      overflow: hidden;
+      aspect-ratio: 4 / 3;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 0 20px 50px -25px rgba(0, 0, 0, 0.25);
+      margin-bottom: 1rem;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+    }
+
+    .pd-more-card:hover .pd-more-card-media {
+      transform: translateY(-6px);
+      box-shadow: 0 30px 60px -20px rgba(204, 255, 51, 0.4);
+    }
+
+    .pd-more-card-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .pd-more-card-client {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 0.4rem;
+      transition: color 0.3s ease;
+    }
+
+    .pd-more-card:hover .pd-more-card-client {
+      color: #6b8a1e;
+    }
+
+    .pd-more-card-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: #0a0a0a;
+      margin: 0 0 0.4rem 0;
+      transition: color 0.3s ease;
+    }
+
+    .pd-more-card:hover .pd-more-card-title {
+      color: #5a6b12;
+    }
+
+    .pd-more-card-tagline {
+      font-size: 13px;
+      color: #666;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 800px) {
+      .pd-more-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .pd-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .pd-gallery-item {
+        width: 240px;
+      }
     }
 
     .pd-cta {
@@ -403,8 +734,8 @@ const { project } = Astro.props;
     }
 
     .pd-cta-disabled {
-      background: rgba(255, 255, 255, 0.08);
-      color: #888;
+      background: rgba(0, 0, 0, 0.06);
+      color: #666;
       box-shadow: none;
       cursor: not-allowed;
     }
@@ -596,5 +927,47 @@ const { project } = Astro.props;
 
     initNetworkCluster('pd-network', '10, 10, 10');
     initNetworkCluster('pd-footer-network', '255, 255, 255');
+
+    // Hero video: plays on hover, pauses and rewinds to the start on leave.
+    document.querySelectorAll('.pd-hover-video').forEach((video) => {
+      const wrap = video.closest('.pd-media');
+      if (!wrap) return;
+      wrap.addEventListener('mouseenter', () => video.play());
+      wrap.addEventListener('mouseleave', () => {
+        video.pause();
+        video.currentTime = 0;
+      });
+    });
+
+    // Lightbox: click any gallery/hero image to open it enlarged.
+    (function () {
+      const lightbox = document.getElementById('pd-lightbox');
+      const lightboxImg = document.getElementById('pd-lightbox-img');
+      const closeBtn = document.getElementById('pd-lightbox-close');
+      if (!lightbox || !lightboxImg) return;
+
+      function open(src, alt) {
+        lightboxImg.src = src;
+        lightboxImg.alt = alt || '';
+        lightbox.hidden = false;
+      }
+
+      function close() {
+        lightbox.hidden = true;
+        lightboxImg.src = '';
+      }
+
+      document.querySelectorAll('.pd-lightbox-trigger').forEach((img) => {
+        img.addEventListener('click', () => open(img.currentSrc || img.src, img.alt));
+      });
+
+      closeBtn?.addEventListener('click', close);
+      lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) close();
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !lightbox.hidden) close();
+      });
+    })();
   </script>
 </Layout>
