@@ -29,18 +29,47 @@ export function getStaticPaths() {
     client: 'Personal project · Dual-Stack Studio',
     title: 'Bumerán',
     tagline: '"Lo que das, vuelve" — neighborhood favor exchange',
-    description: 'A neighborhood favor-exchange app for requesting help, offering assistance, or giving items away — filtered by GPS across 13 categories.',
+    description: 'A neighborhood favor-exchange app for requesting help, offering assistance, or giving items away — filtered by GPS across 13 categories. Users see only complementary content: those seeking help see offers and gifts, helpers see requests. In active development under Dual-Stack Studio with Claude Sonnet 4.6 as engineering partner.',
     features: [
-      'Three post types — necesito, ofrezco, regalo — with intent-aware feed filtering',
-      'GPS proximity search with swipeable list and map views',
-      'Safety modal with real-world tips before WhatsApp handoff',
-      'Twilio SMS verification, one phone number per account',
-      'Review system for building local reputation',
-      'Spanish, English and German localization, GDPR-compliant',
+      'Three post types — necesito, ofrezco, regalo — with intent-aware feed filtering so users only see complementary content',
+      'Full-screen map with color-coded pins per post type, plus a swipeable bottom sheet (20/45/85% snap points) for browsing',
+      'Safety modal with real-world tips before WhatsApp handoff — exact GPS location is never shown publicly',
+      'Twilio SMS verification (6-digit code, 10-minute expiry) — one phone number per account, enforced server-side',
+      'Full connection lifecycle — pending → accepted → completed/cancelled — with a review system for local reputation',
+      'NestJS backend with global rate limiting (100 req/min per IP) and Helmet security headers',
+      'Google OAuth + JWT authentication, session persisted via AsyncStorage with automatic restore on launch',
+      'Spanish, English and German localization, GDPR-compliant with a reusable legal footer across 4 screens',
+      'Live in production on Railway',
+      'Built with Claude Sonnet 4.6 as daily AI pairing partner throughout the build',
     ],
-    stack: ['React Native', 'Expo SDK 56', 'NestJS 11', 'Prisma', 'PostgreSQL', 'Google OAuth', 'Twilio'],
+    stack: ['React Native', 'Expo SDK 56', 'NativeWind', 'NestJS 11', 'Prisma', 'PostgreSQL', 'Google OAuth', 'Twilio', 'Claude Sonnet 4.6'],
     status: 'Active development · closed testing on Google Play',
-    image: null,
+    image: '/images/bumeran-hero.svg',
+    growthPitch: 'Core flows are production-ready — GPS-filtered feed, phone verification and the full connection lifecycle already run live on Railway. Scaling beyond a single city means real, usage-tied costs: Twilio SMS per verification, maps/GPS API calls, and community moderation as the network grows. Open to investment to fund infrastructure and fuel a multi-city rollout.',
+    url: null,
+  },
+  echoesandpaths: {
+    client: 'Personal project · Dual-Stack Studio',
+    title: 'Echoes & Paths',
+    tagline: 'Conquer historical landmarks, one GPS check-in at a time',
+    description: 'A GPS-powered historical landmark app born from wanting castles, ruins and museums front-and-center on a map, not buried among restaurants and gas stations. Visit a castle, a ruin, a museum — conquer it physically within 150m — build a medieval rank, add friends, and see what they\'ve explored. Currently in closed testing for family and friends due to Google Places API operational costs at scale.',
+    features: [
+      'GPS-validated conquest system — server-side Haversine distance check (≤150m) rejects spoofed or remote check-ins',
+      '7-tier medieval rank progression — Peasant → Squire → Knight → Baron → Count → Duke → High King',
+      'Social layer — friend requests, cross-user conquest visibility, and push notifications via the Expo Push API',
+      'Hybrid feed aggregating Google Places API (New), Wikipedia historical descriptions and community contributions — server-cached and paginated',
+      'Community photo and text contributions via Cloudinary, moderated before going public',
+      'Google Sign-In + JWT authentication',
+      'OTA updates via EAS Update — ships JS fixes to production without waiting on a Play Store review',
+      'English and German localization, auto-detected from device locale',
+      'Full GDPR-compliant legal pages — Art. 13/14 rights, DPA complaint links for 6 EU countries',
+      'Built solo with Claude Sonnet 4.6 as daily AI pairing partner throughout the entire build',
+    ],
+    stack: ['React Native', 'Expo SDK 54', 'Node.js ESM', 'Express 5', 'PostgreSQL', 'Knex.js', 'Claude Sonnet 4.6'],
+    status: 'Closed testing on Google Play · family & friends only',
+    image: '/images/echoesandpaths-hero.png',
+    video: '/videos/echoesandpaths-demo.mp4',
+    growthPitch: 'The architecture is already built for scale — hybrid caching, the conquest system and the full social layer are production-ready. What caps it at closed testing is API budget: Google Places costs scale directly with active users, and going public means a real, ongoing bill. Open to investment or a sponsorship partner to unlock a public launch.',
     url: null,
   },
   nonna: {
@@ -57,7 +86,7 @@ export function getStaticPaths() {
     ],
     stack: ['Laravel 13', 'PHP 8.3', 'Vite', 'Blade', 'Tailwind CSS v4', 'Carbon'],
     status: 'Live · active development',
-    image: '/images/nonna-hero.jpg',
+    image: '/images/nonna-logo-hero.jpg',
     video: '/videos/nonna-hero.mp4',
     gallery: [
       '/images/nonna-gallery-2.jpg',
@@ -83,7 +112,7 @@ export function getStaticPaths() {
     ],
     stack: ['Astro 7', 'TypeScript', 'Vercel', 'Fontsource', 'Vanilla CSS'],
     status: 'Live · Lighthouse 95+, LCP ~1.2s, CLS < 0.05',
-    image: '/images/mvg-hero.jpg',
+    image: '/images/mvg-logo-hero.jpg',
     video: '/videos/mvg-demo.mp4',
     gallery: [
       '/images/mvg-gallery-1.jpg',
@@ -113,13 +142,16 @@ const { project, otherProjects } = Astro.props;
 ---
 
 <Layout title={`${project.title} — Dual-Stack Studio`} description={project.tagline}>
-  <header id="site-header" style="position: sticky; top: 0; padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; z-index: 100; background: rgba(92, 92, 92, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
-    <a href="/" style="font-size: 20px; font-weight: 800; letter-spacing: -0.5px; display: flex; align-items: center; gap: 10px; text-decoration: none; color: #ffffff;">
-      <img src="/logo.svg" alt="Dual-Stack Studio" width="30" height="30" style="border-radius: 7px;" />
-      Dual-Stack
+  <header id="pd-header" style="position: sticky; top: 0; padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; z-index: 100; background: rgba(92, 92, 92, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
+    <a href="/" class="pd-header-logo" style="font-size: 20px; font-weight: 800; letter-spacing: -0.5px; display: flex; align-items: center; gap: 10px; text-decoration: none; color: #ffffff; flex-shrink: 0;">
+      <img src="/logo.svg" alt="Dual-Stack Studio" width="30" height="30" style="border-radius: 7px; flex-shrink: 0;" />
+      <span class="pd-header-logo-text">Dual-Stack</span>
     </a>
-    <a href="/#work" style="font-size: 14px; font-weight: 600; color: #ccc; text-decoration: none;">← Back to projects</a>
-    <a href="/#contact" style="background: #ccff33; color: #0a0a0a; padding: 12px 26px; border-radius: 100px; text-decoration: none; font-size: 14px; font-weight: 600; box-shadow: 0 8px 20px rgba(204, 255, 51, 0.3);">
+    <a href="/#work" class="pd-back-link" style="font-size: 14px; font-weight: 600; color: #ccc; text-decoration: none; white-space: nowrap;">
+      <span class="pd-back-full">← Back to projects</span>
+      <span class="pd-back-short">←</span>
+    </a>
+    <a href="/#contact" class="pd-header-cta" style="background: #ccff33; color: #0a0a0a; padding: 12px 26px; border-radius: 100px; text-decoration: none; font-size: 14px; font-weight: 600; box-shadow: 0 8px 20px rgba(204, 255, 51, 0.3); white-space: nowrap; flex-shrink: 0;">
       Get proposal
     </a>
   </header>
@@ -195,6 +227,13 @@ const { project, otherProjects } = Astro.props;
             <p>{project.status}</p>
           </div>
 
+          {project.growthPitch && (
+            <div class="pd-sidebar-block pd-growth-block">
+              <h3>Growth &amp; Investment</h3>
+              <p>{project.growthPitch}</p>
+            </div>
+          )}
+
           {project.url ? (
             <a href={project.url} target="_blank" rel="noopener" class="pd-cta">Visit live site <i>↗</i></a>
           ) : (
@@ -250,7 +289,7 @@ const { project, otherProjects } = Astro.props;
 
         <div class="footer-col">
           <h4>Navigate</h4>
-          <a href="/#work">Work</a>
+          <a href="/#work">Projects</a>
           <a href="/#services">Services</a>
           <a href="/#team">Team</a>
           <a href="/#testimonials">Testimonials</a>
@@ -272,7 +311,7 @@ const { project, otherProjects } = Astro.props;
 
       <div class="footer-bottom">
         <p>© 2026 Dual-Stack Studio. Independently operated — not a registered legal entity.</p>
-        <p>Built with Astro, deployed on Vercel.</p>
+        <p>Built with Astro, deployed on Vercel. Site under active development.</p>
       </div>
 
     </div>
@@ -280,6 +319,36 @@ const { project, otherProjects } = Astro.props;
   </div>
 
   <style>
+    .pd-back-short {
+      display: none;
+    }
+
+    @media (max-width: 640px) {
+      #pd-header {
+        padding: 1rem 1.25rem !important;
+        gap: 0.75rem !important;
+      }
+
+      .pd-header-logo-text {
+        display: none;
+      }
+
+      .pd-back-full {
+        display: none;
+      }
+
+      .pd-back-short {
+        display: inline;
+        font-size: 18px;
+        font-weight: 700;
+      }
+
+      .pd-header-cta {
+        padding: 10px 18px !important;
+        font-size: 13px !important;
+      }
+    }
+
     .pd-page-bg {
       background-color: #eeeeee;
     }
@@ -584,6 +653,20 @@ const { project, otherProjects } = Astro.props;
       line-height: 1.6;
     }
 
+    .pd-growth-block {
+      background: linear-gradient(135deg, rgba(204, 255, 51, 0.1) 0%, rgba(204, 255, 51, 0.03) 100%);
+      border: 1px solid rgba(204, 255, 51, 0.4);
+    }
+
+    .pd-growth-block:hover {
+      border-color: rgba(204, 255, 51, 0.7);
+      background: linear-gradient(135deg, rgba(204, 255, 51, 0.16) 0%, rgba(204, 255, 51, 0.05) 100%);
+    }
+
+    .pd-growth-block h3 {
+      color: #5a6b12;
+    }
+
     .pd-stack {
       display: flex;
       flex-wrap: wrap;
@@ -706,6 +789,24 @@ const { project, otherProjects } = Astro.props;
       .pd-gallery-item {
         width: 240px;
       }
+
+      .pd-main-bg {
+        padding: 4rem 1.25rem 5rem !important;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .pd-gallery-item {
+        width: 200px;
+      }
+
+      .pd-more-card-title {
+        font-size: 18px;
+      }
     }
 
     .pd-cta {
@@ -810,15 +911,6 @@ const { project, otherProjects } = Astro.props;
       }
     }
 
-    @media (max-width: 800px) {
-      .pd-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .footer-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
   </style>
 
   <script>

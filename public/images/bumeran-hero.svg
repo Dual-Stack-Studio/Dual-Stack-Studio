@@ -1,20 +1,37 @@
 <svg width="1600" height="1000" viewBox="0 0 1600 1000" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="140%">
-      <stop offset="0%" stop-color="#2a2a2a" />
-      <stop offset="100%" stop-color="#0a0a0a" />
+    <linearGradient id="bumeranBg" x1="10%" y1="0%" x2="90%" y2="100%">
+      <stop offset="0%" stop-color="#e6486f" />
+      <stop offset="100%" stop-color="#c72a52" />
     </linearGradient>
-    <radialGradient id="glow" cx="78%" cy="18%" r="60%">
-      <stop offset="0%" stop-color="#ccff33" stop-opacity="0.16" />
-      <stop offset="100%" stop-color="#ccff33" stop-opacity="0" />
+    <radialGradient id="bumeranGlow" cx="50%" cy="0%" r="80%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.12" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
     </radialGradient>
+    <filter id="badgeShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="10" stdDeviation="16" flood-color="#5c0f27" flood-opacity="0.28" />
+    </filter>
   </defs>
-  <rect width="1600" height="1000" fill="url(#bg)" />
-  <rect width="1600" height="1000" fill="url(#glow)" />
-  <g transform="translate(800,500)" stroke="#ccff33" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" fill="none">
-    <path d="m146 -220 108 108 -108 108" />
-    <path d="M-92 -4v-24a108 108 0 0 1 108 -108h324" />
-    <path d="m-146 220 -108 -108 108 -108" />
-    <path d="M92 4v24a108 108 0 0 1 -108 108h-324" />
+
+  <rect width="1600" height="1000" fill="url(#bumeranBg)" />
+  <rect width="1600" height="1000" fill="url(#bumeranGlow)" />
+
+  <g transform="translate(800, 450)">
+    <circle r="108" fill="#ffffff" filter="url(#badgeShadow)" />
+    <path
+      d="M -58 26 Q 0 -56 58 26"
+      fill="none"
+      stroke="#d33361"
+      stroke-width="28"
+      stroke-linecap="round"
+    />
   </g>
+
+  <text x="800" y="618" text-anchor="middle" font-family="Arial, sans-serif" font-weight="800" font-size="86" fill="#ffffff" letter-spacing="-1px">
+    Bumerán
+  </text>
+
+  <text x="800" y="664" text-anchor="middle" font-family="Arial, sans-serif" font-weight="500" font-size="30" fill="#ffffff" fill-opacity="0.9">
+    Lo que das, vuelve.
+  </text>
 </svg>
