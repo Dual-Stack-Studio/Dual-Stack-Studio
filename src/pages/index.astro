@@ -1166,22 +1166,25 @@ function lineIcon(name: string, size = 20, strokeWidth = 2) {
     <div style="max-width: 1200px; margin: 0 auto; position: relative; z-index: 1;">
       <h2 style="font-size: 42px; margin: 0 0 1rem 0; font-weight: 800; letter-spacing: -1.5px; color: #0a0a0a;">Our team</h2>
       <p style="font-size: 15px; color: #666; margin: 0 0 3.5rem 0; max-width: 560px;">Two co-founders covering three disciplines — from first commit to production deploy.</p>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2.5rem;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.75rem;">
 
         <div class="team-member">
-          <div class="team-avatar" style="background: #0a0a0a;"><Fragment set:html={lineIcon('laptop', 44)} /></div>
+          <span class="team-role-tag">ROLE 01</span>
+          <div class="team-avatar"><Fragment set:html={lineIcon('laptop', 40)} /></div>
           <h3>Full-Stack Developer</h3>
           <p>React, React Native, Node.js, PostgreSQL. Handles everything from mobile to deployment.</p>
         </div>
 
         <div class="team-member">
-          <div class="team-avatar" style="background: #0a0a0a;"><Fragment set:html={lineIcon('design', 44)} /></div>
+          <span class="team-role-tag">ROLE 02</span>
+          <div class="team-avatar"><Fragment set:html={lineIcon('design', 40)} /></div>
           <h3>UI/UX Designer</h3>
           <p>Focused on user experience and clean design. From mockups to pixel-perfect implementation.</p>
         </div>
 
         <div class="team-member">
-          <div class="team-avatar" style="background: #0a0a0a;"><Fragment set:html={lineIcon('rocket', 44)} /></div>
+          <span class="team-role-tag">ROLE 03</span>
+          <div class="team-avatar"><Fragment set:html={lineIcon('rocket', 40)} /></div>
           <h3>DevOps & Deployment</h3>
           <p>Handles CI/CD, deployment pipelines, and infrastructure. Vercel, AWS, database optimization.</p>
         </div>
@@ -1192,30 +1195,76 @@ function lineIcon(name: string, size = 20, strokeWidth = 2) {
 
   <style>
     .team-member {
-      text-align: center;
+      position: relative;
+      text-align: left;
+      padding: 2.25rem 1.75rem 2rem;
+      border-radius: 18px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      background: linear-gradient(160deg, rgba(255, 255, 255, 0.6) 0%, rgba(0, 0, 0, 0.02) 100%);
+      overflow: hidden;
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.35s, box-shadow 0.35s;
+    }
+
+    .team-member::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #ccff33, transparent);
+      opacity: 0;
+      transition: opacity 0.35s;
+    }
+
+    .team-member:hover {
+      transform: translateY(-8px);
+      border-color: rgba(204, 255, 51, 0.55);
+      box-shadow: 0 24px 50px -20px rgba(0, 0, 0, 0.22);
+    }
+
+    .team-member:hover::before {
+      opacity: 1;
+    }
+
+    .team-role-tag {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: #999;
+      margin-bottom: 1.5rem;
+      transition: color 0.35s;
+    }
+
+    .team-member:hover .team-role-tag {
+      color: #7a9114;
     }
 
     .team-avatar {
-      width: 140px;
-      height: 140px;
-      border-radius: 16px;
-      margin: 0 auto 1.5rem;
+      width: 72px;
+      height: 72px;
+      border-radius: 14px;
+      margin: 0 0 1.5rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: white;
+      background: #0a0a0a;
+      color: #ccff33;
+      box-shadow: 0 10px 24px -10px rgba(0, 0, 0, 0.35);
       transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s;
     }
 
     .team-member:hover .team-avatar {
       transform: scale(1.08) rotate(-3deg);
-      box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 16px 32px -10px rgba(204, 255, 51, 0.4);
     }
 
     .team-member h3 {
-      font-size: 18px;
-      margin: 0 0 0.5rem 0;
-      font-weight: 600;
+      font-size: 19px;
+      margin: 0 0 0.6rem 0;
+      font-weight: 700;
+      letter-spacing: -0.3px;
       color: #0a0a0a;
     }
 
@@ -1223,7 +1272,7 @@ function lineIcon(name: string, size = 20, strokeWidth = 2) {
       font-size: 14px;
       color: #666;
       margin: 0;
-      line-height: 1.6;
+      line-height: 1.65;
     }
   </style>
 
