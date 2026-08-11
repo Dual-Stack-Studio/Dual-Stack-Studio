@@ -7,22 +7,32 @@ export function getStaticPaths() {
     client: 'Client project · Dual-Stack Studio',
     title: 'Astrofell',
     tagline: 'Astronomy for everyone',
-    description: 'Migration and complete redesign of the Castelldefels Astronomical Association (ASTROFELS) website, going from a Blogger blog to a modern site built from scratch, with a centerpiece: a fully interactive, custom-made 3D solar system.',
+    description: 'A full site migration and redesign for ASTROFELS — Agrupació Astronòmica de Castelldefels, a real nonprofit amateur astronomy association near Barcelona and the first of its kind in the Baix Llobregat region. Founded in 1987, running their own observatory ("Sergio López Borgoñoz," inaugurated 1998) at Cal Ganxo, affiliated with the FAAE, and self-funded entirely by member dues since 2006 — this is a serious scientific institution run by volunteers with no dev resources of their own. The site takes them from an old Blogger blog to a modern build from scratch, centered on a fully interactive 3D solar system. Currently in development.',
     features: [
+      'Built for an all-volunteer, self-funded nonprofit — a real scientific institution with no dev resources of its own',
       'Built with Astro (SSG) and React for interactive islands',
       'Three.js (WebGL) integration with a custom GLTF parser supporting the KHR_materials_pbrSpecularGlossiness legacy extension',
       'Custom 3D camera physics utilizing camera.setViewOffset for distortion-free viewport scaling',
       'Interactive 3D solar system featuring raycasting-based smooth fly-to camera transitions and drag-to-rotate controls',
       'Performance-optimized UX that delays 3D rendering and container expansion until user interaction to save CPU/GPU',
       'Parallel 3D asset loading via Promise.all, significantly reducing initial load times for the planetary models',
-      'Dynamic, backend-free news section powered by build-time data fetching from a public Blogger JSON feed',
+      'Dynamic, backend-free news section powered by build-time data fetching from a public Blogger JSON feed — their existing content workflow keeps working with zero extra effort on their end',
       'Full content migration of institutional history, foundation details, and observatory documentation from the legacy site',
       'Pure CSS custom design system featuring a responsive dark theme with gold and cyan accents',
       'Fully responsive architecture with mobile-adapted panels, preserving the 3D WebGL experience on small screens',
     ],
     stack: ['Astro 7', 'TypeScript', 'Three.js', 'Vercel', 'Fontsource', 'Vanilla CSS'],
-    status: 'Live · Lighthouse 95+, LCP ~1.2s, CLS < 0.05',
-    image: '/images/astrofell.png',
+    status: 'In development · not yet live',
+    image: '/images/astrofell-hero.svg',
+    video: '/videos/astrofell-demo.mp4',
+    gallery: [
+      '/images/astrofell-gallery-1.jpg',
+      '/images/astrofell-gallery-2.jpg',
+      '/images/astrofell-gallery-3.jpg',
+      '/images/astrofell-gallery-4.jpg',
+      '/images/astrofell-gallery-5.jpg',
+      '/images/astrofell-gallery-6.jpg',
+    ],
     url: null,
   },
   bumeran: {
@@ -444,6 +454,8 @@ const { project, otherProjects } = Astro.props;
       border-radius: 100px;
       background: rgba(10, 10, 10, 0.65);
       backdrop-filter: blur(6px);
+      border: 1px solid rgba(204, 255, 51, 0.6);
+      box-shadow: 0 0 16px rgba(204, 255, 51, 0.35), inset 0 0 8px rgba(204, 255, 51, 0.12);
       color: #eee;
       font-size: 12px;
       font-weight: 600;
@@ -755,7 +767,7 @@ const { project, otherProjects } = Astro.props;
     }
 
     .pd-more-card:hover .pd-more-card-client {
-      color: #6b8a1e;
+      color: #6fa300;
     }
 
     .pd-more-card-title {
@@ -767,7 +779,7 @@ const { project, otherProjects } = Astro.props;
     }
 
     .pd-more-card:hover .pd-more-card-title {
-      color: #5a6b12;
+      color: #5c8a00;
     }
 
     .pd-more-card-tagline {
