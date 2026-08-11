@@ -79,6 +79,7 @@ export function getStaticPaths() {
     status: 'Closed testing on Google Play · family & friends only',
     image: '/images/echoesandpaths-hero.png',
     video: '/videos/echoesandpaths-demo.mp4',
+    portraitVideo: true,
     growthPitch: 'The architecture is already built for scale — hybrid caching, the conquest system and the full social layer are production-ready. What caps it at closed testing is API budget: Google Places costs scale directly with active users, and going public means a real, ongoing bill. Open to investment or a sponsorship partner to unlock a public launch.',
     url: null,
   },
@@ -180,7 +181,7 @@ const { project, otherProjects } = Astro.props;
         {project.video ? (
           <div class="pd-media-video">
             <video
-              class="pd-hover-video"
+              class={`pd-hover-video${project.portraitVideo ? ' pd-hover-video-portrait' : ''}`}
               src={project.video}
               poster={project.image}
               muted
@@ -443,6 +444,14 @@ const { project, otherProjects } = Astro.props;
       object-fit: cover;
       display: block;
       background: #0a0a0a;
+    }
+
+    /* Mobile-app demo recordings are portrait (phone-shaped) — cropping them
+       with object-fit: cover into a 16:9 box zooms in so far the UI becomes
+       unreadable. Showing the full frame letterboxed reads as intentional
+       (a phone screen framed in black) instead of broken. */
+    .pd-hover-video-portrait {
+      object-fit: contain;
     }
 
     .pd-media-play-hint {
