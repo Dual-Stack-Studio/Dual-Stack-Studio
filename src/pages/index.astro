@@ -383,16 +383,24 @@ function lineIcon(name: string, size = 20, strokeWidth = 2) {
         }));
       }
 
-      canvas.addEventListener('mousemove', (e) => {
+      function updateMouse(e) {
         const rect = canvas.getBoundingClientRect();
         mouse.x = e.clientX - rect.left;
         mouse.y = e.clientY - rect.top;
-      });
+      }
 
-      canvas.addEventListener('mouseleave', () => {
+      function resetMouse() {
         mouse.x = -9999;
         mouse.y = -9999;
-      });
+      }
+
+      // Pointer Events cover mouse, touch and pen in one API. Plain
+      // mousemove/mouseleave never fire on touch, so the network only
+      // reacted to a cursor and looked "reset" (stuck at -9999) on mobile.
+      canvas.addEventListener('pointerdown', updateMouse);
+      canvas.addEventListener('pointermove', updateMouse);
+      canvas.addEventListener('pointerleave', resetMouse);
+      canvas.addEventListener('pointercancel', resetMouse);
 
       function tick() {
         const w = canvas.width;
