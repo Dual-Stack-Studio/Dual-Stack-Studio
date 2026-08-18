@@ -460,7 +460,14 @@ function lineIcon(name: string, size = 20, strokeWidth = 2) {
       initParticles();
       tick();
 
+      // Mobile browsers fire `resize` when the URL bar collapses/expands on
+      // scroll — a height-only change with no user-initiated layout change.
+      // Re-randomizing particles on every one of those made the network look
+      // like it kept resetting itself while someone was just scrolling past.
+      let lastWidth = window.innerWidth;
       window.addEventListener('resize', () => {
+        if (window.innerWidth === lastWidth) return;
+        lastWidth = window.innerWidth;
         cancelAnimationFrame(raf);
         resizeCanvas();
         initParticles();
@@ -845,8 +852,14 @@ function lineIcon(name: string, size = 20, strokeWidth = 2) {
       }
       requestAnimationFrame(animate);
 
+      // Same mobile URL-bar-collapse issue as the network canvases: a
+      // height-only resize from scrolling shouldn't rebuild the whole scene
+      // mid-drag, which is what made the carousel jump/reset unpredictably.
       let resizeTimer;
+      let lastCarouselWidth = window.innerWidth;
       window.addEventListener('resize', () => {
+        if (window.innerWidth === lastCarouselWidth) return;
+        lastCarouselWidth = window.innerWidth;
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(build, 150);
       });

@@ -78,7 +78,7 @@ export function getStaticPaths() {
       'Built solo with Claude Sonnet 4.6 as daily AI pairing partner throughout the entire build',
     ],
     stack: ['React Native', 'Expo SDK 54', 'Node.js ESM', 'Express 5', 'PostgreSQL', 'Knex.js', 'Claude Sonnet 4.6'],
-    status: 'Closed testing on Google Play · family & friends only',
+    status: 'Closed testing on Google Play',
     image: '/images/echoesandpaths-hero.png',
     gallery: [
       '/images/Eches&Paths (11).jpeg',
@@ -102,13 +102,14 @@ export function getStaticPaths() {
     client: 'El Dulce de la Nonna · Live client project',
     title: 'Bakery e-commerce',
     tagline: 'Zero-friction ordering for an artisan alfajores bakery',
-    description: "An e-commerce site for an artisan alfajores bakery in Miami, built for Argentine expats. Every order is handcrafted to spec with a 48-hour advance window — and the whole flow runs on email, with no database or admin panel to maintain.",
+    description: "An e-commerce site for an artisan alfajores bakery in Miami, built for Argentine expats who miss the taste of the alfajores their grandmothers used to make. Every order is handcrafted to spec with a 48-hour advance window, and the whole flow runs on email — no database, no admin panel, no maintenance overhead for the client. Legal compliance sits front and center: allergen disclosure for Florida food-safety law, FDUTPA-compliant cancellation terms, and an FDBR-compliant privacy policy with explicit data rights. The architecture stays intentionally simple for where the business is today, with a clear upgrade path to Stripe checkout, automated order emails and a lightweight admin panel once order volume justifies the added complexity — built under Dual-Stack Studio with my development partner.",
     features: [
       'Email-first order flow — no DB persistence, two Mailables per order',
       '48-hour minimum advance window enforced server-side with Carbon',
-      'Allergen disclosure and FDUTPA/FDBR legal compliance built in',
-      'Server-rendered Blade monolith — zero client-side JS framework',
+      'Allergen disclosure and FDUTPA/FDBR legal compliance built in for Florida food-safety law',
+      'Server-rendered Blade monolith — zero client-side JS framework, fast by default',
       "Custom Tailwind v4 branding tokens matching the bakery's identity",
+      'Architected to scale on purpose — a clear path to Stripe checkout and an admin panel without a rewrite',
     ],
     stack: ['Laravel 13', 'PHP 8.3', 'Vite', 'Blade', 'Tailwind CSS v4', 'Carbon'],
     status: 'Live · active development',
@@ -216,7 +217,8 @@ const { project, otherProjects } = Astro.props;
       </div>
 
       <div class="pd-gallery-wrap">
-        <div class="pd-gallery">
+        <button type="button" class="pd-gallery-nav pd-gallery-prev" aria-label="Previous image">‹</button>
+        <div class="pd-gallery" id="pd-gallery">
           {(project.gallery ?? Array(6).fill(project.image)).map((src, i) => (
             <div class="pd-gallery-item">
               {src ? (
@@ -227,6 +229,7 @@ const { project, otherProjects } = Astro.props;
             </div>
           ))}
         </div>
+        <button type="button" class="pd-gallery-nav pd-gallery-next" aria-label="Next image">›</button>
       </div>
 
       <div class="pd-grid">
@@ -273,21 +276,25 @@ const { project, otherProjects } = Astro.props;
           <span class="pd-client">Keep exploring</span>
           <h2 class="pd-more-title">More projects</h2>
         </div>
-        <div class="pd-more-grid">
-          {otherProjects.map((p) => (
-            <a href={`/work/${p.slug}`} class="pd-more-card">
-              <div class="pd-more-card-media">
-                {p.image ? (
-                  <img src={p.image} alt={p.title} />
-                ) : (
-                  <div class="pd-shot-placeholder"><span>{p.title}</span></div>
-                )}
-              </div>
-              <span class="pd-more-card-client">{p.client}</span>
-              <h3 class="pd-more-card-title">{p.title}</h3>
-              <p class="pd-more-card-tagline">{p.tagline}</p>
-            </a>
-          ))}
+        <div class="pd-more-carousel-wrap">
+          <button type="button" class="pd-gallery-nav pd-more-prev" aria-label="Previous project">‹</button>
+          <div class="pd-more-grid" id="pd-more-grid">
+            {otherProjects.map((p) => (
+              <a href={`/work/${p.slug}`} class="pd-more-card">
+                <div class="pd-more-card-media">
+                  {p.image ? (
+                    <img src={p.image} alt={p.title} />
+                  ) : (
+                    <div class="pd-shot-placeholder"><span>{p.title}</span></div>
+                  )}
+                </div>
+                <span class="pd-more-card-client">{p.client}</span>
+                <h3 class="pd-more-card-title">{p.title}</h3>
+                <p class="pd-more-card-tagline">{p.tagline}</p>
+              </a>
+            ))}
+          </div>
+          <button type="button" class="pd-gallery-nav pd-more-next" aria-label="Next project">›</button>
         </div>
       </div>
 
@@ -336,7 +343,7 @@ const { project, otherProjects } = Astro.props;
       </div>
 
       <div class="footer-bottom">
-        <p>© 2026 Dual-Stack Studio. Independently operated — not a registered legal entity.</p>
+        <p>© 2026 Dual-Stack Studio. Independently operated.</p>
         <p>Built with Astro, deployed on Vercel. Site under active development.</p>
       </div>
 
@@ -566,6 +573,7 @@ const { project, otherProjects } = Astro.props;
     /* Bold horizontal-scrolling gallery strip — a filmstrip of extra shots,
        temporary placeholders until real screenshots are provided. */
     .pd-gallery-wrap {
+      position: relative;
       margin: 0 0 3.5rem 0;
     }
 
@@ -574,7 +582,73 @@ const { project, otherProjects } = Astro.props;
       gap: 1rem;
       overflow-x: auto;
       padding-bottom: 0.5rem;
-      scroll-snap-type: x mandatory;
+      /* proximity, not mandatory — "mandatory" fights a JS-driven smooth
+         scrollBy and can cancel/snap it right back to the start. */
+      scroll-snap-type: x proximity;
+      scrollbar-width: none;
+    }
+
+    .pd-gallery::-webkit-scrollbar {
+      display: none;
+    }
+
+    .pd-gallery-nav {
+      position: absolute;
+      top: calc(50% - 0.25rem);
+      transform: translateY(-50%);
+      z-index: 2;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      background: rgba(255, 255, 255, 0.92);
+      color: #0a0a0a;
+      font-size: 22px;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 10px 25px -10px rgba(0, 0, 0, 0.3);
+      transition: background 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .pd-gallery-nav:hover {
+      background: #ccff33;
+      transform: translateY(-50%) scale(1.08);
+    }
+
+    .pd-gallery-nav:disabled {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .pd-gallery-prev,
+    .pd-more-prev {
+      left: -14px;
+    }
+
+    .pd-gallery-next,
+    .pd-more-next {
+      right: -14px;
+    }
+
+    @media (max-width: 640px) {
+      .pd-gallery-nav {
+        width: 34px;
+        height: 34px;
+        font-size: 18px;
+      }
+
+      .pd-gallery-prev,
+      .pd-more-prev {
+        left: 4px;
+      }
+
+      .pd-gallery-next,
+      .pd-more-next {
+        right: 4px;
+      }
     }
 
     .pd-gallery-item {
@@ -727,14 +801,27 @@ const { project, otherProjects } = Astro.props;
       background: rgba(204, 255, 51, 0.28);
     }
 
+    /* .pd-more sits inside pd-main-bg's fade-to-#0a0a0a band at the bottom of
+       the page, so it needs light text like the footer below it — not the
+       dark palette the rest of the page uses on its light background. */
+    /* No boxed background here — this blends straight into pd-main-bg's own
+       fade-to-dark band, which is now sized (600px, see .pd-main-bg) to
+       reliably cover this whole section regardless of how much content
+       sits above it, so light text (here and on the cards below) always
+       lands on dark. An earlier version put card text as a scrim directly
+       on each thumbnail instead — dropped because several of these images
+       are logo/branding shots that already carry their own text, and the
+       two collided. */
     .pd-more {
       margin-top: 6rem;
-      padding-top: 4rem;
-      border-top: 1px solid rgba(0, 0, 0, 0.08);
     }
 
     .pd-more-head {
       margin-bottom: 2.5rem;
+    }
+
+    .pd-more-head .pd-client {
+      color: #6fa300;
     }
 
     .pd-more-title {
@@ -745,24 +832,38 @@ const { project, otherProjects } = Astro.props;
       margin: 0.5rem 0 0 0;
     }
 
+    .pd-more-carousel-wrap {
+      position: relative;
+    }
+
     .pd-more-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
+      display: flex;
+      gap: 1.5rem;
+      overflow-x: auto;
+      scroll-snap-type: x proximity;
+      padding-bottom: 0.5rem;
+      scrollbar-width: none;
+    }
+
+    .pd-more-grid::-webkit-scrollbar {
+      display: none;
     }
 
     .pd-more-card {
       display: block;
+      flex: 0 0 auto;
+      width: 300px;
       text-decoration: none;
       color: inherit;
+      scroll-snap-align: start;
     }
 
     .pd-more-card-media {
       border-radius: 14px;
       overflow: hidden;
       aspect-ratio: 4 / 3;
-      border: 1px solid rgba(0, 0, 0, 0.08);
-      box-shadow: 0 20px 50px -25px rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 20px 50px -25px rgba(0, 0, 0, 0.5);
       margin-bottom: 1rem;
       transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
     }
@@ -785,37 +886,37 @@ const { project, otherProjects } = Astro.props;
       font-weight: 700;
       letter-spacing: 0.5px;
       text-transform: uppercase;
-      color: #999;
-      margin-bottom: 0.4rem;
+      color: #ccc;
+      margin-bottom: 0.3rem;
       transition: color 0.3s ease;
     }
 
     .pd-more-card:hover .pd-more-card-client {
-      color: #6fa300;
+      color: #ccff33;
     }
 
     .pd-more-card-title {
-      font-size: 20px;
+      font-size: 19px;
       font-weight: 800;
-      color: #0a0a0a;
-      margin: 0 0 0.4rem 0;
+      color: #ffffff;
+      margin: 0 0 0.3rem 0;
       transition: color 0.3s ease;
     }
 
     .pd-more-card:hover .pd-more-card-title {
-      color: #5c8a00;
+      color: #ccff33;
     }
 
     .pd-more-card-tagline {
-      font-size: 13px;
-      color: #666;
+      font-size: 12.5px;
+      color: #ddd;
       margin: 0;
-      line-height: 1.5;
+      line-height: 1.4;
     }
 
     @media (max-width: 800px) {
-      .pd-more-grid {
-        grid-template-columns: 1fr;
+      .pd-more-card {
+        width: 240px;
       }
 
       .pd-grid {
@@ -1053,7 +1154,14 @@ const { project, otherProjects } = Astro.props;
       initParticles();
       tick();
 
+      // Mobile browsers fire `resize` when the URL bar collapses/expands on
+      // scroll — a height-only change with no user-initiated layout change.
+      // Re-randomizing particles on every one of those made the network look
+      // like it kept resetting itself while someone was just scrolling past.
+      let lastWidth = window.innerWidth;
       window.addEventListener('resize', () => {
+        if (window.innerWidth === lastWidth) return;
+        lastWidth = window.innerWidth;
         cancelAnimationFrame(raf);
         resizeCanvas();
         initParticles();
@@ -1064,16 +1172,75 @@ const { project, otherProjects } = Astro.props;
     initNetworkCluster('pd-network', '10, 10, 10');
     initNetworkCluster('pd-footer-network', '255, 255, 255');
 
-    // Hero video: plays on hover, pauses and rewinds to the start on leave.
+    // Hero video: plays on hover, pauses (but keeps its position) on leave —
+    // re-hovering resumes instead of restarting from the beginning.
     document.querySelectorAll('.pd-hover-video').forEach((video) => {
       const wrap = video.closest('.pd-media');
       if (!wrap) return;
       wrap.addEventListener('mouseenter', () => video.play());
-      wrap.addEventListener('mouseleave', () => {
-        video.pause();
-        video.currentTime = 0;
-      });
+      wrap.addEventListener('mouseleave', () => video.pause());
     });
+
+    // Shared carousel wiring: prev/next buttons scroll a track by one item +
+    // gap, disabling at either end. Uses a manual rAF-driven scroll instead
+    // of scrollTo(behavior:'smooth') because native smooth-scroll can get
+    // cancelled or fought by CSS scroll-snap depending on the browser,
+    // which made buttons look inert — driving scrollLeft by hand sidesteps
+    // that entirely.
+    function initCarousel(trackId, itemSelector, prevSelector, nextSelector) {
+      const track = document.getElementById(trackId);
+      const wrap = track?.parentElement;
+      if (!track || !wrap) return;
+      const prevBtn = wrap.querySelector(prevSelector);
+      const nextBtn = wrap.querySelector(nextSelector);
+      const firstItem = track.querySelector(itemSelector);
+      if (!prevBtn || !nextBtn || !firstItem) return;
+
+      function step() {
+        const raw = getComputedStyle(track).columnGap || getComputedStyle(track).gap || '16';
+        const gap = parseFloat(raw);
+        return firstItem.getBoundingClientRect().width + (Number.isFinite(gap) ? gap : 16);
+      }
+
+      function maxScroll() {
+        return track.scrollWidth - track.clientWidth;
+      }
+
+      function updateButtons() {
+        prevBtn.disabled = track.scrollLeft <= 2;
+        nextBtn.disabled = track.scrollLeft >= maxScroll() - 2;
+      }
+
+      let scrollAnim = null;
+      function animateTo(target) {
+        if (scrollAnim) cancelAnimationFrame(scrollAnim);
+        const start = track.scrollLeft;
+        const change = target - start;
+        const duration = 350;
+        const startTime = performance.now();
+        function tick(now) {
+          const t = Math.min(1, (now - startTime) / duration);
+          const eased = 1 - Math.pow(1 - t, 3);
+          track.scrollLeft = start + change * eased;
+          scrollAnim = t < 1 ? requestAnimationFrame(tick) : null;
+        }
+        scrollAnim = requestAnimationFrame(tick);
+      }
+
+      function scrollToward(direction) {
+        const target = Math.max(0, Math.min(maxScroll(), track.scrollLeft + direction * step()));
+        animateTo(target);
+      }
+
+      prevBtn.addEventListener('click', () => scrollToward(-1));
+      nextBtn.addEventListener('click', () => scrollToward(1));
+      track.addEventListener('scroll', updateButtons, { passive: true });
+      window.addEventListener('resize', updateButtons);
+      updateButtons();
+    }
+
+    initCarousel('pd-gallery', '.pd-gallery-item', '.pd-gallery-prev', '.pd-gallery-next');
+    initCarousel('pd-more-grid', '.pd-more-card', '.pd-more-prev', '.pd-more-next');
 
     // Lightbox: click any gallery/hero image to open it enlarged.
     (function () {
