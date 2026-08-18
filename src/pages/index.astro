@@ -123,6 +123,7 @@ function lineIcon(name: string, size = 20, strokeWidth = 2) {
        smoothly then holds still; replayed by JS whenever the title scrolls
        back into view (see IntersectionObserver below). */
     .hero-title-shine {
+      font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       color: #c8c8c8;
       background-image: linear-gradient(
         115deg,
@@ -489,8 +490,9 @@ function lineIcon(name: string, size = 20, strokeWidth = 2) {
     <div style="position: absolute; bottom: 10%; left: -10%; width: 450px; height: 450px; background: radial-gradient(circle, rgba(217, 70, 239, 0.05) 0%, transparent 70%); pointer-events: none;"></div>
 
     <div style="max-width: 1200px; margin: 0 auto 3.5rem; padding: 0 2rem; position: relative; z-index: 1;">
-      <div style="display: flex; align-items: baseline; gap: 1rem;">
-        <h2 class="work-heading" style="font-size: 42px; margin: 0; font-weight: 800; letter-spacing: -1.5px;">Our Projects</h2>
+      <span class="eyebrow" style="color: #6fa300; display: block; margin-bottom: 0.6rem;">Selected work</span>
+      <div style="display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap;">
+        <h2 class="work-heading" style="font-size: 42px; margin: 0; font-weight: 800; letter-spacing: -1.5px;">Our <span class="text-gradient">Projects</span></h2>
         <span class="work-count" style="font-size: 14px; font-weight: 500;">Click on the projects to see more</span>
       </div>
     </div>
@@ -546,6 +548,7 @@ function lineIcon(name: string, size = 20, strokeWidth = 2) {
     }
 
     .work-heading {
+      font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       color: #0a0a0a;
     }
 
@@ -968,8 +971,28 @@ function lineIcon(name: string, size = 20, strokeWidth = 2) {
   </section>
 
   <style>
+    /* Was flat #0a0a0a — same as the surrounding text, so it never actually
+       read as an accent. Real gradient text-fill now: black → lime → gray,
+       the site's own palette (not the magenta from a first pass, which
+       clashed). Space Grotesk for a bolder, more geometric accent than the
+       system-font body text around it. */
     .text-gradient {
-      color: #0a0a0a;
+      font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: linear-gradient(100deg, #0a0a0a 0%, #6fa300 55%, #8a8a8a 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    /* Same treatment for headings on dark sections (Contact/footer area) —
+       white → lime → light gray instead of black → lime → gray, since the
+       dark-end palette needs light stops to stay legible. */
+    .text-gradient-dark {
+      font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: linear-gradient(100deg, #ffffff 0%, #ccff33 55%, #aaaaaa 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
     }
 
     .services-intro {
@@ -981,6 +1004,7 @@ function lineIcon(name: string, size = 20, strokeWidth = 2) {
     }
 
     .services-intro-text h2 {
+      font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       font-size: clamp(32px, 4vw, 48px);
       margin: 0.75rem 0 1.25rem 0;
       font-weight: 800;
@@ -1205,7 +1229,7 @@ function lineIcon(name: string, size = 20, strokeWidth = 2) {
   <!-- Team -->
   <section id="team" style="position: relative; padding: 8rem 2rem; background: transparent; overflow: hidden;">
     <div style="max-width: 1200px; margin: 0 auto; position: relative; z-index: 1;">
-      <h2 style="font-size: 42px; margin: 0 0 1rem 0; font-weight: 800; letter-spacing: -1.5px; color: #0a0a0a;">Our team</h2>
+      <h2 style="font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 42px; margin: 0 0 1rem 0; font-weight: 800; letter-spacing: -1.5px; color: #0a0a0a;">Our <span class="text-gradient">team</span></h2>
       <p style="font-size: 15px; color: #666; margin: 0 0 3.5rem 0; max-width: 560px;">Two co-founders covering three disciplines — from first commit to production deploy.</p>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.75rem;">
 
@@ -1323,7 +1347,7 @@ function lineIcon(name: string, size = 20, strokeWidth = 2) {
 
     <div style="position: relative; z-index: 1; max-width: 640px; margin: 0 auto; text-align: center;">
       <span class="eyebrow" style="color: #ccff33;">Get in touch</span>
-      <h2 style="font-size: clamp(32px, 5vw, 52px); margin: 0.75rem 0 1.25rem; font-weight: 800; letter-spacing: -1.5px; color: #ffffff;">Ready to ship?</h2>
+      <h2 style="font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: clamp(32px, 5vw, 52px); margin: 0.75rem 0 1.25rem; font-weight: 800; letter-spacing: -1.5px; color: #ffffff;">Ready to <span class="text-gradient-dark">ship?</span></h2>
       <p style="font-size: 17px; color: #999; margin: 0 0 3rem 0; line-height: 1.8; font-weight: 300;">
         Tell us about your project and we'll get back to you within 1–2 business days.
       </p>
