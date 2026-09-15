@@ -7,11 +7,29 @@ const heroImg = '/images/journal/austria/austria-01.jpg';
 // Gallery excludes the hero shot so it isn't shown twice.
 const gallery = photos.filter((p) => p.src !== heroImg);
 
+// Videos are woven into the photo gallery (not a separate section).
 const videos = [
-  { src: '/videos/journal/austria-video-01.mp4', poster: '/images/journal/austria/video-01-poster.jpg', label: 'On the road · May 2026' },
-  { src: '/videos/journal/austria-video-02.mp4', poster: '/images/journal/austria/video-02-poster.jpg', label: 'The valley · May 2026' },
-  { src: '/videos/journal/austria-video-03.mp4', poster: '/images/journal/austria/video-03-poster.jpg', label: 'Late spring · May 2026' },
+  { type: 'video', orientation: 'portrait', src: '/videos/journal/austria-video-01.mp4', poster: '/images/journal/austria/video-01-poster.jpg', label: 'On the road · May 2026' },
+  { type: 'video', orientation: 'portrait', src: '/videos/journal/austria-video-02.mp4', poster: '/images/journal/austria/video-02-poster.jpg', label: 'The valley · May 2026' },
+  { type: 'video', orientation: 'portrait', src: '/videos/journal/austria-video-03.mp4', poster: '/images/journal/austria/video-03-poster.jpg', label: 'Late spring · May 2026' },
 ];
+
+// Spread the videos evenly through the photo stream so they sit among the photos.
+function weave(photoList: any[], videoList: any[]): any[] {
+  const list: any[] = photoList.map((p: any) => ({ type: 'photo', ...p }));
+  if (!videoList.length) return list;
+  const step = Math.max(1, Math.round(photoList.length / (videoList.length + 1)));
+  const out: any[] = [];
+  let vi = 0;
+  list.forEach((it: any, i: number) => {
+    out.push(it);
+    if ((i + 1) % step === 0 && vi < videoList.length) out.push(videoList[vi++]);
+  });
+  while (vi < videoList.length) out.push(videoList[vi++]);
+  return out;
+}
+
+const items = weave(gallery, videos);
 ---
 
 <Layout title="Austria — Journal — Dual-Stack Studio" description="Part one of our journal: a season in the Austrian countryside, from the first frost of March to late summer.">
@@ -48,41 +66,24 @@ const videos = [
     </div>
   </section>
 
-  <!-- ============ IN MOTION (video) ============ -->
-  <section class="au-section au-section--dark">
-    <div class="au-inner">
-      <span class="au-eyebrow au-eyebrow--light">In motion</span>
-      <h2 class="au-section-title au-section-title--light">The roads and the valley</h2>
-      <p class="au-section-lead au-section-lead--light">A few moving frames from those first months — the drive through the woods, the light over the valley, late spring settling in.</p>
-      <div class="au-video-grid">
-        {videos.map((v) => (
-          <figure class="au-video-item">
-            <video
-              src={v.src}
-              poster={v.poster}
-              controls
-              preload="none"
-              playsinline
-              muted
-            ></video>
-            <figcaption>{v.label}</figcaption>
-          </figure>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ THE SEASON (photo gallery) ============ -->
+  <!-- ============ THE SEASON (photos + video, woven together) ============ -->
   <section class="au-section">
     <div class="au-inner">
       <span class="au-eyebrow au-eyebrow--dark">The season, front to back</span>
       <h2 class="au-section-title">From frost to late summer</h2>
-      <p class="au-section-lead">Shot over spring and summer 2026, in order. Tap any frame to see it full size.</p>
+      <p class="au-section-lead">Shot over spring and summer 2026, in order. Tap any photo to see it full size.</p>
       <div class="au-masonry">
-        {gallery.map((img) => (
-          <div class="au-item">
-            <img src={img.src} alt={`Austrian countryside — ${img.label}`} loading="lazy" class="au-lightbox-trigger" />
-          </div>
+        {items.map((it) => (
+          it.type === 'video' ? (
+            <figure class={`au-masonry-video is-${it.orientation}`}>
+              <video src={it.src} poster={it.poster} controls preload="none" playsinline muted></video>
+              <figcaption>{it.label}</figcaption>
+            </figure>
+          ) : (
+            <div class="au-item">
+              <img src={it.src} alt={`Austrian countryside — ${it.label}`} loading="lazy" class="au-lightbox-trigger" />
+            </div>
+          )
         ))}
       </div>
     </div>
@@ -232,29 +233,27 @@ const videos = [
     .au-section-lead { font-size: 16px; color: var(--muted); max-width: 560px; margin: 0 0 2.5rem; line-height: 1.65; }
     .au-section-lead--light { color: rgba(255,255,255,0.72); }
 
-    /* ---------- VIDEO ---------- */
-    .au-video-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-      max-width: 900px;
+    /* ---------- VIDEO WOVEN INTO MASONRY ---------- */
+    .au-masonry-video {
+      break-inside: avoid;
+      margin: 0 0 1.25rem;
     }
-    .au-video-item { margin: 0; }
-    .au-video-item video {
+    .au-masonry-video video {
       width: 100%;
-      aspect-ratio: 9 / 16;
       object-fit: cover;
       border-radius: 6px;
       background: #000;
       display: block;
-      box-shadow: 0 16px 40px -20px rgba(0,0,0,0.6);
+      box-shadow: 0 14px 34px -18px rgba(0,0,0,0.6);
     }
-    .au-video-item figcaption {
-      margin-top: 0.75rem;
-      font-size: 13px;
+    .au-masonry-video.is-landscape video { aspect-ratio: 16 / 9; }
+    .au-masonry-video.is-portrait video { aspect-ratio: 9 / 16; }
+    .au-masonry-video figcaption {
+      margin-top: 0.55rem;
+      font-size: 12px;
       font-weight: 600;
-      letter-spacing: 0.4px;
-      color: rgba(255,255,255,0.6);
+      letter-spacing: 0.3px;
+      color: var(--muted);
     }
 
     /* ---------- MASONRY GALLERY ---------- */
@@ -329,13 +328,11 @@ const videos = [
     @media (max-width: 860px) {
       .au-header { padding: 1.25rem 1.5rem; }
       .au-masonry { column-count: 2; }
-      .au-video-grid { grid-template-columns: repeat(2, 1fr); }
       .au-footer-grid { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 560px) {
       .au-hero-content { padding: 5rem 1.5rem 3rem; }
       .au-masonry { column-count: 1; }
-      .au-video-grid { grid-template-columns: 1fr; max-width: 340px; }
       .au-footer-grid { grid-template-columns: 1fr; }
     }
   </style>
@@ -370,7 +367,7 @@ const videos = [
     (function () {
       const canHover = window.matchMedia('(hover: hover)').matches;
       if (!canHover) return; // touch devices keep tap-to-play via controls
-      document.querySelectorAll<HTMLVideoElement>('.au-video-item video').forEach((v) => {
+      document.querySelectorAll<HTMLVideoElement>('.au-masonry-video video').forEach((v) => {
         v.muted = true;
         v.addEventListener('mouseenter', () => {
           const p = v.play();
