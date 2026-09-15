@@ -1,0 +1,299 @@
+---
+import Layout from '../layouts/Layout.astro';
+import austriaData from '../data/journal-austria.json';
+import vietnamThailandData from '../data/journal-vietnam-thailand.json';
+import australiaData from '../data/journal-australia.json';
+
+const austriaCover = '/images/journal/austria/austria-01.jpg';
+const austriaCount = austriaData.photos.length;
+const vtCover = '/images/journal/vietnam-thailand/vt-24.jpg';
+const vtCount = vietnamThailandData.photos.length;
+const auCover = '/images/journal/australia/au-28.jpg';
+const auCount = australiaData.photos.length;
+
+const parts = [
+  {
+    href: '/journal/australia',
+    num: '01',
+    title: 'Australia',
+    meta: 'March – August 2025 · Brisbane & beyond',
+    blurb: 'Months on the other side of the world — a city on the river, rainforest at the edge of it, and the work in between.',
+    cover: auCover,
+    count: auCount,
+    live: true,
+  },
+  {
+    href: '/journal/vietnam-thailand',
+    num: '02',
+    title: 'Vietnam & Thailand',
+    meta: 'October 2025 · Southeast Asia',
+    blurb: 'Three weeks across Vietnam and Thailand — karst rivers and quiet water, then the noise and neon of the streets.',
+    cover: vtCover,
+    count: vtCount,
+    live: true,
+  },
+  {
+    href: '/journal/austria',
+    num: '03',
+    title: 'Austria',
+    meta: 'March – September 2026 · Upper Austria',
+    blurb: 'A season in the Austrian countryside, front to back — from the first frost of March to the long light of late summer.',
+    cover: austriaCover,
+    count: austriaCount,
+    live: true,
+  },
+];
+---
+
+<Layout title="Journal — Dual-Stack Studio" description="Part travelogue, part about-us: the story of who we are, told one place at a time. Starting with Australia.">
+
+  <header class="jn-header">
+    <a href="/" class="jn-brand">
+      <img src="/logo.svg" alt="Dual-Stack Studio" width="32" height="32" style="border-radius: 8px;" />
+      <span>Dual-Stack Studio</span>
+    </a>
+    <a href="/" class="jn-back">← Back home</a>
+  </header>
+
+  <!-- ============ INTRO / ABOUT ============ -->
+  <section class="jn-intro">
+    <div class="jn-inner jn-inner--narrow">
+      <span class="jn-eyebrow">The Journal</span>
+      <h1>Who we are, one place at a time.</h1>
+      <p class="jn-intro-lead">Dual-Stack Studio is a small content and storytelling studio. We help farms, guesthouses and local businesses in the Alps be seen — through photography, film, and the web presence behind it.</p>
+      <p class="jn-intro-body">This is the part where most studios write a tidy "about us." We'd rather show you how we see. So instead, we're telling our own story the way we'd tell yours — a place at a time, in the order it happened. Each part below is a chapter. We're starting from the beginning and working forward.</p>
+    </div>
+  </section>
+
+  <!-- ============ PARTS ============ -->
+  <section class="jn-parts">
+    <div class="jn-inner">
+      <div class="jn-parts-head">
+        <span class="jn-eyebrow jn-eyebrow--dark">The chapters</span>
+        <h2>Where the story goes</h2>
+      </div>
+
+      <div class="jn-parts-list">
+        {parts.map((p) => (
+          <a href={p.href} class="jn-part">
+            <div class="jn-part-media">
+              <img src={p.cover} alt={`${p.title} — cover`} loading="lazy" />
+              <span class="jn-part-num">Part {p.num}</span>
+            </div>
+            <div class="jn-part-body">
+              <h3>{p.title}</h3>
+              <p class="jn-part-meta">{p.meta}</p>
+              <p class="jn-part-blurb">{p.blurb}</p>
+              <span class="jn-part-link">Read this part · {p.count} photos →</span>
+            </div>
+          </a>
+        ))}
+
+        <!-- Placeholder for chapters still to come -->
+        <div class="jn-part jn-part--soon">
+          <div class="jn-part-body">
+            <span class="jn-part-num jn-part-num--static">Part 04</span>
+            <h3>Coming soon</h3>
+            <p class="jn-part-blurb">The next chapter is being written and edited. New parts land here as we finish them.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="jn-cta">
+    <div class="jn-inner jn-cta-inner">
+      <h2>Want your place told this way?</h2>
+      <p>The eye we bring to our own story is the one we bring to yours. Let's talk about what you're building.</p>
+      <a href="/#contact" class="jn-cta-btn">Get in touch</a>
+    </div>
+  </section>
+
+  <footer class="jn-footer">
+    <div class="jn-inner">
+      <div class="jn-footer-grid">
+        <div class="jn-footer-brand">
+          <div class="jn-footer-logo">
+            <img src="/logo.svg" alt="Dual-Stack Studio" width="28" height="28" style="border-radius: 7px;" />
+            Dual-Stack Studio
+          </div>
+          <p>We tell the story of small places doing real work — content, storytelling, and the web presence behind it.</p>
+        </div>
+        <div class="jn-footer-col">
+          <h4>Navigate</h4>
+          <a href="/#work">Work</a>
+          <a href="/#services">Services</a>
+          <a href="/#team">Team</a>
+          <a href="/journal">Journal</a>
+        </div>
+        <div class="jn-footer-col">
+          <h4>Legal</h4>
+          <a href="/privacy-policy">Privacy Policy</a>
+          <a href="/terms-of-service">Terms of Service</a>
+        </div>
+        <div class="jn-footer-col">
+          <h4>Get in touch</h4>
+          <a href="mailto:hello@dualstackstudio.com">hello@dualstackstudio.com</a>
+        </div>
+      </div>
+      <div class="jn-footer-bottom">
+        <p>© 2026 Dual-Stack Studio. Independently operated.</p>
+        <p>Built with Astro, deployed on Vercel.</p>
+      </div>
+    </div>
+  </footer>
+
+  <style>
+    :root {
+      --cream: #f7f2e7;
+      --cream-deep: #efe6d4;
+      --forest: #2f4436;
+      --forest-deep: #223226;
+      --terracotta: #c1663e;
+      --terracotta-deep: #a4522f;
+      --ink: #2b2420;
+      --muted: #6b6156;
+    }
+
+    .jn-inner { max-width: 1180px; margin: 0 auto; padding: 0 1.75rem; }
+    .jn-inner--narrow { max-width: 720px; }
+
+    .jn-eyebrow {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--terracotta-deep);
+      margin-bottom: 1rem;
+    }
+    .jn-eyebrow--dark { color: var(--terracotta-deep); }
+
+    /* ---------- HEADER ---------- */
+    .jn-header {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      padding: 1.25rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      background: rgba(247, 242, 231, 0.85);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(43,36,32,0.08);
+    }
+    .jn-brand { display: flex; align-items: center; gap: 10px; font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600; color: var(--ink); }
+    .jn-back { font-size: 14px; font-weight: 600; color: var(--muted); }
+    .jn-back:hover { color: var(--terracotta); }
+
+    /* ---------- INTRO ---------- */
+    .jn-intro { background: var(--cream); padding: 6rem 0 4rem; }
+    .jn-intro h1 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(36px, 6vw, 60px);
+      font-weight: 600;
+      letter-spacing: -1.5px;
+      line-height: 1.05;
+      color: var(--ink);
+      margin: 0 0 1.5rem;
+    }
+    .jn-intro-lead { font-size: clamp(18px, 2.5vw, 21px); line-height: 1.6; color: var(--ink); margin: 0 0 1.25rem; }
+    .jn-intro-body { font-size: 17px; line-height: 1.8; color: var(--muted); margin: 0; }
+
+    /* ---------- PARTS ---------- */
+    .jn-parts { background: var(--cream-deep); padding: 5rem 0; }
+    .jn-parts-head { margin-bottom: 2.5rem; }
+    .jn-parts-head h2 { font-family: 'Fraunces', serif; font-size: clamp(26px, 3.5vw, 36px); font-weight: 600; letter-spacing: -1px; color: var(--ink); margin: 0; }
+
+    .jn-parts-list { display: grid; gap: 1.75rem; }
+
+    .jn-part {
+      display: grid;
+      grid-template-columns: 42% 1fr;
+      background: var(--cream);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 18px 44px -28px rgba(43,36,32,0.4);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .jn-part:hover { transform: translateY(-3px); box-shadow: 0 26px 56px -28px rgba(43,36,32,0.5); }
+
+    .jn-part-media { position: relative; min-height: 260px; overflow: hidden; }
+    .jn-part-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .jn-part:hover .jn-part-media img { transform: scale(1.04); }
+    .jn-part-num {
+      position: absolute;
+      top: 1rem; left: 1rem;
+      background: rgba(34, 50, 38, 0.85);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 6px 12px;
+      border-radius: 100px;
+      backdrop-filter: blur(4px);
+    }
+
+    .jn-part-body { padding: 2.25rem 2.25rem; display: flex; flex-direction: column; justify-content: center; }
+    .jn-part-body h3 { font-family: 'Fraunces', serif; font-size: clamp(24px, 3vw, 32px); font-weight: 600; color: var(--ink); margin: 0 0 0.5rem; letter-spacing: -0.5px; }
+    .jn-part-meta { font-size: 13px; font-weight: 600; letter-spacing: 0.4px; text-transform: uppercase; color: var(--terracotta-deep); margin: 0 0 1rem; }
+    .jn-part-blurb { font-size: 16px; line-height: 1.7; color: var(--muted); margin: 0 0 1.5rem; }
+    .jn-part-link { font-size: 14px; font-weight: 700; color: var(--forest); }
+    .jn-part:hover .jn-part-link { color: var(--terracotta); }
+
+    /* placeholder card */
+    .jn-part--soon { grid-template-columns: 1fr; background: transparent; border: 1.5px dashed rgba(43,36,32,0.22); box-shadow: none; }
+    .jn-part--soon:hover { transform: none; box-shadow: none; }
+    .jn-part--soon .jn-part-body { padding: 2.5rem; align-items: flex-start; }
+    .jn-part-num--static {
+      position: static;
+      display: inline-block;
+      background: rgba(43,36,32,0.08);
+      color: var(--muted);
+      backdrop-filter: none;
+      margin-bottom: 0.9rem;
+    }
+    .jn-part--soon h3 { color: var(--muted); }
+
+    /* ---------- CTA ---------- */
+    .jn-cta { background: var(--forest); padding: 5.5rem 0; text-align: center; }
+    .jn-cta-inner { max-width: 560px; }
+    .jn-cta h2 { font-family: 'Fraunces', serif; font-size: clamp(26px, 3.5vw, 34px); font-weight: 600; color: #fff; margin: 0 0 0.9rem; }
+    .jn-cta p { font-size: 15px; color: rgba(255,255,255,0.75); margin: 0 0 2rem; line-height: 1.6; }
+    .jn-cta-btn {
+      display: inline-block;
+      background: var(--terracotta);
+      color: #fff;
+      padding: 14px 32px;
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 600;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .jn-cta-btn:hover { background: var(--terracotta-deep); transform: translateY(-1px); }
+
+    /* ---------- FOOTER ---------- */
+    .jn-footer { background: var(--forest-deep); color: rgba(255,255,255,0.7); padding: 5rem 0 2.5rem; }
+    .jn-footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 2.5rem; padding-bottom: 3rem; margin-bottom: 2.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .jn-footer-logo { display: flex; align-items: center; gap: 10px; font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600; color: #fff; margin-bottom: 1rem; }
+    .jn-footer-brand p { font-size: 14px; color: rgba(255,255,255,0.65); line-height: 1.7; margin: 0; max-width: 300px; }
+    .jn-footer-col h4 { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 1rem; }
+    .jn-footer-col a { display: block; font-size: 14px; color: rgba(255,255,255,0.65); margin-bottom: 0.6rem; }
+    .jn-footer-col a:hover { color: var(--terracotta); }
+    .jn-footer-bottom { display: flex; justify-content: space-between; font-size: 12px; color: rgba(255,255,255,0.4); flex-wrap: wrap; gap: 0.5rem; }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 780px) {
+      .jn-header { padding: 1rem 1.5rem; }
+      .jn-part { grid-template-columns: 1fr; }
+      .jn-part-media { min-height: 220px; }
+      .jn-footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 520px) {
+      .jn-footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+
+</Layout>

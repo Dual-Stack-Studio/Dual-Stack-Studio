@@ -1,0 +1,292 @@
+{
+  "photos": [
+    {
+      "src": "/images/journal/austria/austria-01.jpg",
+      "date": "2026-03-05",
+      "label": "March 5, 2026",
+      "orientation": "landscape",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "src": "/images/journal/austria/austria-02.jpg",
+      "date": "2026-03-06",
+      "label": "March 6, 2026",
+      "orientation": "landscape",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "src": "/images/journal/austria/austria-03.jpg",
+      "date": "2026-04-02",
+      "label": "April 2, 2026",
+      "orientation": "landscape",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "src": "/images/journal/austria/austria-04.jpg",
+      "date": "2026-04-02",
+      "label": "April 2, 2026",
+      "orientation": "landscape",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "src": "/images/journal/austria/austria-05.jpg",
+      "date": "2026-04-10",
+      "label": "April 10, 2026",
+      "orientation": "landscape",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "src": "/images/journal/austria/austria-06.jpg",
+      "date": "2026-04-17",
+      "label": "April 17, 2026",
+      "orientation": "landscape",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "src": "/images/journal/austria/austria-07.jpg",
+      "date": "2026-05-08",
+      "label": "May 8, 2026",
+      "orientation": "landscape",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "src": "/images/journal/austria/austria-08.jpg",
+      "date": "2026-05-22",
+      "label": "May 22, 2026",
+      "orientation": "landscape",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "src": "/images/journal/austria/austria-09.jpg",
+      "date": "2026-06-14",
+      "label": "June 14, 2026",
+      "orientation": "landscape",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "src": "/images/journal/austria/austria-10.jpg",
+      "date": "2026-07-03",
+      "label": "July 3, 2026",
+      "orientation": "landscape",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "src": "/images/journal/austria/austria-11.jpg",
+      "date": "2026-07-07",
+      "label": "July 7, 2026",
+      "orientation": "landscape",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "src": "/images/journal/austria/austria-12.jpg",
+      "date": "2026-07-07",
+      "label": "July 7, 2026",
+      "orientation": "landscape",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "src": "/images/journal/austria/austria-13.jpg",
+      "date": "2026-07-11",
+      "label": "July 11, 2026",
+      "orientation": "portrait",
+      "w": 900,
+      "h": 1600
+    },
+    {
+      "src": "/images/journal/austria/austria-14.jpg",
+      "date": "2026-07-11",
+      "label": "July 11, 2026",
+      "orientation": "landscape",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "src": "/images/journal/austria/austria-15.jpg",
+      "date": "2026-07-11",
+      "label": "July 11, 2026",
+      "orientation": "landscape",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "src": "/images/journal/austria/austria-16.jpg",
+      "date": "2026-07-19",
+      "label": "July 19, 2026",
+      "orientation": "landscape",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "src": "/images/journal/austria/austria-17.jpg",
+      "date": "2026-07-19",
+      "label": "July 19, 2026",
+      "orientation": "landscape",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "src": "/images/journal/austria/austria-18.jpg",
+      "date": "2026-07-25",
+      "label": "July 25, 2026",
+      "orientation": "portrait",
+      "w": 900,
+      "h": 1600
+    },
+    {
+      "src": "/images/journal/austria/austria-19.jpg",
+      "date": "2026-07-29",
+      "label": "July 29, 2026",
+      "orientation": "landscape",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "src": "/images/journal/austria/austria-20.jpg",
+      "date": "2026-08-08",
+      "label": "August 8, 2026",
+      "orientation": "landscape",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "src": "/images/journal/austria/austria-21.jpg",
+      "date": "2026-08-08",
+      "label": "August 8, 2026",
+      "orientation": "portrait",
+      "w": 900,
+      "h": 1600
+    },
+    {
+      "src": "/images/journal/austria/austria-22.jpg",
+      "date": "2026-08-30",
+      "label": "August 30, 2026",
+      "orientation": "landscape",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "src": "/images/journal/austria/austria-23.jpg",
+      "date": "2026-08-30",
+      "label": "August 30, 2026",
+      "orientation": "landscape",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "src": "/images/journal/austria/austria-24.jpg",
+      "date": "2026-08-30",
+      "label": "August 30, 2026",
+      "orientation": "landscape",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "src": "/images/journal/austria/austria-25.jpg",
+      "date": "2026-08-31",
+      "label": "August 31, 2026",
+      "orientation": "landscape",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "src": "/images/journal/austria/austria-26.jpg",
+      "date": "2026-08-31",
+      "label": "August 31, 2026",
+      "orientation": "portrait",
+      "w": 900,
+      "h": 1600
+    },
+    {
+      "src": "/images/journal/austria/austria-27.jpg",
+      "date": "2026-08-31",
+      "label": "August 31, 2026",
+      "orientation": "portrait",
+      "w": 900,
+      "h": 1600
+    },
+    {
+      "src": "/images/journal/austria/austria-28.jpg",
+      "date": "2026-09-01",
+      "label": "September 1, 2026",
+      "orientation": "landscape",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "src": "/images/journal/austria/austria-29.jpg",
+      "date": "2026-09-01",
+      "label": "September 1, 2026",
+      "orientation": "landscape",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "src": "/images/journal/austria/austria-30.jpg",
+      "date": "2026-09-01",
+      "label": "September 1, 2026",
+      "orientation": "landscape",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "src": "/images/journal/austria/austria-31.jpg",
+      "date": "2026-09-01",
+      "label": "September 1, 2026",
+      "orientation": "portrait",
+      "w": 900,
+      "h": 1600
+    },
+    {
+      "src": "/images/journal/austria/austria-32.jpg",
+      "date": "2026-09-01",
+      "label": "September 1, 2026",
+      "orientation": "landscape",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "src": "/images/journal/austria/austria-33.jpg",
+      "date": "2026-09-02",
+      "label": "September 2, 2026",
+      "orientation": "portrait",
+      "w": 1200,
+      "h": 1600
+    },
+    {
+      "src": "/images/journal/austria/austria-34.jpg",
+      "date": "2026-09-10",
+      "label": "September 10, 2026",
+      "orientation": "portrait",
+      "w": 900,
+      "h": 1600
+    },
+    {
+      "src": "/images/journal/austria/austria-35.jpg",
+      "date": "2026-09-10",
+      "label": "September 10, 2026",
+      "orientation": "portrait",
+      "w": 900,
+      "h": 1600
+    },
+    {
+      "src": "/images/journal/austria/austria-36.jpg",
+      "date": "2026-09-12",
+      "label": "September 12, 2026",
+      "orientation": "landscape",
+      "w": 1600,
+      "h": 900
+    }
+  ]
+}

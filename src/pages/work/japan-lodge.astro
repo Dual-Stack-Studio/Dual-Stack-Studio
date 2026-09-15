@@ -1,0 +1,327 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const lodgeGallery = [
+  { src: '/images/japan-lodge/lodge-hero-mountain-cabin.jpg', alt: 'A conical mountain peak above a dark mountain cabin' },
+  { src: '/images/japan-lodge/lodge-mountain-night-stars.jpg', alt: 'The same mountain peak at night under a field of stars' },
+  { src: '/images/japan-lodge/lodge-sunset-coast.jpg', alt: 'Sunset over a rocky coastline with waves' },
+  { src: '/images/japan-lodge/lodge-mountain-range-birch.jpg', alt: 'A wide mountain range seen through birch trees' },
+  { src: '/images/japan-lodge/lodge-mountain-range-muted.jpg', alt: 'A wide mountain range in muted morning tones' },
+  { src: '/images/japan-lodge/lodge-lake-pagoda-snow.jpg', alt: 'A lake with a red pagoda and footprints in the snow' },
+  { src: '/images/japan-lodge/lodge-seagull-dock.jpg', alt: 'A seagull resting on a weathered dock post over a lake' },
+  { src: '/images/japan-lodge/lodge-sunset-lake.jpg', alt: 'Sunset over still water with a lamppost silhouette' },
+  { src: '/images/japan-lodge/lodge-monument-mountain.jpg', alt: 'A stone monument with a mountain in the background' },
+  { src: '/images/japan-lodge/lodge-night-sky-trees.jpg', alt: 'A warm glow in the night sky above tree silhouettes' },
+  { src: '/images/japan-lodge/lodge-canal-seagulls.jpg', alt: 'A canal-side warehouse building with seagulls on a lamppost' },
+  { src: '/images/japan-lodge/lodge-foggy-window.jpg', alt: 'A foggy window looking out over a quiet street' },
+];
+
+const restaurantGallery = [
+  { src: '/images/japan-lodge/restaurant-tuna-slicing.jpg', alt: 'A chef slicing fresh tuna sashimi' },
+  { src: '/images/japan-lodge/restaurant-plating-hand.jpg', alt: 'A hand arranging a plate of sashimi and abalone' },
+  { src: '/images/japan-lodge/restaurant-abalone-shell.jpg', alt: 'Abalone served in its shell over shredded daikon' },
+  { src: '/images/japan-lodge/restaurant-salad-sake.jpg', alt: 'A fresh salad plated with sake bottles in the background' },
+  { src: '/images/japan-lodge/restaurant-noodles-chopsticks.jpg', alt: 'Chopsticks lifting noodles over a strainer, beside a fresh salad' },
+  { src: '/images/japan-lodge/restaurant-chef-prep.jpg', alt: 'A chef preparing shellfish at a table set for service' },
+];
+---
+
+<Layout title="A Lodge in Japan — Dual-Stack Studio" description="Photography from a mountain lodge and its restaurant in the Japanese Alps.">
+
+  <header id="jl-header" class="jl-header">
+    <a href="/" class="jl-brand">
+      <img src="/logo.svg" alt="Dual-Stack Studio" width="32" height="32" style="border-radius: 8px;" />
+      <span>Dual-Stack Studio</span>
+    </a>
+    <a href="/#work" class="jl-back">← Back to work</a>
+  </header>
+
+  <section class="jl-hero">
+    <img class="jl-hero-img" src="/images/japan-lodge/lodge-hero-mountain-cabin.jpg" alt="A conical mountain peak above a dark mountain cabin" />
+    <div class="jl-hero-scrim"></div>
+    <div class="jl-hero-content">
+      <span class="jl-eyebrow">Photography · Personal archive</span>
+      <h1>A Lodge in Japan</h1>
+      <p>Years ago, before Dual-Stack Studio existed, we spent time photographing a mountain lodge and its restaurant deep in the Japanese Alps — the peaks around it, the quiet in-between moments, and the food coming out of the kitchen. It's the kind of storytelling we now do for small places everywhere.</p>
+    </div>
+  </section>
+
+  <section class="jl-section">
+    <div class="jl-inner">
+      <span class="jl-eyebrow jl-eyebrow--dark">The lodge &amp; mountains</span>
+      <h2 class="jl-section-title">Where the peaks meet the sky</h2>
+      <p class="jl-section-lead">A lodge lives and dies by its setting. These are the mountains, the water, and the quiet hours that made this place worth the trip.</p>
+      <div class="jl-masonry">
+        {lodgeGallery.map((img) => (
+          <div class="jl-item">
+            <img src={img.src} alt={img.alt} loading="lazy" class="jl-lightbox-trigger" />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="jl-section jl-section--alt">
+    <div class="jl-inner">
+      <span class="jl-eyebrow jl-eyebrow--dark">The restaurant</span>
+      <h2 class="jl-section-title">What came out of the kitchen</h2>
+      <p class="jl-section-lead">The lodge's restaurant, shot the same way we'd shoot it today — the craft, the plating, the ingredients, up close.</p>
+      <div class="jl-masonry">
+        {restaurantGallery.map((img) => (
+          <div class="jl-item">
+            <img src={img.src} alt={img.alt} loading="lazy" class="jl-lightbox-trigger" />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="jl-cta">
+    <div class="jl-inner jl-cta-inner">
+      <h2>Have a place worth telling a story about?</h2>
+      <p>This is exactly the kind of work we do for farms, guesthouses and small local businesses today.</p>
+      <a href="/#contact" class="jl-cta-btn">Let's talk</a>
+    </div>
+  </section>
+
+  <footer class="jl-footer">
+    <div class="jl-inner">
+      <div class="jl-footer-grid">
+        <div class="jl-footer-brand">
+          <div class="jl-footer-logo">
+            <img src="/logo.svg" alt="Dual-Stack Studio" width="28" height="28" style="border-radius: 7px;" />
+            Dual-Stack Studio
+          </div>
+          <p>We tell the story of small places doing real work — content, storytelling, and the web presence behind it.</p>
+        </div>
+
+        <div class="jl-footer-col">
+          <h4>Navigate</h4>
+          <a href="/#work">Work</a>
+          <a href="/#services">Services</a>
+          <a href="/#team">Team</a>
+          <a href="/journal">Journal</a>
+        </div>
+
+        <div class="jl-footer-col">
+          <h4>Legal</h4>
+          <a href="/privacy-policy">Privacy Policy</a>
+          <a href="/terms-of-service">Terms of Service</a>
+        </div>
+
+        <div class="jl-footer-col">
+          <h4>Get in touch</h4>
+          <a href="mailto:hello@dualstackstudio.com">hello@dualstackstudio.com</a>
+        </div>
+      </div>
+      <div class="jl-footer-bottom">
+        <p>© 2026 Dual-Stack Studio. Independently operated.</p>
+        <p>Built with Astro, deployed on Vercel.</p>
+      </div>
+    </div>
+  </footer>
+
+  <div id="jl-lightbox" class="jl-lightbox" hidden>
+    <button type="button" class="jl-lightbox-close" id="jl-lightbox-close" aria-label="Close">×</button>
+    <img src="" alt="" class="jl-lightbox-img" id="jl-lightbox-img" />
+  </div>
+
+  <style>
+    :root {
+      --cream: #f7f2e7;
+      --cream-deep: #efe6d4;
+      --forest: #2f4436;
+      --forest-deep: #223226;
+      --terracotta: #c1663e;
+      --terracotta-deep: #a4522f;
+      --ink: #2b2420;
+      --muted: #6b6156;
+    }
+
+    .jl-inner { max-width: 1180px; margin: 0 auto; padding: 0 1.75rem; }
+
+    .jl-eyebrow {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 0.75rem;
+    }
+    .jl-eyebrow--dark { color: var(--terracotta-deep); }
+
+    /* ---------- HEADER ---------- */
+    .jl-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 1.5rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      background: rgba(34, 50, 38, 0.55);
+      backdrop-filter: blur(8px);
+    }
+    .jl-brand { display: flex; align-items: center; gap: 10px; font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600; color: #fff; }
+    .jl-back { font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.9); }
+    .jl-back:hover { color: var(--terracotta); }
+
+    /* ---------- HERO ---------- */
+    .jl-hero {
+      position: relative;
+      min-height: 72vh;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+      background: var(--forest-deep);
+    }
+    .jl-hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .jl-hero-scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,24,16,0.35) 0%, rgba(20,24,16,0.35) 40%, rgba(20,24,16,0.9) 100%); }
+    .jl-hero-content { position: relative; z-index: 5; max-width: 720px; padding: 6rem 2.5rem 4rem; }
+    .jl-hero-content h1 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(36px, 6vw, 60px);
+      font-weight: 600;
+      letter-spacing: -1.5px;
+      color: #fff;
+      margin: 0 0 1rem;
+      line-height: 1.08;
+    }
+    .jl-hero-content p { font-size: 16px; line-height: 1.7; color: rgba(255,255,255,0.85); margin: 0; }
+
+    /* ---------- GALLERY SECTIONS ---------- */
+    .jl-section { padding: 5.5rem 0; background: var(--cream); }
+    .jl-section--alt { background: var(--cream-deep); }
+
+    .jl-section-title {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(26px, 3.5vw, 36px);
+      font-weight: 600;
+      letter-spacing: -1px;
+      color: var(--ink);
+      margin: 0 0 0.75rem;
+    }
+    .jl-section-lead { font-size: 16px; color: var(--muted); max-width: 560px; margin: 0 0 2.5rem; line-height: 1.65; }
+
+    .jl-masonry {
+      column-count: 3;
+      column-gap: 1.25rem;
+    }
+    .jl-item {
+      break-inside: avoid;
+      margin-bottom: 1.25rem;
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 12px 30px -18px rgba(43,36,32,0.35);
+    }
+    .jl-item img {
+      display: block;
+      width: 100%;
+      height: auto;
+      cursor: zoom-in;
+      transition: transform 0.5s ease;
+    }
+    .jl-item:hover img { transform: scale(1.03); }
+
+    /* ---------- CTA ---------- */
+    .jl-cta { background: var(--forest); padding: 5.5rem 0; text-align: center; }
+    .jl-cta-inner { max-width: 560px; }
+    .jl-cta h2 { font-family: 'Fraunces', serif; font-size: clamp(26px, 3.5vw, 34px); font-weight: 600; color: #fff; margin: 0 0 0.9rem; }
+    .jl-cta p { font-size: 15px; color: rgba(255,255,255,0.75); margin: 0 0 2rem; line-height: 1.6; }
+    .jl-cta-btn {
+      display: inline-block;
+      background: var(--terracotta);
+      color: #fff;
+      padding: 14px 32px;
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 600;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .jl-cta-btn:hover { background: var(--terracotta-deep); transform: translateY(-1px); }
+
+    /* ---------- LIGHTBOX ---------- */
+    .jl-lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(20, 16, 12, 0.92);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 2rem;
+    }
+    .jl-lightbox[hidden] { display: none; }
+    .jl-lightbox-img { max-width: 100%; max-height: 100%; border-radius: 6px; box-shadow: 0 30px 80px -20px rgba(0,0,0,0.6); }
+    .jl-lightbox-close {
+      position: absolute;
+      top: 24px;
+      right: 28px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      font-size: 24px;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .jl-lightbox-close:hover { background: rgba(193,102,62,0.4); border-color: var(--terracotta); }
+
+    /* ---------- FOOTER ---------- */
+    .jl-footer { background: var(--forest-deep); color: rgba(255,255,255,0.7); padding: 5rem 0 2.5rem; }
+    .jl-footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 2.5rem; padding-bottom: 3rem; margin-bottom: 2.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .jl-footer-logo { display: flex; align-items: center; gap: 10px; font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600; color: #fff; margin-bottom: 1rem; }
+    .jl-footer-brand p { font-size: 14px; color: rgba(255,255,255,0.65); line-height: 1.7; margin: 0; max-width: 300px; }
+    .jl-footer-col h4 { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 1rem; }
+    .jl-footer-col a { display: block; font-size: 14px; color: rgba(255,255,255,0.65); margin-bottom: 0.6rem; }
+    .jl-footer-col a:hover { color: var(--terracotta); }
+    .jl-footer-bottom { display: flex; justify-content: space-between; font-size: 12px; color: rgba(255,255,255,0.4); flex-wrap: wrap; gap: 0.5rem; }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 860px) {
+      .jl-header { padding: 1.25rem 1.5rem; }
+      .jl-masonry { column-count: 2; }
+      .jl-footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 560px) {
+      .jl-hero-content { padding: 5rem 1.5rem 3rem; }
+      .jl-masonry { column-count: 1; }
+      .jl-footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <script>
+    (function () {
+      const lightbox = document.getElementById('jl-lightbox');
+      const lightboxImg = document.getElementById('jl-lightbox-img') as HTMLImageElement | null;
+      const closeBtn = document.getElementById('jl-lightbox-close');
+      if (!lightbox || !lightboxImg) return;
+
+      function open(src: string, alt: string) {
+        lightboxImg!.src = src;
+        lightboxImg!.alt = alt;
+        lightbox!.hidden = false;
+      }
+      function close() {
+        lightbox!.hidden = true;
+        lightboxImg!.src = '';
+      }
+
+      document.querySelectorAll('.jl-lightbox-trigger').forEach((img) => {
+        img.addEventListener('click', () => open((img as HTMLImageElement).currentSrc || (img as HTMLImageElement).src, (img as HTMLImageElement).alt));
+      });
+
+      closeBtn?.addEventListener('click', close);
+      lightbox.addEventListener('click', (e) => { if (e.target === lightbox) close(); });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !lightbox!.hidden) close(); });
+    })();
+  </script>
+
+</Layout>
