@@ -27,6 +27,7 @@ import Layout from '../layouts/Layout.astro';
 
     <!-- WEB & FULL-STACK -->
     <a href="/web" class="door-half door-half--web" id="half-web" aria-label="Enter Web & Full-Stack">
+      <div class="door-half-bg" style="background-image: url('/images/web-hero-bg.svg');"></div>
       <div class="door-scrim door-scrim--web"></div>
       <div class="door-content">
         <span class="door-eyebrow door-eyebrow--lime">Department 02</span>
@@ -142,8 +143,8 @@ import Layout from '../layouts/Layout.astro';
     }
     .door-scrim--web {
       background:
-        radial-gradient(120% 80% at 80% 0%, rgba(204,255,51,0.12) 0%, rgba(204,255,51,0) 55%),
-        linear-gradient(180deg, rgba(10,10,10,0.2) 0%, rgba(10,10,10,0.65) 100%);
+        radial-gradient(58% 55% at 50% 52%, rgba(10,10,10,0.5) 0%, rgba(10,10,10,0) 78%),
+        linear-gradient(180deg, rgba(10,10,10,0.12) 0%, rgba(10,10,10,0.55) 100%);
     }
     .door-half--web::before {
       content: '';
@@ -297,12 +298,15 @@ import Layout from '../layouts/Layout.astro';
     .door-handle.lean-creative .door-handle-hint { color: #fff; }
     .door-handle.lean-web .door-handle-hint { color: var(--lime); }
     .door.is-grabbing .door-handle-hint { opacity: 0; }
-    /* gentle idle pulse to signal it's draggable */
-    @keyframes doorNudge {
-      0%, 100% { transform: translateX(0); }
-      50% { transform: translateX(5px); }
+    /* attention pulse — an expanding ring that pings to invite the drag.
+       Uses box-shadow only (no transform) so it works in both the horizontal
+       desktop layout and the rotated vertical mobile handle. */
+    @keyframes doorPulse {
+      0%   { box-shadow: 0 14px 38px -12px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,255,255,0.25), 0 0 0 0 rgba(255,255,255,0.55); }
+      70%  { box-shadow: 0 14px 38px -12px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,255,255,0.25), 0 0 0 16px rgba(255,255,255,0); }
+      100% { box-shadow: 0 14px 38px -12px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,255,255,0.25), 0 0 0 0 rgba(255,255,255,0); }
     }
-    .door-handle-grip { animation: doorNudge 2.6s ease-in-out infinite; }
+    .door-handle-grip { animation: doorPulse 1.9s ease-out infinite; }
     .door.is-grabbing .door-handle-grip, .door.is-animating .door-handle-grip { animation: none; }
 
     /* ---------- COMMIT CURTAIN ---------- */
@@ -331,15 +335,15 @@ import Layout from '../layouts/Layout.astro';
       .door-content { padding: 1.25rem 1.5rem; }
       .door-eyebrow { margin-bottom: 0.5rem; }
       .door-title { font-size: clamp(28px, 8vw, 40px); margin-bottom: 0.6rem; }
-      .door-desc { font-size: 13.5px; margin-bottom: 1rem; max-width: 340px; }
-      .desc-long { display: none; }
-      .desc-short { display: inline; }
-      .door-cta { padding: 11px 20px; font-size: 13px; }
+      /* buttons are hidden on mobile (tap the panel or drag the handle), which
+         frees room for the full description text */
+      .door-desc { font-size: 13.5px; margin-bottom: 0; max-width: 360px; }
+      .door-cta { display: none; }
       /* keep the top panel's content clear of the brand */
       .door-half--creative .door-content { padding-top: 4rem; }
-      /* rotate the grip so its arrows point up / down for the vertical drag
-         (disable the idle nudge, which animates transform and would override it) */
-      .door-handle-grip { animation: none; transform: rotate(90deg); }
+      /* rotate the grip so its arrows point up / down for the vertical drag.
+         The attention pulse is box-shadow only, so it keeps running here too. */
+      .door-handle-grip { transform: rotate(90deg); }
       .door-handle.lean-creative .door-handle-grip,
       .door-handle.lean-web .door-handle-grip { transform: rotate(90deg) scale(1.08); }
     }
