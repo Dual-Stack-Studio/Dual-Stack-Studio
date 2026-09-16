@@ -1,665 +1,526 @@
 ---
 import Layout from '../layouts/Layout.astro';
-
-// Minimal line-icon set (Lucide-style), used for team role badges
-const lineIcons: Record<string, string> = {
-  laptop: '<path d="M18 5a2 2 0 0 1 2 2v8.526a2 2 0 0 0 .212.897l1.068 2.127a1 1 0 0 1-.9 1.45H3.62a1 1 0 0 1-.9-1.45l1.068-2.127A2 2 0 0 0 4 15.526V7a2 2 0 0 1 2-2z" /><path d="M20.054 15.987H3.946" />',
-  design: '<path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z" /><circle cx="13.5" cy="6.5" r=".5" fill="currentColor" /><circle cx="17.5" cy="10.5" r=".5" fill="currentColor" /><circle cx="6.5" cy="12.5" r=".5" fill="currentColor" /><circle cx="8.5" cy="7.5" r=".5" fill="currentColor" />',
-  camera: '<path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" /><circle cx="12" cy="13" r="3" />',
-  globe: '<circle cx="12" cy="12" r="10" /><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" /><path d="M2 12h20" />',
-};
-
-function lineIcon(name: string, size = 32, strokeWidth = 1.6) {
-  return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${strokeWidth}" stroke-linecap="round" stroke-linejoin="round">${lineIcons[name] ?? ''}</svg>`;
-}
-
-// Hero image — our own photography from the Austrian Alps.
-const HERO_IMG = '/images/hero-alps.jpg';
 ---
 
-<Layout title="Dual-Stack Studio — We tell the story of small places doing real work">
+<Layout title="Dual-Stack Studio — Creative & Web" description="One team, two crafts. Slide to choose a department: Creative & Marketing, or Web & Full-Stack.">
 
-  <!-- ============ HERO ============ -->
-  <section class="hero">
-    <img class="hero-img" src={HERO_IMG} alt="Austrian Alps reflected in a still mountain lake" />
-    <div class="hero-scrim"></div>
+  <div class="door" id="door">
 
-    <header id="site-header" class="site-header">
-      <a href="/" class="brand">
-        <img src="/logo.svg" alt="Dual-Stack Studio" width="34" height="34" style="border-radius: 8px;" />
-        <span>Dual-Stack Studio</span>
-      </a>
-      <nav class="desktop-nav">
-        <a href="#work">Work</a>
-        <a href="#services">Services</a>
-        <a href="#team">Team</a>
-        <a href="/journal">Journal</a>
-      </nav>
-      <a href="#contact" class="header-cta">Let's talk</a>
-      <button id="menu-toggle" class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
-    </header>
-
-    <div id="mobile-menu" class="mobile-menu">
-      <button id="mobile-menu-close" class="mobile-menu-close" aria-label="Close menu">✕</button>
-      <a href="#work" class="mobile-nav-link">Work</a>
-      <a href="#services" class="mobile-nav-link">Services</a>
-      <a href="#team" class="mobile-nav-link">Team</a>
-      <a href="/journal" class="mobile-nav-link">Journal</a>
-      <a href="#contact" class="mobile-cta">Let's talk</a>
+    <!-- Brand, centred over both panels -->
+    <div class="door-brand">
+      <img src="/logo.svg" alt="Dual-Stack Studio" width="46" height="46" />
+      <span class="door-brand-name">Dual-Stack Studio</span>
+      <span class="door-brand-tag">One team. Two crafts. Slide to choose.</span>
     </div>
 
-    <div class="hero-content">
-      <h1 class="hero-title">Telling the stories<br />of small places<br />doing real work.</h1>
-      <p class="hero-sub">We build the digital presence for farms, guesthouses and small local businesses — the photos, the film, the story, and the site behind it when you're ready.</p>
-    </div>
-
-    <div class="scroll-hint">
-      <p>Scroll</p>
-      <div class="scroll-line"></div>
-    </div>
-  </section>
-
-  <!-- ============ OUR WORK ============ -->
-  <section id="work" class="section work-section">
-    <div class="section-inner">
-      <span class="eyebrow">Selected work</span>
-      <h2 class="section-title">Our Work</h2>
-      <p class="section-lead">Real places, real stories — years of photography for a lodge deep in the Japanese Alps.</p>
-
-      <div class="work-grid work-grid--single">
-        <a href="/work/japan-lodge" class="work-card work-card--lg">
-          <img src="/images/japan-lodge/lodge-hero-mountain-cabin.jpg" alt="Mountain lodge, Japan" loading="lazy" />
-          <div class="work-card-info">
-            <span class="work-card-tag">Photography</span>
-            <h3>A Lodge in Japan</h3>
-            <p>Years of photography for a mountain lodge and its restaurant, deep in the Japanese Alps.</p>
-          </div>
-        </a>
+    <!-- CREATIVE & MARKETING -->
+    <a href="/creative" class="door-half door-half--creative" id="half-creative" aria-label="Enter Creative & Marketing">
+      <div class="door-half-bg" style="background-image: url('/images/journal/austria/austria-01.jpg');"></div>
+      <div class="door-scrim door-scrim--creative"></div>
+      <div class="door-content">
+        <span class="door-eyebrow">Department 01</span>
+        <h2 class="door-title">Creative &amp;<br />Marketing</h2>
+        <p class="door-desc"><span class="desc-long">Photography, film and storytelling for places worth remembering plus the social presence that carries it.</span><span class="desc-short">Photography, film &amp; storytelling — and the social presence behind it.</span></p>
+        <span class="door-cta door-cta--creative">Enter the studio <span class="door-arrow">→</span></span>
       </div>
-    </div>
-  </section>
+    </a>
 
-  <!-- ============ JOURNAL ============ -->
-  <section id="journal" class="section journal-section">
-    <div class="section-inner">
-      <span class="eyebrow">The Journal</span>
-      <h2 class="section-title">Our Journal</h2>
-      <p class="section-lead">Part travelogue, part about-us — the story of who we are, told one place at a time. We're starting with Australia.</p>
-
-      <div class="work-grid work-grid--single">
-        <a href="/journal/australia" class="work-card work-card--lg">
-          <img src="/images/journal/australia/au-28.jpg" alt="The Brisbane skyline seen across the bush from a lookout" loading="lazy" />
-          <div class="work-card-info">
-            <span class="work-card-tag">Journal · Part 01</span>
-            <h3>Australia</h3>
-            <p>Months on the other side of the world — a city on the river, rainforest at the edge of it, and the work in between.</p>
-          </div>
-        </a>
+    <!-- WEB & FULL-STACK -->
+    <a href="/web" class="door-half door-half--web" id="half-web" aria-label="Enter Web & Full-Stack">
+      <div class="door-scrim door-scrim--web"></div>
+      <div class="door-content">
+        <span class="door-eyebrow door-eyebrow--lime">Department 02</span>
+        <h2 class="door-title door-title--light">Web &amp;<br />Full-Stack</h2>
+        <p class="door-desc door-desc--light"><span class="desc-long">Websites, web apps and the booking systems behind them designed, built and shipped end to end.</span><span class="desc-short">Websites, apps &amp; booking systems — built end to end.</span></p>
+        <span class="door-cta door-cta--web">Enter the lab <span class="door-arrow">→</span></span>
       </div>
+    </a>
 
-      <a href="/journal" class="journal-all-link">Read the whole journal →</a>
+    <!-- Drag handle, centre -->
+    <div class="door-handle" id="door-handle" role="slider" aria-label="Slide left for Creative, right for Web" aria-valuemin="-100" aria-valuemax="100" aria-valuenow="0" tabindex="0">
+      <span class="door-handle-grip">
+        <span class="door-handle-arrow">‹</span>
+        <span class="door-handle-dots"></span>
+        <span class="door-handle-arrow">›</span>
+      </span>
+      <span class="door-handle-hint">drag to choose</span>
     </div>
-  </section>
 
-  <!-- ============ SERVICES ============ -->
-  <section id="services" class="section services-section">
-    <div class="section-inner">
-      <span class="eyebrow">What we do</span>
-      <h2 class="section-title">Two ways we help</h2>
+    <!-- Commit curtain -->
+    <div class="door-curtain" id="door-curtain"></div>
 
-      <div class="services-grid">
-        <div class="service-block service-block--primary">
-          <div class="service-icon" set:html={lineIcon('camera', 34)} />
-          <span class="service-kicker">01 — Where most people start</span>
-          <h3>Content &amp; Storytelling</h3>
-          <p>Photography, drone footage and short-form video that actually shows what makes your place worth visiting. We shoot it, edit it, and help you tell the story on social — no website required to get started.</p>
-        </div>
-
-        <div class="service-block">
-          <div class="service-icon" set:html={lineIcon('globe', 34)} />
-          <span class="service-kicker">02 — When you're ready to grow</span>
-          <h3>Web &amp; Booking</h3>
-          <p>Once content is working, we build the site behind it — a real online presence, and a booking system if you need one. Same team, same story, just the next step.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ TEAM ============ -->
-  <section id="team" class="section team-section">
-    <div class="section-inner">
-      <span class="eyebrow">Who we are</span>
-      <h2 class="section-title">Our team</h2>
-      <p class="section-lead">Two co-founders covering the whole path — from the first photo to production deploy.</p>
-
-      <div class="team-grid">
-        <div class="team-member">
-          <div class="team-avatar" set:html={lineIcon('camera', 30)} />
-          <h3>Content &amp; Storytelling</h3>
-          <p>Photography, drone video and social storytelling for small local businesses.</p>
-        </div>
-        <div class="team-member">
-          <div class="team-avatar" set:html={lineIcon('design', 30)} />
-          <h3>Design</h3>
-          <p>Brand and visual identity, from a logo to a full site — clean, warm, and true to the place.</p>
-        </div>
-        <div class="team-member">
-          <div class="team-avatar" set:html={lineIcon('laptop', 30)} />
-          <h3>Full-Stack Development</h3>
-          <p>The site and booking system behind the story, when you need one.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ CONTACT ============ -->
-  <section id="contact" class="section contact-section">
-    <div class="section-inner contact-inner">
-      <span class="eyebrow">Get in touch</span>
-      <h2 class="section-title">Let's tell your story.</h2>
-      <p class="section-lead">Tell us a bit about your business and we'll get back to you within 1–2 business days.</p>
-
-      <form id="contact-form" class="contact-form" novalidate>
-        <!-- Web3Forms -->
-        <input type="hidden" name="access_key" value={import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY} />
-        <input type="hidden" name="subject" value="New inquiry from dualstackstudio.com" />
-        <input type="hidden" name="from_name" value="Dual-Stack Studio site" />
-        <input type="checkbox" name="botcheck" class="cf-honeypot" tabindex="-1" autocomplete="off" />
-
-        <div class="cf-row">
-          <div class="cf-field">
-            <label for="cf-name">Name</label>
-            <input type="text" id="cf-name" name="name" required placeholder="Your name" />
-          </div>
-          <div class="cf-field">
-            <label for="cf-email">Email</label>
-            <input type="email" id="cf-email" name="email" required placeholder="you@business.com" />
-          </div>
-        </div>
-
-        <div class="cf-field">
-          <label for="cf-service">What do you need?</label>
-          <select id="cf-service" name="service">
-            <option>Content &amp; Storytelling</option>
-            <option>Web &amp; Booking</option>
-            <option>Something else</option>
-          </select>
-        </div>
-
-        <div class="cf-field">
-          <label for="cf-message">Message</label>
-          <textarea id="cf-message" name="message" rows="5" required placeholder="Tell us a bit about your business and what you're looking for."></textarea>
-        </div>
-
-        <button type="submit" class="cf-submit">Send message</button>
-        <p id="cf-status" class="cf-status" role="status" aria-live="polite"></p>
-      </form>
-    </div>
-  </section>
-
-  <!-- ============ FOOTER ============ -->
-  <footer class="footer">
-    <div class="section-inner">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <div class="footer-logo">
-            <img src="/logo.svg" alt="Dual-Stack Studio" width="28" height="28" style="border-radius: 7px;" />
-            Dual-Stack Studio
-          </div>
-          <p>We tell the story of small places doing real work — content, storytelling, and the web presence behind it.</p>
-          <h4>Built in parallel</h4>
-          <p class="footer-note-text">This website was built in parallel — design &amp; vision by Dual-Stack Studio, implementation assisted by Claude AI.</p>
-        </div>
-
-        <div class="footer-col">
-          <h4>Navigate</h4>
-          <a href="#work">Work</a>
-          <a href="#services">Services</a>
-          <a href="#team">Team</a>
-          <a href="/journal">Journal</a>
-        </div>
-
-        <div class="footer-col">
-          <h4>Legal</h4>
-          <a href="/privacy-policy">Privacy Policy</a>
-          <a href="/terms-of-service">Terms of Service</a>
-        </div>
-
-        <div class="footer-col">
-          <h4>Get in touch</h4>
-          <a href="mailto:hello@dualstackstudio.com">hello@dualstackstudio.com</a>
-          <span class="footer-note">Usually replies within 1–2 business days.</span>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <p>© 2026 Dual-Stack Studio. Independently operated.</p>
-        <p>Built with Astro, deployed on Vercel.</p>
-      </div>
-    </div>
-  </footer>
+  </div>
 
   <style>
     :root {
       --cream: #f7f2e7;
-      --cream-deep: #efe6d4;
       --forest: #2f4436;
       --forest-deep: #223226;
       --terracotta: #c1663e;
       --terracotta-deep: #a4522f;
       --ink: #2b2420;
-      --muted: #6b6156;
+      --lime: #ccff33;
     }
 
-    .section-inner {
-      max-width: 1180px;
-      margin: 0 auto;
-      padding: 0 1.75rem;
+    .door {
+      display: flex;
+      min-height: 100vh;
+      min-height: 100svh;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+      touch-action: pan-y;
+    }
+    .door.is-grabbing { cursor: grabbing; }
+
+    /* ---------- BRAND ---------- */
+    .door-brand {
+      position: absolute;
+      top: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 20;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35rem;
+      text-align: center;
+      pointer-events: none;
+      padding: 0 1rem;
+    }
+    .door-brand img { border-radius: 11px; box-shadow: 0 8px 24px -10px rgba(0,0,0,0.5); }
+    .door-brand-name {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(20px, 3vw, 26px);
+      font-weight: 600;
+      color: #fff;
+      letter-spacing: -0.5px;
+      text-shadow: 0 2px 14px rgba(0,0,0,0.55);
+      margin-top: 0.4rem;
+    }
+    .door-brand-tag {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.85);
+      text-shadow: 0 1px 10px rgba(0,0,0,0.6);
     }
 
-    .eyebrow {
+    /* ---------- HALVES ---------- */
+    .door-half {
+      position: relative;
+      flex: 1 1 0;
+      flex-grow: 1;
+      min-height: 100vh;
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      text-decoration: none;
+      will-change: flex-grow;
+    }
+    .door.is-animating .door-half { transition: flex-grow 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+    .door-half--web { background: #0a0a0a; }
+
+    .door-half-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transform: scale(1.03);
+      transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .door-half:hover .door-half-bg { transform: scale(1.08); }
+
+    .door-scrim { position: absolute; inset: 0; transition: opacity 0.4s ease; }
+    .door-scrim--creative {
+      background:
+        radial-gradient(62% 58% at 50% 52%, rgba(20,24,16,0.55) 0%, rgba(20,24,16,0) 78%),
+        linear-gradient(180deg, rgba(34,50,38,0.45) 0%, rgba(34,50,38,0.3) 42%, rgba(20,24,16,0.85) 100%);
+    }
+    .door-scrim--web {
+      background:
+        radial-gradient(120% 80% at 80% 0%, rgba(204,255,51,0.12) 0%, rgba(204,255,51,0) 55%),
+        linear-gradient(180deg, rgba(10,10,10,0.2) 0%, rgba(10,10,10,0.65) 100%);
+    }
+    .door-half--web::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px);
+      background-size: 22px 22px;
+      z-index: 1;
+    }
+
+    .door-content {
+      position: relative;
+      z-index: 5;
+      padding: 2rem clamp(1.75rem, 5vw, 4.5rem);
+      max-width: 520px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .door-eyebrow {
       display: block;
       font-size: 12px;
       font-weight: 700;
-      letter-spacing: 1.5px;
+      letter-spacing: 2px;
       text-transform: uppercase;
-      color: var(--terracotta-deep);
-      margin-bottom: 0.75rem;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 1rem;
     }
+    .door-eyebrow--lime { color: var(--lime); }
 
-    .section-title {
-      font-size: clamp(30px, 4.2vw, 46px);
-      font-weight: 600;
-      letter-spacing: -1px;
-      color: var(--ink);
-      margin: 0 0 0.9rem;
-      line-height: 1.08;
-    }
-
-    .section-lead {
-      font-size: 17px;
-      color: var(--muted);
-      max-width: 560px;
-      margin: 0 0 3rem;
-      line-height: 1.65;
-    }
-
-    .section { padding: 6rem 0; }
-
-    /* ---------- HERO ---------- */
-    .hero {
-      position: relative;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      background: var(--forest-deep);
-    }
-
-    .hero-img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .hero-scrim {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(20, 24, 16, 0.55) 0%, rgba(20, 24, 16, 0.15) 38%, rgba(20, 24, 16, 0.15) 60%, rgba(20, 24, 16, 0.75) 100%);
-    }
-
-    .site-header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      padding: 1.5rem 2.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 100;
-      transition: background 0.3s, padding 0.3s;
-    }
-
-    .site-header.scrolled {
-      background: rgba(20, 24, 16, 0.72);
-      backdrop-filter: blur(8px);
-      padding: 1rem 2.5rem;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    .door-title {
       font-family: 'Fraunces', serif;
-      font-size: 19px;
+      font-size: clamp(38px, 6vw, 68px);
       font-weight: 600;
+      line-height: 0.98;
+      letter-spacing: -2px;
       color: #fff;
+      margin: 0 0 1.25rem;
+    }
+    .door-title--light {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-weight: 800;
+      letter-spacing: -2.5px;
     }
 
-    .desktop-nav { display: flex; gap: 2.25rem; font-size: 14px; font-weight: 500; }
-    .desktop-nav a { color: rgba(255,255,255,0.9); }
-    .desktop-nav a:hover { color: var(--terracotta); }
+    .door-desc {
+      font-size: clamp(15px, 1.6vw, 17px);
+      line-height: 1.6;
+      color: rgba(255,255,255,0.9);
+      margin: 0 0 2rem;
+      max-width: 420px;
+    }
+    .door-desc--light { color: rgba(255,255,255,0.7); }
+    .desc-short { display: none; }
 
-    .header-cta {
-      background: var(--terracotta);
-      color: #fff;
-      padding: 12px 26px;
+    .door-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 13px 26px;
       border-radius: 100px;
       font-size: 14px;
-      font-weight: 600;
-      transition: background 0.2s, transform 0.2s;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
     }
-    .header-cta:hover { background: var(--terracotta-deep); transform: translateY(-1px); }
-
-    .menu-toggle {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      background: none;
-      border: none;
-      padding: 6px;
+    .door-cta--creative { background: var(--terracotta); color: #fff; }
+    .door-half--creative:hover .door-cta--creative { background: var(--terracotta-deep); }
+    .door-cta--web {
+      background: var(--lime);
+      color: #0a0a0a;
+      font-family: 'Inter', system-ui, sans-serif;
     }
-    .menu-toggle span { width: 22px; height: 2px; background: #fff; border-radius: 2px; }
+    .door-half--web:hover .door-cta--web { box-shadow: 0 0 0 4px rgba(204,255,51,0.25); }
+    .door-arrow { transition: transform 0.25s ease; }
+    .door-half:hover .door-arrow { transform: translateX(4px); }
 
-    .mobile-menu {
-      position: fixed;
-      inset: 0;
-      background: var(--forest-deep);
-      z-index: 200;
-      display: none;
+    /* the side being chosen leans in */
+    .door-half.is-target .door-content { transform: translateY(-6px); }
+
+    /* ---------- HANDLE ---------- */
+    .door-handle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      z-index: 30;
+      display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      gap: 2rem;
+      gap: 0.85rem;
+      transform: translate(-50%, -50%);
+      cursor: grab;
+      user-select: none;
+      touch-action: none;
     }
-    .mobile-menu.open { display: flex; }
-    .mobile-nav-link { font-family: 'Fraunces', serif; font-size: 28px; color: #fff; }
-    .mobile-cta { margin-top: 1rem; background: var(--terracotta); color: #fff; padding: 14px 32px; border-radius: 100px; font-weight: 600; }
-    .mobile-menu-close { position: absolute; top: 2rem; right: 2rem; background: none; border: none; color: #fff; font-size: 24px; }
-
-    .hero-content {
-      position: relative;
-      z-index: 10;
-      width: 100%;
-      max-width: 900px;
-      padding: 2rem 1.5rem;
-      text-align: center;
-    }
-
-    .hero-title {
-      font-size: clamp(40px, 8vw, 84px);
-      font-weight: 600;
-      letter-spacing: -2px;
-      line-height: 1.08;
+    .door.is-animating .door-handle { transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+    .door-handle:active { cursor: grabbing; }
+    .door-handle-grip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 18px;
+      border-radius: 100px;
+      background: rgba(255,255,255,0.16);
+      border: 1.5px solid rgba(255,255,255,0.5);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 14px 38px -12px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,255,255,0.25);
       color: #fff;
-      margin: 0;
+      transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.25s cubic-bezier(0.22,1,0.36,1);
     }
-
-    .hero-sub {
-      font-size: 18px;
-      color: rgba(255,255,255,0.85);
-      margin: 1.75rem auto 0;
-      max-width: 520px;
-      line-height: 1.7;
-      font-weight: 400;
-    }
-
-    .scroll-hint {
-      position: absolute;
-      bottom: 42px;
-      left: 48px;
-      z-index: 10;
-      color: rgba(255,255,255,0.7);
-    }
-    .scroll-hint p { font-size: 12px; letter-spacing: 1px; margin: 0 0 8px; text-transform: uppercase; }
-    .scroll-line { width: 1px; height: 38px; background: linear-gradient(180deg, rgba(255,255,255,0.8), transparent); }
-
-    /* ---------- WORK ---------- */
-    .work-section { background: var(--cream); }
-
-    /* ---------- JOURNAL ---------- */
-    .journal-section { background: var(--cream-deep); }
-    .journal-all-link {
-      display: inline-block;
-      margin-top: 1.75rem;
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--forest);
-      transition: color 0.2s;
-    }
-    .journal-all-link:hover { color: var(--terracotta); }
-
-    .work-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: auto auto;
-      gap: 1.5rem;
-    }
-
-    .work-grid--single {
-      grid-template-columns: 1fr;
-    }
-    .work-grid--single .work-card--lg {
-      grid-row: auto;
-      aspect-ratio: 16 / 9;
-    }
-
-    .work-card {
-      position: relative;
-      display: block;
+    .door-handle-arrow { font-size: 20px; line-height: 1; font-weight: 700; opacity: 0.9; }
+    .door-handle-dots {
+      width: 4px; height: 24px;
       border-radius: 4px;
-      overflow: hidden;
-      background: var(--cream-deep);
-      aspect-ratio: 4 / 5;
+      background:
+        radial-gradient(circle, currentColor 1.4px, transparent 1.6px) center / 4px 7px repeat-y;
+      opacity: 0.9;
     }
-
-    .work-card--lg { grid-row: span 2; aspect-ratio: auto; }
-
-    .work-card img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s ease;
-    }
-    .work-card:hover img { transform: scale(1.04); }
-
-    .work-card-info {
-      position: absolute;
-      left: 0; right: 0; bottom: 0;
-      padding: 1.5rem;
-      background: linear-gradient(180deg, transparent, rgba(20,16,10,0.85) 70%);
-      color: #fff;
-    }
-
-    .work-card-tag {
-      display: inline-block;
+    .door-handle-hint {
       font-size: 11px;
       font-weight: 700;
-      letter-spacing: 0.5px;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
-      color: #fff;
-      background: var(--forest);
+      color: rgba(255,255,255,0.9);
+      text-shadow: 0 1px 8px rgba(0,0,0,0.6);
+      background: rgba(0,0,0,0.28);
       padding: 4px 10px;
       border-radius: 100px;
-      margin-bottom: 0.6rem;
-    }
-    .work-card-info h3 { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 600; margin: 0 0 0.35rem; }
-    .work-card-info p { font-size: 13px; color: rgba(255,255,255,0.85); margin: 0; line-height: 1.5; }
-
-    .work-card--placeholder { cursor: default; }
-
-    /* ---------- SERVICES ---------- */
-    .services-section { background: var(--forest); }
-    .services-section .eyebrow { color: var(--terracotta); }
-    .services-section .section-title,
-    .services-section .section-lead { color: #fff; }
-    .services-section .section-lead { color: rgba(255,255,255,0.75); }
-
-    .services-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 2rem; }
-
-    .service-block {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 6px;
-      padding: 2.75rem;
-    }
-    .service-block--primary { background: rgba(193, 102, 62, 0.14); border-color: rgba(193, 102, 62, 0.4); }
-
-    .service-icon { color: var(--terracotta); margin-bottom: 1.5rem; }
-
-    .service-kicker { display: block; font-size: 12px; font-weight: 600; letter-spacing: 0.5px; color: rgba(255,255,255,0.55); margin-bottom: 0.75rem; text-transform: uppercase; }
-
-    .service-block h3 { font-family: 'Fraunces', serif; font-size: 28px; font-weight: 600; color: #fff; margin: 0 0 1rem; }
-    .service-block p { font-size: 15px; color: rgba(255,255,255,0.78); line-height: 1.7; margin: 0; }
-
-    /* ---------- TEAM ---------- */
-    .team-section { background: var(--cream); }
-
-    .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.75rem; }
-
-    .team-member {
-      padding: 2.25rem 1.75rem;
-      border-radius: 6px;
-      border: 1px solid rgba(43,36,32,0.1);
-      background: #fff;
+      transition: opacity 0.3s ease, color 0.3s ease;
+      white-space: nowrap;
     }
 
-    .team-avatar {
-      width: 60px; height: 60px;
-      border-radius: 12px;
-      display: flex; align-items: center; justify-content: center;
-      background: var(--forest);
-      color: var(--terracotta);
-      margin-bottom: 1.5rem;
-    }
-
-    .team-member h3 { font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600; margin: 0 0 0.6rem; color: var(--ink); }
-    .team-member p { font-size: 14px; color: var(--muted); margin: 0; line-height: 1.65; }
-
-    /* ---------- CONTACT ---------- */
-    .contact-section { background: var(--cream-deep); }
-    .contact-inner { max-width: 640px; text-align: center; }
-    .contact-inner .section-lead { margin-left: auto; margin-right: auto; }
-
-    .contact-form { text-align: left; margin-top: 1rem; }
-    .cf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    .cf-field { margin-bottom: 1.1rem; }
-    .cf-field label { display: block; font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 0.4rem; }
-    .cf-field input, .cf-field select, .cf-field textarea {
-      width: 100%;
-      padding: 12px 14px;
-      border-radius: 4px;
-      border: 1px solid rgba(43,36,32,0.2);
-      background: #fff;
-      font-family: inherit;
-      font-size: 14px;
-      color: var(--ink);
-    }
-    .cf-field input:focus, .cf-field select:focus, .cf-field textarea:focus {
-      outline: none; border-color: var(--terracotta);
-    }
-    .cf-honeypot { position: absolute; left: -9999px; }
-
-    .cf-submit {
-      width: 100%;
+    /* dynamic tint: grip adopts the palette of the side being dragged toward */
+    .door-handle.lean-creative .door-handle-grip {
       background: var(--terracotta);
+      border-color: rgba(247,242,231,0.9);
       color: #fff;
-      border: none;
-      padding: 14px;
-      border-radius: 4px;
-      font-size: 15px;
-      font-weight: 600;
-      margin-top: 0.5rem;
+      box-shadow: 0 16px 44px -12px rgba(193,102,62,0.75), inset 0 1px 0 rgba(255,255,255,0.3);
+      transform: scale(1.08);
     }
-    .cf-submit:hover { background: var(--terracotta-deep); }
-    .cf-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+    .door-handle.lean-web .door-handle-grip {
+      background: var(--lime);
+      border-color: #0a0a0a;
+      color: #0a0a0a;
+      box-shadow: 0 16px 44px -12px rgba(204,255,51,0.65), inset 0 1px 0 rgba(255,255,255,0.5);
+      transform: scale(1.08);
+    }
+    .door-handle.lean-creative .door-handle-hint { color: #fff; }
+    .door-handle.lean-web .door-handle-hint { color: var(--lime); }
+    .door.is-grabbing .door-handle-hint { opacity: 0; }
+    /* gentle idle pulse to signal it's draggable */
+    @keyframes doorNudge {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(5px); }
+    }
+    .door-handle-grip { animation: doorNudge 2.6s ease-in-out infinite; }
+    .door.is-grabbing .door-handle-grip, .door.is-animating .door-handle-grip { animation: none; }
 
-    .cf-status { margin-top: 1rem; font-size: 14px; text-align: center; min-height: 20px; }
-    .cf-status.success { color: var(--forest); }
-    .cf-status.error { color: #a4302f; }
-
-    /* ---------- FOOTER ---------- */
-    .footer { background: var(--forest-deep); color: rgba(255,255,255,0.7); padding: 5rem 0 2.5rem; }
-    .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 2.5rem; padding-bottom: 3rem; margin-bottom: 2.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
-    .footer-logo { display: flex; align-items: center; gap: 10px; font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600; color: #fff; margin-bottom: 1rem; }
-    .footer-brand p { font-size: 14px; color: rgba(255,255,255,0.65); line-height: 1.7; margin: 0 0 1rem; max-width: 300px; }
-    .footer-brand h4 { font-size: 11px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: rgba(255,255,255,0.5); margin: 1.5rem 0 0.5rem; }
-    .footer-note-text { font-size: 13px; color: rgba(255,255,255,0.55); max-width: 280px; }
-    .footer-col h4 { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 1rem; }
-    .footer-col a, .footer-col .footer-note { display: block; font-size: 14px; color: rgba(255,255,255,0.65); margin-bottom: 0.6rem; }
-    .footer-col a:hover { color: var(--terracotta); }
-    .footer-note { font-size: 12px; color: rgba(255,255,255,0.4); }
-    .footer-bottom { display: flex; justify-content: space-between; font-size: 12px; color: rgba(255,255,255,0.4); flex-wrap: wrap; gap: 0.5rem; }
+    /* ---------- COMMIT CURTAIN ---------- */
+    .door-curtain {
+      position: absolute;
+      inset: 0;
+      z-index: 40;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+    }
+    .door-curtain.to-creative { background: var(--forest-deep); }
+    .door-curtain.to-web { background: #0a0a0a; }
+    .door-curtain.show { opacity: 1; }
 
     /* ---------- RESPONSIVE ---------- */
     @media (max-width: 860px) {
-      .desktop-nav, .header-cta { display: none; }
-      .menu-toggle { display: flex; }
-      .work-grid { grid-template-columns: 1fr 1fr; }
-      .work-card--lg { grid-column: span 2; aspect-ratio: 16/10; grid-row: auto; }
-      .services-grid { grid-template-columns: 1fr; }
-      .cf-row { grid-template-columns: 1fr; }
-      .footer-grid { grid-template-columns: 1fr 1fr; }
+      /* Stack into two panels that split one viewport, so the handle can be
+         dragged UP (Creative) or DOWN (Web). */
+      .door { flex-direction: column; height: 100vh; height: 100svh; }
+      .door-half { min-height: 0; }
+      .door-brand { top: 0.9rem; }
+      .door-brand img { width: 38px; height: 38px; }
+      .door-brand-name { font-size: 18px; margin-top: 0.25rem; }
+      .door-brand-tag { display: none; }
+      .door-content { padding: 1.25rem 1.5rem; }
+      .door-eyebrow { margin-bottom: 0.5rem; }
+      .door-title { font-size: clamp(28px, 8vw, 40px); margin-bottom: 0.6rem; }
+      .door-desc { font-size: 13.5px; margin-bottom: 1rem; max-width: 340px; }
+      .desc-long { display: none; }
+      .desc-short { display: inline; }
+      .door-cta { padding: 11px 20px; font-size: 13px; }
+      /* keep the top panel's content clear of the brand */
+      .door-half--creative .door-content { padding-top: 4rem; }
+      /* rotate the grip so its arrows point up / down for the vertical drag
+         (disable the idle nudge, which animates transform and would override it) */
+      .door-handle-grip { animation: none; transform: rotate(90deg); }
+      .door-handle.lean-creative .door-handle-grip,
+      .door-handle.lean-web .door-handle-grip { transform: rotate(90deg) scale(1.08); }
     }
-
-    @media (max-width: 560px) {
-      .work-grid { grid-template-columns: 1fr; }
-      .work-card--lg { grid-column: auto; }
-      .footer-grid { grid-template-columns: 1fr; }
+    @media (max-width: 480px) {
+      .door-title { font-size: clamp(25px, 8.5vw, 34px); }
+      .door-desc { font-size: 13px; margin-bottom: 0.85rem; }
+      .door-brand-name { font-size: 16px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .door.is-animating .door-half,
+      .door.is-animating .door-handle,
+      .door-curtain { transition: none; }
+      .door-handle-grip { animation: none; }
     }
   </style>
 
   <script>
-    // Header scroll state
-    const header = document.getElementById('site-header');
-    window.addEventListener('scroll', () => {
-      if (!header) return;
-      header.classList.toggle('scrolled', window.scrollY > 40);
-    });
+    (function () {
+      const door = document.getElementById('door');
+      const creative = document.getElementById('half-creative') as HTMLAnchorElement | null;
+      const web = document.getElementById('half-web') as HTMLAnchorElement | null;
+      const handle = document.getElementById('door-handle');
+      const curtain = document.getElementById('door-curtain');
+      const hint = handle?.querySelector('.door-handle-hint') as HTMLElement | null;
+      if (!door || !creative || !web || !handle || !curtain) return;
 
-    // Mobile menu
-    const menuToggle = document.getElementById('menu-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const mobileMenuClose = document.getElementById('mobile-menu-close');
-    menuToggle?.addEventListener('click', () => mobileMenu?.classList.add('open'));
-    mobileMenuClose?.addEventListener('click', () => mobileMenu?.classList.remove('open'));
-    mobileMenu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
+      const HINT_IDLE = 'drag to choose';
 
-    // Contact form (Web3Forms)
-    const form = document.getElementById('contact-form') as HTMLFormElement | null;
-    const status = document.getElementById('cf-status');
-    form?.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const submitBtn = form.querySelector('.cf-submit') as HTMLButtonElement | null;
-      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Sending…'; }
-      if (status) { status.textContent = ''; status.className = 'cf-status'; }
-      try {
-        const res = await fetch('https://api.web3forms.com/submit', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-          body: JSON.stringify(Object.fromEntries(new FormData(form))),
-        });
-        const data = await res.json();
-        if (data.success) {
-          if (status) { status.textContent = "Thanks — we'll get back to you soon."; status.className = 'cf-status success'; }
-          form.reset();
-        } else {
-          throw new Error(data.message || 'Something went wrong.');
+      function setLean(side: 'creative' | 'web' | null) {
+        handle!.classList.toggle('lean-creative', side === 'creative');
+        handle!.classList.toggle('lean-web', side === 'web');
+        if (hint) {
+          hint.textContent = side === 'creative' ? 'release for Creative'
+            : side === 'web' ? 'release for Web'
+            : HINT_IDLE;
         }
-      } catch (err) {
-        if (status) { status.textContent = 'Something went wrong. Please email us directly instead.'; status.className = 'cf-status error'; }
-      } finally {
-        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Send message'; }
       }
-    });
+
+      const COMMIT = 0.45;      // fraction of half-width to trigger open
+      const MAX_LEAN = 5;       // grow ratio at full drag
+      const isHorizontal = () => window.matchMedia('(min-width: 861px)').matches;
+
+      let dragging = false;
+      let committed = false;
+      let startX = 0;
+      let startY = 0;
+      let t = 0;                // -1 (creative) .. 0 .. +1 (web)
+      let moved = false;
+
+      function setGrow(tt: number) {
+        // Drag toward a side grows THAT side. Right(+) => web grows; Left(-) => creative grows.
+        const lean = Math.abs(tt) * (MAX_LEAN - 1);
+        if (tt >= 0) {
+          web!.style.flexGrow = String(1 + lean);
+          creative!.style.flexGrow = String(1 / (1 + lean));
+          web!.classList.toggle('is-target', tt > 0.05);
+          creative!.classList.remove('is-target');
+          setLean(tt > 0.05 ? 'web' : null);
+        } else {
+          creative!.style.flexGrow = String(1 + lean);
+          web!.style.flexGrow = String(1 / (1 + lean));
+          creative!.classList.toggle('is-target', tt < -0.05);
+          web!.classList.remove('is-target');
+          setLean(tt < -0.05 ? 'creative' : null);
+        }
+        handle!.style.transform = handleShift(tt * 46);
+        handle!.setAttribute('aria-valuenow', String(Math.round(tt * 100)));
+      }
+
+      // Move the handle along the active axis: horizontal on desktop, vertical on mobile.
+      function handleShift(px: number) {
+        return isHorizontal()
+          ? `translate(calc(-50% + ${px}px), -50%)`
+          : `translate(-50%, calc(-50% + ${px}px))`;
+      }
+
+      function reset() {
+        door!.classList.add('is-animating');
+        creative!.style.flexGrow = '1';
+        web!.style.flexGrow = '1';
+        creative!.classList.remove('is-target');
+        web!.classList.remove('is-target');
+        setLean(null);
+        handle!.style.transform = 'translate(-50%, -50%)';
+        window.setTimeout(() => door!.classList.remove('is-animating'), 620);
+        t = 0;
+      }
+
+      function commit(side: 'creative' | 'web') {
+        if (committed) return;
+        committed = true;
+        setLean(side);
+        door!.classList.add('is-animating');
+        // expand the chosen side to fill
+        if (side === 'web') {
+          web!.style.flexGrow = '60';
+          creative!.style.flexGrow = '0.0001';
+          handle!.style.transform = handleShift(60);
+        } else {
+          creative!.style.flexGrow = '60';
+          web!.style.flexGrow = '0.0001';
+          handle!.style.transform = handleShift(-60);
+        }
+        handle!.style.opacity = '0';
+        // fade the curtain in the destination's colour, then navigate
+        curtain!.classList.add(side === 'web' ? 'to-web' : 'to-creative');
+        window.setTimeout(() => curtain!.classList.add('show'), 260);
+        const target = side === 'web' ? '/web' : '/creative';
+        window.setTimeout(() => { window.location.href = target; }, 760);
+      }
+
+      function onDown(e: PointerEvent) {
+        if (committed) return;
+        dragging = true;
+        moved = false;
+        startX = e.clientX;
+        startY = e.clientY;
+        door!.classList.remove('is-animating');
+        door!.classList.add('is-grabbing');
+        try { (e.target as Element).setPointerCapture?.(e.pointerId); } catch {}
+      }
+      function onMove(e: PointerEvent) {
+        if (!dragging) return;
+        // Horizontal drag on desktop, vertical drag on stacked mobile.
+        const horizontal = isHorizontal();
+        const delta = horizontal ? (e.clientX - startX) : (e.clientY - startY);
+        const half = (horizontal ? window.innerWidth : window.innerHeight) / 2;
+        t = Math.max(-1, Math.min(1, delta / half));
+        if (Math.abs(delta) > 6) moved = true;
+        setGrow(t);
+      }
+      function onUp() {
+        if (!dragging) return;
+        dragging = false;
+        door!.classList.remove('is-grabbing');
+        if (t >= COMMIT) commit('web');
+        else if (t <= -COMMIT) commit('creative');
+        else reset();
+      }
+
+      // Pointer drag starts on the handle, but can continue anywhere.
+      handle.addEventListener('pointerdown', onDown);
+      window.addEventListener('pointermove', onMove);
+      window.addEventListener('pointerup', onUp);
+      window.addEventListener('pointercancel', onUp);
+
+      // Two ways in: click a panel / its button, or drag the centre handle.
+      // (Drag lives on the handle only, so panel clicks never collide with it.)
+      function onHalfClick(e: Event, side: 'creative' | 'web') {
+        e.preventDefault();
+        if (committed) return;
+        commit(side);
+      }
+      creative.addEventListener('click', (e) => onHalfClick(e, 'creative'));
+      web.addEventListener('click', (e) => onHalfClick(e, 'web'));
+
+      // Keyboard: arrows / enter on the handle.
+      handle.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') { e.preventDefault(); commit('creative'); }
+        else if (e.key === 'ArrowRight') { e.preventDefault(); commit('web'); }
+      });
+
+      // Reset the door to its neutral state whenever it's shown — including when
+      // the browser restores it from the back/forward cache (otherwise it stays
+      // frozen in the committed/curtain state and shows a blank panel).
+      function resetDoor() {
+        committed = false;
+        dragging = false;
+        t = 0;
+        door!.classList.remove('is-animating', 'is-grabbing');
+        creative!.style.flexGrow = '1';
+        web!.style.flexGrow = '1';
+        creative!.classList.remove('is-target');
+        web!.classList.remove('is-target');
+        setLean(null);
+        handle!.style.transform = 'translate(-50%, -50%)';
+        handle!.style.opacity = '';
+        curtain!.classList.remove('show', 'to-web', 'to-creative');
+      }
+      window.addEventListener('pageshow', resetDoor);
+    })();
   </script>
 
 </Layout>
