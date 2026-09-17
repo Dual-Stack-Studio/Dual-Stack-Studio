@@ -21,7 +21,6 @@ import Layout from '../layouts/Layout.astro';
         <span class="door-eyebrow">Department 01</span>
         <h2 class="door-title">Creative &amp;<br />Marketing</h2>
         <p class="door-desc"><span class="desc-long">Photography, film and storytelling for places worth remembering plus the social presence that carries it.</span><span class="desc-short">Photography, film &amp; storytelling — and the social presence behind it.</span></p>
-        <span class="door-cta door-cta--creative">Enter the studio <span class="door-arrow">→</span></span>
       </div>
     </a>
 
@@ -33,7 +32,6 @@ import Layout from '../layouts/Layout.astro';
         <span class="door-eyebrow door-eyebrow--lime">Department 02</span>
         <h2 class="door-title door-title--light">Web &amp;<br />Full-Stack</h2>
         <p class="door-desc door-desc--light"><span class="desc-long">Websites, web apps and the booking systems behind them designed, built and shipped end to end.</span><span class="desc-short">Websites, apps &amp; booking systems — built end to end.</span></p>
-        <span class="door-cta door-cta--web">Enter the lab <span class="door-arrow">→</span></span>
       </div>
     </a>
 
@@ -203,28 +201,6 @@ import Layout from '../layouts/Layout.astro';
     .door-desc--light { color: rgba(255,255,255,0.7); }
     .desc-short { display: none; }
 
-    .door-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.55rem;
-      padding: 13px 26px;
-      border-radius: 100px;
-      font-size: 14px;
-      font-weight: 700;
-      letter-spacing: 0.2px;
-      transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
-    }
-    .door-cta--creative { background: var(--terracotta); color: #fff; }
-    .door-half--creative:hover .door-cta--creative { background: var(--terracotta-deep); }
-    .door-cta--web {
-      background: var(--lime);
-      color: #0a0a0a;
-      font-family: 'Inter', system-ui, sans-serif;
-    }
-    .door-half--web:hover .door-cta--web { box-shadow: 0 0 0 4px rgba(204,255,51,0.25); }
-    .door-arrow { transition: transform 0.25s ease; }
-    .door-half:hover .door-arrow { transform: translateX(4px); }
-
     /* the side being chosen leans in */
     .door-half.is-target .door-content { transform: translateY(-6px); }
 
@@ -243,7 +219,7 @@ import Layout from '../layouts/Layout.astro';
       user-select: none;
       touch-action: none;
     }
-    .door.is-animating .door-handle { transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+    .door.is-animating .door-handle { transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease; }
     .door-handle:active { cursor: grabbing; }
     .door-handle-grip {
       display: flex;
@@ -335,10 +311,7 @@ import Layout from '../layouts/Layout.astro';
       .door-content { padding: 1.25rem 1.5rem; }
       .door-eyebrow { margin-bottom: 0.5rem; }
       .door-title { font-size: clamp(28px, 8vw, 40px); margin-bottom: 0.6rem; }
-      /* buttons are hidden on mobile (tap the panel or drag the handle), which
-         frees room for the full description text */
       .door-desc { font-size: 13.5px; margin-bottom: 0; max-width: 360px; }
-      .door-cta { display: none; }
       /* keep the top panel's content clear of the brand */
       .door-half--creative .door-content { padding-top: 4rem; }
       /* rotate the grip so its arrows point up / down for the vertical drag.
@@ -410,7 +383,18 @@ import Layout from '../layouts/Layout.astro';
           setLean(tt < -0.05 ? 'creative' : null);
         }
         handle!.style.transform = handleShift(tt * 46);
+        handle!.style.opacity = String(handleFadeFor(tt));
         handle!.setAttribute('aria-valuenow', String(Math.round(tt * 100)));
+      }
+
+      // As the handle is dragged toward a side, fade it out in a graduated
+      // curve (not an abrupt cut) so the title underneath isn't covered —
+      // by the time you're near the commit threshold it's nearly gone.
+      const FADE_START = 0.08;
+      function handleFadeFor(tt: number) {
+        const absT = Math.abs(tt);
+        const progress = Math.max(0, Math.min(1, (absT - FADE_START) / (COMMIT - FADE_START)));
+        return 1 - progress * 0.88; // eases down to ~0.12, fully 0 once committed
       }
 
       // Move the handle along the active axis: horizontal on desktop, vertical on mobile.
@@ -428,6 +412,7 @@ import Layout from '../layouts/Layout.astro';
         web!.classList.remove('is-target');
         setLean(null);
         handle!.style.transform = 'translate(-50%, -50%)';
+        handle!.style.opacity = '1';
         window.setTimeout(() => door!.classList.remove('is-animating'), 620);
         t = 0;
       }
