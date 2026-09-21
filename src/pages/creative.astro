@@ -70,7 +70,7 @@ const copy = {
     navWork: 'Arbeiten', navServices: 'Leistungen', navTeam: 'Team', navJournal: 'Journal',
     navWeb: 'Web & Full-Stack ↗', cta: 'Sprechen wir', menuToggle: 'Menü umschalten', menuClose: 'Menü schließen',
     heroAlt: 'Die österreichischen Alpen spiegeln sich in einem stillen Bergsee',
-    heroTitle: 'Wir erzählen die<br />Geschichten kleiner Orte,<br />die echte Arbeit leisten.',
+    heroTitle: 'Wir erzählen die <br />Geschichten kleiner Orte, <br />die echte Arbeit leisten.',
     heroSub: 'Wir bauen den digitalen Auftritt für Bauernhöfe, Gästehäuser und kleine lokale Betriebe — die Fotos, den Film, die Geschichte und die Website dahinter, wenn Sie so weit sind.',
     scroll: 'Scrollen',
     workEyebrow: 'Ausgewählte Arbeiten', workTitle: 'Unsere Arbeiten',
@@ -119,7 +119,7 @@ const c = copy[lang];
     <img class="hero-img" src={HERO_IMG} alt={c.heroAlt} />
     <div class="hero-scrim"></div>
 
-    <header id="site-header" class="site-header">
+    <header id="site-header" class:list={['site-header', { 'site-header--de': lang === 'de' }]}>
       <a href={l(lang, '/creative')} class="brand">
         <img src="/logo.svg" alt="Dual-Stack Studio" width="34" height="34" style="border-radius: 8px;" />
         <span>Dual-Stack Studio</span>
@@ -150,8 +150,8 @@ const c = copy[lang];
       <a href="#contact" class="mobile-cta">{c.cta}</a>
     </div>
 
-    <div class="hero-content">
-      <h1 class="hero-title" set:html={c.heroTitle}></h1>
+    <div class:list={['hero-content', { 'hero-content--de': lang === 'de' }]}>
+      <h1 class:list={['hero-title', { 'hero-title--de': lang === 'de' }]} set:html={c.heroTitle}></h1>
       <p class="hero-sub">{c.heroSub}</p>
     </div>
 
@@ -447,6 +447,8 @@ const c = copy[lang];
       color: #fff;
     }
 
+    .desktop-nav a, .header-cta { white-space: nowrap; }
+    @media (min-width: 1001px) { .brand { white-space: nowrap; } }
     .desktop-nav { display: flex; gap: 2.25rem; font-size: 14px; font-weight: 500; }
     .desktop-nav a { color: rgba(255,255,255,0.9); }
     .desktop-nav a:hover { color: var(--terracotta); }
@@ -515,6 +517,19 @@ const c = copy[lang];
       line-height: 1.08;
       color: #fff;
       margin: 0;
+    }
+
+    /* The German headline has longer lines than the English one, so it gets a
+       smaller cap and a wider box; on phones the forced breaks are dropped and
+       the text balances itself. */
+    .hero-content--de { max-width: 1100px; }
+    .hero-title--de {
+      font-size: clamp(32px, 5.4vw, 60px);
+      letter-spacing: -1.5px;
+      text-wrap: balance;
+    }
+    @media (max-width: 700px) {
+      .hero-title--de :global(br) { display: none; }
     }
 
     .hero-sub {
@@ -717,13 +732,33 @@ const c = copy[lang];
 
     /* ---------- RESPONSIVE ---------- */
     @media (max-width: 860px) {
-      .desktop-nav, .header-cta { display: none; }
-      .menu-toggle { display: flex; }
       .work-grid { grid-template-columns: 1fr 1fr; }
       .work-card--lg { grid-column: span 2; aspect-ratio: 16/10; grid-row: auto; }
       .services-grid { grid-template-columns: 1fr; }
       .cf-row { grid-template-columns: 1fr; }
       .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* The full nav needs ~1000px in English and ~1070px in German; below that the
+       header switches to the menu button instead of wrapping the logo and CTA. */
+    @media (max-width: 1000px) {
+      .desktop-nav, .header-cta { display: none; }
+      .menu-toggle { display: flex; }
+    }
+    @media (max-width: 1080px) {
+      .site-header--de .desktop-nav, .site-header--de .header-cta { display: none; }
+      .site-header--de .menu-toggle { display: flex; }
+    }
+
+    /* Phones: the language switch now sits next to the menu button, so trim the
+       header padding to keep the logo on one line. */
+    @media (max-width: 560px) {
+      .site-header, .site-header.scrolled { padding-left: 1.25rem; padding-right: 1.25rem; }
+    }
+    @media (max-width: 380px) {
+      .brand { font-size: 16px; gap: 8px; }
+      .brand img { width: 28px; height: 28px; }
+      .header-actions { gap: 0.75rem; }
     }
 
     @media (max-width: 560px) {
