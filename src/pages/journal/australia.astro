@@ -89,7 +89,7 @@ const tasItems = weave(tasData.photos, tasVideos);
             </figure>
           ) : (
             <div class="au-item">
-              <img src={it.src} alt={`Australia — ${it.label}`} loading="lazy" class="au-lightbox-trigger" />
+              <img src={it.src} alt={`Australia — ${it.label}`} width={it.w} height={it.h} loading="lazy" decoding="async" class="au-lightbox-trigger" />
             </div>
           )
         ))}
@@ -118,7 +118,7 @@ const tasItems = weave(tasData.photos, tasVideos);
             </figure>
           ) : (
             <div class="au-item">
-              <img src={it.src} alt={`Tasmania — ${it.label}`} loading="lazy" class="au-lightbox-trigger" />
+              <img src={it.src} alt={`Tasmania — ${it.label}`} width={it.w} height={it.h} loading="lazy" decoding="async" class="au-lightbox-trigger" />
             </div>
           )
         ))}
@@ -307,6 +307,13 @@ const tasItems = weave(tasData.photos, tasVideos);
     }
     .au-item img { display: block; width: 100%; height: auto; cursor: zoom-in; transition: transform 0.5s ease; }
     .au-item:hover img { transform: scale(1.03); }
+    /* Smooth loading: space is reserved via width/height, a soft placeholder shows
+       while the photo loads, then it fades in (only when JS marks it pending). */
+    .au-item { background: rgba(43,36,32,0.07); }
+    .au-tas .au-item { background: rgba(255,255,255,0.07); }
+    .au-item img { transition: opacity 0.8s ease, transform 0.5s ease; }
+    .au-item img.is-pending { opacity: 0; }
+    @media (prefers-reduced-motion: reduce) { .au-item img { transition: none; } }
 
     /* ---------- SPECIAL SUB-SECTION: TASMANIA ---------- */
     .au-tas {
@@ -458,4 +465,15 @@ const tasItems = weave(tasData.photos, tasVideos);
     })();
   </script>
 
+  <script>
+    // Fade photos in as they load instead of popping in. Photos already loaded (or
+    // cached) are left alone; without JS nothing is hidden.
+    document.querySelectorAll<HTMLImageElement>('.au-item img').forEach((img) => {
+      if (img.complete && img.naturalWidth > 0) return;
+      img.classList.add('is-pending');
+      const reveal = () => img.classList.remove('is-pending');
+      img.addEventListener('load', reveal, { once: true });
+      img.addEventListener('error', reveal, { once: true });
+    });
+  </script>
 </Layout>
