@@ -1,0 +1,39 @@
+---
+import { altPaths } from '../i18n';
+import type { Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  class?: string;
+}
+
+const { lang, class: className = '' } = Astro.props;
+const { en, de } = altPaths(Astro.url.pathname);
+---
+
+<span class={`lang-switch ${className}`} role="group" aria-label="Language / Sprache">
+  <a href={en} hreflang="en" lang="en" aria-current={lang === 'en' ? 'true' : undefined} class:list={[{ 'is-active': lang === 'en' }]}>EN</a>
+  <span class="lang-switch-sep" aria-hidden="true">/</span>
+  <a href={de} hreflang="de" lang="de" aria-current={lang === 'de' ? 'true' : undefined} class:list={[{ 'is-active': lang === 'de' }]}>DE</a>
+</span>
+
+<style is:global>
+  .lang-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    line-height: 1;
+  }
+  .lang-switch a {
+    color: inherit;
+    opacity: 0.55;
+    padding: 4px 2px;
+    transition: opacity 0.2s ease;
+  }
+  .lang-switch a:hover { opacity: 0.9; }
+  .lang-switch a.is-active { opacity: 1; text-decoration: underline; text-underline-offset: 4px; }
+  .lang-switch-sep { opacity: 0.35; }
+</style>

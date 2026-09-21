@@ -1,19 +1,27 @@
 ---
 import Layout from './Layout.astro';
+import LangSwitch from '../components/LangSwitch.astro';
+import { l } from '../i18n';
+import type { Lang } from '../i18n';
 
 interface Props {
   title: string;
   description?: string;
+  lang?: Lang;
 }
 
-const { title, description } = Astro.props;
+const { title, description, lang = 'en' } = Astro.props;
+const de = lang === 'de';
 ---
 
-<Layout title={title} description={description}>
+<Layout title={title} description={description} lang={lang}>
   <div class="legal-page">
     <header class="legal-header">
-      <a href="/" class="legal-logo"><img src="/logo.svg" alt="" width="24" height="24" style="border-radius: 6px;" /> Dual-Stack Studio</a>
-      <a href="/" class="legal-back">← Back to site</a>
+      <a href={l(lang, '/')} class="legal-logo"><img src="/logo.svg" alt="" width="24" height="24" style="border-radius: 6px;" /> Dual-Stack Studio</a>
+      <span class="legal-header-right">
+        <LangSwitch lang={lang} />
+        <a href={l(lang, '/')} class="legal-back">{de ? '← Zurück zur Website' : '← Back to site'}</a>
+      </span>
     </header>
 
     <main class="legal-content">
@@ -21,16 +29,17 @@ const { title, description } = Astro.props;
     </main>
 
     <footer class="legal-footer">
-      <p>© 2026 Dual-Stack Studio. Independently operated.</p>
+      <p>{de ? '© 2026 Dual-Stack Studio. Unabhängig betrieben.' : '© 2026 Dual-Stack Studio. Independently operated.'}</p>
       <div>
-        <a href="/privacy-policy">Privacy Policy</a>
-        <a href="/terms-of-service">Terms of Service</a>
-        <a href="/impressum">Impressum</a>
+        <a href={l(lang, '/privacy-policy')}>{de ? 'Datenschutzerklärung' : 'Privacy Policy'}</a>
+        <a href={l(lang, '/terms-of-service')}>{de ? 'Nutzungsbedingungen' : 'Terms of Service'}</a>
+        <a href={l(lang, '/impressum')}>Impressum</a>
       </div>
     </footer>
   </div>
 
   <style is:global>
+    .legal-header-right { display: inline-flex; align-items: center; gap: 1.5rem; }
     body {
       background: #eeeeee;
       color: #333;
@@ -82,11 +91,13 @@ const { title, description } = Astro.props;
     }
 
     .legal-content h1 {
-      font-size: 40px;
+      font-size: clamp(28px, 9vw, 40px);
       font-weight: 800;
       letter-spacing: -1px;
       color: #0a0a0a;
       margin: 0.5rem 0 0.5rem;
+      overflow-wrap: break-word;
+      hyphens: auto;
     }
 
     .legal-updated {
@@ -148,7 +159,8 @@ const { title, description } = Astro.props;
 
     .legal-footer div {
       display: flex;
-      gap: 1.5rem;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.5rem;
     }
 
     .legal-footer a {

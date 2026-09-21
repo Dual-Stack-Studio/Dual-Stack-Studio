@@ -1,6 +1,12 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import LangSwitch from '../../components/LangSwitch.astro';
+import { l, formatDate } from '../../i18n';
+import type { Lang } from '../../i18n';
 import data from '../../data/journal-vietnam-thailand.json';
+
+const { lang = 'en' } = Astro.props as { lang?: Lang };
+const de = lang === 'de';
 
 const photos = data.photos;
 const heroImg = '/images/journal/vietnam-thailand/vt-24.jpg';
@@ -9,12 +15,17 @@ const gallery = photos.filter((p) => p.src !== heroImg);
 
 // Video is woven into the photo gallery (not a separate section).
 const videos = [
-  { type: 'video', orientation: 'landscape', src: '/videos/journal/vietnam-thailand-video-01.mp4', poster: '/images/journal/vietnam-thailand/vt-video-01-poster.jpg', label: 'Rush hour · Ho Chi Minh City · October 2025' },
+  { type: 'video', orientation: 'landscape', src: '/videos/journal/vietnam-thailand-video-01.mp4', poster: '/images/journal/vietnam-thailand/vt-video-01-poster.jpg', label: de ? 'Stoßzeit · Ho-Chi-Minh-Stadt · Oktober 2025' : 'Rush hour · Ho Chi Minh City · October 2025' },
 ];
+
+// Photo caption: a formatted date when the photo has one, otherwise the stored label.
+function captionOf(p: any): string {
+  return p.date ? formatDate(p.date, lang) : p.label;
+}
 
 // Spread the videos evenly through the photo stream so they sit among the photos.
 function weave(photoList: any[], videoList: any[]): any[] {
-  const list: any[] = photoList.map((p: any) => ({ type: 'photo', ...p }));
+  const list: any[] = photoList.map((p: any) => ({ type: 'photo', ...p, caption: captionOf(p) }));
   if (!videoList.length) return list;
   const step = Math.max(1, Math.round(photoList.length / (videoList.length + 1)));
   const out: any[] = [];
@@ -28,48 +39,99 @@ function weave(photoList: any[], videoList: any[]): any[] {
 }
 
 const items = weave(gallery, videos);
+
+const copy = {
+  en: {
+    title: 'Vietnam & Thailand — Journal — Dual-Stack Studio',
+    description: 'Part two of our journal: three weeks across Vietnam and Thailand — karst rivers, night markets and motorbike traffic.',
+    back: '← Back to journal',
+    heroAlt: 'Karst mountains rising over a still river in northern Vietnam',
+    eyebrow: 'Journal · Part 02',
+    meta: 'October 2025 · From the rivers of Vietnam to the coasts of Thailand',
+    lead: 'Three weeks across Southeast Asia — karst valleys and quiet water, then the noise and neon of the streets.',
+    storyLead: 'Some places you photograph. Others you just try to keep up with. This trip was both.',
+    p1: "We started in Vietnam, out among the limestone karsts and slow rivers where the only sound is the paddle. Then the pace flipped — a wall of motorbikes at every intersection, markets that don't stop, food cooked a metre from where you eat it. By the time we crossed into Thailand, we'd stopped trying to capture everything and started looking for the one frame that says the most.",
+    p2: "That's the whole job, really. Whether it's a night market in a foreign city or a small business back home, the work is the same: pay attention, wait for the moment, and tell it honestly. What follows is that trip, more or less in the order it happened.",
+    note: 'More of this chapter is still being edited — check back.',
+    tripEyebrow: 'The trip, front to back', tripTitle: 'Vietnam, then Thailand',
+    tripLead: 'Shot across October 2025, roughly in order. Tap any photo to see it full size.',
+    photoAlt: 'Southeast Asia',
+    ctaTitle: 'This is how we see every place.',
+    ctaText: 'The same eye we bring to a trip across Asia is the one we bring to farms, guesthouses and small local businesses.',
+    ctaBtn: "Let's talk",
+    footTagline: 'We tell the story of small places doing real work — content, storytelling, and the web presence behind it.',
+    navTitle: 'Navigate', navWork: 'Work', navServices: 'Services', navTeam: 'Team', navJournal: 'Journal',
+    legalTitle: 'Legal', privacy: 'Privacy Policy', terms: 'Terms of Service', contactTitle: 'Get in touch',
+    rights: '© 2026 Dual-Stack Studio. Independently operated.', builtWith: 'Built with Astro, deployed on Vercel.',
+    close: 'Close',
+  },
+  de: {
+    title: 'Vietnam & Thailand — Journal — Dual-Stack Studio',
+    description: 'Teil zwei unseres Journals: drei Wochen quer durch Vietnam und Thailand — Karstflüsse, Nachtmärkte und Motorradverkehr.',
+    back: '← Zurück zum Journal',
+    heroAlt: 'Karstberge über einem stillen Fluss in Nordvietnam',
+    eyebrow: 'Journal · Teil 02',
+    meta: 'Oktober 2025 · Von den Flüssen Vietnams zu den Küsten Thailands',
+    lead: 'Drei Wochen quer durch Südostasien — Karsttäler und stilles Wasser, dann der Lärm und das Neon der Straßen.',
+    storyLead: 'Manche Orte fotografiert man. Bei anderen versucht man nur, mitzuhalten. Diese Reise war beides.',
+    p1: 'Wir begannen in Vietnam, mitten zwischen den Kalkstein-Karstbergen und langsamen Flüssen, wo das einzige Geräusch das Paddel ist. Dann kippte das Tempo — eine Wand aus Motorrädern an jeder Kreuzung, Märkte, die nie aufhören, Essen, das einen Meter von dort gekocht wird, wo man es isst. Als wir nach Thailand einreisten, hatten wir aufgehört, alles festhalten zu wollen, und begannen, nach dem einen Bild zu suchen, das am meisten sagt.',
+    p2: 'Das ist eigentlich die ganze Arbeit. Ob ein Nachtmarkt in einer fremden Stadt oder ein kleiner Betrieb zu Hause — die Arbeit ist dieselbe: aufmerksam sein, auf den Moment warten und ihn ehrlich erzählen. Was folgt, ist diese Reise, mehr oder weniger in der Reihenfolge, in der sie geschah.',
+    note: 'Dieses Kapitel wird noch bearbeitet — schauen Sie bald wieder vorbei.',
+    tripEyebrow: 'Die Reise, von vorne bis hinten', tripTitle: 'Erst Vietnam, dann Thailand',
+    tripLead: 'Aufgenommen im Oktober 2025, ungefähr in der richtigen Reihenfolge. Tippen Sie auf ein Foto, um es in voller Größe zu sehen.',
+    photoAlt: 'Südostasien',
+    ctaTitle: 'So sehen wir jeden Ort.',
+    ctaText: 'Denselben Blick, den wir auf eine Reise durch Asien richten, richten wir auf Bauernhöfe, Gästehäuser und kleine lokale Betriebe.',
+    ctaBtn: 'Sprechen wir',
+    footTagline: 'Wir erzählen die Geschichten kleiner Orte, die echte Arbeit leisten — Content, Storytelling und der Webauftritt dahinter.',
+    navTitle: 'Navigation', navWork: 'Arbeiten', navServices: 'Leistungen', navTeam: 'Team', navJournal: 'Journal',
+    legalTitle: 'Rechtliches', privacy: 'Datenschutzerklärung', terms: 'Nutzungsbedingungen', contactTitle: 'Kontakt',
+    rights: '© 2026 Dual-Stack Studio. Unabhängig betrieben.', builtWith: 'Erstellt mit Astro, bereitgestellt auf Vercel.',
+    close: 'Schließen',
+  },
+};
+const c = copy[lang];
 ---
 
-<Layout title="Vietnam & Thailand — Journal — Dual-Stack Studio" description="Part two of our journal: three weeks across Vietnam and Thailand — karst rivers, night markets and motorbike traffic.">
+<Layout title={c.title} description={c.description} lang={lang}>
 
   <header class="vt-header">
-    <a href="/creative" class="vt-brand">
+    <a href={l(lang, '/creative')} class="vt-brand">
       <img src="/logo.svg" alt="Dual-Stack Studio" width="32" height="32" style="border-radius: 8px;" />
       <span>Dual-Stack Studio</span>
     </a>
-    <a href="/journal" class="vt-back">← Back to journal</a>
+    <span class="vt-header-right">
+      <LangSwitch lang={lang} />
+      <a href={l(lang, '/journal')} class="vt-back">{c.back}</a>
+    </span>
   </header>
 
   <section class="vt-hero">
-    <img class="vt-hero-img" src={heroImg} alt="Karst mountains rising over a still river in northern Vietnam" />
+    <img class="vt-hero-img" src={heroImg} alt={c.heroAlt} />
     <div class="vt-hero-scrim"></div>
     <div class="vt-hero-content">
-      <span class="vt-eyebrow">Journal · Part 02</span>
+      <span class="vt-eyebrow">{c.eyebrow}</span>
       <h1>Vietnam &amp; Thailand</h1>
-      <p class="vt-hero-meta">October 2025 · From the rivers of Vietnam to the coasts of Thailand</p>
-      <p class="vt-hero-lead">Three weeks across Southeast Asia — karst valleys and quiet water, then the noise and neon of the streets.</p>
+      <p class="vt-hero-meta">{c.meta}</p>
+      <p class="vt-hero-lead">{c.lead}</p>
     </div>
   </section>
 
-  <!-- ============================================================
-       STORY — placeholder text. Replace freely; the layout adapts
-       to however many paragraphs you keep here.
-       ============================================================ -->
   <section class="vt-story">
     <div class="vt-inner vt-inner--narrow">
-      <p class="vt-story-lead">Some places you photograph. Others you just try to keep up with. This trip was both.</p>
-      <p>We started in Vietnam, out among the limestone karsts and slow rivers where the only sound is the paddle. Then the pace flipped — a wall of motorbikes at every intersection, markets that don't stop, food cooked a metre from where you eat it. By the time we crossed into Thailand, we'd stopped trying to capture everything and started looking for the one frame that says the most.</p>
-      <p>That's the whole job, really. Whether it's a night market in a foreign city or a small business back home, the work is the same: pay attention, wait for the moment, and tell it honestly. What follows is that trip, more or less in the order it happened.</p>
-      <p class="vt-story-note"><em>More of this chapter is still being edited — check back.</em></p>
+      <p class="vt-story-lead">{c.storyLead}</p>
+      <p>{c.p1}</p>
+      <p>{c.p2}</p>
+      <p class="vt-story-note"><em>{c.note}</em></p>
     </div>
   </section>
 
   <!-- ============ THE TRIP (photos + video, woven together) ============ -->
   <section class="vt-section">
     <div class="vt-inner">
-      <span class="vt-eyebrow vt-eyebrow--dark">The trip, front to back</span>
-      <h2 class="vt-section-title">Vietnam, then Thailand</h2>
-      <p class="vt-section-lead">Shot across October 2025, roughly in order. Tap any photo to see it full size.</p>
+      <span class="vt-eyebrow vt-eyebrow--dark">{c.tripEyebrow}</span>
+      <h2 class="vt-section-title">{c.tripTitle}</h2>
+      <p class="vt-section-lead">{c.tripLead}</p>
       <div class="vt-masonry">
         {items.map((it) => (
           it.type === 'video' ? (
@@ -79,7 +141,7 @@ const items = weave(gallery, videos);
             </figure>
           ) : (
             <div class="vt-item">
-              <img src={it.src} alt={`Southeast Asia — ${it.label}`} width={it.w} height={it.h} loading="lazy" decoding="async" class="vt-lightbox-trigger" />
+              <img src={it.src} alt={`${c.photoAlt} — ${it.caption}`} width={it.w} height={it.h} loading="lazy" decoding="async" class="vt-lightbox-trigger" />
             </div>
           )
         ))}
@@ -89,9 +151,9 @@ const items = weave(gallery, videos);
 
   <section class="vt-cta">
     <div class="vt-inner vt-cta-inner">
-      <h2>This is how we see every place.</h2>
-      <p>The same eye we bring to a trip across Asia is the one we bring to farms, guesthouses and small local businesses.</p>
-      <a href="/creative#contact" class="vt-cta-btn">Let's talk</a>
+      <h2>{c.ctaTitle}</h2>
+      <p>{c.ctaText}</p>
+      <a href={l(lang, '/creative#contact')} class="vt-cta-btn">{c.ctaBtn}</a>
     </div>
   </section>
 
@@ -103,35 +165,35 @@ const items = weave(gallery, videos);
             <img src="/logo.svg" alt="Dual-Stack Studio" width="28" height="28" style="border-radius: 7px;" />
             Dual-Stack Studio
           </div>
-          <p>We tell the story of small places doing real work — content, storytelling, and the web presence behind it.</p>
+          <p>{c.footTagline}</p>
         </div>
         <div class="vt-footer-col">
-          <h4>Navigate</h4>
-          <a href="/creative#work">Work</a>
-          <a href="/creative#services">Services</a>
-          <a href="/creative#team">Team</a>
-          <a href="/journal">Journal</a>
+          <h4>{c.navTitle}</h4>
+          <a href={l(lang, '/creative#work')}>{c.navWork}</a>
+          <a href={l(lang, '/creative#services')}>{c.navServices}</a>
+          <a href={l(lang, '/creative#team')}>{c.navTeam}</a>
+          <a href={l(lang, '/journal')}>{c.navJournal}</a>
         </div>
         <div class="vt-footer-col">
-          <h4>Legal</h4>
-          <a href="/privacy-policy">Privacy Policy</a>
-          <a href="/terms-of-service">Terms of Service</a>
-          <a href="/impressum">Impressum</a>
+          <h4>{c.legalTitle}</h4>
+          <a href={l(lang, '/privacy-policy')}>{c.privacy}</a>
+          <a href={l(lang, '/terms-of-service')}>{c.terms}</a>
+          <a href={l(lang, '/impressum')}>Impressum</a>
         </div>
         <div class="vt-footer-col">
-          <h4>Get in touch</h4>
+          <h4>{c.contactTitle}</h4>
           <a href="mailto:hello@dualstackstudio.com">hello@dualstackstudio.com</a>
         </div>
       </div>
       <div class="vt-footer-bottom">
-        <p>© 2026 Dual-Stack Studio. Independently operated.</p>
-        <p>Built with Astro, deployed on Vercel.</p>
+        <p>{c.rights}</p>
+        <p>{c.builtWith}</p>
       </div>
     </div>
   </footer>
 
   <div id="vt-lightbox" class="vt-lightbox" hidden>
-    <button type="button" class="vt-lightbox-close" id="vt-lightbox-close" aria-label="Close">×</button>
+    <button type="button" class="vt-lightbox-close" id="vt-lightbox-close" aria-label={c.close}>×</button>
     <img src="" alt="" class="vt-lightbox-img" id="vt-lightbox-img" />
   </div>
 
@@ -176,6 +238,7 @@ const items = weave(gallery, videos);
       backdrop-filter: blur(8px);
     }
     .vt-brand { display: flex; align-items: center; gap: 10px; font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600; color: #fff; }
+    .vt-header-right { display: inline-flex; align-items: center; gap: 1.5rem; color: rgba(255,255,255,0.9); }
     .vt-back { font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.9); }
     .vt-back:hover { color: var(--terracotta); }
 

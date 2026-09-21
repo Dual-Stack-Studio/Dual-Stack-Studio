@@ -1,92 +1,192 @@
 ---
 import LegalLayout from '../layouts/LegalLayout.astro';
+import type { Lang } from '../i18n';
 
-const lastUpdated = 'August 4, 2026';
+const { lang = 'en' } = Astro.props as { lang?: Lang };
+const de = lang === 'de';
+const lastUpdated = de ? '21. September 2026' : 'September 21, 2026';
 ---
 
-<LegalLayout title="Privacy Policy — Dual-Stack Studio" description="How Dual-Stack Studio collects, uses, and protects your information.">
-  <span class="legal-eyebrow">Legal</span>
-  <h1>Privacy Policy</h1>
-  <p class="legal-updated">Last updated: {lastUpdated}</p>
+<LegalLayout
+  lang={lang}
+  title={de ? 'Datenschutzerklärung — Dual-Stack Studio' : 'Privacy Policy — Dual-Stack Studio'}
+  description={de ? 'Wie Dual-Stack Studio Ihre Informationen erhebt, verwendet und schützt.' : 'How Dual-Stack Studio collects, uses, and protects your information.'}
+>
+  <span class="legal-eyebrow">{de ? 'Rechtliches' : 'Legal'}</span>
+  <h1>{de ? 'Datenschutzerklärung' : 'Privacy Policy'}</h1>
+  <p class="legal-updated">{de ? 'Zuletzt aktualisiert' : 'Last updated'}: {lastUpdated}</p>
 
-  <p>
-    Dual-Stack Studio is the working name of an independent, individually-operated studio (web development, marketing and photography)
-    run by Sebastian Rodriguez, a sole proprietor based in Haag, Austria. It is not a separately registered legal
-    entity. This policy explains what information this website collects, why, and what rights
-    you have over it.
-  </p>
+  {!de && (
+    <>
+      <p>
+        Dual-Stack Studio is the working name of an independent, individually-operated studio (web development, marketing and photography)
+        run by Sebastian Rodriguez, a sole proprietor based in Haag, Austria. It is not a separately registered legal
+        entity. This policy explains what information this website collects, why, and what rights
+        you have over it.
+      </p>
 
-  <h2>1. What this site does <em>not</em> do</h2>
-  <p>
-    This website does not use cookies, does not run any analytics or tracking scripts, and does
-    not share data with advertising networks. There is no login system and no user accounts.
-    Browsing this site anonymously requires no action on your part — there is nothing to opt out of.
-  </p>
+      <h2>1. What this site does <em>not</em> do</h2>
+      <p>
+        This website does not use cookies, does not run any analytics or tracking scripts, and does
+        not share data with advertising networks. There is no login system and no user accounts.
+        Browsing this site anonymously requires no action on your part — there is nothing to opt out of.
+      </p>
 
-  <h2>2. Information collected when you contact us</h2>
-  <p>
-    The only way to reach Dual-Stack Studio through this site is by email. If you send an email
-    (including via the "Get in touch" or "Learn More" links, which open your own email client),
-    we receive whatever information you choose to include — typically your name, email address,
-    and the contents of your message.
-  </p>
-  <p>This information is used solely to:</p>
-  <ul>
-    <li>Respond to your inquiry</li>
-    <li>Discuss and, if applicable, deliver a project or service you've requested</li>
-    <li>Keep basic records of client correspondence for accounting and legal purposes</li>
-  </ul>
-  <p>It is never sold, rented, or shared with third parties for marketing purposes.</p>
+      <h2>2. Information collected when you contact us</h2>
+      <p>
+        You can reach Dual-Stack Studio by email, or through the contact form on the Creative &amp; Marketing page. If you
+        send an email (including via the contact links on this site, which open your own email client), we receive
+        whatever information you choose to include — typically your name, email address, and the contents of your message.
+        Messages sent through the contact form are passed on to us by email through the third-party service Web3Forms;
+        please see Web3Forms' own privacy policy for how it handles form submissions.
+      </p>
+      <p>This information is used solely to:</p>
+      <ul>
+        <li>Respond to your inquiry</li>
+        <li>Discuss and, if applicable, deliver a project or service you've requested</li>
+        <li>Keep basic records of client correspondence for accounting and legal purposes</li>
+      </ul>
+      <p>It is never sold, rented, or shared with third parties for marketing purposes.</p>
 
-  <h2>3. Hosting and infrastructure</h2>
-  <p>
-    This site is hosted on Vercel. Like most hosting providers, Vercel's infrastructure may log
-    standard technical information (such as IP address, browser type, and request timestamps) for
-    security and performance purposes, independent of this site's own code. That processing is
-    governed by
-    <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener">Vercel's own privacy policy</a>.
-  </p>
+      <h2>3. Hosting and infrastructure</h2>
+      <p>
+        This site is hosted on Vercel. Like most hosting providers, Vercel's infrastructure may log
+        standard technical information (such as IP address, browser type, and request timestamps) for
+        security and performance purposes, independent of this site's own code. That processing is
+        governed by
+        <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener">Vercel's own privacy policy</a>.
+      </p>
 
-  <h2>4. Data retention</h2>
-  <p>
-    Email correspondence is retained only as long as reasonably necessary to manage the client
-    relationship or fulfill legal and accounting obligations. You may request deletion at any time
-    (see Section 6).
-  </p>
+      <h2>4. Data retention</h2>
+      <p>
+        Email correspondence is retained only as long as reasonably necessary to manage the client
+        relationship or fulfill legal and accounting obligations. You may request deletion at any time
+        (see Section 6).
+      </p>
 
-  <h2>5. Links to other sites</h2>
-  <p>
-    This site links to live client projects (e.g. project demos) and third-party services. Once you
-    leave this site, this policy no longer applies — please review the privacy policy of any site
-    you visit.
-  </p>
+      <h2>5. Links to other sites</h2>
+      <p>
+        This site links to live client projects (e.g. project demos) and third-party services. Once you
+        leave this site, this policy no longer applies — please review the privacy policy of any site
+        you visit.
+      </p>
 
-  <h2>6. Your rights</h2>
-  <p>Regardless of where you're located, you can at any time ask to:</p>
-  <ul>
-    <li>See what information we hold about you</li>
-    <li>Correct inaccurate information</li>
-    <li>Request that your information be deleted</li>
-    <li>Withdraw consent to any future contact</li>
-  </ul>
-  <p>
-    To exercise any of these rights, email
-    <a href="mailto:hello@dualstackstudio.com?subject=Privacy%20request">hello@dualstackstudio.com</a>.
-    We'll respond within a reasonable timeframe, generally within 30 days.
-  </p>
+      <h2>6. Your rights</h2>
+      <p>Regardless of where you're located, you can at any time ask to:</p>
+      <ul>
+        <li>See what information we hold about you</li>
+        <li>Correct inaccurate information</li>
+        <li>Request that your information be deleted</li>
+        <li>Withdraw consent to any future contact</li>
+      </ul>
+      <p>
+        To exercise any of these rights, email
+        <a href="mailto:hello@dualstackstudio.com?subject=Privacy%20request">hello@dualstackstudio.com</a>.
+        We'll respond within a reasonable timeframe, generally within 30 days.
+      </p>
 
-  <h2>7. Children's privacy</h2>
-  <p>This site is intended for a professional, business audience and is not directed at children.</p>
+      <h2>7. Children's privacy</h2>
+      <p>This site is intended for a professional, business audience and is not directed at children.</p>
 
-  <h2>8. Changes to this policy</h2>
-  <p>
-    This policy may be updated from time to time as the site or its services change. The "last
-    updated" date at the top reflects the most recent revision.
-  </p>
+      <h2>8. Changes to this policy</h2>
+      <p>
+        This policy may be updated from time to time as the site or its services change. The "last
+        updated" date at the top reflects the most recent revision.
+      </p>
 
-  <h2>9. Contact</h2>
-  <p>
-    Questions about this policy can be sent to
-    <a href="mailto:hello@dualstackstudio.com">hello@dualstackstudio.com</a>.
-  </p>
+      <h2>9. Contact</h2>
+      <p>
+        Questions about this policy can be sent to
+        <a href="mailto:hello@dualstackstudio.com">hello@dualstackstudio.com</a>.
+      </p>
+    </>
+  )}
+
+  {de && (
+    <>
+      <p>
+        Dual-Stack Studio ist der Arbeitsname eines unabhängigen, von einer Einzelperson geführten Studios
+        (Webentwicklung, Marketing und Fotografie), das von Sebastian Rodriguez als Einzelunternehmer mit Sitz in
+        Haag, Österreich, betrieben wird. Es handelt sich nicht um eine eigenständig registrierte juristische
+        Person. Diese Erklärung beschreibt, welche Informationen diese Website erhebt, warum, und welche Rechte
+        Sie daran haben.
+      </p>
+
+      <h2>1. Was diese Website <em>nicht</em> tut</h2>
+      <p>
+        Diese Website verwendet keine Cookies, setzt keine Analyse- oder Tracking-Skripte ein und gibt keine
+        Daten an Werbenetzwerke weiter. Es gibt kein Login-System und keine Benutzerkonten. Wer diese Website
+        anonym besucht, muss nichts tun — es gibt nichts, dem man widersprechen müsste.
+      </p>
+
+      <h2>2. Informationen, die bei Kontaktaufnahme erhoben werden</h2>
+      <p>
+        Sie erreichen Dual-Stack Studio per E-Mail oder über das Kontaktformular auf der Seite „Creative &amp;
+        Marketing“. Wenn Sie eine E-Mail senden (auch über die Kontakt-Links dieser Website, die Ihr eigenes
+        E-Mail-Programm öffnen), erhalten wir die Informationen, die Sie angeben — in der Regel Ihren Namen,
+        Ihre E-Mail-Adresse und den Inhalt Ihrer Nachricht. Nachrichten über das Kontaktformular werden uns über
+        den Drittanbieter-Dienst Web3Forms per E-Mail weitergeleitet; wie Web3Forms Formulareingaben verarbeitet,
+        entnehmen Sie bitte dessen eigener Datenschutzerklärung.
+      </p>
+      <p>Diese Informationen werden ausschließlich verwendet, um:</p>
+      <ul>
+        <li>Ihre Anfrage zu beantworten</li>
+        <li>ein von Ihnen gewünschtes Projekt oder eine Leistung zu besprechen und gegebenenfalls umzusetzen</li>
+        <li>eine einfache Ablage der Kundenkorrespondenz für Buchhaltungs- und rechtliche Zwecke zu führen</li>
+      </ul>
+      <p>Sie werden niemals verkauft, vermietet oder zu Marketingzwecken an Dritte weitergegeben.</p>
+
+      <h2>3. Hosting und Infrastruktur</h2>
+      <p>
+        Diese Website wird bei Vercel gehostet. Wie die meisten Hosting-Anbieter kann die Infrastruktur von Vercel
+        übliche technische Informationen (etwa IP-Adresse, Browsertyp und Zeitpunkt von Anfragen) aus Sicherheits-
+        und Leistungsgründen protokollieren, unabhängig vom Code dieser Website. Diese Verarbeitung unterliegt
+        der
+        <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener">Datenschutzerklärung von Vercel</a>.
+      </p>
+
+      <h2>4. Aufbewahrung von Daten</h2>
+      <p>
+        E-Mail-Korrespondenz wird nur so lange aufbewahrt, wie es zur Betreuung der Kundenbeziehung oder zur
+        Erfüllung gesetzlicher und buchhalterischer Pflichten angemessen erforderlich ist. Sie können jederzeit
+        die Löschung verlangen (siehe Abschnitt 6).
+      </p>
+
+      <h2>5. Links zu anderen Websites</h2>
+      <p>
+        Diese Website verlinkt auf laufende Kundenprojekte (z. B. Projekt-Demos) und Drittanbieter-Dienste. Sobald
+        Sie diese Website verlassen, gilt diese Erklärung nicht mehr — bitte lesen Sie die
+        Datenschutzerklärung jeder Website, die Sie besuchen.
+      </p>
+
+      <h2>6. Ihre Rechte</h2>
+      <p>Unabhängig davon, wo Sie sich befinden, können Sie jederzeit verlangen:</p>
+      <ul>
+        <li>Auskunft darüber, welche Informationen wir über Sie gespeichert haben</li>
+        <li>die Berichtigung unrichtiger Informationen</li>
+        <li>die Löschung Ihrer Informationen</li>
+        <li>den Widerruf der Einwilligung zu künftiger Kontaktaufnahme</li>
+      </ul>
+      <p>
+        Um eines dieser Rechte auszuüben, schreiben Sie an
+        <a href="mailto:hello@dualstackstudio.com?subject=Datenschutzanfrage">hello@dualstackstudio.com</a>.
+        Wir antworten innerhalb eines angemessenen Zeitraums, in der Regel innerhalb von 30 Tagen.
+      </p>
+
+      <h2>7. Datenschutz bei Kindern</h2>
+      <p>Diese Website richtet sich an ein professionelles, geschäftliches Publikum und nicht an Kinder.</p>
+
+      <h2>8. Änderungen dieser Erklärung</h2>
+      <p>
+        Diese Erklärung kann von Zeit zu Zeit angepasst werden, wenn sich die Website oder ihre Leistungen
+        ändern. Das oben genannte Datum „Zuletzt aktualisiert“ zeigt die jüngste Überarbeitung.
+      </p>
+
+      <h2>9. Kontakt</h2>
+      <p>
+        Fragen zu dieser Erklärung können an
+        <a href="mailto:hello@dualstackstudio.com">hello@dualstackstudio.com</a> gerichtet werden.
+      </p>
+    </>
+  )}
 </LegalLayout>

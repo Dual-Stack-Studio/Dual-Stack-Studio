@@ -1,6 +1,12 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import LangSwitch from '../../components/LangSwitch.astro';
+import { l, formatDate } from '../../i18n';
+import type { Lang } from '../../i18n';
 import data from '../../data/journal-austria.json';
+
+const { lang = 'en' } = Astro.props as { lang?: Lang };
+const de = lang === 'de';
 
 const photos = data.photos;
 const heroImg = '/images/journal/austria/austria-01.jpg';
@@ -9,14 +15,19 @@ const gallery = photos.filter((p) => p.src !== heroImg);
 
 // Videos are woven into the photo gallery (not a separate section).
 const videos = [
-  { type: 'video', orientation: 'portrait', src: '/videos/journal/austria-video-01.mp4', poster: '/images/journal/austria/video-01-poster.jpg', label: 'On the road · May 2026' },
-  { type: 'video', orientation: 'portrait', src: '/videos/journal/austria-video-02.mp4', poster: '/images/journal/austria/video-02-poster.jpg', label: 'The valley · May 2026' },
-  { type: 'video', orientation: 'portrait', src: '/videos/journal/austria-video-03.mp4', poster: '/images/journal/austria/video-03-poster.jpg', label: 'Late spring · May 2026' },
+  { type: 'video', orientation: 'portrait', src: '/videos/journal/austria-video-01.mp4', poster: '/images/journal/austria/video-01-poster.jpg', label: de ? 'Unterwegs · Mai 2026' : 'On the road · May 2026' },
+  { type: 'video', orientation: 'portrait', src: '/videos/journal/austria-video-02.mp4', poster: '/images/journal/austria/video-02-poster.jpg', label: de ? 'Das Tal · Mai 2026' : 'The valley · May 2026' },
+  { type: 'video', orientation: 'portrait', src: '/videos/journal/austria-video-03.mp4', poster: '/images/journal/austria/video-03-poster.jpg', label: de ? 'Später Frühling · Mai 2026' : 'Late spring · May 2026' },
 ];
+
+// Photo caption: a formatted date when the photo has one, otherwise the stored label.
+function captionOf(p: any): string {
+  return p.date ? formatDate(p.date, lang) : p.label;
+}
 
 // Spread the videos evenly through the photo stream so they sit among the photos.
 function weave(photoList: any[], videoList: any[]): any[] {
-  const list: any[] = photoList.map((p: any) => ({ type: 'photo', ...p }));
+  const list: any[] = photoList.map((p: any) => ({ type: 'photo', ...p, caption: captionOf(p) }));
   if (!videoList.length) return list;
   const step = Math.max(1, Math.round(photoList.length / (videoList.length + 1)));
   const out: any[] = [];
@@ -30,48 +41,99 @@ function weave(photoList: any[], videoList: any[]): any[] {
 }
 
 const items = weave(gallery, videos);
+
+const copy = {
+  en: {
+    title: 'Austria — Journal — Dual-Stack Studio',
+    description: 'Part three of our journal: a season in the Austrian countryside, from the first frost of March to late summer.',
+    back: '← Back to journal',
+    heroAlt: 'Sunrise over frosted farmland in the Austrian countryside',
+    eyebrow: 'Journal · Part 03', h1: 'Austria',
+    meta: 'March – September 2026 · The countryside of Upper Austria',
+    lead: 'A season of learning to see a place slowly — from the first frost of March to the long green light of late summer.',
+    storyLead: 'This is where our story starts — not in an office, but out here, in a quiet corner of the Austrian countryside where the mornings come in cold and the days stretch long.',
+    p1: "We came to Austria and did what we always do: we started paying attention. The frost on the fields in March. The valley filling with mist at sunrise. The way a whole hillside changes colour between one visit and the next. It's the same instinct that makes us good at telling the story of a small business — you slow down, you look properly, and you let a place show you what makes it worth remembering.",
+    p2: 'Over these months we photographed the seasons turning, drove the back roads with the camera running, and collected the small, in-between moments that never make it into a brochure but somehow say the most. What follows is a first cut of that — the beginning of the story, front to back.',
+    note: 'More of this chapter, and the ones that come after it, are on their way.',
+    seasonEyebrow: 'The season, front to back', seasonTitle: 'From frost to late summer',
+    seasonLead: 'Shot over spring and summer 2026, in order. Tap any photo to see it full size.',
+    photoAlt: 'Austrian countryside',
+    ctaTitle: 'This is how we see every place.',
+    ctaText: 'The same eye we bring to a season in Austria is the one we bring to farms, guesthouses and small local businesses.',
+    ctaBtn: "Let's talk",
+    footTagline: 'We tell the story of small places doing real work — content, storytelling, and the web presence behind it.',
+    navTitle: 'Navigate', navWork: 'Work', navServices: 'Services', navTeam: 'Team', navJournal: 'Journal',
+    legalTitle: 'Legal', privacy: 'Privacy Policy', terms: 'Terms of Service', contactTitle: 'Get in touch',
+    rights: '© 2026 Dual-Stack Studio. Independently operated.', builtWith: 'Built with Astro, deployed on Vercel.',
+    close: 'Close',
+  },
+  de: {
+    title: 'Österreich — Journal — Dual-Stack Studio',
+    description: 'Teil drei unseres Journals: eine Saison auf dem österreichischen Land, vom ersten Frost im März bis zum Spätsommer.',
+    back: '← Zurück zum Journal',
+    heroAlt: 'Sonnenaufgang über gefrorenen Feldern auf dem österreichischen Land',
+    eyebrow: 'Journal · Teil 03', h1: 'Österreich',
+    meta: 'März – September 2026 · Auf dem Land in Oberösterreich',
+    lead: 'Eine Saison, in der wir gelernt haben, einen Ort langsam zu sehen — vom ersten Frost im März bis zum langen grünen Licht des Spätsommers.',
+    storyLead: 'Hier beginnt unsere Geschichte — nicht in einem Büro, sondern hier draußen, in einem ruhigen Winkel des österreichischen Landes, wo die Morgen kalt beginnen und die Tage lang werden.',
+    p1: 'Wir kamen nach Österreich und taten, was wir immer tun: Wir begannen, genau hinzusehen. Der Frost auf den Feldern im März. Das Tal, das sich bei Sonnenaufgang mit Nebel füllt. Die Art, wie ein ganzer Hang zwischen einem Besuch und dem nächsten seine Farbe wechselt. Es ist derselbe Instinkt, der uns gut darin macht, die Geschichte eines kleinen Betriebs zu erzählen — man wird langsamer, man schaut richtig hin und lässt sich von einem Ort zeigen, was ihn erinnernswert macht.',
+    p2: 'In diesen Monaten fotografierten wir den Wechsel der Jahreszeiten, fuhren mit laufender Kamera über die Nebenstraßen und sammelten die kleinen Momente dazwischen, die es nie in eine Broschüre schaffen, aber irgendwie am meisten sagen. Was folgt, ist ein erster Schnitt davon — der Anfang der Geschichte, von vorne bis hinten.',
+    note: 'Mehr von diesem Kapitel und von den folgenden ist unterwegs.',
+    seasonEyebrow: 'Die Saison, von vorne bis hinten', seasonTitle: 'Vom Frost bis zum Spätsommer',
+    seasonLead: 'Aufgenommen im Frühling und Sommer 2026, in der richtigen Reihenfolge. Tippen Sie auf ein Foto, um es in voller Größe zu sehen.',
+    photoAlt: 'Österreichisches Land',
+    ctaTitle: 'So sehen wir jeden Ort.',
+    ctaText: 'Denselben Blick, den wir auf eine Saison in Österreich richten, richten wir auf Bauernhöfe, Gästehäuser und kleine lokale Betriebe.',
+    ctaBtn: 'Sprechen wir',
+    footTagline: 'Wir erzählen die Geschichten kleiner Orte, die echte Arbeit leisten — Content, Storytelling und der Webauftritt dahinter.',
+    navTitle: 'Navigation', navWork: 'Arbeiten', navServices: 'Leistungen', navTeam: 'Team', navJournal: 'Journal',
+    legalTitle: 'Rechtliches', privacy: 'Datenschutzerklärung', terms: 'Nutzungsbedingungen', contactTitle: 'Kontakt',
+    rights: '© 2026 Dual-Stack Studio. Unabhängig betrieben.', builtWith: 'Erstellt mit Astro, bereitgestellt auf Vercel.',
+    close: 'Schließen',
+  },
+};
+const c = copy[lang];
 ---
 
-<Layout title="Austria — Journal — Dual-Stack Studio" description="Part one of our journal: a season in the Austrian countryside, from the first frost of March to late summer.">
+<Layout title={c.title} description={c.description} lang={lang}>
 
   <header class="au-header">
-    <a href="/creative" class="au-brand">
+    <a href={l(lang, '/creative')} class="au-brand">
       <img src="/logo.svg" alt="Dual-Stack Studio" width="32" height="32" style="border-radius: 8px;" />
       <span>Dual-Stack Studio</span>
     </a>
-    <a href="/journal" class="au-back">← Back to journal</a>
+    <span class="au-header-right">
+      <LangSwitch lang={lang} />
+      <a href={l(lang, '/journal')} class="au-back">{c.back}</a>
+    </span>
   </header>
 
   <section class="au-hero">
-    <img class="au-hero-img" src={heroImg} alt="Sunrise over frosted farmland in the Austrian countryside" />
+    <img class="au-hero-img" src={heroImg} alt={c.heroAlt} />
     <div class="au-hero-scrim"></div>
     <div class="au-hero-content">
-      <span class="au-eyebrow">Journal · Part 03</span>
-      <h1>Austria</h1>
-      <p class="au-hero-meta">March – September 2026 · The countryside of Upper Austria</p>
-      <p class="au-hero-lead">A season of learning to see a place slowly — from the first frost of March to the long green light of late summer.</p>
+      <span class="au-eyebrow">{c.eyebrow}</span>
+      <h1>{c.h1}</h1>
+      <p class="au-hero-meta">{c.meta}</p>
+      <p class="au-hero-lead">{c.lead}</p>
     </div>
   </section>
 
-  <!-- ============================================================
-       STORY — placeholder text. Replace freely; the layout adapts
-       to however many paragraphs you keep here.
-       ============================================================ -->
   <section class="au-story">
     <div class="au-inner au-inner--narrow">
-      <p class="au-story-lead">This is where our story starts — not in an office, but out here, in a quiet corner of the Austrian countryside where the mornings come in cold and the days stretch long.</p>
-      <p>We came to Austria and did what we always do: we started paying attention. The frost on the fields in March. The valley filling with mist at sunrise. The way a whole hillside changes colour between one visit and the next. It's the same instinct that makes us good at telling the story of a small business — you slow down, you look properly, and you let a place show you what makes it worth remembering.</p>
-      <p>Over these months we photographed the seasons turning, drove the back roads with the camera running, and collected the small, in-between moments that never make it into a brochure but somehow say the most. What follows is a first cut of that — the beginning of the story, front to back.</p>
-      <p class="au-story-note"><em>More of this chapter, and the ones that come after it, are on their way.</em></p>
+      <p class="au-story-lead">{c.storyLead}</p>
+      <p>{c.p1}</p>
+      <p>{c.p2}</p>
+      <p class="au-story-note"><em>{c.note}</em></p>
     </div>
   </section>
 
   <!-- ============ THE SEASON (photos + video, woven together) ============ -->
   <section class="au-section">
     <div class="au-inner">
-      <span class="au-eyebrow au-eyebrow--dark">The season, front to back</span>
-      <h2 class="au-section-title">From frost to late summer</h2>
-      <p class="au-section-lead">Shot over spring and summer 2026, in order. Tap any photo to see it full size.</p>
+      <span class="au-eyebrow au-eyebrow--dark">{c.seasonEyebrow}</span>
+      <h2 class="au-section-title">{c.seasonTitle}</h2>
+      <p class="au-section-lead">{c.seasonLead}</p>
       <div class="au-masonry">
         {items.map((it) => (
           it.type === 'video' ? (
@@ -81,7 +143,7 @@ const items = weave(gallery, videos);
             </figure>
           ) : (
             <div class="au-item">
-              <img src={it.src} alt={`Austrian countryside — ${it.label}`} width={it.w} height={it.h} loading="lazy" decoding="async" class="au-lightbox-trigger" />
+              <img src={it.src} alt={`${c.photoAlt} — ${it.caption}`} width={it.w} height={it.h} loading="lazy" decoding="async" class="au-lightbox-trigger" />
             </div>
           )
         ))}
@@ -91,9 +153,9 @@ const items = weave(gallery, videos);
 
   <section class="au-cta">
     <div class="au-inner au-cta-inner">
-      <h2>This is how we see every place.</h2>
-      <p>The same eye we bring to a season in Austria is the one we bring to farms, guesthouses and small local businesses.</p>
-      <a href="/creative#contact" class="au-cta-btn">Let's talk</a>
+      <h2>{c.ctaTitle}</h2>
+      <p>{c.ctaText}</p>
+      <a href={l(lang, '/creative#contact')} class="au-cta-btn">{c.ctaBtn}</a>
     </div>
   </section>
 
@@ -105,35 +167,35 @@ const items = weave(gallery, videos);
             <img src="/logo.svg" alt="Dual-Stack Studio" width="28" height="28" style="border-radius: 7px;" />
             Dual-Stack Studio
           </div>
-          <p>We tell the story of small places doing real work — content, storytelling, and the web presence behind it.</p>
+          <p>{c.footTagline}</p>
         </div>
         <div class="au-footer-col">
-          <h4>Navigate</h4>
-          <a href="/creative#work">Work</a>
-          <a href="/creative#services">Services</a>
-          <a href="/creative#team">Team</a>
-          <a href="/journal">Journal</a>
+          <h4>{c.navTitle}</h4>
+          <a href={l(lang, '/creative#work')}>{c.navWork}</a>
+          <a href={l(lang, '/creative#services')}>{c.navServices}</a>
+          <a href={l(lang, '/creative#team')}>{c.navTeam}</a>
+          <a href={l(lang, '/journal')}>{c.navJournal}</a>
         </div>
         <div class="au-footer-col">
-          <h4>Legal</h4>
-          <a href="/privacy-policy">Privacy Policy</a>
-          <a href="/terms-of-service">Terms of Service</a>
-          <a href="/impressum">Impressum</a>
+          <h4>{c.legalTitle}</h4>
+          <a href={l(lang, '/privacy-policy')}>{c.privacy}</a>
+          <a href={l(lang, '/terms-of-service')}>{c.terms}</a>
+          <a href={l(lang, '/impressum')}>Impressum</a>
         </div>
         <div class="au-footer-col">
-          <h4>Get in touch</h4>
+          <h4>{c.contactTitle}</h4>
           <a href="mailto:hello@dualstackstudio.com">hello@dualstackstudio.com</a>
         </div>
       </div>
       <div class="au-footer-bottom">
-        <p>© 2026 Dual-Stack Studio. Independently operated.</p>
-        <p>Built with Astro, deployed on Vercel.</p>
+        <p>{c.rights}</p>
+        <p>{c.builtWith}</p>
       </div>
     </div>
   </footer>
 
   <div id="au-lightbox" class="au-lightbox" hidden>
-    <button type="button" class="au-lightbox-close" id="au-lightbox-close" aria-label="Close">×</button>
+    <button type="button" class="au-lightbox-close" id="au-lightbox-close" aria-label={c.close}>×</button>
     <img src="" alt="" class="au-lightbox-img" id="au-lightbox-img" />
   </div>
 
@@ -178,6 +240,7 @@ const items = weave(gallery, videos);
       backdrop-filter: blur(8px);
     }
     .au-brand { display: flex; align-items: center; gap: 10px; font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600; color: #fff; }
+    .au-header-right { display: inline-flex; align-items: center; gap: 1.5rem; color: rgba(255,255,255,0.9); }
     .au-back { font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.9); }
     .au-back:hover { color: var(--terracotta); }
 

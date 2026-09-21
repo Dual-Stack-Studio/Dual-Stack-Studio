@@ -1,5 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import LangSwitch from '../components/LangSwitch.astro';
+import { l } from '../i18n';
+import type { Lang } from '../i18n';
+
+const { lang = 'en' } = Astro.props as { lang?: Lang };
 
 // Minimal line-icon set (Lucide-style), used for team role badges
 const lineIcons: Record<string, string> = {
@@ -15,50 +20,143 @@ function lineIcon(name: string, size = 32, strokeWidth = 1.6) {
 
 // Hero image — our own photography from the Austrian Alps.
 const HERO_IMG = '/images/hero-alps.jpg';
+
+const copy = {
+  en: {
+    title: 'Dual-Stack Studio — We tell the story of small places doing real work',
+    navWork: 'Work', navServices: 'Services', navTeam: 'Team', navJournal: 'Journal',
+    navWeb: 'Web & Full-Stack ↗', cta: "Let's talk", menuToggle: 'Toggle menu', menuClose: 'Close menu',
+    heroAlt: 'Austrian Alps reflected in a still mountain lake',
+    heroTitle: 'Telling the stories<br />of small places<br />doing real work.',
+    heroSub: "We build the digital presence for farms, guesthouses and small local businesses — the photos, the film, the story, and the site behind it when you're ready.",
+    scroll: 'Scroll',
+    workEyebrow: 'Selected work', workTitle: 'Our Work',
+    workLead: 'Real places, real stories — years of photography for a lodge in the mountains of Japan.',
+    lodgeAlt: 'Mountain lodge, Japan', lodgeTag: 'Photography', lodgeTitle: 'A Lodge in Japan',
+    lodgeText: 'Years of photography for a lodge and its restaurant in the mountains of Japan.',
+    journalEyebrow: 'The Journal', journalTitle: 'Our Journal',
+    journalLead: "Part travelogue, part about-us — the story of who we are, told one place at a time. We're starting with Australia.",
+    journalAlt: 'The Brisbane skyline seen across the bush from a lookout',
+    journalTag: 'Journal · Part 01', journalCardTitle: 'Australia',
+    journalCardText: 'Months on the other side of the world — a city on the river, rainforest at the edge of it, and the work in between.',
+    journalAll: 'Read the whole journal →',
+    servicesEyebrow: 'What we do', servicesTitle: 'Two ways we help',
+    s1Kicker: '01 — Where most people start', s1Title: 'Content & Storytelling',
+    s1Text: 'Photography, drone footage and short-form video that actually shows what makes your place worth visiting. We shoot it, edit it, and help you tell the story on social — no website required to get started.',
+    s2Kicker: "02 — When you're ready to grow", s2Title: 'Web & Booking',
+    s2Text: 'Once content is working, we build the site behind it — a real online presence, and a booking system if you need one. Same team, same story, just the next step.',
+    teamEyebrow: 'Who I am', teamTitle: 'One person, three disciplines',
+    teamLead: 'Every step handled start to finish — from the first photo to production deploy.',
+    t1Title: 'Content & Storytelling', t1Text: 'Photography, drone video and social storytelling for small local businesses.',
+    t2Title: 'Design', t2Text: 'Brand and visual identity, from a logo to a full site — clean, warm, and true to the place.',
+    t3Title: 'Full-Stack Development', t3Text: 'The site and booking system behind the story, when you need one.',
+    contactEyebrow: 'Get in touch', contactTitle: "Let's tell your story.",
+    contactLead: "Tell us a bit about your business and we'll get back to you within 1–2 business days.",
+    fName: 'Name', fNamePh: 'Your name', fEmail: 'Email', fEmailPh: 'you@business.com',
+    fService: 'What do you need?', optContent: 'Content & Storytelling', optWeb: 'Web & Booking', optOther: 'Something else',
+    fMessage: 'Message', fMessagePh: "Tell us a bit about your business and what you're looking for.",
+    send: 'Send message', sending: 'Sending…',
+    okMsg: "Thanks — we'll get back to you soon.", errMsg: 'Something went wrong. Please email us directly instead.',
+    footTagline: 'We tell the story of small places doing real work — content, storytelling, and the web presence behind it.',
+    builtTitle: 'Built in parallel',
+    builtText: 'This website was built in parallel — design & vision by Dual-Stack Studio, implementation assisted by Claude AI.',
+    licencesTitle: 'Trade licences',
+    footNavTitle: 'Navigate', footLegalTitle: 'Legal', privacy: 'Privacy Policy', terms: 'Terms of Service',
+    footContactTitle: 'Get in touch', footReply: 'Usually replies within 1–2 business days.',
+    rights: '© 2026 Dual-Stack Studio. Independently operated.', builtWith: 'Built with Astro, deployed on Vercel.',
+  },
+  de: {
+    title: 'Dual-Stack Studio — Wir erzählen die Geschichten kleiner Orte, die echte Arbeit leisten',
+    navWork: 'Arbeiten', navServices: 'Leistungen', navTeam: 'Team', navJournal: 'Journal',
+    navWeb: 'Web & Full-Stack ↗', cta: 'Sprechen wir', menuToggle: 'Menü umschalten', menuClose: 'Menü schließen',
+    heroAlt: 'Die österreichischen Alpen spiegeln sich in einem stillen Bergsee',
+    heroTitle: 'Wir erzählen die<br />Geschichten kleiner Orte,<br />die echte Arbeit leisten.',
+    heroSub: 'Wir bauen den digitalen Auftritt für Bauernhöfe, Gästehäuser und kleine lokale Betriebe — die Fotos, den Film, die Geschichte und die Website dahinter, wenn Sie so weit sind.',
+    scroll: 'Scrollen',
+    workEyebrow: 'Ausgewählte Arbeiten', workTitle: 'Unsere Arbeiten',
+    workLead: 'Echte Orte, echte Geschichten — jahrelange Fotografie für eine Lodge in den Bergen Japans.',
+    lodgeAlt: 'Berglodge in Japan', lodgeTag: 'Fotografie', lodgeTitle: 'Eine Lodge in Japan',
+    lodgeText: 'Jahrelange Fotografie für eine Lodge und ihr Restaurant in den Bergen Japans.',
+    journalEyebrow: 'Das Journal', journalTitle: 'Unser Journal',
+    journalLead: 'Halb Reisetagebuch, halb Über-uns — die Geschichte, wer wir sind, Ort für Ort erzählt. Wir beginnen mit Australien.',
+    journalAlt: 'Die Skyline von Brisbane, von einem Aussichtspunkt über den Busch gesehen',
+    journalTag: 'Journal · Teil 01', journalCardTitle: 'Australien',
+    journalCardText: 'Monate am anderen Ende der Welt — eine Stadt am Fluss, Regenwald an ihrem Rand und die Arbeit dazwischen.',
+    journalAll: 'Das ganze Journal lesen →',
+    servicesEyebrow: 'Was wir tun', servicesTitle: 'Zwei Wege, wie wir helfen',
+    s1Kicker: '01 — Hier beginnen die meisten', s1Title: 'Content & Storytelling',
+    s1Text: 'Fotografie, Drohnenaufnahmen und Kurzvideos, die wirklich zeigen, was Ihren Ort besuchenswert macht. Wir drehen, schneiden und helfen Ihnen, die Geschichte auf Social Media zu erzählen — für den Anfang brauchen Sie keine Website.',
+    s2Kicker: '02 — Wenn Sie wachsen möchten', s2Title: 'Web & Buchung',
+    s2Text: 'Sobald der Content funktioniert, bauen wir die Website dahinter — einen echten Online-Auftritt und, wenn nötig, ein Buchungssystem. Gleiches Team, gleiche Geschichte, nur der nächste Schritt.',
+    teamEyebrow: 'Wer ich bin', teamTitle: 'Eine Person, drei Disziplinen',
+    teamLead: 'Jeder Schritt aus einer Hand — vom ersten Foto bis zum Livegang.',
+    t1Title: 'Content & Storytelling', t1Text: 'Fotografie, Drohnenvideo und Social-Storytelling für kleine lokale Betriebe.',
+    t2Title: 'Design', t2Text: 'Marke und visuelle Identität, vom Logo bis zur kompletten Website — klar, warm und dem Ort treu.',
+    t3Title: 'Full-Stack-Entwicklung', t3Text: 'Die Website und das Buchungssystem hinter der Geschichte, wenn Sie eines brauchen.',
+    contactEyebrow: 'Kontakt', contactTitle: 'Erzählen wir Ihre Geschichte.',
+    contactLead: 'Erzählen Sie uns kurz von Ihrem Betrieb, wir melden uns innerhalb von 1–2 Werktagen.',
+    fName: 'Name', fNamePh: 'Ihr Name', fEmail: 'E-Mail', fEmailPh: 'sie@betrieb.at',
+    fService: 'Was brauchen Sie?', optContent: 'Content & Storytelling', optWeb: 'Web & Buchung', optOther: 'Etwas anderes',
+    fMessage: 'Nachricht', fMessagePh: 'Erzählen Sie uns kurz von Ihrem Betrieb und was Sie suchen.',
+    send: 'Nachricht senden', sending: 'Wird gesendet…',
+    okMsg: 'Danke — wir melden uns bald bei Ihnen.', errMsg: 'Etwas ist schiefgelaufen. Bitte schreiben Sie uns stattdessen direkt eine E-Mail.',
+    footTagline: 'Wir erzählen die Geschichten kleiner Orte, die echte Arbeit leisten — Content, Storytelling und der Webauftritt dahinter.',
+    builtTitle: 'Parallel gebaut',
+    builtText: 'Diese Website wurde parallel gebaut — Design und Vision von Dual-Stack Studio, Umsetzung unterstützt durch Claude AI.',
+    licencesTitle: 'Gewerbeberechtigungen',
+    footNavTitle: 'Navigation', footLegalTitle: 'Rechtliches', privacy: 'Datenschutzerklärung', terms: 'Nutzungsbedingungen',
+    footContactTitle: 'Kontakt', footReply: 'Antwortet in der Regel innerhalb von 1–2 Werktagen.',
+    rights: '© 2026 Dual-Stack Studio. Unabhängig betrieben.', builtWith: 'Erstellt mit Astro, bereitgestellt auf Vercel.',
+  },
+};
+const c = copy[lang];
 ---
 
-<Layout title="Dual-Stack Studio — We tell the story of small places doing real work">
+<Layout title={c.title} lang={lang}>
 
   <!-- ============ HERO ============ -->
   <section class="hero">
-    <img class="hero-img" src={HERO_IMG} alt="Austrian Alps reflected in a still mountain lake" />
+    <img class="hero-img" src={HERO_IMG} alt={c.heroAlt} />
     <div class="hero-scrim"></div>
 
     <header id="site-header" class="site-header">
-      <a href="/creative" class="brand">
+      <a href={l(lang, '/creative')} class="brand">
         <img src="/logo.svg" alt="Dual-Stack Studio" width="34" height="34" style="border-radius: 8px;" />
         <span>Dual-Stack Studio</span>
       </a>
       <nav class="desktop-nav">
-        <a href="#work">Work</a>
-        <a href="#services">Services</a>
-        <a href="#team">Team</a>
-        <a href="/journal">Journal</a>
-        <a href="/web" class="nav-dept">Web &amp; Full-Stack ↗</a>
+        <a href="#work">{c.navWork}</a>
+        <a href="#services">{c.navServices}</a>
+        <a href="#team">{c.navTeam}</a>
+        <a href={l(lang, '/journal')}>{c.navJournal}</a>
+        <a href={l(lang, '/web')} class="nav-dept">{c.navWeb}</a>
       </nav>
-      <a href="#contact" class="header-cta">Let's talk</a>
-      <button id="menu-toggle" class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+      <div class="header-actions">
+        <LangSwitch lang={lang} />
+        <a href="#contact" class="header-cta">{c.cta}</a>
+      </div>
+      <button id="menu-toggle" class="menu-toggle" aria-label={c.menuToggle} aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
     </header>
 
     <div id="mobile-menu" class="mobile-menu">
-      <button id="mobile-menu-close" class="mobile-menu-close" aria-label="Close menu">✕</button>
-      <a href="#work" class="mobile-nav-link">Work</a>
-      <a href="#services" class="mobile-nav-link">Services</a>
-      <a href="#team" class="mobile-nav-link">Team</a>
-      <a href="/journal" class="mobile-nav-link">Journal</a>
-      <a href="/web" class="mobile-nav-link">Web &amp; Full-Stack ↗</a>
-      <a href="#contact" class="mobile-cta">Let's talk</a>
+      <button id="mobile-menu-close" class="mobile-menu-close" aria-label={c.menuClose}>✕</button>
+      <a href="#work" class="mobile-nav-link">{c.navWork}</a>
+      <a href="#services" class="mobile-nav-link">{c.navServices}</a>
+      <a href="#team" class="mobile-nav-link">{c.navTeam}</a>
+      <a href={l(lang, '/journal')} class="mobile-nav-link">{c.navJournal}</a>
+      <a href={l(lang, '/web')} class="mobile-nav-link">{c.navWeb}</a>
+      <a href="#contact" class="mobile-cta">{c.cta}</a>
     </div>
 
     <div class="hero-content">
-      <h1 class="hero-title">Telling the stories<br />of small places<br />doing real work.</h1>
-      <p class="hero-sub">We build the digital presence for farms, guesthouses and small local businesses — the photos, the film, the story, and the site behind it when you're ready.</p>
+      <h1 class="hero-title" set:html={c.heroTitle}></h1>
+      <p class="hero-sub">{c.heroSub}</p>
     </div>
 
     <div class="scroll-hint">
-      <p>Scroll</p>
+      <p>{c.scroll}</p>
       <div class="scroll-line"></div>
     </div>
   </section>
@@ -66,17 +164,17 @@ const HERO_IMG = '/images/hero-alps.jpg';
   <!-- ============ OUR WORK ============ -->
   <section id="work" class="section work-section">
     <div class="section-inner">
-      <span class="eyebrow">Selected work</span>
-      <h2 class="section-title">Our Work</h2>
-      <p class="section-lead">Real places, real stories — years of photography for a lodge in the mountains of Japan.</p>
+      <span class="eyebrow">{c.workEyebrow}</span>
+      <h2 class="section-title">{c.workTitle}</h2>
+      <p class="section-lead">{c.workLead}</p>
 
       <div class="work-grid work-grid--single">
-        <a href="/work/japan-lodge" class="work-card work-card--lg">
-          <img src="/images/japan-lodge/lodge-hero-mountain-cabin.jpg" alt="Mountain lodge, Japan" loading="lazy" />
+        <a href={l(lang, '/work/japan-lodge')} class="work-card work-card--lg">
+          <img src="/images/japan-lodge/lodge-hero-mountain-cabin.jpg" alt={c.lodgeAlt} loading="lazy" />
           <div class="work-card-info">
-            <span class="work-card-tag">Photography</span>
-            <h3>A Lodge in Japan</h3>
-            <p>Years of photography for a lodge and its restaurant in the mountains of Japan.</p>
+            <span class="work-card-tag">{c.lodgeTag}</span>
+            <h3>{c.lodgeTitle}</h3>
+            <p>{c.lodgeText}</p>
           </div>
         </a>
       </div>
@@ -86,44 +184,44 @@ const HERO_IMG = '/images/hero-alps.jpg';
   <!-- ============ JOURNAL ============ -->
   <section id="journal" class="section journal-section">
     <div class="section-inner">
-      <span class="eyebrow">The Journal</span>
-      <h2 class="section-title">Our Journal</h2>
-      <p class="section-lead">Part travelogue, part about-us — the story of who we are, told one place at a time. We're starting with Australia.</p>
+      <span class="eyebrow">{c.journalEyebrow}</span>
+      <h2 class="section-title">{c.journalTitle}</h2>
+      <p class="section-lead">{c.journalLead}</p>
 
       <div class="work-grid work-grid--single">
-        <a href="/journal/australia" class="work-card work-card--lg">
-          <img src="/images/journal/australia/au-28.jpg" alt="The Brisbane skyline seen across the bush from a lookout" loading="lazy" />
+        <a href={l(lang, '/journal/australia')} class="work-card work-card--lg">
+          <img src="/images/journal/australia/au-28.jpg" alt={c.journalAlt} loading="lazy" />
           <div class="work-card-info">
-            <span class="work-card-tag">Journal · Part 01</span>
-            <h3>Australia</h3>
-            <p>Months on the other side of the world — a city on the river, rainforest at the edge of it, and the work in between.</p>
+            <span class="work-card-tag">{c.journalTag}</span>
+            <h3>{c.journalCardTitle}</h3>
+            <p>{c.journalCardText}</p>
           </div>
         </a>
       </div>
 
-      <a href="/journal" class="journal-all-link">Read the whole journal →</a>
+      <a href={l(lang, '/journal')} class="journal-all-link">{c.journalAll}</a>
     </div>
   </section>
 
   <!-- ============ SERVICES ============ -->
   <section id="services" class="section services-section">
     <div class="section-inner">
-      <span class="eyebrow">What we do</span>
-      <h2 class="section-title">Two ways we help</h2>
+      <span class="eyebrow">{c.servicesEyebrow}</span>
+      <h2 class="section-title">{c.servicesTitle}</h2>
 
       <div class="services-grid">
         <div class="service-block service-block--primary">
           <div class="service-icon" set:html={lineIcon('camera', 34)} />
-          <span class="service-kicker">01 — Where most people start</span>
-          <h3>Content &amp; Storytelling</h3>
-          <p>Photography, drone footage and short-form video that actually shows what makes your place worth visiting. We shoot it, edit it, and help you tell the story on social — no website required to get started.</p>
+          <span class="service-kicker">{c.s1Kicker}</span>
+          <h3>{c.s1Title}</h3>
+          <p>{c.s1Text}</p>
         </div>
 
         <div class="service-block">
           <div class="service-icon" set:html={lineIcon('globe', 34)} />
-          <span class="service-kicker">02 — When you're ready to grow</span>
-          <h3>Web &amp; Booking</h3>
-          <p>Once content is working, we build the site behind it — a real online presence, and a booking system if you need one. Same team, same story, just the next step.</p>
+          <span class="service-kicker">{c.s2Kicker}</span>
+          <h3>{c.s2Title}</h3>
+          <p>{c.s2Text}</p>
         </div>
       </div>
     </div>
@@ -132,25 +230,25 @@ const HERO_IMG = '/images/hero-alps.jpg';
   <!-- ============ TEAM ============ -->
   <section id="team" class="section team-section">
     <div class="section-inner">
-      <span class="eyebrow">Who I am</span>
-      <h2 class="section-title">One person, three disciplines</h2>
-      <p class="section-lead">Every step handled start to finish — from the first photo to production deploy.</p>
+      <span class="eyebrow">{c.teamEyebrow}</span>
+      <h2 class="section-title">{c.teamTitle}</h2>
+      <p class="section-lead">{c.teamLead}</p>
 
       <div class="team-grid">
         <div class="team-member">
           <div class="team-avatar" set:html={lineIcon('camera', 30)} />
-          <h3>Content &amp; Storytelling</h3>
-          <p>Photography, drone video and social storytelling for small local businesses.</p>
+          <h3>{c.t1Title}</h3>
+          <p>{c.t1Text}</p>
         </div>
         <div class="team-member">
           <div class="team-avatar" set:html={lineIcon('design', 30)} />
-          <h3>Design</h3>
-          <p>Brand and visual identity, from a logo to a full site — clean, warm, and true to the place.</p>
+          <h3>{c.t2Title}</h3>
+          <p>{c.t2Text}</p>
         </div>
         <div class="team-member">
           <div class="team-avatar" set:html={lineIcon('laptop', 30)} />
-          <h3>Full-Stack Development</h3>
-          <p>The site and booking system behind the story, when you need one.</p>
+          <h3>{c.t3Title}</h3>
+          <p>{c.t3Text}</p>
         </div>
       </div>
     </div>
@@ -159,43 +257,44 @@ const HERO_IMG = '/images/hero-alps.jpg';
   <!-- ============ CONTACT ============ -->
   <section id="contact" class="section contact-section">
     <div class="section-inner contact-inner">
-      <span class="eyebrow">Get in touch</span>
-      <h2 class="section-title">Let's tell your story.</h2>
-      <p class="section-lead">Tell us a bit about your business and we'll get back to you within 1–2 business days.</p>
+      <span class="eyebrow">{c.contactEyebrow}</span>
+      <h2 class="section-title">{c.contactTitle}</h2>
+      <p class="section-lead">{c.contactLead}</p>
 
-      <form id="contact-form" class="contact-form" novalidate>
+      <form id="contact-form" class="contact-form" novalidate data-sending={c.sending} data-send={c.send} data-ok={c.okMsg} data-error={c.errMsg}>
         <!-- Web3Forms -->
         <input type="hidden" name="access_key" value={import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY} />
         <input type="hidden" name="subject" value="New inquiry from dualstackstudio.com" />
         <input type="hidden" name="from_name" value="Dual-Stack Studio site" />
+        <input type="hidden" name="language" value={lang} />
         <input type="checkbox" name="botcheck" class="cf-honeypot" tabindex="-1" autocomplete="off" />
 
         <div class="cf-row">
           <div class="cf-field">
-            <label for="cf-name">Name</label>
-            <input type="text" id="cf-name" name="name" required placeholder="Your name" />
+            <label for="cf-name">{c.fName}</label>
+            <input type="text" id="cf-name" name="name" required placeholder={c.fNamePh} />
           </div>
           <div class="cf-field">
-            <label for="cf-email">Email</label>
-            <input type="email" id="cf-email" name="email" required placeholder="you@business.com" />
+            <label for="cf-email">{c.fEmail}</label>
+            <input type="email" id="cf-email" name="email" required placeholder={c.fEmailPh} />
           </div>
         </div>
 
         <div class="cf-field">
-          <label for="cf-service">What do you need?</label>
+          <label for="cf-service">{c.fService}</label>
           <select id="cf-service" name="service">
-            <option>Content &amp; Storytelling</option>
-            <option>Web &amp; Booking</option>
-            <option>Something else</option>
+            <option>{c.optContent}</option>
+            <option>{c.optWeb}</option>
+            <option>{c.optOther}</option>
           </select>
         </div>
 
         <div class="cf-field">
-          <label for="cf-message">Message</label>
-          <textarea id="cf-message" name="message" rows="5" required placeholder="Tell us a bit about your business and what you're looking for."></textarea>
+          <label for="cf-message">{c.fMessage}</label>
+          <textarea id="cf-message" name="message" rows="5" required placeholder={c.fMessagePh}></textarea>
         </div>
 
-        <button type="submit" class="cf-submit">Send message</button>
+        <button type="submit" class="cf-submit">{c.send}</button>
         <p id="cf-status" class="cf-status" role="status" aria-live="polite"></p>
       </form>
     </div>
@@ -210,39 +309,39 @@ const HERO_IMG = '/images/hero-alps.jpg';
             <img src="/logo.svg" alt="Dual-Stack Studio" width="28" height="28" style="border-radius: 7px;" />
             Dual-Stack Studio
           </div>
-          <p>We tell the story of small places doing real work — content, storytelling, and the web presence behind it.</p>
-          <h4>Built in parallel</h4>
-          <p class="footer-note-text">This website was built in parallel — design &amp; vision by Dual-Stack Studio, implementation assisted by Claude AI.</p>
-          <h4>Trade licences</h4>
-          <p class="footer-note-text">Werbeagentur (GISA 40150451) · Berufsfotograf (GISA 40150383)<br />Sebastian Rodriguez, Haag. <a href="/impressum">Impressum</a></p>
+          <p>{c.footTagline}</p>
+          <h4>{c.builtTitle}</h4>
+          <p class="footer-note-text">{c.builtText}</p>
+          <h4>{c.licencesTitle}</h4>
+          <p class="footer-note-text">Werbeagentur (GISA 40150451) · Berufsfotograf (GISA 40150383)<br />Sebastian Rodriguez, Haag. <a href={l(lang, '/impressum')}>Impressum</a></p>
         </div>
 
         <div class="footer-col">
-          <h4>Navigate</h4>
-          <a href="#work">Work</a>
-          <a href="#services">Services</a>
-          <a href="#team">Team</a>
-          <a href="/journal">Journal</a>
-          <a href="/web">Web &amp; Full-Stack ↗</a>
+          <h4>{c.footNavTitle}</h4>
+          <a href="#work">{c.navWork}</a>
+          <a href="#services">{c.navServices}</a>
+          <a href="#team">{c.navTeam}</a>
+          <a href={l(lang, '/journal')}>{c.navJournal}</a>
+          <a href={l(lang, '/web')}>{c.navWeb}</a>
         </div>
 
         <div class="footer-col">
-          <h4>Legal</h4>
-          <a href="/privacy-policy">Privacy Policy</a>
-          <a href="/terms-of-service">Terms of Service</a>
-          <a href="/impressum">Impressum</a>
+          <h4>{c.footLegalTitle}</h4>
+          <a href={l(lang, '/privacy-policy')}>{c.privacy}</a>
+          <a href={l(lang, '/terms-of-service')}>{c.terms}</a>
+          <a href={l(lang, '/impressum')}>Impressum</a>
         </div>
 
         <div class="footer-col">
-          <h4>Get in touch</h4>
+          <h4>{c.footContactTitle}</h4>
           <a href="mailto:hello@dualstackstudio.com">hello@dualstackstudio.com</a>
-          <span class="footer-note">Usually replies within 1–2 business days.</span>
+          <span class="footer-note">{c.footReply}</span>
         </div>
       </div>
 
       <div class="footer-bottom">
-        <p>© 2026 Dual-Stack Studio. Independently operated.</p>
-        <p>Built with Astro, deployed on Vercel.</p>
+        <p>{c.rights}</p>
+        <p>{c.builtWith}</p>
       </div>
     </div>
   </footer>
@@ -359,6 +458,9 @@ const HERO_IMG = '/images/hero-alps.jpg';
       transition: border-color 0.2s, color 0.2s;
     }
     .desktop-nav a.nav-dept:hover { border-color: var(--terracotta); color: var(--terracotta); }
+
+    .header-actions { display: flex; align-items: center; gap: 1.25rem; }
+    .header-actions :global(.lang-switch) { color: #fff; }
 
     .header-cta {
       background: var(--terracotta);
@@ -653,7 +755,7 @@ const HERO_IMG = '/images/hero-alps.jpg';
     form?.addEventListener('submit', async (e) => {
       e.preventDefault();
       const submitBtn = form.querySelector('.cf-submit') as HTMLButtonElement | null;
-      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Sending…'; }
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = form.dataset.sending || 'Sending…'; }
       if (status) { status.textContent = ''; status.className = 'cf-status'; }
       try {
         const res = await fetch('https://api.web3forms.com/submit', {
@@ -663,15 +765,15 @@ const HERO_IMG = '/images/hero-alps.jpg';
         });
         const data = await res.json();
         if (data.success) {
-          if (status) { status.textContent = "Thanks — we'll get back to you soon."; status.className = 'cf-status success'; }
+          if (status) { status.textContent = form.dataset.ok || "Thanks — we'll get back to you soon."; status.className = 'cf-status success'; }
           form.reset();
         } else {
           throw new Error(data.message || 'Something went wrong.');
         }
       } catch (err) {
-        if (status) { status.textContent = 'Something went wrong. Please email us directly instead.'; status.className = 'cf-status error'; }
+        if (status) { status.textContent = form.dataset.error || 'Something went wrong. Please email us directly instead.'; status.className = 'cf-status error'; }
       } finally {
-        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Send message'; }
+        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = form.dataset.send || 'Send message'; }
       }
     });
   </script>

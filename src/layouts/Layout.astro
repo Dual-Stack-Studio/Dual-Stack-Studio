@@ -1,18 +1,26 @@
 ---
+import { SITE, altPaths } from "../i18n";
+import type { Lang } from "../i18n";
+
 interface Props {
   title: string;
   description?: string;
+  lang?: Lang;
 }
 
-const { title, description = "Dual-Stack Studio — We tell the story of small places doing real work" } = Astro.props;
+const { title, lang = "en", description = lang === "de" ? "Dual-Stack Studio — Wir erzählen die Geschichten kleiner Orte, die echte Arbeit leisten" : "Dual-Stack Studio — We tell the story of small places doing real work" } = Astro.props;
+const alt = altPaths(Astro.url.pathname);
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <link rel="alternate" hreflang="en" href={SITE + alt.en} />
+    <link rel="alternate" hreflang="de" href={SITE + alt.de} />
+    <link rel="alternate" hreflang="x-default" href={SITE + alt.en} />
     <link rel="icon" type="image/svg+xml" href="/logo.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

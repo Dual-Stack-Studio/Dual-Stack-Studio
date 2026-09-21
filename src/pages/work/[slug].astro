@@ -1,154 +1,67 @@
 ---
 import Layout from '../../layouts/WebLayout.astro';
+import LangSwitch from '../../components/LangSwitch.astro';
+import { l } from '../../i18n';
+import type { Lang } from '../../i18n';
+import { projectSlugs, getProject, getOtherProjects } from '../../data/projects';
 
+// English pages live at /work/<slug>; the German wrapper in src/pages/de/work/ reuses this
+// component with lang="de" and supplies its own static paths.
 export function getStaticPaths() {
-  const projects = {
-  bumeran: {
-    client: 'Personal project · Dual-Stack Studio',
-    title: 'Bumerán',
-    tagline: '"Lo que das, vuelve" — neighborhood favor exchange',
-    description: 'A neighborhood favor-exchange app for requesting help, offering assistance, or giving items away — filtered by GPS across 13 categories. Users see only complementary content: those seeking help see offers and gifts, helpers see requests. In active development under Dual-Stack Studio with Claude Sonnet 4.6 as engineering partner.',
-    features: [
-      'Three post types — necesito, ofrezco, regalo — with intent-aware feed filtering so users only see complementary content',
-      'Full-screen map with color-coded pins per post type, plus a swipeable bottom sheet (20/45/85% snap points) for browsing',
-      'Safety modal with real-world tips before WhatsApp handoff — exact GPS location is never shown publicly',
-      'Twilio SMS verification (6-digit code, 10-minute expiry) — one phone number per account, enforced server-side',
-      'Full connection lifecycle — pending → accepted → completed/cancelled — with a review system for local reputation',
-      'NestJS backend with global rate limiting (100 req/min per IP) and Helmet security headers',
-      'Google OAuth + JWT authentication, session persisted via AsyncStorage with automatic restore on launch',
-      'Spanish, English and German localization, GDPR-compliant with a reusable legal footer across 4 screens',
-      'Live in production on Railway',
-      'Built with Claude Sonnet 4.6 as daily AI pairing partner throughout the build',
-    ],
-    stack: ['React Native', 'Expo SDK 56', 'NativeWind', 'NestJS 11', 'Prisma', 'PostgreSQL', 'Google OAuth', 'Twilio', 'Claude Sonnet 4.6'],
-    status: 'Active development · closed testing on Google Play',
-    image: '/images/bumeran-hero.png',
-    video: '/videos/bumeran-demo.mp4',
-    portraitVideo: true,
-    growthPitch: 'Core flows are production-ready — GPS-filtered feed, phone verification and the full connection lifecycle already run live on Railway. Scaling beyond a single city means real, usage-tied costs: Twilio SMS per verification, maps/GPS API calls, and community moderation as the network grows. Open to investment to fund infrastructure and fuel a multi-city rollout.',
-    url: null,
-  },
-  echoesandpaths: {
-    client: 'Personal project · Dual-Stack Studio',
-    title: 'Echoes & Paths',
-    tagline: 'Conquer historical landmarks, one GPS check-in at a time',
-    description: 'A GPS-powered historical landmark app born from wanting castles, ruins and museums front-and-center on a map, not buried among restaurants and gas stations. Visit a castle, a ruin, a museum — conquer it physically within 150m — build a medieval rank, add friends, and see what they\'ve explored. Currently in closed testing for family and friends due to Google Places API operational costs at scale.',
-    features: [
-      'GPS-validated conquest system — server-side Haversine distance check (≤150m) rejects spoofed or remote check-ins',
-      '7-tier medieval rank progression — Peasant → Squire → Knight → Baron → Count → Duke → High King',
-      'Social layer — friend requests, cross-user conquest visibility, and push notifications via the Expo Push API',
-      'Hybrid feed aggregating Google Places API (New), Wikipedia historical descriptions and community contributions — server-cached and paginated',
-      'Community photo and text contributions via Cloudinary, moderated before going public',
-      'Google Sign-In + JWT authentication',
-      'OTA updates via EAS Update — ships JS fixes to production without waiting on a Play Store review',
-      'English and German localization, auto-detected from device locale',
-      'Full GDPR-compliant legal pages — Art. 13/14 rights, DPA complaint links for 6 EU countries',
-      'Built solo with Claude Sonnet 4.6 as daily AI pairing partner throughout the entire build',
-    ],
-    stack: ['React Native', 'Expo SDK 54', 'Node.js ESM', 'Express 5', 'PostgreSQL', 'Knex.js', 'Claude Sonnet 4.6'],
-    status: 'Closed testing on Google Play',
-    image: '/images/echoesandpaths-hero.png',
-    gallery: [
-      '/images/Eches&Paths (11).jpeg',
-      '/images/Eches&Paths (10).jpeg',
-      '/images/Eches&Paths (9).jpeg',
-      '/images/Eches&Paths (8).jpeg',
-      '/images/Eches&Paths (7).jpeg',
-      '/images/Eches&Paths (6).jpeg',
-      '/images/Eches&Paths (5).jpeg',
-      '/images/Eches&Paths (4).jpeg',
-      '/images/Eches&Paths (3).jpeg',
-      '/images/Eches&Paths (2).jpeg',
-      '/images/Eches&Paths (1).jpeg'
-     ],
-    video: '/videos/echoesandpaths-demo.mp4',
-    portraitVideo: true,
-    growthPitch: 'The architecture is already built for scale — hybrid caching, the conquest system and the full social layer are production-ready. What caps it at closed testing is API budget: Google Places costs scale directly with active users, and going public means a real, ongoing bill. Open to investment or a sponsorship partner to unlock a public launch.',
-    url: "https://play.google.com/apps/testing/com.sebit.castleapp",
-  },
-  nonna: {
-    client: 'El Dulce de la Nonna · Live client project',
-    title: 'Bakery e-commerce',
-    tagline: 'Zero-friction ordering for an artisan alfajores bakery',
-    description: "An e-commerce site for an artisan alfajores bakery in Miami, built for Argentine expats who miss the taste of the alfajores their grandmothers used to make. Every order is handcrafted to spec with a 48-hour advance window, and the whole flow runs on email — no database, no admin panel, no maintenance overhead for the client. Legal compliance sits front and center: allergen disclosure for Florida food-safety law, FDUTPA-compliant cancellation terms, and an FDBR-compliant privacy policy with explicit data rights. The architecture stays intentionally simple for where the business is today, with a clear upgrade path to Stripe checkout, automated order emails and a lightweight admin panel once order volume justifies the added complexity — built under Dual-Stack Studio.",
-    features: [
-      'Email-first order flow — no DB persistence, two Mailables per order',
-      '48-hour minimum advance window enforced server-side with Carbon',
-      'Allergen disclosure and FDUTPA/FDBR legal compliance built in for Florida food-safety law',
-      'Server-rendered Blade monolith — zero client-side JS framework, fast by default',
-      "Custom Tailwind v4 branding tokens matching the bakery's identity",
-      'Architected to scale on purpose — a clear path to Stripe checkout and an admin panel without a rewrite',
-    ],
-    stack: ['Laravel 13', 'PHP 8.3', 'Vite', 'Blade', 'Tailwind CSS v4', 'Carbon'],
-    status: 'Live · active development',
-    image: '/images/nonna-logo-hero.jpg',
-    video: '/videos/nonna-hero.mp4',
-    gallery: [
-      '/images/nonna-gallery-2.jpg',
-      '/images/nonna-gallery-1.jpg',
-      '/images/nonna-gallery-3.jpg',
-      '/images/nonna-gallery-4.jpg',
-    ],
-    url: 'https://losalfajoresdelanona.com',
-  },
-  mvg: {
-    client: 'MVG Lash & Brow · Live client project',
-    title: 'Salon website',
-    tagline: 'Static, private-by-default site for a Trondheim salon',
-    description: 'A single-page site for a lashes and brow salon in Trondheim, Norway — statically generated, self-hosted fonts, zero cookies or tracking, and built to stay accessible without sacrificing speed.',
-    features: [
-      'Astro 7 static generation — flat HTML, config-driven content',
-      'Native HTML5 modal for the "About" section, no extra libraries',
-      'Self-hosted fonts via Fontsource — no third-party font requests',
-      'Privacy-first: no cookies, no analytics, no tracking',
-      'WCAG 2.1 AA accessible throughout',
-      'Booking integration with the Timma salon management system',
-      'Passes Google Core Web Vitals and indexed in Google Search — verified via Search Console, meeting the page-experience quality bar Google uses for ranking',
-    ],
-    stack: ['Astro 7', 'TypeScript', 'Vercel', 'Fontsource', 'Vanilla CSS'],
-    status: 'Live · Lighthouse 95+, LCP ~1.2s, CLS < 0.05',
-    image: '/images/mvg-logo-hero.jpg',
-    video: '/videos/mvg-demo.mp4',
-    gallery: [
-      '/images/mvg-gallery-1.jpg',
-      '/images/mvg-gallery-2.jpg',
-      '/images/mvg-gallery-3.jpg',
-      '/images/mvg-gallery-4.jpg',
-    ],
-    url: 'https://mvglashes.no',
-  },
-  };
-
-  const allProjects = Object.entries(projects).map(([slug, p]) => ({
-    slug,
-    client: p.client,
-    title: p.title,
-    tagline: p.tagline,
-    image: p.image,
-  }));
-
-  return Object.entries(projects).map(([slug, project]) => ({
-    params: { slug },
-    props: { project, otherProjects: allProjects.filter((p) => p.slug !== slug) },
-  }));
+  return projectSlugs.map((slug) => ({ params: { slug }, props: { slug } }));
 }
 
-const { project, otherProjects } = Astro.props;
+const { slug, lang = 'en' } = Astro.props as { slug: string; lang?: Lang };
+const project = getProject(slug, lang);
+const otherProjects = getOtherProjects(slug, lang);
+
+const copy = {
+  en: {
+    backFull: '← Back to projects', proposal: 'Get proposal', hoverHint: '▶ Hover to play',
+    prevImage: 'Previous image', nextImage: 'Next image', preview: 'preview',
+    about: 'About the project', features: 'Key features', stack: 'Tech stack', status: 'Status',
+    growth: 'Growth & Investment', visit: 'Visit live site', unavailable: 'Not publicly available',
+    exploreEyebrow: 'Keep exploring', exploreTitle: 'More projects', prevProject: 'Previous project', nextProject: 'Next project',
+    close: 'Close',
+    footTagline: 'Independent full-stack studio. React, React Native and Node.js products, designed and shipped end to end.',
+    navTitle: 'Navigate', navProjects: 'Projects', navServices: 'Services', navTeam: 'Team', navTestimonials: 'Testimonials',
+    legalTitle: 'Legal', privacy: 'Privacy Policy', terms: 'Terms of Service',
+    contactTitle: 'Get in touch', reply: 'Usually replies within 1–2 business days.',
+    rights: '© 2026 Dual-Stack Studio. Independently operated.', builtWith: 'Built with Astro, deployed on Vercel. Site under active development.',
+  },
+  de: {
+    backFull: '← Zurück zu den Projekten', proposal: 'Angebot anfragen', hoverHint: '▶ Zum Abspielen darüberfahren',
+    prevImage: 'Vorheriges Bild', nextImage: 'Nächstes Bild', preview: 'Vorschau',
+    about: 'Über das Projekt', features: 'Kernfunktionen', stack: 'Tech-Stack', status: 'Status',
+    growth: 'Wachstum & Investition', visit: 'Live-Seite besuchen', unavailable: 'Nicht öffentlich verfügbar',
+    exploreEyebrow: 'Weiter entdecken', exploreTitle: 'Weitere Projekte', prevProject: 'Vorheriges Projekt', nextProject: 'Nächstes Projekt',
+    close: 'Schließen',
+    footTagline: 'Unabhängiges Full-Stack-Studio. Produkte mit React, React Native und Node.js — von der Gestaltung bis zum Livegang aus einer Hand.',
+    navTitle: 'Navigation', navProjects: 'Projekte', navServices: 'Leistungen', navTeam: 'Team', navTestimonials: 'Referenzen',
+    legalTitle: 'Rechtliches', privacy: 'Datenschutzerklärung', terms: 'Nutzungsbedingungen',
+    contactTitle: 'Kontakt', reply: 'Antwortet in der Regel innerhalb von 1–2 Werktagen.',
+    rights: '© 2026 Dual-Stack Studio. Unabhängig betrieben.', builtWith: 'Erstellt mit Astro, bereitgestellt auf Vercel. Website in aktiver Weiterentwicklung.',
+  },
+};
+const c = copy[lang];
 ---
 
-<Layout title={`${project.title} — Dual-Stack Studio`} description={project.tagline}>
+<Layout title={`${project.title} — Dual-Stack Studio`} description={project.tagline} lang={lang}>
   <header id="pd-header" style="position: sticky; top: 0; padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; z-index: 100; background: rgba(92, 92, 92, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
-    <a href="/web" class="pd-header-logo" style="font-size: 20px; font-weight: 800; letter-spacing: -0.5px; display: flex; align-items: center; gap: 10px; text-decoration: none; color: #ffffff; flex-shrink: 0;">
+    <a href={l(lang, '/web')} class="pd-header-logo" style="font-size: 20px; font-weight: 800; letter-spacing: -0.5px; display: flex; align-items: center; gap: 10px; text-decoration: none; color: #ffffff; flex-shrink: 0;">
       <img src="/logo-web.svg" alt="Dual-Stack Studio" width="30" height="30" style="border-radius: 7px; flex-shrink: 0;" />
       <span class="pd-header-logo-text">Dual-Stack</span>
     </a>
-    <a href="/web#work" class="pd-back-link" style="font-size: 14px; font-weight: 600; color: #ccc; text-decoration: none; white-space: nowrap;">
-      <span class="pd-back-full">← Back to projects</span>
+    <a href={l(lang, '/web#work')} class="pd-back-link" style="font-size: 14px; font-weight: 600; color: #ccc; text-decoration: none; white-space: nowrap;">
+      <span class="pd-back-full">{c.backFull}</span>
       <span class="pd-back-short">←</span>
     </a>
-    <a href="/web#contact" class="pd-header-cta" style="background: #ccff33; color: #0a0a0a; padding: 12px 26px; border-radius: 100px; text-decoration: none; font-size: 14px; font-weight: 600; box-shadow: 0 8px 20px rgba(204, 255, 51, 0.3); white-space: nowrap; flex-shrink: 0;">
-      Get proposal
-    </a>
+    <span class="pd-header-right">
+      <LangSwitch lang={lang} />
+      <a href={l(lang, '/web#contact')} class="pd-header-cta" style="background: #ccff33; color: #0a0a0a; padding: 12px 26px; border-radius: 100px; text-decoration: none; font-size: 14px; font-weight: 600; box-shadow: 0 8px 20px rgba(204, 255, 51, 0.3); white-space: nowrap; flex-shrink: 0;">
+        {c.proposal}
+      </a>
+    </span>
   </header>
 
   <div class="pd-page-bg">
@@ -173,7 +86,7 @@ const { project, otherProjects } = Astro.props;
               playsinline
               preload="metadata"
             />
-            <span class="pd-media-play-hint">▶ Hover to play</span>
+            <span class="pd-media-play-hint">{c.hoverHint}</span>
           </div>
         ) : project.image ? (
           <img src={project.image} alt={project.title} class="pd-lightbox-trigger" />
@@ -185,27 +98,27 @@ const { project, otherProjects } = Astro.props;
       </div>
 
       <div class="pd-gallery-wrap">
-        <button type="button" class="pd-gallery-nav pd-gallery-prev" aria-label="Previous image">‹</button>
+        <button type="button" class="pd-gallery-nav pd-gallery-prev" aria-label={c.prevImage}>‹</button>
         <div class="pd-gallery" id="pd-gallery">
           {(project.gallery ?? Array(6).fill(project.image)).map((src, i) => (
             <div class="pd-gallery-item">
               {src ? (
-                <img src={src} alt={`${project.title} preview ${i + 1}`} class="pd-lightbox-trigger" />
+                <img src={src} alt={`${project.title} ${c.preview} ${i + 1}`} class="pd-lightbox-trigger" />
               ) : (
                 <div class="pd-shot-placeholder"><span>{project.title}</span></div>
               )}
             </div>
           ))}
         </div>
-        <button type="button" class="pd-gallery-nav pd-gallery-next" aria-label="Next image">›</button>
+        <button type="button" class="pd-gallery-nav pd-gallery-next" aria-label={c.nextImage}>›</button>
       </div>
 
       <div class="pd-grid">
         <div class="pd-main">
-          <h2>About the project</h2>
+          <h2>{c.about}</h2>
           <p class="pd-desc">{project.description}</p>
 
-          <h2>Key features</h2>
+          <h2>{c.features}</h2>
           <ul class="pd-features">
             {project.features.map((f) => <li>{f}</li>)}
           </ul>
@@ -213,42 +126,42 @@ const { project, otherProjects } = Astro.props;
 
         <aside class="pd-sidebar">
           <div class="pd-sidebar-block">
-            <h3>Tech stack</h3>
+            <h3>{c.stack}</h3>
             <div class="pd-stack">
               {project.stack.map((s) => <span>{s}</span>)}
             </div>
           </div>
 
           <div class="pd-sidebar-block">
-            <h3>Status</h3>
+            <h3>{c.status}</h3>
             <p>{project.status}</p>
           </div>
 
           {project.growthPitch && (
             <div class="pd-sidebar-block pd-growth-block">
-              <h3>Growth &amp; Investment</h3>
+              <h3>{c.growth}</h3>
               <p>{project.growthPitch}</p>
             </div>
           )}
 
           {project.url ? (
-            <a href={project.url} target="_blank" rel="noopener" class="pd-cta">Visit live site <i>↗</i></a>
+            <a href={project.url} target="_blank" rel="noopener" class="pd-cta">{c.visit} <i>↗</i></a>
           ) : (
-            <span class="pd-cta pd-cta-disabled">Not publicly available</span>
+            <span class="pd-cta pd-cta-disabled">{c.unavailable}</span>
           )}
         </aside>
       </div>
 
       <div class="pd-more">
         <div class="pd-more-head">
-          <span class="pd-client">Keep exploring</span>
-          <h2 class="pd-more-title">More projects</h2>
+          <span class="pd-client">{c.exploreEyebrow}</span>
+          <h2 class="pd-more-title">{c.exploreTitle}</h2>
         </div>
         <div class="pd-more-carousel-wrap">
-          <button type="button" class="pd-gallery-nav pd-more-prev" aria-label="Previous project">‹</button>
+          <button type="button" class="pd-gallery-nav pd-more-prev" aria-label={c.prevProject}>‹</button>
           <div class="pd-more-grid" id="pd-more-grid">
             {otherProjects.map((p) => (
-              <a href={`/work/${p.slug}`} class="pd-more-card">
+              <a href={l(lang, `/work/${p.slug}`)} class="pd-more-card">
                 <div class="pd-more-card-media">
                   {p.image ? (
                     <img src={p.image} alt={p.title} />
@@ -262,7 +175,7 @@ const { project, otherProjects } = Astro.props;
               </a>
             ))}
           </div>
-          <button type="button" class="pd-gallery-nav pd-more-next" aria-label="Next project">›</button>
+          <button type="button" class="pd-gallery-nav pd-more-next" aria-label={c.nextProject}>›</button>
         </div>
       </div>
 
@@ -270,7 +183,7 @@ const { project, otherProjects } = Astro.props;
   </main>
 
   <div id="pd-lightbox" class="pd-lightbox" hidden>
-    <button type="button" class="pd-lightbox-close" id="pd-lightbox-close" aria-label="Close">×</button>
+    <button type="button" class="pd-lightbox-close" id="pd-lightbox-close" aria-label={c.close}>×</button>
     <img src="" alt="" class="pd-lightbox-img" id="pd-lightbox-img" />
   </div>
 
@@ -285,35 +198,35 @@ const { project, otherProjects } = Astro.props;
             <img src="/logo-web.svg" alt="Dual-Stack Studio" width="28" height="28" style="border-radius: 7px;" />
             Dual-Stack Studio
           </div>
-          <p>Independent full-stack studio. React, React Native and Node.js products, designed and shipped end to end.</p>
+          <p>{c.footTagline}</p>
         </div>
 
         <div class="footer-col">
-          <h4>Navigate</h4>
-          <a href="/web#work">Projects</a>
-          <a href="/web#services">Services</a>
-          <a href="/web#team">Team</a>
-          <a href="/web#testimonials">Testimonials</a>
+          <h4>{c.navTitle}</h4>
+          <a href={l(lang, '/web#work')}>{c.navProjects}</a>
+          <a href={l(lang, '/web#services')}>{c.navServices}</a>
+          <a href={l(lang, '/web#team')}>{c.navTeam}</a>
+          <a href={l(lang, '/web#testimonials')}>{c.navTestimonials}</a>
         </div>
 
         <div class="footer-col">
-          <h4>Legal</h4>
-          <a href="/privacy-policy">Privacy Policy</a>
-          <a href="/terms-of-service">Terms of Service</a>
-          <a href="/impressum">Impressum</a>
+          <h4>{c.legalTitle}</h4>
+          <a href={l(lang, '/privacy-policy')}>{c.privacy}</a>
+          <a href={l(lang, '/terms-of-service')}>{c.terms}</a>
+          <a href={l(lang, '/impressum')}>Impressum</a>
         </div>
 
         <div class="footer-col">
-          <h4>Get in touch</h4>
+          <h4>{c.contactTitle}</h4>
           <a href="mailto:hello@dualstackstudio.com">hello@dualstackstudio.com</a>
-          <span class="footer-note">Usually replies within 1–2 business days.</span>
+          <span class="footer-note">{c.reply}</span>
         </div>
 
       </div>
 
       <div class="footer-bottom">
-        <p>© 2026 Dual-Stack Studio. Independently operated.</p>
-        <p>Built with Astro, deployed on Vercel. Site under active development.</p>
+        <p>{c.rights}</p>
+        <p>{c.builtWith}</p>
       </div>
 
     </div>
@@ -323,6 +236,14 @@ const { project, otherProjects } = Astro.props;
   <style>
     .pd-back-short {
       display: none;
+    }
+
+    .pd-header-right {
+      display: inline-flex;
+      align-items: center;
+      gap: 1.25rem;
+      color: #ccc;
+      flex-shrink: 0;
     }
 
     @media (max-width: 640px) {
@@ -345,9 +266,24 @@ const { project, otherProjects } = Astro.props;
         font-weight: 700;
       }
 
+      .pd-header-right {
+        gap: 0.75rem;
+      }
+
       .pd-header-cta {
         padding: 10px 18px !important;
         font-size: 13px !important;
+      }
+    }
+
+    @media (max-width: 360px) {
+      #pd-header {
+        padding: 1rem !important;
+      }
+
+      .pd-header-cta {
+        padding: 10px 14px !important;
+        font-size: 12px !important;
       }
     }
 

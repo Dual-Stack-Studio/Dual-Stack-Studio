@@ -1,8 +1,13 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import LangSwitch from '../components/LangSwitch.astro';
+import { l } from '../i18n';
+import type { Lang } from '../i18n';
 import austriaData from '../data/journal-austria.json';
 import vietnamThailandData from '../data/journal-vietnam-thailand.json';
 import australiaData from '../data/journal-australia.json';
+
+const { lang = 'en' } = Astro.props as { lang?: Lang };
 
 const austriaCover = '/images/journal/austria/austria-01.jpg';
 const austriaCount = austriaData.photos.length;
@@ -11,57 +16,89 @@ const vtCount = vietnamThailandData.photos.length;
 const auCover = '/images/journal/australia/au-28.jpg';
 const auCount = australiaData.photos.length;
 
+const copy = {
+  en: {
+    title: 'Journal — Dual-Stack Studio',
+    description: 'Part travelogue, part about-us: the story of who we are, told one place at a time. Starting with Australia.',
+    back: '← Back home',
+    eyebrow: 'The Journal',
+    h1: 'Who we are, one place at a time.',
+    lead: 'Dual-Stack Studio is a small content and storytelling studio. We help farms, guesthouses and local businesses in the Alps be seen — through photography, film, and the web presence behind it.',
+    body: `This is the part where most studios write a tidy "about us." We'd rather show you how we see. So instead, we're telling our own story the way we'd tell yours — a place at a time, in the order it happened. Each part below is a chapter. We're starting from the beginning and working forward.`,
+    chaptersEyebrow: 'The chapters', chaptersTitle: 'Where the story goes',
+    part: 'Part', cover: 'cover', readPart: 'Read this part', photos: 'photos',
+    soonTitle: 'Coming soon',
+    soonText: 'The next chapter is being written and edited. New parts land here as we finish them.',
+    ctaTitle: 'Want your place told this way?',
+    ctaText: "The eye we bring to our own story is the one we bring to yours. Let's talk about what you're building.",
+    ctaBtn: 'Get in touch',
+    footTagline: 'We tell the story of small places doing real work — content, storytelling, and the web presence behind it.',
+    navTitle: 'Navigate', navWork: 'Work', navServices: 'Services', navTeam: 'Team', navJournal: 'Journal',
+    legalTitle: 'Legal', privacy: 'Privacy Policy', terms: 'Terms of Service',
+    contactTitle: 'Get in touch',
+    rights: '© 2026 Dual-Stack Studio. Independently operated.', builtWith: 'Built with Astro, deployed on Vercel.',
+    parts: [
+      { title: 'Australia', meta: 'March – August 2025 · Brisbane & beyond', blurb: 'Months on the other side of the world — a city on the river, rainforest at the edge of it, and the work in between.' },
+      { title: 'Vietnam & Thailand', meta: 'October 2025 · Southeast Asia', blurb: 'Three weeks across Vietnam and Thailand — karst rivers and quiet water, then the noise and neon of the streets.' },
+      { title: 'Austria', meta: 'March – September 2026 · Upper Austria', blurb: 'A season in the Austrian countryside, front to back — from the first frost of March to the long light of late summer.' },
+    ],
+  },
+  de: {
+    title: 'Journal — Dual-Stack Studio',
+    description: 'Halb Reisetagebuch, halb Über-uns: die Geschichte, wer wir sind, Ort für Ort erzählt. Wir beginnen mit Australien.',
+    back: '← Zur Startseite',
+    eyebrow: 'Das Journal',
+    h1: 'Wer wir sind, Ort für Ort.',
+    lead: 'Dual-Stack Studio ist ein kleines Content- und Storytelling-Studio. Wir helfen Bauernhöfen, Gästehäusern und lokalen Betrieben in den Alpen, gesehen zu werden — mit Fotografie, Film und dem Webauftritt dahinter.',
+    body: 'Das ist der Teil, in dem die meisten Studios ein ordentliches „Über uns“ schreiben. Wir zeigen Ihnen lieber, wie wir sehen. Deshalb erzählen wir unsere eigene Geschichte so, wie wir Ihre erzählen würden — Ort für Ort, in der Reihenfolge, in der es passiert ist. Jeder Teil unten ist ein Kapitel. Wir beginnen am Anfang und arbeiten uns vorwärts.',
+    chaptersEyebrow: 'Die Kapitel', chaptersTitle: 'Wohin die Geschichte führt',
+    part: 'Teil', cover: 'Titelbild', readPart: 'Diesen Teil lesen', photos: 'Fotos',
+    soonTitle: 'Demnächst',
+    soonText: 'Das nächste Kapitel wird gerade geschrieben und bearbeitet. Neue Teile erscheinen hier, sobald sie fertig sind.',
+    ctaTitle: 'Möchten Sie Ihren Ort auf diese Art erzählt haben?',
+    ctaText: 'Den Blick, den wir auf unsere eigene Geschichte richten, richten wir auch auf Ihre. Sprechen wir darüber, was Sie aufbauen.',
+    ctaBtn: 'Kontakt aufnehmen',
+    footTagline: 'Wir erzählen die Geschichten kleiner Orte, die echte Arbeit leisten — Content, Storytelling und der Webauftritt dahinter.',
+    navTitle: 'Navigation', navWork: 'Arbeiten', navServices: 'Leistungen', navTeam: 'Team', navJournal: 'Journal',
+    legalTitle: 'Rechtliches', privacy: 'Datenschutzerklärung', terms: 'Nutzungsbedingungen',
+    contactTitle: 'Kontakt',
+    rights: '© 2026 Dual-Stack Studio. Unabhängig betrieben.', builtWith: 'Erstellt mit Astro, bereitgestellt auf Vercel.',
+    parts: [
+      { title: 'Australien', meta: 'März – August 2025 · Brisbane und Umgebung', blurb: 'Monate am anderen Ende der Welt — eine Stadt am Fluss, Regenwald an ihrem Rand und die Arbeit dazwischen.' },
+      { title: 'Vietnam & Thailand', meta: 'Oktober 2025 · Südostasien', blurb: 'Drei Wochen quer durch Vietnam und Thailand — Karstflüsse und stilles Wasser, dann der Lärm und das Neon der Straßen.' },
+      { title: 'Österreich', meta: 'März – September 2026 · Oberösterreich', blurb: 'Eine Saison auf dem österreichischen Land, von vorne bis hinten — vom ersten Frost im März bis zum langen Licht des Spätsommers.' },
+    ],
+  },
+};
+const c = copy[lang];
+
 const parts = [
-  {
-    href: '/journal/australia',
-    num: '01',
-    title: 'Australia',
-    meta: 'March – August 2025 · Brisbane & beyond',
-    blurb: 'Months on the other side of the world — a city on the river, rainforest at the edge of it, and the work in between.',
-    cover: auCover,
-    count: auCount,
-    live: true,
-  },
-  {
-    href: '/journal/vietnam-thailand',
-    num: '02',
-    title: 'Vietnam & Thailand',
-    meta: 'October 2025 · Southeast Asia',
-    blurb: 'Three weeks across Vietnam and Thailand — karst rivers and quiet water, then the noise and neon of the streets.',
-    cover: vtCover,
-    count: vtCount,
-    live: true,
-  },
-  {
-    href: '/journal/austria',
-    num: '03',
-    title: 'Austria',
-    meta: 'March – September 2026 · Upper Austria',
-    blurb: 'A season in the Austrian countryside, front to back — from the first frost of March to the long light of late summer.',
-    cover: austriaCover,
-    count: austriaCount,
-    live: true,
-  },
-];
+  { href: '/journal/australia', num: '01', cover: auCover, count: auCount },
+  { href: '/journal/vietnam-thailand', num: '02', cover: vtCover, count: vtCount },
+  { href: '/journal/austria', num: '03', cover: austriaCover, count: austriaCount },
+].map((p, i) => ({ ...p, ...c.parts[i] }));
 ---
 
-<Layout title="Journal — Dual-Stack Studio" description="Part travelogue, part about-us: the story of who we are, told one place at a time. Starting with Australia.">
+<Layout title={c.title} description={c.description} lang={lang}>
 
   <header class="jn-header">
-    <a href="/creative" class="jn-brand">
+    <a href={l(lang, '/creative')} class="jn-brand">
       <img src="/logo.svg" alt="Dual-Stack Studio" width="32" height="32" style="border-radius: 8px;" />
       <span>Dual-Stack Studio</span>
     </a>
-    <a href="/creative" class="jn-back">← Back home</a>
+    <span class="jn-header-right">
+      <LangSwitch lang={lang} />
+      <a href={l(lang, '/creative')} class="jn-back">{c.back}</a>
+    </span>
   </header>
 
   <!-- ============ INTRO / ABOUT ============ -->
   <section class="jn-intro">
     <div class="jn-inner jn-inner--narrow">
-      <span class="jn-eyebrow">The Journal</span>
-      <h1>Who we are, one place at a time.</h1>
-      <p class="jn-intro-lead">Dual-Stack Studio is a small content and storytelling studio. We help farms, guesthouses and local businesses in the Alps be seen — through photography, film, and the web presence behind it.</p>
-      <p class="jn-intro-body">This is the part where most studios write a tidy "about us." We'd rather show you how we see. So instead, we're telling our own story the way we'd tell yours — a place at a time, in the order it happened. Each part below is a chapter. We're starting from the beginning and working forward.</p>
+      <span class="jn-eyebrow">{c.eyebrow}</span>
+      <h1>{c.h1}</h1>
+      <p class="jn-intro-lead">{c.lead}</p>
+      <p class="jn-intro-body">{c.body}</p>
     </div>
   </section>
 
@@ -69,22 +106,22 @@ const parts = [
   <section class="jn-parts">
     <div class="jn-inner">
       <div class="jn-parts-head">
-        <span class="jn-eyebrow jn-eyebrow--dark">The chapters</span>
-        <h2>Where the story goes</h2>
+        <span class="jn-eyebrow jn-eyebrow--dark">{c.chaptersEyebrow}</span>
+        <h2>{c.chaptersTitle}</h2>
       </div>
 
       <div class="jn-parts-list">
         {parts.map((p) => (
-          <a href={p.href} class="jn-part">
+          <a href={l(lang, p.href)} class="jn-part">
             <div class="jn-part-media">
-              <img src={p.cover} alt={`${p.title} — cover`} loading="lazy" />
-              <span class="jn-part-num">Part {p.num}</span>
+              <img src={p.cover} alt={`${p.title} — ${c.cover}`} loading="lazy" />
+              <span class="jn-part-num">{c.part} {p.num}</span>
             </div>
             <div class="jn-part-body">
               <h3>{p.title}</h3>
               <p class="jn-part-meta">{p.meta}</p>
               <p class="jn-part-blurb">{p.blurb}</p>
-              <span class="jn-part-link">Read this part · {p.count} photos →</span>
+              <span class="jn-part-link">{c.readPart} · {p.count} {c.photos} →</span>
             </div>
           </a>
         ))}
@@ -92,9 +129,9 @@ const parts = [
         <!-- Placeholder for chapters still to come -->
         <div class="jn-part jn-part--soon">
           <div class="jn-part-body">
-            <span class="jn-part-num jn-part-num--static">Part 04</span>
-            <h3>Coming soon</h3>
-            <p class="jn-part-blurb">The next chapter is being written and edited. New parts land here as we finish them.</p>
+            <span class="jn-part-num jn-part-num--static">{c.part} 04</span>
+            <h3>{c.soonTitle}</h3>
+            <p class="jn-part-blurb">{c.soonText}</p>
           </div>
         </div>
       </div>
@@ -103,9 +140,9 @@ const parts = [
 
   <section class="jn-cta">
     <div class="jn-inner jn-cta-inner">
-      <h2>Want your place told this way?</h2>
-      <p>The eye we bring to our own story is the one we bring to yours. Let's talk about what you're building.</p>
-      <a href="/creative#contact" class="jn-cta-btn">Get in touch</a>
+      <h2>{c.ctaTitle}</h2>
+      <p>{c.ctaText}</p>
+      <a href={l(lang, '/creative#contact')} class="jn-cta-btn">{c.ctaBtn}</a>
     </div>
   </section>
 
@@ -117,29 +154,29 @@ const parts = [
             <img src="/logo.svg" alt="Dual-Stack Studio" width="28" height="28" style="border-radius: 7px;" />
             Dual-Stack Studio
           </div>
-          <p>We tell the story of small places doing real work — content, storytelling, and the web presence behind it.</p>
+          <p>{c.footTagline}</p>
         </div>
         <div class="jn-footer-col">
-          <h4>Navigate</h4>
-          <a href="/creative#work">Work</a>
-          <a href="/creative#services">Services</a>
-          <a href="/creative#team">Team</a>
-          <a href="/journal">Journal</a>
+          <h4>{c.navTitle}</h4>
+          <a href={l(lang, '/creative#work')}>{c.navWork}</a>
+          <a href={l(lang, '/creative#services')}>{c.navServices}</a>
+          <a href={l(lang, '/creative#team')}>{c.navTeam}</a>
+          <a href={l(lang, '/journal')}>{c.navJournal}</a>
         </div>
         <div class="jn-footer-col">
-          <h4>Legal</h4>
-          <a href="/privacy-policy">Privacy Policy</a>
-          <a href="/terms-of-service">Terms of Service</a>
-          <a href="/impressum">Impressum</a>
+          <h4>{c.legalTitle}</h4>
+          <a href={l(lang, '/privacy-policy')}>{c.privacy}</a>
+          <a href={l(lang, '/terms-of-service')}>{c.terms}</a>
+          <a href={l(lang, '/impressum')}>Impressum</a>
         </div>
         <div class="jn-footer-col">
-          <h4>Get in touch</h4>
+          <h4>{c.contactTitle}</h4>
           <a href="mailto:hello@dualstackstudio.com">hello@dualstackstudio.com</a>
         </div>
       </div>
       <div class="jn-footer-bottom">
-        <p>© 2026 Dual-Stack Studio. Independently operated.</p>
-        <p>Built with Astro, deployed on Vercel.</p>
+        <p>{c.rights}</p>
+        <p>{c.builtWith}</p>
       </div>
     </div>
   </footer>
@@ -185,6 +222,7 @@ const parts = [
       border-bottom: 1px solid rgba(43,36,32,0.08);
     }
     .jn-brand { display: flex; align-items: center; gap: 10px; font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600; color: var(--ink); }
+    .jn-header-right { display: inline-flex; align-items: center; gap: 1.5rem; color: var(--muted); }
     .jn-back { font-size: 14px; font-weight: 600; color: var(--muted); }
     .jn-back:hover { color: var(--terracotta); }
 

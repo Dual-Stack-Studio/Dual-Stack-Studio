@@ -1,52 +1,98 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import LangSwitch from '../components/LangSwitch.astro';
+import { l } from '../i18n';
+import type { Lang } from '../i18n';
+
+const { lang = 'en' } = Astro.props as { lang?: Lang };
+
+const copy = {
+  en: {
+    title: 'Dual-Stack Studio — Creative & Web',
+    description: 'One team, two crafts. Slide to choose a department: Creative & Marketing, or Web & Full-Stack.',
+    tag: 'One team. Two crafts. Slide to choose.',
+    dept1: 'Department 01',
+    dept2: 'Department 02',
+    creativeLong: 'Photography, film and storytelling for places worth remembering plus the social presence that carries it.',
+    creativeShort: 'Photography, film & storytelling — and the social presence behind it.',
+    webLong: 'Websites, web apps and the booking systems behind them designed, built and shipped end to end.',
+    webShort: 'Websites, apps & booking systems — built end to end.',
+    enterCreative: 'Enter Creative & Marketing',
+    enterWeb: 'Enter Web & Full-Stack',
+    sliderLabel: 'Slide left for Creative, right for Web',
+    hintIdle: 'drag to choose',
+    hintCreative: 'release for Creative',
+    hintWeb: 'release for Web',
+  },
+  de: {
+    title: 'Dual-Stack Studio — Creative & Web',
+    description: 'Ein Team, zwei Disziplinen. Ziehen Sie, um einen Bereich zu wählen: Creative & Marketing oder Web & Full-Stack.',
+    tag: 'Ein Team. Zwei Disziplinen. Ziehen zum Wählen.',
+    dept1: 'Bereich 01',
+    dept2: 'Bereich 02',
+    creativeLong: 'Fotografie, Film und Storytelling für Orte, an die man sich gerne erinnert — plus der Social-Media-Auftritt, der sie trägt.',
+    creativeShort: 'Fotografie, Film & Storytelling — und der Social-Media-Auftritt dahinter.',
+    webLong: 'Websites, Web-Apps und die Buchungssysteme dahinter — von Anfang bis Ende entworfen, gebaut und ausgeliefert.',
+    webShort: 'Websites, Apps & Buchungssysteme — von A bis Z gebaut.',
+    enterCreative: 'Creative & Marketing öffnen',
+    enterWeb: 'Web & Full-Stack öffnen',
+    sliderLabel: 'Nach links ziehen für Creative, nach rechts für Web',
+    hintIdle: 'ziehen zum Wählen',
+    hintCreative: 'loslassen für Creative',
+    hintWeb: 'loslassen für Web',
+  },
+};
+const c = copy[lang];
 ---
 
-<Layout title="Dual-Stack Studio — Creative & Web" description="One team, two crafts. Slide to choose a department: Creative & Marketing, or Web & Full-Stack.">
+<Layout title={c.title} description={c.description} lang={lang}>
 
-  <div class="door" id="door">
+  <div class="door" id="door" data-hint-idle={c.hintIdle} data-hint-creative={c.hintCreative} data-hint-web={c.hintWeb}>
+
+    <!-- Language switch -->
+    <div class="door-lang"><LangSwitch lang={lang} /></div>
 
     <!-- Brand, centred over both panels -->
     <div class="door-brand">
       <img src="/logo.svg" alt="Dual-Stack Studio" width="46" height="46" />
       <span class="door-brand-name">Dual-Stack Studio</span>
-      <span class="door-brand-tag">One team. Two crafts. Slide to choose.</span>
+      <span class="door-brand-tag">{c.tag}</span>
     </div>
 
     <!-- CREATIVE & MARKETING -->
-    <a href="/creative" class="door-half door-half--creative" id="half-creative" aria-label="Enter Creative & Marketing">
+    <a href={l(lang, '/creative')} class="door-half door-half--creative" id="half-creative" aria-label={c.enterCreative}>
       <div class="door-half-bg" style="background-image: url('/images/journal/austria/austria-01.jpg');"></div>
       <div class="door-scrim door-scrim--creative"></div>
       <div class="door-content">
-        <span class="door-eyebrow">Department 01</span>
+        <span class="door-eyebrow">{c.dept1}</span>
         <h2 class="door-title">Creative &amp;<br />Marketing</h2>
-        <p class="door-desc"><span class="desc-long">Photography, film and storytelling for places worth remembering plus the social presence that carries it.</span><span class="desc-short">Photography, film &amp; storytelling — and the social presence behind it.</span></p>
+        <p class="door-desc"><span class="desc-long">{c.creativeLong}</span><span class="desc-short">{c.creativeShort}</span></p>
       </div>
     </a>
 
     <!-- WEB & FULL-STACK -->
-    <a href="/web" class="door-half door-half--web" id="half-web" aria-label="Enter Web & Full-Stack">
+    <a href={l(lang, '/web')} class="door-half door-half--web" id="half-web" aria-label={c.enterWeb}>
       <div class="door-half-bg" style="background-image: url('/images/web-hero-bg.jpg');"></div>
       <div class="door-scrim door-scrim--web"></div>
       <div class="door-content">
-        <span class="door-eyebrow door-eyebrow--lime">Department 02</span>
+        <span class="door-eyebrow door-eyebrow--lime">{c.dept2}</span>
         <h2 class="door-title door-title--light">Web &amp;<br />Full-Stack</h2>
-        <p class="door-desc door-desc--light"><span class="desc-long">Websites, web apps and the booking systems behind them designed, built and shipped end to end.</span><span class="desc-short">Websites, apps &amp; booking systems — built end to end.</span></p>
+        <p class="door-desc door-desc--light"><span class="desc-long">{c.webLong}</span><span class="desc-short">{c.webShort}</span></p>
       </div>
     </a>
 
     <!-- Drag handle, centre -->
-    <div class="door-handle" id="door-handle" role="slider" aria-label="Slide left for Creative, right for Web" aria-valuemin="-100" aria-valuemax="100" aria-valuenow="0" tabindex="0">
+    <div class="door-handle" id="door-handle" role="slider" aria-label={c.sliderLabel} aria-valuemin="-100" aria-valuemax="100" aria-valuenow="0" tabindex="0">
       <span class="door-handle-grip">
         <span class="door-handle-arrow">‹</span>
         <span class="door-handle-dots"></span>
         <span class="door-handle-arrow">›</span>
       </span>
-      <span class="door-handle-hint">drag to choose</span>
+      <span class="door-handle-hint">{c.hintIdle}</span>
     </div>
 
     <!-- Legal notice (Impressum must be reachable from every page) -->
-    <a href="/impressum" class="door-legal">Impressum</a>
+    <a href={l(lang, '/impressum')} class="door-legal">Impressum</a>
 
     <!-- Commit curtain -->
     <div class="door-curtain" id="door-curtain"></div>
@@ -289,6 +335,16 @@ import Layout from '../layouts/Layout.astro';
     .door-handle-grip { animation: doorPulse 1.9s ease-out infinite; }
     .door.is-grabbing .door-handle-grip, .door.is-animating .door-handle-grip { animation: none; }
 
+    /* ---------- LANGUAGE SWITCH ---------- */
+    .door-lang {
+      position: absolute;
+      top: 1rem;
+      right: 1.25rem;
+      z-index: 26;
+      color: #fff;
+      text-shadow: 0 1px 8px rgba(0,0,0,0.6);
+    }
+
     /* ---------- LEGAL LINK ---------- */
     .door-legal {
       position: absolute;
@@ -366,14 +422,14 @@ import Layout from '../layouts/Layout.astro';
       const hint = handle?.querySelector('.door-handle-hint') as HTMLElement | null;
       if (!door || !creative || !web || !handle || !curtain) return;
 
-      const HINT_IDLE = 'drag to choose';
+      const HINT_IDLE = door.dataset.hintIdle || 'drag to choose';
 
       function setLean(side: 'creative' | 'web' | null) {
         handle!.classList.toggle('lean-creative', side === 'creative');
         handle!.classList.toggle('lean-web', side === 'web');
         if (hint) {
-          hint.textContent = side === 'creative' ? 'release for Creative'
-            : side === 'web' ? 'release for Web'
+          hint.textContent = side === 'creative' ? (door!.dataset.hintCreative || 'release for Creative')
+            : side === 'web' ? (door!.dataset.hintWeb || 'release for Web')
             : HINT_IDLE;
         }
       }
@@ -459,7 +515,7 @@ import Layout from '../layouts/Layout.astro';
         // fade the curtain in the destination's colour, then navigate
         curtain!.classList.add(side === 'web' ? 'to-web' : 'to-creative');
         window.setTimeout(() => curtain!.classList.add('show'), 260);
-        const target = side === 'web' ? '/web' : '/creative';
+        const target = (side === 'web' ? web : creative)!.getAttribute('href') || (side === 'web' ? '/web' : '/creative');
         window.setTimeout(() => { window.location.href = target; }, 760);
       }
 

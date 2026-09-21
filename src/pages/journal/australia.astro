@@ -1,7 +1,13 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import LangSwitch from '../../components/LangSwitch.astro';
+import { l, formatDate } from '../../i18n';
+import type { Lang } from '../../i18n';
 import data from '../../data/journal-australia.json';
 import tasData from '../../data/journal-tasmania.json';
+
+const { lang = 'en' } = Astro.props as { lang?: Lang };
+const de = lang === 'de';
 
 const photos = data.photos;
 const heroImg = '/images/journal/australia/au-28.jpg';
@@ -10,20 +16,26 @@ const gallery = photos.filter((p) => p.src !== heroImg);
 
 // Videos are woven into the photo galleries (not a separate section).
 const auVideos = [
-  { type: 'video', orientation: 'landscape', src: '/videos/journal/australia-video-01.mp4', poster: '/images/journal/australia/au-video-01-poster.jpg', label: 'A long look out over the bush · August 2025' },
-  { type: 'video', orientation: 'portrait', src: '/videos/journal/australia-video-02.mp4', poster: '/images/journal/australia/au-video-02-poster.jpg', label: 'Cockatoo · June 2025' },
-  { type: 'video', orientation: 'portrait', src: '/videos/journal/australia-video-03.mp4', poster: '/images/journal/australia/au-video-03-poster.jpg', label: 'Out and about · March 2025' },
-  { type: 'video', orientation: 'portrait', src: '/videos/journal/australia-video-04.mp4', poster: '/images/journal/australia/au-video-04-poster.jpg', label: 'Around town · March 2025' },
+  { type: 'video', orientation: 'landscape', src: '/videos/journal/australia-video-01.mp4', poster: '/images/journal/australia/au-video-01-poster.jpg', label: de ? 'Ein langer Blick über den Busch · August 2025' : 'A long look out over the bush · August 2025' },
+  { type: 'video', orientation: 'portrait', src: '/videos/journal/australia-video-02.mp4', poster: '/images/journal/australia/au-video-02-poster.jpg', label: de ? 'Kakadu · Juni 2025' : 'Cockatoo · June 2025' },
+  { type: 'video', orientation: 'portrait', src: '/videos/journal/australia-video-03.mp4', poster: '/images/journal/australia/au-video-03-poster.jpg', label: de ? 'Unterwegs · März 2025' : 'Out and about · March 2025' },
+  { type: 'video', orientation: 'portrait', src: '/videos/journal/australia-video-04.mp4', poster: '/images/journal/australia/au-video-04-poster.jpg', label: de ? 'In der Stadt unterwegs · März 2025' : 'Around town · March 2025' },
 ];
 
 const tasVideos = [
-  { type: 'video', orientation: 'landscape', src: '/videos/journal/tasmania-video-01.mp4', poster: '/images/journal/australia/tasmania/tas-video-01-poster.jpg', label: 'Down on the coast · December 2024' },
-  { type: 'video', orientation: 'portrait', src: '/videos/journal/tasmania-video-02.mp4', poster: '/images/journal/australia/tasmania/tas-video-02-poster.jpg', label: 'A moment by the water · February 2025' },
+  { type: 'video', orientation: 'landscape', src: '/videos/journal/tasmania-video-01.mp4', poster: '/images/journal/australia/tasmania/tas-video-01-poster.jpg', label: de ? 'Unten an der Küste · Dezember 2024' : 'Down on the coast · December 2024' },
+  { type: 'video', orientation: 'portrait', src: '/videos/journal/tasmania-video-02.mp4', poster: '/images/journal/australia/tasmania/tas-video-02-poster.jpg', label: de ? 'Ein Moment am Wasser · Februar 2025' : 'A moment by the water · February 2025' },
 ];
+
+// Photo caption: a formatted date when the photo has one, otherwise a translated generic label.
+function captionOf(p: any): string {
+  if (p.date) return formatDate(p.date, lang);
+  return de ? String(p.label).replace('Australia', 'Australien').replace('Tasmania', 'Tasmanien') : p.label;
+}
 
 // Spread the videos evenly through the photo stream so they sit among the photos.
 function weave(photoList: any[], videoList: any[]): any[] {
-  const items: any[] = photoList.map((p: any) => ({ type: 'photo', ...p }));
+  const items: any[] = photoList.map((p: any) => ({ type: 'photo', ...p, caption: captionOf(p) }));
   if (!videoList.length) return items;
   const step = Math.max(1, Math.round(photoList.length / (videoList.length + 1)));
   const out: any[] = [];
@@ -38,48 +50,103 @@ function weave(photoList: any[], videoList: any[]): any[] {
 
 const items = weave(gallery, auVideos);
 const tasItems = weave(tasData.photos, tasVideos);
+
+const copy = {
+  en: {
+    title: 'Australia — Journal — Dual-Stack Studio',
+    description: 'Part one of our journal: months in Australia — Brisbane, the bush, the wildlife and the work in between.',
+    back: '← Back to journal',
+    heroAlt: 'The Brisbane skyline seen across the bush from a lookout',
+    eyebrow: 'Journal · Part 01', h1: 'Australia',
+    meta: 'March – August 2025 · Brisbane & beyond',
+    lead: 'Months on the other side of the world — a city on the river, rainforest at the edge of it, and the work that paid for the days off.',
+    storyLead: "Australia wasn't a holiday. It was a stretch of real life in a place that happened to be beautiful.",
+    p1: 'We landed in Brisbane and did the unglamorous part first — finding work, finding a rhythm, learning a new city one bus route at a time. But on the days off we went looking: up to the lookout where the whole skyline sits small against the bush, into the rainforest where the light comes down in pieces, out to wherever the weekend pointed us. Somewhere in there a cockatoo screamed at us from a gum tree, and that felt about right.',
+    p2: "It's the kind of trip that teaches you to shoot what's actually in front of you — not the postcard, but the real texture of a place you're living in. That's the same thing we do for the businesses we work with. What follows is Australia, roughly in the order it happened.",
+    note: 'Still editing this chapter — more to come.',
+    monthsEyebrow: 'The months, front to back', monthsTitle: 'From autumn into spring',
+    monthsLead: 'Shot from March to August 2025, roughly in order. Tap any photo to see it full size.',
+    photoAlt: 'Australia', tasAlt: 'Tasmania',
+    tasBadge: 'A side trip', tasTitle: 'Down to Tasmania',
+    tasIntro: "Before the mainland, there was the island. We spent the turn of the year down in Tasmania — wild beaches with no one on them, cold clean water, and the kind of coastline that makes you stop the car every few minutes. It felt like the edge of everything, so we're keeping it in its own chapter.",
+    ctaTitle: 'This is how we see every place.',
+    ctaText: 'The same eye we bring to a stretch of life in Australia is the one we bring to farms, guesthouses and small local businesses.',
+    ctaBtn: "Let's talk",
+    footTagline: 'We tell the story of small places doing real work — content, storytelling, and the web presence behind it.',
+    navTitle: 'Navigate', navWork: 'Work', navServices: 'Services', navTeam: 'Team', navJournal: 'Journal',
+    legalTitle: 'Legal', privacy: 'Privacy Policy', terms: 'Terms of Service', contactTitle: 'Get in touch',
+    rights: '© 2026 Dual-Stack Studio. Independently operated.', builtWith: 'Built with Astro, deployed on Vercel.',
+    close: 'Close',
+  },
+  de: {
+    title: 'Australien — Journal — Dual-Stack Studio',
+    description: 'Teil eins unseres Journals: Monate in Australien — Brisbane, der Busch, die Tierwelt und die Arbeit dazwischen.',
+    back: '← Zurück zum Journal',
+    heroAlt: 'Die Skyline von Brisbane, von einem Aussichtspunkt über den Busch gesehen',
+    eyebrow: 'Journal · Teil 01', h1: 'Australien',
+    meta: 'März – August 2025 · Brisbane und Umgebung',
+    lead: 'Monate am anderen Ende der Welt — eine Stadt am Fluss, Regenwald an ihrem Rand und die Arbeit, die die freien Tage finanziert hat.',
+    storyLead: 'Australien war kein Urlaub. Es war ein Stück echtes Leben an einem Ort, der zufällig wunderschön war.',
+    p1: 'Wir landeten in Brisbane und erledigten zuerst den unglamourösen Teil — Arbeit finden, einen Rhythmus finden, eine neue Stadt Buslinie für Buslinie kennenlernen. An den freien Tagen gingen wir aber auf Entdeckungstour: hinauf zum Aussichtspunkt, von dem aus die ganze Skyline klein vor dem Busch liegt, in den Regenwald, wo das Licht in Stücken herunterfällt, und dorthin, wohin uns das Wochenende gerade führte. Irgendwo dazwischen schrie uns ein Kakadu aus einem Eukalyptusbaum an, und das fühlte sich genau richtig an.',
+    p2: 'Es ist die Art von Reise, die einen lehrt, das zu fotografieren, was tatsächlich vor einem liegt — nicht die Postkarte, sondern die echte Textur eines Ortes, an dem man lebt. Genau das tun wir auch für die Betriebe, mit denen wir arbeiten. Was folgt, ist Australien, ungefähr in der Reihenfolge, in der es geschah.',
+    note: 'Dieses Kapitel wird noch bearbeitet — es kommt noch mehr.',
+    monthsEyebrow: 'Die Monate, von vorne bis hinten', monthsTitle: 'Vom Herbst in den Frühling',
+    monthsLead: 'Aufgenommen von März bis August 2025, ungefähr in der richtigen Reihenfolge. Tippen Sie auf ein Foto, um es in voller Größe zu sehen.',
+    photoAlt: 'Australien', tasAlt: 'Tasmanien',
+    tasBadge: 'Ein Abstecher', tasTitle: 'Hinunter nach Tasmanien',
+    tasIntro: 'Vor dem Festland gab es die Insel. Den Jahreswechsel verbrachten wir unten in Tasmanien — wilde Strände ohne eine Menschenseele, kaltes, klares Wasser und die Art von Küste, bei der man alle paar Minuten das Auto anhält. Es fühlte sich an wie der Rand von allem, deshalb bekommt es ein eigenes Kapitel.',
+    ctaTitle: 'So sehen wir jeden Ort.',
+    ctaText: 'Denselben Blick, den wir auf einen Lebensabschnitt in Australien richten, richten wir auf Bauernhöfe, Gästehäuser und kleine lokale Betriebe.',
+    ctaBtn: 'Sprechen wir',
+    footTagline: 'Wir erzählen die Geschichten kleiner Orte, die echte Arbeit leisten — Content, Storytelling und der Webauftritt dahinter.',
+    navTitle: 'Navigation', navWork: 'Arbeiten', navServices: 'Leistungen', navTeam: 'Team', navJournal: 'Journal',
+    legalTitle: 'Rechtliches', privacy: 'Datenschutzerklärung', terms: 'Nutzungsbedingungen', contactTitle: 'Kontakt',
+    rights: '© 2026 Dual-Stack Studio. Unabhängig betrieben.', builtWith: 'Erstellt mit Astro, bereitgestellt auf Vercel.',
+    close: 'Schließen',
+  },
+};
+const c = copy[lang];
 ---
 
-<Layout title="Australia — Journal — Dual-Stack Studio" description="Part three of our journal: months in Australia — Brisbane, the bush, the wildlife and the work in between.">
+<Layout title={c.title} description={c.description} lang={lang}>
 
   <header class="au-header">
-    <a href="/creative" class="au-brand">
+    <a href={l(lang, '/creative')} class="au-brand">
       <img src="/logo.svg" alt="Dual-Stack Studio" width="32" height="32" style="border-radius: 8px;" />
       <span>Dual-Stack Studio</span>
     </a>
-    <a href="/journal" class="au-back">← Back to journal</a>
+    <span class="au-header-right">
+      <LangSwitch lang={lang} />
+      <a href={l(lang, '/journal')} class="au-back">{c.back}</a>
+    </span>
   </header>
 
   <section class="au-hero">
-    <img class="au-hero-img" src={heroImg} alt="The Brisbane skyline seen across the bush from a lookout" />
+    <img class="au-hero-img" src={heroImg} alt={c.heroAlt} />
     <div class="au-hero-scrim"></div>
     <div class="au-hero-content">
-      <span class="au-eyebrow">Journal · Part 01</span>
-      <h1>Australia</h1>
-      <p class="au-hero-meta">March – August 2025 · Brisbane &amp; beyond</p>
-      <p class="au-hero-lead">Months on the other side of the world — a city on the river, rainforest at the edge of it, and the work that paid for the days off.</p>
+      <span class="au-eyebrow">{c.eyebrow}</span>
+      <h1>{c.h1}</h1>
+      <p class="au-hero-meta">{c.meta}</p>
+      <p class="au-hero-lead">{c.lead}</p>
     </div>
   </section>
 
-  <!-- ============================================================
-       STORY — placeholder text. Replace freely; the layout adapts
-       to however many paragraphs you keep here.
-       ============================================================ -->
   <section class="au-story">
     <div class="au-inner au-inner--narrow">
-      <p class="au-story-lead">Australia wasn't a holiday. It was a stretch of real life in a place that happened to be beautiful.</p>
-      <p>We landed in Brisbane and did the unglamorous part first — finding work, finding a rhythm, learning a new city one bus route at a time. But on the days off we went looking: up to the lookout where the whole skyline sits small against the bush, into the rainforest where the light comes down in pieces, out to wherever the weekend pointed us. Somewhere in there a cockatoo screamed at us from a gum tree, and that felt about right.</p>
-      <p>It's the kind of trip that teaches you to shoot what's actually in front of you — not the postcard, but the real texture of a place you're living in. That's the same thing we do for the businesses we work with. What follows is Australia, roughly in the order it happened.</p>
-      <p class="au-story-note"><em>Still editing this chapter — more to come.</em></p>
+      <p class="au-story-lead">{c.storyLead}</p>
+      <p>{c.p1}</p>
+      <p>{c.p2}</p>
+      <p class="au-story-note"><em>{c.note}</em></p>
     </div>
   </section>
 
   <!-- ============ THE MONTHS (photos + video, woven together) ============ -->
   <section class="au-section">
     <div class="au-inner">
-      <span class="au-eyebrow au-eyebrow--dark">The months, front to back</span>
-      <h2 class="au-section-title">From autumn into spring</h2>
-      <p class="au-section-lead">Shot from March to August 2025, roughly in order. Tap any photo to see it full size.</p>
+      <span class="au-eyebrow au-eyebrow--dark">{c.monthsEyebrow}</span>
+      <h2 class="au-section-title">{c.monthsTitle}</h2>
+      <p class="au-section-lead">{c.monthsLead}</p>
       <div class="au-masonry">
         {items.map((it) => (
           it.type === 'video' ? (
@@ -89,7 +156,7 @@ const tasItems = weave(tasData.photos, tasVideos);
             </figure>
           ) : (
             <div class="au-item">
-              <img src={it.src} alt={`Australia — ${it.label}`} width={it.w} height={it.h} loading="lazy" decoding="async" class="au-lightbox-trigger" />
+              <img src={it.src} alt={`${c.photoAlt} — ${it.caption}`} width={it.w} height={it.h} loading="lazy" decoding="async" class="au-lightbox-trigger" />
             </div>
           )
         ))}
@@ -99,14 +166,14 @@ const tasItems = weave(tasData.photos, tasVideos);
 
   <!-- ============================================================
        SPECIAL SUB-SECTION — TASMANIA
-       A distinct chapter-within-a-chapter. Edit the intro text freely.
+       A distinct chapter-within-a-chapter.
        ============================================================ -->
   <section class="au-tas">
     <div class="au-inner">
       <div class="au-tas-head">
-        <span class="au-tas-badge">A side trip</span>
-        <h2 class="au-tas-title">Down to Tasmania</h2>
-        <p class="au-tas-intro">Before the mainland, there was the island. We spent the turn of the year down in Tasmania — wild beaches with no one on them, cold clean water, and the kind of coastline that makes you stop the car every few minutes. It felt like the edge of everything, so we're keeping it in its own chapter.</p>
+        <span class="au-tas-badge">{c.tasBadge}</span>
+        <h2 class="au-tas-title">{c.tasTitle}</h2>
+        <p class="au-tas-intro">{c.tasIntro}</p>
       </div>
 
       <div class="au-tas-masonry">
@@ -118,7 +185,7 @@ const tasItems = weave(tasData.photos, tasVideos);
             </figure>
           ) : (
             <div class="au-item">
-              <img src={it.src} alt={`Tasmania — ${it.label}`} width={it.w} height={it.h} loading="lazy" decoding="async" class="au-lightbox-trigger" />
+              <img src={it.src} alt={`${c.tasAlt} — ${it.caption}`} width={it.w} height={it.h} loading="lazy" decoding="async" class="au-lightbox-trigger" />
             </div>
           )
         ))}
@@ -128,9 +195,9 @@ const tasItems = weave(tasData.photos, tasVideos);
 
   <section class="au-cta">
     <div class="au-inner au-cta-inner">
-      <h2>This is how we see every place.</h2>
-      <p>The same eye we bring to a stretch of life in Australia is the one we bring to farms, guesthouses and small local businesses.</p>
-      <a href="/creative#contact" class="au-cta-btn">Let's talk</a>
+      <h2>{c.ctaTitle}</h2>
+      <p>{c.ctaText}</p>
+      <a href={l(lang, '/creative#contact')} class="au-cta-btn">{c.ctaBtn}</a>
     </div>
   </section>
 
@@ -142,35 +209,35 @@ const tasItems = weave(tasData.photos, tasVideos);
             <img src="/logo.svg" alt="Dual-Stack Studio" width="28" height="28" style="border-radius: 7px;" />
             Dual-Stack Studio
           </div>
-          <p>We tell the story of small places doing real work — content, storytelling, and the web presence behind it.</p>
+          <p>{c.footTagline}</p>
         </div>
         <div class="au-footer-col">
-          <h4>Navigate</h4>
-          <a href="/creative#work">Work</a>
-          <a href="/creative#services">Services</a>
-          <a href="/creative#team">Team</a>
-          <a href="/journal">Journal</a>
+          <h4>{c.navTitle}</h4>
+          <a href={l(lang, '/creative#work')}>{c.navWork}</a>
+          <a href={l(lang, '/creative#services')}>{c.navServices}</a>
+          <a href={l(lang, '/creative#team')}>{c.navTeam}</a>
+          <a href={l(lang, '/journal')}>{c.navJournal}</a>
         </div>
         <div class="au-footer-col">
-          <h4>Legal</h4>
-          <a href="/privacy-policy">Privacy Policy</a>
-          <a href="/terms-of-service">Terms of Service</a>
-          <a href="/impressum">Impressum</a>
+          <h4>{c.legalTitle}</h4>
+          <a href={l(lang, '/privacy-policy')}>{c.privacy}</a>
+          <a href={l(lang, '/terms-of-service')}>{c.terms}</a>
+          <a href={l(lang, '/impressum')}>Impressum</a>
         </div>
         <div class="au-footer-col">
-          <h4>Get in touch</h4>
+          <h4>{c.contactTitle}</h4>
           <a href="mailto:hello@dualstackstudio.com">hello@dualstackstudio.com</a>
         </div>
       </div>
       <div class="au-footer-bottom">
-        <p>© 2026 Dual-Stack Studio. Independently operated.</p>
-        <p>Built with Astro, deployed on Vercel.</p>
+        <p>{c.rights}</p>
+        <p>{c.builtWith}</p>
       </div>
     </div>
   </footer>
 
   <div id="au-lightbox" class="au-lightbox" hidden>
-    <button type="button" class="au-lightbox-close" id="au-lightbox-close" aria-label="Close">×</button>
+    <button type="button" class="au-lightbox-close" id="au-lightbox-close" aria-label={c.close}>×</button>
     <img src="" alt="" class="au-lightbox-img" id="au-lightbox-img" />
   </div>
 
@@ -215,6 +282,7 @@ const tasItems = weave(tasData.photos, tasVideos);
       backdrop-filter: blur(8px);
     }
     .au-brand { display: flex; align-items: center; gap: 10px; font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600; color: #fff; }
+    .au-header-right { display: inline-flex; align-items: center; gap: 1.5rem; color: rgba(255,255,255,0.9); }
     .au-back { font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.9); }
     .au-back:hover { color: var(--terracotta); }
 

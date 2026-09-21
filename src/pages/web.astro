@@ -1,5 +1,8 @@
 ---
 import Layout from '../layouts/WebLayout.astro';
+import LangSwitch from '../components/LangSwitch.astro';
+import { l } from '../i18n';
+import type { Lang } from '../i18n';
 
 const techIcons = [
   { name: 'React', accent: '#0a0a0a', path: 'M14.23 12.004a2.236 2.236 0 0 1-2.235 2.236 2.236 2.236 0 0 1-2.236-2.236 2.236 2.236 0 0 1 2.235-2.236 2.236 2.236 0 0 1 2.236 2.236zm2.648-10.69c-1.346 0-3.107.96-4.888 2.622-1.78-1.653-3.542-2.602-4.887-2.602-.41 0-.783.093-1.106.278-1.375.793-1.683 3.264-.973 6.365C1.98 8.917 0 10.42 0 12.004c0 1.59 1.99 3.097 5.043 4.03-.704 3.113-.39 5.588.988 6.38.32.187.69.275 1.102.275 1.345 0 3.107-.96 4.888-2.624 1.78 1.654 3.542 2.603 4.887 2.603.41 0 .783-.09 1.106-.275 1.374-.792 1.683-3.263.973-6.365C22.02 15.096 24 13.59 24 12.004c0-1.59-1.99-3.097-5.043-4.032.704-3.11.39-5.587-.988-6.38-.318-.184-.688-.277-1.092-.278zm-.005 1.09v.006c.225 0 .406.044.558.127.666.382.955 1.835.73 3.704-.054.46-.142.945-.25 1.44-.96-.236-2.006-.417-3.107-.534-.66-.905-1.345-1.727-2.035-2.447 1.592-1.48 3.087-2.292 4.105-2.295zm-9.77.02c1.012 0 2.514.808 4.11 2.28-.686.72-1.37 1.537-2.02 2.442-1.107.117-2.154.298-3.113.538-.112-.49-.195-.964-.254-1.42-.23-1.868.054-3.32.714-3.707.19-.09.4-.127.563-.132zm4.882 3.05c.455.468.91.992 1.36 1.564-.44-.02-.89-.034-1.345-.034-.46 0-.915.01-1.36.034.44-.572.895-1.096 1.345-1.565zM12 8.1c.74 0 1.477.034 2.202.093.406.582.802 1.203 1.183 1.86.372.64.71 1.29 1.018 1.946-.308.655-.646 1.31-1.013 1.95-.38.66-.773 1.288-1.18 1.87-.728.063-1.466.098-2.21.098-.74 0-1.477-.035-2.202-.093-.406-.582-.802-1.204-1.183-1.86-.372-.64-.71-1.29-1.018-1.946.303-.657.646-1.313 1.013-1.954.38-.66.773-1.286 1.18-1.868.728-.064 1.466-.098 2.21-.098zm-3.635.254c-.24.377-.48.763-.704 1.16-.225.39-.435.782-.635 1.174-.265-.656-.49-1.31-.676-1.947.64-.15 1.315-.283 2.015-.386zm7.26 0c.695.103 1.365.23 2.006.387-.18.632-.405 1.282-.66 1.933-.2-.39-.41-.783-.64-1.174-.225-.392-.465-.774-.705-1.146zm3.063.675c.484.15.944.317 1.375.498 1.732.74 2.852 1.708 2.852 2.476-.005.768-1.125 1.74-2.857 2.475-.42.18-.88.342-1.355.493-.28-.958-.646-1.956-1.1-2.98.45-1.017.81-2.01 1.085-2.964zm-13.395.004c.278.96.645 1.957 1.1 2.98-.45 1.017-.812 2.01-1.086 2.964-.484-.15-.944-.318-1.37-.5-1.732-.737-2.852-1.706-2.852-2.474 0-.768 1.12-1.742 2.852-2.476.42-.18.88-.342 1.356-.494zm11.678 4.28c.265.657.49 1.312.676 1.948-.64.157-1.316.29-2.016.39.24-.375.48-.762.705-1.158.225-.39.435-.788.636-1.18zm-9.945.02c.2.392.41.783.64 1.175.23.39.465.772.705 1.143-.695-.102-1.365-.23-2.006-.386.18-.63.406-1.282.66-1.933zM17.92 16.32c.112.493.2.968.254 1.423.23 1.868-.054 3.32-.714 3.708-.147.09-.338.128-.563.128-1.012 0-2.514-.807-4.11-2.28.686-.72 1.37-1.536 2.02-2.44 1.107-.118 2.154-.3 3.113-.54zm-11.83.01c.96.234 2.006.415 3.107.532.66.905 1.345 1.727 2.035 2.446-1.595 1.483-3.092 2.295-4.11 2.295-.22-.005-.406-.05-.553-.132-.666-.38-.955-1.834-.73-3.703.054-.46.142-.944.25-1.438zm4.56.64c.44.02.89.034 1.345.034.46 0 .915-.01 1.36-.034-.44.572-.895 1.095-1.345 1.565-.455-.47-.91-.993-1.36-1.565z' },
@@ -38,29 +41,147 @@ const lineIcons: Record<string, string> = {
 function lineIcon(name: string, size = 20, strokeWidth = 2) {
   return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${strokeWidth}" stroke-linecap="round" stroke-linejoin="round">${lineIcons[name] ?? ''}</svg>`;
 }
+
+const { lang = 'en' } = Astro.props as { lang?: Lang };
+
+// Non-text bits of the repeated blocks (icons / accents / links) live here; the words live in `copy`.
+const carouselItems = [
+  { slug: 'bumeran', img: '/images/bumeran-hero.png' },
+  { slug: 'echoesandpaths', img: '/images/echoesandpaths-hero.png' },
+  { slug: 'nonna', img: '/images/nonna-logo-hero.jpg' },
+  { slug: 'mvg', img: '/images/mvg-logo-hero.jpg' },
+];
+const pillIcons = ['code', 'mobile', 'cloud', 'design', 'plug', 'zap'];
+const serviceCards = [
+  { icon: 'code', accent: '#ccff33' },
+  { icon: 'mobile', accent: '#06b6d4' },
+  { icon: 'globe', accent: '#22d3ee' },
+];
+const roleIcons = ['laptop', 'design', 'rocket'];
+
+const copy = {
+  en: {
+    title: 'Dual-Stack Studio — We build full-stack products',
+    navProjects: 'Projects', navServices: 'Services', navTeam: 'Team', navCreative: 'Creative & Marketing ↗',
+    cta: 'Get proposal', menuToggle: 'Toggle menu', menuClose: 'Close menu',
+    heroEyebrow: 'Full-stack development studio',
+    heroSub: 'From concept to production. We ship products that matter.',
+    scrollDown: 'Scroll down',
+    workEyebrow: 'Selected work', workTitleA: 'Our', workTitleB: 'Projects', workCount: 'Click on the projects to see more',
+    hintDesktop: 'Hover a project to preview · Click to open', hintMobile: 'Drag to browse · Tap to open',
+    carouselLabels: [
+      'Bumerán — Neighborhood favor exchange',
+      'Echoes & Paths — Historical landmark app',
+      'El Dulce de la Nonna — Bakery e-commerce',
+      'MVG Lash & Brow — Salon website',
+    ],
+    svcEyebrow: 'What we do', svcTitleA: 'Capabilities &', svcTitleB: 'Services',
+    svcIntro: "We're a small full-stack team that ships complete products — from the first line of code to the app store and production servers.",
+    pills: ['Full-Stack Dev', 'React Native', 'Cloud & DevOps', 'UI/UX Design', 'API Integration', 'Performance'],
+    cards: [
+      { title: 'Full-Stack Development', text: 'End-to-end product development — frontend, backend, database and deployment, all handled by the same team.', checks: ['React & React Native', 'Node.js & NestJS', 'PostgreSQL Databases', 'Cloud Deployment'] },
+      { title: 'React Native Apps', text: 'iOS and Android from a single codebase, built on the Expo managed workflow through to app store release.', checks: ['Expo Managed Workflow', 'Push Notifications', 'App Store Deployment', 'Native Performance'] },
+      { title: 'Web Platforms', text: 'Modern, fast web applications built with a performance-first mindset — every page tuned to load instantly.', checks: ['Next.js & Astro', 'TypeScript', 'Lighthouse 95+', 'SEO Optimized'] },
+    ],
+    learnMore: 'Learn More', stackLabel: 'Our stack',
+    teamTitleA: 'One person,', teamTitleB: 'three disciplines', teamLead: 'Every step handled start to finish — from first commit to production deploy.',
+    roleTag: 'ROLE',
+    roles: [
+      { title: 'Full-Stack Developer', text: 'React, React Native, Node.js, PostgreSQL. Handles everything from mobile to deployment.' },
+      { title: 'UI/UX Designer', text: 'Focused on user experience and clean design. From mockups to pixel-perfect implementation.' },
+      { title: 'DevOps & Deployment', text: 'Handles CI/CD, deployment pipelines, and infrastructure. Vercel, AWS, database optimization.' },
+    ],
+    contactEyebrow: 'Get in touch', contactTitle: 'Ready to ship?',
+    contactLead: "Tell us about your project and we'll get back to you within 1–2 business days.",
+    fName: 'Name', fNamePh: 'Your name', fEmail: 'Email', fEmailPh: 'you@company.com', fService: 'What do you need?',
+    serviceOptions: ['Full-Stack Development', 'React Native App', 'Web Platform', 'Something else'],
+    fMessage: 'Message', fMessagePh: "Tell us a bit about your project — timeline, budget range, what you're trying to build.",
+    send: 'Send message', note: "We'll get back to you within 1–2 business days.",
+    okTitle: 'Message sent', okText: "Thanks for reaching out — your inquiry landed straight in our inbox. We'll get back to you within 1–2 business days.",
+    sending: 'Sending…', errMsg: 'Something went wrong. Please email us directly at hello@dualstackstudio.com.',
+    subject: '{service} inquiry from {name}',
+    footTagline: 'Independent full-stack studio. React, React Native and Node.js products, designed and shipped end to end.',
+    builtTitle: 'Built in Parallel',
+    builtText: 'This website was built in parallel — design & vision by Dual-Stack Studio, implementation assisted by Claude AI. A collaborative workflow that proved effective for rapid iteration and refinement.',
+    licenceTitle: 'Trade licence',
+    footNavTitle: 'Navigate', footLegalTitle: 'Legal', privacy: 'Privacy Policy', terms: 'Terms of Service',
+    footContactTitle: 'Get in touch', reply: 'Usually replies within 1–2 business days.',
+    rights: '© 2026 Dual-Stack Studio. Independently operated.', builtWith: 'Built with Astro, deployed on Vercel. Site under active development.',
+  },
+  de: {
+    title: 'Dual-Stack Studio — Wir bauen Full-Stack-Produkte',
+    navProjects: 'Projekte', navServices: 'Leistungen', navTeam: 'Team', navCreative: 'Creative & Marketing ↗',
+    cta: 'Angebot anfragen', menuToggle: 'Menü umschalten', menuClose: 'Menü schließen',
+    heroEyebrow: 'Full-Stack-Entwicklungsstudio',
+    heroSub: 'Vom Konzept bis zum Livegang. Wir liefern Produkte, die zählen.',
+    scrollDown: 'Nach unten scrollen',
+    workEyebrow: 'Ausgewählte Arbeiten', workTitleA: 'Unsere', workTitleB: 'Projekte', workCount: 'Klicken Sie auf ein Projekt, um mehr zu erfahren',
+    hintDesktop: 'Für die Vorschau über ein Projekt fahren · Zum Öffnen klicken', hintMobile: 'Ziehen zum Blättern · Zum Öffnen tippen',
+    carouselLabels: [
+      'Bumerán — Tauschbörse für Nachbarschaftshilfe',
+      'Echoes & Paths — App für historische Wahrzeichen',
+      'El Dulce de la Nonna — Online-Shop für eine Bäckerei',
+      'MVG Lash & Brow — Salon-Website',
+    ],
+    svcEyebrow: 'Was wir tun', svcTitleA: 'Kompetenzen &', svcTitleB: 'Leistungen',
+    svcIntro: 'Wir sind ein kleines Full-Stack-Team, das komplette Produkte liefert — von der ersten Codezeile bis zum App Store und zu den Produktionsservern.',
+    pills: ['Full-Stack-Entwicklung', 'React Native', 'Cloud & DevOps', 'UI/UX-Design', 'API-Integration', 'Performance'],
+    cards: [
+      { title: 'Full-Stack-Entwicklung', text: 'Produktentwicklung aus einer Hand — Frontend, Backend, Datenbank und Deployment, alles vom selben Team.', checks: ['React & React Native', 'Node.js & NestJS', 'PostgreSQL-Datenbanken', 'Cloud-Deployment'] },
+      { title: 'React-Native-Apps', text: 'iOS und Android aus einer einzigen Codebasis, auf Basis des Expo Managed Workflow bis zur Veröffentlichung im App Store.', checks: ['Expo Managed Workflow', 'Push-Benachrichtigungen', 'App-Store-Veröffentlichung', 'Native Performance'] },
+      { title: 'Web-Plattformen', text: 'Moderne, schnelle Webanwendungen mit Performance als oberster Priorität — jede Seite auf sofortiges Laden getrimmt.', checks: ['Next.js & Astro', 'TypeScript', 'Lighthouse 95+', 'SEO-optimiert'] },
+    ],
+    learnMore: 'Mehr erfahren', stackLabel: 'Unser Stack',
+    teamTitleA: 'Eine Person,', teamTitleB: 'drei Disziplinen', teamLead: 'Jeder Schritt aus einer Hand — vom ersten Commit bis zum Produktiv-Deployment.',
+    roleTag: 'ROLLE',
+    roles: [
+      { title: 'Full-Stack-Entwicklung', text: 'React, React Native, Node.js, PostgreSQL. Von Mobile bis Deployment alles aus einer Hand.' },
+      { title: 'UI/UX-Design', text: 'Fokus auf Nutzererlebnis und klares Design. Von Mockups bis zur pixelgenauen Umsetzung.' },
+      { title: 'DevOps & Deployment', text: 'Zuständig für CI/CD, Deployment-Pipelines und Infrastruktur. Vercel, AWS, Datenbankoptimierung.' },
+    ],
+    contactEyebrow: 'Kontakt', contactTitle: 'Bereit für den Livegang?',
+    contactLead: 'Erzählen Sie uns von Ihrem Projekt — wir melden uns innerhalb von 1–2 Werktagen bei Ihnen.',
+    fName: 'Name', fNamePh: 'Ihr Name', fEmail: 'E-Mail', fEmailPh: 'sie@firma.at', fService: 'Was brauchen Sie?',
+    serviceOptions: ['Full-Stack-Entwicklung', 'React-Native-App', 'Web-Plattform', 'Etwas anderes'],
+    fMessage: 'Nachricht', fMessagePh: 'Erzählen Sie uns kurz von Ihrem Projekt — Zeitrahmen, Budgetrahmen und was Sie umsetzen möchten.',
+    send: 'Nachricht senden', note: 'Wir melden uns innerhalb von 1–2 Werktagen bei Ihnen.',
+    okTitle: 'Nachricht gesendet', okText: 'Danke für Ihre Nachricht — Ihre Anfrage ist direkt in unserem Posteingang gelandet. Wir melden uns innerhalb von 1–2 Werktagen bei Ihnen.',
+    sending: 'Wird gesendet…', errMsg: 'Etwas ist schiefgelaufen. Bitte schreiben Sie uns direkt an hello@dualstackstudio.com.',
+    subject: 'Anfrage ({service}) von {name}',
+    footTagline: 'Unabhängiges Full-Stack-Studio. Produkte mit React, React Native und Node.js — von der Gestaltung bis zum Livegang aus einer Hand.',
+    builtTitle: 'Parallel gebaut',
+    builtText: 'Diese Website wurde parallel gebaut — Design und Vision von Dual-Stack Studio, Umsetzung unterstützt durch Claude AI. Ein Arbeitsablauf in Zusammenarbeit, der sich für schnelle Iteration und Feinschliff bewährt hat.',
+    licenceTitle: 'Gewerbeberechtigung',
+    footNavTitle: 'Navigation', footLegalTitle: 'Rechtliches', privacy: 'Datenschutzerklärung', terms: 'Nutzungsbedingungen',
+    footContactTitle: 'Kontakt', reply: 'Antwortet in der Regel innerhalb von 1–2 Werktagen.',
+    rights: '© 2026 Dual-Stack Studio. Unabhängig betrieben.', builtWith: 'Erstellt mit Astro, bereitgestellt auf Vercel. Website in aktiver Weiterentwicklung.',
+  },
+};
+const c = copy[lang];
 ---
 
-<Layout title="Dual-Stack Studio — We build full-stack products">
+<Layout title={c.title} lang={lang}>
 
   <!-- Hero Section (visualidentity.studio-style: gray vignette, giant black wordmark, lime accent, rotating 3D glass asterisk) -->
   <section style="position: relative; min-height: 100vh; padding-top: 90px; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at 85% 88%, rgba(204, 255, 51, 0.16) 0%, transparent 45%), radial-gradient(circle at 8% 15%, rgba(204, 255, 51, 0.08) 0%, transparent 35%), radial-gradient(ellipse 140% 120% at 50% 0%, #8c8c8c 0%, #5c5c5c 50%, #242424 78%, #0a0a0a 100%); overflow: hidden; border-bottom: 2px solid #242424;">
 
     <!-- Header -->
     <header id="site-header" style="position: fixed; top: 0; left: 0; width: 100%; padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; z-index: 100; transition: background 0.3s, box-shadow 0.3s, padding 0.3s;">
-      <a href="/web" style="font-size: 22px; font-weight: 800; letter-spacing: -0.5px; cursor: pointer; display: flex; align-items: center; gap: 10px; text-decoration: none;">
+      <a href={l(lang, '/web')} style="font-size: 22px; font-weight: 800; letter-spacing: -0.5px; cursor: pointer; display: flex; align-items: center; gap: 10px; text-decoration: none;">
         <img src="/logo-web.svg" alt="Dual-Stack Studio" width="32" height="32" style="border-radius: 8px;" />
         <span class="logo-text">Dual-Stack</span>
       </a>
       <nav class="desktop-nav" style="display: flex; gap: 2.25rem; font-size: 14px; font-weight: 500;">
-        <a href="#work" class="nav-link">Projects</a>
-        <a href="#services" class="nav-link">Services</a>
-        <a href="#team" class="nav-link">Team</a>
-        <a href="/creative" class="nav-link" style="border: 1px solid rgba(10,10,10,0.35); padding: 5px 13px; border-radius: 100px;">Creative &amp; Marketing ↗</a>
+        <a href="#work" class="nav-link">{c.navProjects}</a>
+        <a href="#services" class="nav-link">{c.navServices}</a>
+        <a href="#team" class="nav-link">{c.navTeam}</a>
+        <a href={l(lang, '/creative')} class="nav-link" style="border: 1px solid rgba(10,10,10,0.35); padding: 5px 13px; border-radius: 100px;">{c.navCreative}</a>
+        <span class="web-lang"><LangSwitch lang={lang} /></span>
       </nav>
       <a href="#contact" class="header-cta" style="background: #ccff33; color: #0a0a0a; padding: 14px 32px; border-radius: 100px; text-decoration: none; font-size: 14px; font-weight: 600; box-shadow: 0 8px 24px rgba(204, 255, 51, 0.35); transition: transform 0.2s;">
-        Get proposal
+        {c.cta}
       </a>
-      <button id="menu-toggle" class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+      <button id="menu-toggle" class="menu-toggle" aria-label={c.menuToggle} aria-expanded="false">
         <span class="menu-toggle-bar"></span>
         <span class="menu-toggle-bar"></span>
         <span class="menu-toggle-bar"></span>
@@ -69,12 +190,13 @@ function lineIcon(name: string, size = 20, strokeWidth = 2) {
 
     <!-- Mobile menu overlay -->
     <div id="mobile-menu" class="mobile-menu">
-      <button id="mobile-menu-close" class="mobile-menu-close" aria-label="Close menu">✕</button>
-      <a href="#work" class="mobile-nav-link">Projects</a>
-      <a href="#services" class="mobile-nav-link">Services</a>
-      <a href="#team" class="mobile-nav-link">Team</a>
-      <a href="/creative" class="mobile-nav-link">Creative &amp; Marketing ↗</a>
-      <a href="#contact" class="mobile-cta">Get proposal</a>
+      <button id="mobile-menu-close" class="mobile-menu-close" aria-label={c.menuClose}>✕</button>
+      <a href="#work" class="mobile-nav-link">{c.navProjects}</a>
+      <a href="#services" class="mobile-nav-link">{c.navServices}</a>
+      <a href="#team" class="mobile-nav-link">{c.navTeam}</a>
+      <a href={l(lang, '/creative')} class="mobile-nav-link">{c.navCreative}</a>
+      <span class="mobile-lang"><LangSwitch lang={lang} /></span>
+      <a href="#contact" class="mobile-cta">{c.cta}</a>
     </div>
 
     <!-- Status badge, vertical, left edge -->
@@ -87,7 +209,7 @@ function lineIcon(name: string, size = 20, strokeWidth = 2) {
     <div style="position: relative; z-index: 10; width: 100%; max-width: 1300px; padding: 2rem 1.5rem; text-align: center; pointer-events: none;">
 
       <span style="display: inline-block; font-size: 13px; color: #ccff33; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 1rem;">
-        Full-stack development studio
+        {c.heroEyebrow}
       </span>
 
       <h1 class="hero-title-shine" style="font-size: clamp(56px, 12vw, 180px); margin: 0; font-weight: 800; letter-spacing: -4px; line-height: 0.88;">
@@ -95,14 +217,14 @@ function lineIcon(name: string, size = 20, strokeWidth = 2) {
       </h1>
 
       <p style="position: relative; z-index: 10; font-size: 18px; color: #ccc; margin: 1.5rem auto 0; max-width: 480px; line-height: 1.7; font-weight: 300;">
-        From concept to production. We ship products that matter.
+        {c.heroSub}
       </p>
 
     </div>
 
     <!-- Scroll indicator, bottom left like the reference -->
     <div style="position: absolute; bottom: 48px; left: 48px; z-index: 10;">
-      <p style="font-size: 13px; color: #ccff33; margin: 0 0 10px 0; letter-spacing: 0.5px; font-weight: 500;">Scroll down</p>
+      <p style="font-size: 13px; color: #ccff33; margin: 0 0 10px 0; letter-spacing: 0.5px; font-weight: 500;">{c.scrollDown}</p>
       <div style="width: 1px; height: 40px; background: linear-gradient(180deg, #ccff33 0%, transparent 100%); animation: scrollLine 2s infinite;"></div>
     </div>
 
@@ -270,15 +392,15 @@ function lineIcon(name: string, size = 20, strokeWidth = 2) {
       color: #ccff33;
     }
 
-    @media (max-width: 768px) {
-      #site-header {
-        padding: 1.1rem 1.25rem !important;
-      }
+    /* Keep header items on one line; the German labels are longer, so the
+       hamburger takes over below 960px instead of letting them wrap. */
+    .logo-text,
+    .desktop-nav a,
+    .header-cta {
+      white-space: nowrap;
+    }
 
-      #site-header.scrolled {
-        padding: 0.9rem 1.25rem !important;
-      }
-
+    @media (max-width: 960px) {
       .desktop-nav,
       .header-cta {
         display: none !important;
@@ -289,6 +411,20 @@ function lineIcon(name: string, size = 20, strokeWidth = 2) {
       }
     }
 
+    @media (max-width: 768px) {
+      #site-header {
+        padding: 1.1rem 1.25rem !important;
+      }
+
+      #site-header.scrolled {
+        padding: 0.9rem 1.25rem !important;
+      }
+    }
+
+    /* EN / DE switch in the header and the mobile menu */
+    .web-lang { display: inline-flex; align-items: center; color: #ebebeb; }
+    .mobile-lang { color: #eee; }
+    .mobile-lang :global(.lang-switch) { font-size: 15px; }
   </style>
 
   <script>
@@ -491,23 +627,22 @@ function lineIcon(name: string, size = 20, strokeWidth = 2) {
     <div style="position: absolute; bottom: 10%; left: -10%; width: 450px; height: 450px; background: radial-gradient(circle, rgba(217, 70, 239, 0.05) 0%, transparent 70%); pointer-events: none;"></div>
 
     <div style="max-width: 1200px; margin: 0 auto 3.5rem; padding: 0 2rem; position: relative; z-index: 1;">
-      <span class="eyebrow" style="color: #6fa300; display: block; margin-bottom: 0.6rem;">Selected work</span>
+      <span class="eyebrow" style="color: #6fa300; display: block; margin-bottom: 0.6rem;">{c.workEyebrow}</span>
       <div style="display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap;">
-        <h2 class="work-heading" style="font-size: 42px; margin: 0; font-weight: 800; letter-spacing: -1.5px;">Our <span class="text-gradient">Projects</span></h2>
-        <span class="work-count" style="font-size: 14px; font-weight: 500;">Click on the projects to see more</span>
+        <h2 class="work-heading" style="font-size: 42px; margin: 0; font-weight: 800; letter-spacing: -1.5px;">{c.workTitleA} <span class="text-gradient">{c.workTitleB}</span></h2>
+        <span class="work-count" style="font-size: 14px; font-weight: 500;">{c.workCount}</span>
       </div>
     </div>
 
     <div class="work-carousel-wrap">
       <div id="work-carousel" class="mdw-curved-slider-speed-16-gap-9-curve-9-size-20">
         <div class="carousel-source">
-          <a href="/work/bumeran" data-img="/images/bumeran-hero.png">Bumerán — Neighborhood favor exchange</a>
-          <a href="/work/echoesandpaths" data-img="/images/echoesandpaths-hero.png">Echoes &amp; Paths — Historical landmark app</a>
-          <a href="/work/nonna" data-img="/images/nonna-logo-hero.jpg">El Dulce de la Nonna — Bakery e-commerce</a>
-          <a href="/work/mvg" data-img="/images/mvg-logo-hero.jpg">MVG Lash &amp; Brow — Salon website</a>
+          {carouselItems.map((p, i) => (
+            <a href={l(lang, '/work/' + p.slug)} data-img={p.img}>{c.carouselLabels[i]}</a>
+          ))}
         </div>
       </div>
-      <p class="work-carousel-hint"><span class="hint-desktop">Hover a project to preview · Click to open</span><span class="hint-mobile">Drag to browse · Tap to open</span></p>
+      <p class="work-carousel-hint"><span class="hint-desktop">{c.hintDesktop}</span><span class="hint-mobile">{c.hintMobile}</span></p>
     </div>
 
   </section>
@@ -880,16 +1015,13 @@ function lineIcon(name: string, size = 20, strokeWidth = 2) {
       <!-- Intro: label + heading + description + pills + network canvas -->
       <div class="services-intro">
         <div class="services-intro-text">
-          <span class="eyebrow" style="color: #0a0a0a;">What we do</span>
-          <h2>Capabilities &amp; <span class="text-gradient">Services</span></h2>
-          <p>We're a small full-stack team that ships complete products — from the first line of code to the app store and production servers.</p>
+          <span class="eyebrow" style="color: #0a0a0a;">{c.svcEyebrow}</span>
+          <h2>{c.svcTitleA} <span class="text-gradient">{c.svcTitleB}</span></h2>
+          <p>{c.svcIntro}</p>
           <div class="capability-pills">
-            <span><Fragment set:html={lineIcon('code', 16)} /> Full-Stack Dev</span>
-            <span><Fragment set:html={lineIcon('mobile', 16)} /> React Native</span>
-            <span><Fragment set:html={lineIcon('cloud', 16)} /> Cloud &amp; DevOps</span>
-            <span><Fragment set:html={lineIcon('design', 16)} /> UI/UX Design</span>
-            <span><Fragment set:html={lineIcon('plug', 16)} /> API Integration</span>
-            <span><Fragment set:html={lineIcon('zap', 16)} /> Performance</span>
+            {pillIcons.map((icon, i) => (
+              <span><Fragment set:html={lineIcon(icon, 16)} /> {c.pills[i]}</span>
+            ))}
           </div>
         </div>
         <div class="services-intro-visual">
@@ -900,51 +1032,24 @@ function lineIcon(name: string, size = 20, strokeWidth = 2) {
       <!-- Expanded service cards -->
       <div class="service-cards">
 
-        <div class="service-card">
-          <div class="service-card-icon" style="--accent: #ccff33;"><Fragment set:html={lineIcon('code', 26)} /></div>
-          <h3>Full-Stack Development</h3>
-          <p>End-to-end product development — frontend, backend, database and deployment, all handled by the same team.</p>
-          <div class="service-checklist">
-            <span>✓ React &amp; React Native</span>
-            <span>✓ Node.js &amp; NestJS</span>
-            <span>✓ PostgreSQL Databases</span>
-            <span>✓ Cloud Deployment</span>
+        {serviceCards.map((card, i) => (
+          <div class="service-card">
+            <div class="service-card-icon" style={'--accent: ' + card.accent + ';'}><Fragment set:html={lineIcon(card.icon, 26)} /></div>
+            <h3>{c.cards[i].title}</h3>
+            <p>{c.cards[i].text}</p>
+            <div class="service-checklist">
+              {c.cards[i].checks.map((chk) => <span>✓ {chk}</span>)}
+            </div>
+            <a href="#contact" class="service-learn-more" data-service={c.serviceOptions[i]}>{c.learnMore} <i>→</i></a>
           </div>
-          <a href="#contact" class="service-learn-more" data-service="Full-Stack Development">Learn More <i>→</i></a>
-        </div>
-
-        <div class="service-card">
-          <div class="service-card-icon" style="--accent: #06b6d4;"><Fragment set:html={lineIcon('mobile', 26)} /></div>
-          <h3>React Native Apps</h3>
-          <p>iOS and Android from a single codebase, built on the Expo managed workflow through to app store release.</p>
-          <div class="service-checklist">
-            <span>✓ Expo Managed Workflow</span>
-            <span>✓ Push Notifications</span>
-            <span>✓ App Store Deployment</span>
-            <span>✓ Native Performance</span>
-          </div>
-          <a href="#contact" class="service-learn-more" data-service="React Native App">Learn More <i>→</i></a>
-        </div>
-
-        <div class="service-card">
-          <div class="service-card-icon" style="--accent: #22d3ee;"><Fragment set:html={lineIcon('globe', 26)} /></div>
-          <h3>Web Platforms</h3>
-          <p>Modern, fast web applications built with a performance-first mindset — every page tuned to load instantly.</p>
-          <div class="service-checklist">
-            <span>✓ Next.js &amp; Astro</span>
-            <span>✓ TypeScript</span>
-            <span>✓ Lighthouse 95+</span>
-            <span>✓ SEO Optimized</span>
-          </div>
-          <a href="#contact" class="service-learn-more" data-service="Web Platform">Learn More <i>→</i></a>
-        </div>
+        ))}
 
       </div>
     </div>
 
     <!-- Tech stack carousel -->
     <div style="max-width: 1200px; margin: 5rem auto 0; padding: 0 2rem; position: relative; z-index: 1;">
-      <span style="display: block; font-size: 13px; color: #666; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 2rem;">Our stack</span>
+      <span style="display: block; font-size: 13px; color: #666; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 2rem;">{c.stackLabel}</span>
     </div>
 
     <div class="tech-marquee">
@@ -1218,30 +1323,18 @@ function lineIcon(name: string, size = 20, strokeWidth = 2) {
   <!-- Team -->
   <section id="team" style="position: relative; padding: 8rem 2rem; background: transparent; overflow: hidden;">
     <div style="max-width: 1200px; margin: 0 auto; position: relative; z-index: 1;">
-      <h2 style="font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 42px; margin: 0 0 1rem 0; font-weight: 800; letter-spacing: -1.5px; color: #0a0a0a;">One person, <span class="text-gradient">three disciplines</span></h2>
-      <p style="font-size: 15px; color: #666; margin: 0 0 3.5rem 0; max-width: 560px;">Every step handled start to finish — from first commit to production deploy.</p>
+      <h2 style="font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 42px; margin: 0 0 1rem 0; font-weight: 800; letter-spacing: -1.5px; color: #0a0a0a;">{c.teamTitleA} <span class="text-gradient">{c.teamTitleB}</span></h2>
+      <p style="font-size: 15px; color: #666; margin: 0 0 3.5rem 0; max-width: 560px;">{c.teamLead}</p>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.75rem;">
 
-        <div class="team-member">
-          <span class="team-role-tag">ROLE 01</span>
-          <div class="team-avatar"><Fragment set:html={lineIcon('laptop', 40)} /></div>
-          <h3>Full-Stack Developer</h3>
-          <p>React, React Native, Node.js, PostgreSQL. Handles everything from mobile to deployment.</p>
-        </div>
-
-        <div class="team-member">
-          <span class="team-role-tag">ROLE 02</span>
-          <div class="team-avatar"><Fragment set:html={lineIcon('design', 40)} /></div>
-          <h3>UI/UX Designer</h3>
-          <p>Focused on user experience and clean design. From mockups to pixel-perfect implementation.</p>
-        </div>
-
-        <div class="team-member">
-          <span class="team-role-tag">ROLE 03</span>
-          <div class="team-avatar"><Fragment set:html={lineIcon('rocket', 40)} /></div>
-          <h3>DevOps & Deployment</h3>
-          <p>Handles CI/CD, deployment pipelines, and infrastructure. Vercel, AWS, database optimization.</p>
-        </div>
+        {c.roles.map((role, i) => (
+          <div class="team-member">
+            <span class="team-role-tag">{c.roleTag} 0{i + 1}</span>
+            <div class="team-avatar"><Fragment set:html={lineIcon(roleIcons[i], 40)} /></div>
+            <h3>{role.title}</h3>
+            <p>{role.text}</p>
+          </div>
+        ))}
 
       </div>
     </div>
@@ -1335,54 +1428,52 @@ function lineIcon(name: string, size = 20, strokeWidth = 2) {
     <canvas id="contact-network" style="position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; opacity: 0.6;"></canvas>
 
     <div style="position: relative; z-index: 1; max-width: 640px; margin: 0 auto; text-align: center;">
-      <span class="eyebrow" style="color: #ccff33;">Get in touch</span>
-      <h2 style="font-size: clamp(32px, 5vw, 52px); margin: 0.75rem 0 1.25rem; font-weight: 800; letter-spacing: -1.5px; color: #ffffff;">Ready to ship?</h2>
+      <span class="eyebrow" style="color: #ccff33;">{c.contactEyebrow}</span>
+      <h2 style="font-size: clamp(32px, 5vw, 52px); margin: 0.75rem 0 1.25rem; font-weight: 800; letter-spacing: -1.5px; color: #ffffff;">{c.contactTitle}</h2>
       <p style="font-size: 17px; color: #999; margin: 0 0 3rem 0; line-height: 1.8; font-weight: 300;">
-        Tell us about your project and we'll get back to you within 1–2 business days.
+        {c.contactLead}
       </p>
     </div>
 
-    <form id="contact-form" class="contact-form" novalidate>
+    <form id="contact-form" class="contact-form" novalidate data-sending={c.sending} data-error={c.errMsg} data-subject={c.subject}>
       <!-- Web3Forms: replace with your real access key, see https://web3forms.com -->
       <input type="hidden" name="access_key" value={import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY} />
       <input type="hidden" name="subject" value="New inquiry from dualstackstudio.com" />
       <input type="hidden" name="from_name" value="Dual-Stack Studio site" />
+      <input type="hidden" name="language" value={lang} />
       <input type="checkbox" name="botcheck" class="cf-honeypot" tabindex="-1" autocomplete="off" />
 
       <div class="cf-row">
         <div class="cf-field">
-          <label for="cf-name">Name</label>
-          <input type="text" id="cf-name" name="name" required placeholder="Your name" />
+          <label for="cf-name">{c.fName}</label>
+          <input type="text" id="cf-name" name="name" required placeholder={c.fNamePh} />
         </div>
         <div class="cf-field">
-          <label for="cf-email">Email</label>
-          <input type="email" id="cf-email" name="email" required placeholder="you@company.com" />
+          <label for="cf-email">{c.fEmail}</label>
+          <input type="email" id="cf-email" name="email" required placeholder={c.fEmailPh} />
         </div>
       </div>
 
       <div class="cf-field">
-        <label for="cf-service">What do you need?</label>
+        <label for="cf-service">{c.fService}</label>
         <select id="cf-service" name="service">
-          <option>Full-Stack Development</option>
-          <option>React Native App</option>
-          <option>Web Platform</option>
-          <option>Something else</option>
+          {c.serviceOptions.map((o) => <option>{o}</option>)}
         </select>
       </div>
 
       <div class="cf-field">
-        <label for="cf-message">Message</label>
-        <textarea id="cf-message" name="message" rows="5" required placeholder="Tell us a bit about your project — timeline, budget range, what you're trying to build."></textarea>
+        <label for="cf-message">{c.fMessage}</label>
+        <textarea id="cf-message" name="message" rows="5" required placeholder={c.fMessagePh}></textarea>
       </div>
 
-      <button type="submit" class="cf-submit" id="cf-submit-btn">Send message <i>→</i></button>
-      <p class="cf-note" id="cf-note">We'll get back to you within 1–2 business days.</p>
+      <button type="submit" class="cf-submit" id="cf-submit-btn">{c.send} <i>→</i></button>
+      <p class="cf-note" id="cf-note">{c.note}</p>
     </form>
 
     <div id="cf-success" class="cf-success" hidden>
       <div class="cf-success-icon">✓</div>
-      <h3>Message sent</h3>
-      <p>Thanks for reaching out — your inquiry landed straight in our inbox. We'll get back to you within 1–2 business days.</p>
+      <h3>{c.okTitle}</h3>
+      <p>{c.okText}</p>
     </div>
   </section>
 
@@ -1585,39 +1676,39 @@ function lineIcon(name: string, size = 20, strokeWidth = 2) {
             <img src="/logo-web.svg" alt="Dual-Stack Studio" width="28" height="28" style="border-radius: 7px;" />
             Dual-Stack Studio
           </div>
-          <p>Independent full-stack studio. React, React Native and Node.js products, designed and shipped end to end.</p>
-          <h4 style="font-size: 11px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: #999; margin: 1.5rem 0 0.5rem 0;">Built in Parallel</h4>
-          <p style="font-size: 13px; color: #888; line-height: 1.6; margin: 0; max-width: 280px;">This website was built in parallel — design & vision by Dual-Stack Studio, implementation assisted by Claude AI. A collaborative workflow that proved effective for rapid iteration and refinement.</p>
-          <h4 style="font-size: 11px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: #999; margin: 1.5rem 0 0.5rem 0;">Trade licence</h4>
-          <p style="font-size: 13px; color: #888; line-height: 1.6; margin: 0; max-width: 280px;">IT-Dienstleistungen (GISA 40150468)<br />Sebastian Rodriguez, Haag. <a href="/impressum" style="color: inherit; text-decoration: underline;">Impressum</a></p>
+          <p>{c.footTagline}</p>
+          <h4 style="font-size: 11px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: #999; margin: 1.5rem 0 0.5rem 0;">{c.builtTitle}</h4>
+          <p style="font-size: 13px; color: #888; line-height: 1.6; margin: 0; max-width: 280px;">{c.builtText}</p>
+          <h4 style="font-size: 11px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: #999; margin: 1.5rem 0 0.5rem 0;">{c.licenceTitle}</h4>
+          <p style="font-size: 13px; color: #888; line-height: 1.6; margin: 0; max-width: 280px;">IT-Dienstleistungen (GISA 40150468)<br />Sebastian Rodriguez, Haag. <a href={l(lang, '/impressum')} style="color: inherit; text-decoration: underline;">Impressum</a></p>
         </div>
 
         <div class="footer-col">
-          <h4>Navigate</h4>
-          <a href="#work">Projects</a>
-          <a href="#services">Services</a>
-          <a href="#team">Team</a>
-          <a href="/creative">Creative &amp; Marketing ↗</a>
+          <h4>{c.footNavTitle}</h4>
+          <a href="#work">{c.navProjects}</a>
+          <a href="#services">{c.navServices}</a>
+          <a href="#team">{c.navTeam}</a>
+          <a href={l(lang, '/creative')}>{c.navCreative}</a>
         </div>
 
         <div class="footer-col">
-          <h4>Legal</h4>
-          <a href="/privacy-policy">Privacy Policy</a>
-          <a href="/terms-of-service">Terms of Service</a>
-          <a href="/impressum">Impressum</a>
+          <h4>{c.footLegalTitle}</h4>
+          <a href={l(lang, '/privacy-policy')}>{c.privacy}</a>
+          <a href={l(lang, '/terms-of-service')}>{c.terms}</a>
+          <a href={l(lang, '/impressum')}>Impressum</a>
         </div>
 
         <div class="footer-col">
-          <h4>Get in touch</h4>
+          <h4>{c.footContactTitle}</h4>
           <a href="mailto:hello@dualstackstudio.com">hello@dualstackstudio.com</a>
-          <span class="footer-note">Usually replies within 1–2 business days.</span>
+          <span class="footer-note">{c.reply}</span>
         </div>
 
       </div>
 
       <div class="footer-bottom">
-        <p>© 2026 Dual-Stack Studio. Independently operated.</p>
-        <p>Built with Astro, deployed on Vercel. Site under active development.</p>
+        <p>{c.rights}</p>
+        <p>{c.builtWith}</p>
       </div>
 
     </div>
@@ -1747,9 +1838,9 @@ function lineIcon(name: string, size = 20, strokeWidth = 2) {
           return;
         }
 
-        contactForm.subject.value = `${service} inquiry from ${name}`;
+        contactForm.subject.value = (contactForm.dataset.subject || '{service} inquiry from {name}').replace('{service}', service).replace('{name}', name);
         cfSubmitBtn.disabled = true;
-        cfSubmitBtn.textContent = 'Sending…';
+        cfSubmitBtn.textContent = contactForm.dataset.sending || 'Sending…';
         cfNote.textContent = '';
 
         try {
@@ -1769,7 +1860,7 @@ function lineIcon(name: string, size = 20, strokeWidth = 2) {
             throw new Error(result.message || 'Submission failed');
           }
         } catch (err) {
-          cfNote.textContent = 'Something went wrong. Please email us directly at hello@dualstackstudio.com.';
+          cfNote.textContent = contactForm.dataset.error || 'Something went wrong. Please email us directly at hello@dualstackstudio.com.';
           cfSubmitBtn.disabled = false;
           cfSubmitBtn.innerHTML = cfSubmitDefault;
         }
