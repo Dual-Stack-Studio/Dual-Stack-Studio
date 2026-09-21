@@ -19,17 +19,19 @@ function lineIcon(name: string, size = 32, strokeWidth = 1.6) {
 }
 
 // Hero background: our own photography, crossfaded by the script at the bottom.
-// The first slide is the Alps lake photo and loads eagerly (it is the LCP image); the others
-// are requested after the page has loaded. Each photo fills the hero and is cropped around
-// `pos` (where its subject sits), and `dim` evens out the brighter photos so the white
-// headline stays readable.
+// Two sets: wide photos for landscape windows, and portrait photos for tall ones (phones,
+// portrait tablets), where a wide photo would be cropped hard. The first slide is shared and
+// art-directed with <picture> (Alps lake on wide windows, first portrait photo on tall ones);
+// it loads eagerly because it is the LCP image. The rest are requested after the page has
+// loaded. Each photo fills the hero and is cropped around `pos` (where its subject sits), and
+// `dim` evens out the brighter photos so the white headline stays readable.
 const heroSlide = (name: string, widths: number[], pos: string, dim: number) => ({
   src: `/images/hero/${name}-${widths[widths.length - 1]}.webp`,
   srcset: widths.map((w) => `/images/hero/${name}-${w}.webp ${w}w`).join(', '),
   pos,
   dim,
 });
-const heroSlides = [
+const wideSlides = [
   { src: '/images/hero-alps.jpg', srcset: '', pos: '50% 50%', dim: 0 },
   heroSlide('austria-valley', [1280, 1920], '28% 50%', 0.06),
   heroSlide('japan-sunset', [1280, 1920], '22% 50%', 0),
@@ -39,6 +41,15 @@ const heroSlides = [
   heroSlide('tasmania-fog', [1280, 1920], '45% 50%', 0.08),
   heroSlide('japan-window', [1280, 1920], '62% 50%', 0.3),
 ];
+const tallSlides = [
+  heroSlide('mobile-austria-river', [750, 1125], '50% 50%', 0.06),
+  heroSlide('mobile-austria-lake-swan', [750, 1125], '50% 50%', 0.1),
+  heroSlide('mobile-austria-forest-view', [750, 1125], '50% 50%', 0.18),
+  heroSlide('mobile-austria-country-road', [750, 1125], '50% 50%', 0.18),
+  heroSlide('mobile-austria-mountain-trail', [750, 1125], '50% 50%', 0.12),
+];
+const [wideFirst, ...wideRest] = wideSlides;
+const [tallFirst, ...tallRest] = tallSlides;
 
 const copy = {
   en: {
@@ -134,16 +145,23 @@ const c = copy[lang];
   <!-- ============ HERO ============ -->
   <section class="hero">
     <div class="hero-slides" aria-hidden="true">
-      {heroSlides.map((s, i) => (
-        <div
-          class:list={['hero-slide', { 'is-active': i === 0 }]}
-          style={`--pos: ${s.pos}; --dim: ${s.dim};`}
-        >
-          {i === 0 ? (
-            <img src={s.src} alt="" fetchpriority="high" decoding="async" />
-          ) : (
-            <img data-src={s.src} data-srcset={s.srcset} sizes="max(100vw, 178vh)" alt="" decoding="async" />
-          )}
+      <div
+        class="hero-slide hero-slide--first is-active"
+        style={`--pos-wide: ${wideFirst.pos}; --dim-wide: ${wideFirst.dim}; --pos-tall: ${tallFirst.pos}; --dim-tall: ${tallFirst.dim};`}
+      >
+        <picture>
+          <source media="(max-aspect-ratio: 1/1)" srcset={tallFirst.srcset} sizes="max(100vw, 57vh)" />
+          <img src={wideFirst.src} alt="" fetchpriority="high" decoding="async" />
+        </picture>
+      </div>
+      {wideRest.map((s) => (
+        <div class="hero-slide hero-slide--wide" style={`--pos: ${s.pos}; --dim: ${s.dim};`}>
+          <img data-src={s.src} data-srcset={s.srcset} sizes="max(100vw, 178vh)" alt="" decoding="async" />
+        </div>
+      ))}
+      {tallRest.map((s) => (
+        <div class="hero-slide hero-slide--tall" style={`--pos: ${s.pos}; --dim: ${s.dim};`}>
+          <img data-src={s.src} data-srcset={s.srcset} sizes="max(100vw, 57vh)" alt="" decoding="async" />
         </div>
       ))}
     </div>
@@ -460,6 +478,17 @@ const c = copy[lang];
       height: 100%;
       object-fit: cover;
       object-position: var(--pos, 50% 50%);
+    }
+    .hero-slide picture { display: contents; }
+
+    /* Two photo sets: landscape windows get the wide photos, portrait windows (phones,
+       portrait tablets) get the tall ones. The first slide belongs to both. */
+    .hero-slide--first { --pos: var(--pos-wide); --dim: var(--dim-wide); }
+    .hero-slide--tall { display: none; }
+    @media (max-aspect-ratio: 1/1) {
+      .hero-slide--wide { display: none; }
+      .hero-slide--tall { display: block; }
+      .hero-slide--first { --pos: var(--pos-tall); --dim: var(--dim-tall); }
     }
 
     /* Per-photo dimming (--dim) for the brighter shots. */
@@ -843,14 +872,21 @@ const c = copy[lang];
 
     // Hero background slideshow: crossfades through the photos, no controls.
     (() => {
-      const slides = Array.from(document.querySelectorAll<HTMLElement>('.hero-slide'));
+      const all = Array.from(document.querySelectorAll<HTMLElement>('.hero-slide'));
+      const first = all.find((s) => s.classList.contains('hero-slide--first'));
       const hero = document.querySelector('.hero');
-      if (slides.length < 2 || !hero) return;
+      if (all.length < 2 || !first || !hero) return;
       // People who ask their system for less motion just get the first photo.
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
       const HOLD_MS = 7000; // how long a photo stays before the next one fades in
       const FADE_MS = 2200; // keep in sync with the CSS transition
+
+      // The photo set follows the window shape (same query as the CSS): portrait windows
+      // rotate the tall photos, everything else the wide ones. The first slide is in both.
+      const tall = window.matchMedia('(max-aspect-ratio: 1/1)');
+      const setFor = () => all.filter((s) => s === first || s.classList.contains(tall.matches ? 'hero-slide--tall' : 'hero-slide--wide'));
+      let slides = setFor();
       let current = 0;
       let heroInView = true;
       let timer: number | undefined;
@@ -899,6 +935,17 @@ const c = copy[lang];
           schedule();
         }, HOLD_MS);
       }
+
+      // Rotating the phone (or resizing across the portrait/landscape line) swaps the set:
+      // start over from the shared first slide.
+      tall.addEventListener('change', () => {
+        all.forEach((s) => s.classList.remove('is-active', 'is-prev'));
+        first.classList.add('is-active');
+        slides = setFor();
+        current = 0;
+        void ready(slides[1]);
+        schedule();
+      });
 
       new IntersectionObserver(([entry]) => { heroInView = entry.isIntersecting; }, { threshold: 0.05 }).observe(hero);
 
