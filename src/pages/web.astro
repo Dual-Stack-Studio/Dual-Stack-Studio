@@ -46,10 +46,13 @@ const { lang = 'en' } = Astro.props as { lang?: Lang };
 
 // Non-text bits of the repeated blocks (icons / accents / links) live here; the words live in `copy`.
 const carouselItems = [
+  { slug: 'underevents', img: '/images/underevents-hero.jpg' },
   { slug: 'bumeran', img: '/images/bumeran-hero.png' },
   { slug: 'echoesandpaths', img: '/images/echoesandpaths-hero.png' },
   { slug: 'nonna', img: '/images/nonna-logo-hero.jpg' },
   { slug: 'mvg', img: '/images/mvg-logo-hero.jpg' },
+  { slug: 'savora', img: '/images/savora-hero.jpg' },
+  { slug: 'watchit', img: '/images/watchit-hero.jpg' },
 ];
 const pillIcons = ['code', 'mobile', 'cloud', 'design', 'plug', 'zap'];
 const serviceCards = [
@@ -58,6 +61,14 @@ const serviceCards = [
   { icon: 'globe', accent: '#a4522f' },
 ];
 const roleIcons = ['laptop', 'design', 'rocket'];
+const moduleCards = [
+  { featured: true, stack: ['React 18', 'Redux Toolkit', 'Auth0', 'Stripe', 'Leaflet', 'Node.js API', 'PostgreSQL', 'Redis', 'Brevo'], cases: [{ slug: 'underevents' }] },
+  { stack: ['Laravel', 'Tailwind', 'Email flow'], cases: [{ slug: 'nonna' }] },
+  { stack: ['Astro', 'TypeScript', 'Lighthouse 95+'], cases: [{ slug: 'mvg' }] },
+  { stack: ['React Native', 'Expo', 'NestJS', 'PostgreSQL'], cases: [{ slug: 'bumeran', label: 'Bumerán' }, { slug: 'echoesandpaths', label: 'Echoes & Paths' }] },
+  { stack: ['React 19', 'Socket.IO', 'Node.js'], cases: [{ slug: 'watchit' }] },
+  { stack: ['Claude', 'FastAPI', 'Expo'], cases: [{ slug: 'savora' }] },
+];
 
 const copy = {
   en: {
@@ -70,10 +81,29 @@ const copy = {
     workEyebrow: 'Selected work', workTitleA: 'Our', workTitleB: 'Projects', workCount: 'Click on the projects to see more',
     hintDesktop: 'Hover a project to preview · Click to open', hintMobile: 'Drag to browse · Tap to open',
     carouselLabels: [
+      'UnderEvents — Full e-commerce platform',
       'Bumerán — Neighborhood favor exchange',
       'Echoes & Paths — Historical landmark app',
       'El Dulce de la Nonna — Bakery e-commerce',
       'MVG Lash & Brow — Salon website',
+      'Savora — Recipe app with an AI cook',
+      'WatchIt — Real-time watch parties',
+    ],
+    modEyebrow: 'Building blocks', modTitleA: 'Not promises.', modTitleB: 'Working systems.',
+    modIntro: 'Six building blocks, already working. Pick one and we adapt it to your business: faster, and for less than starting from scratch.',
+    modFlow: ['Event discovery', 'Cart', 'Stripe payment', 'Confirmation email', 'Admin management'],
+    modRole: 'Our part: frontend architecture and implementation, integrated with a Node.js and PostgreSQL API.',
+    modSee: 'See how it works', modWant: 'I want this',
+    modCustomTitle: 'Your idea here.',
+    modCustomText: 'Something else in mind? We build it custom, from the first sketch to production.',
+    modCustomCta: 'Tell us about it',
+    mods: [
+      { title: 'Full e-commerce platform', status: 'Live demo', text: 'Our most complete block: a real online store, from event discovery to the confirmation email. Catalog with search and maps, user accounts, real Stripe checkout confirmed by webhooks, transactional emails and an admin area, in English and German.' },
+      { title: 'Simple online orders', status: 'Live client project', text: 'Take orders with a clear flow, email confirmations and rules enforced on the server, like advance-order windows. No database or admin panel to maintain, and a clean path to Stripe checkout when you grow.' },
+      { title: 'Website & booking', status: 'Live client project', text: 'A fast one-page site (Lighthouse 95+) with booking links, GDPR-friendly by design, and content you update yourself from a single config file.' },
+      { title: 'Mobile app with maps & community', status: 'Closed testing on Google Play', text: 'Cross-platform iOS and Android apps with GPS-filtered maps, Google login, SMS verification, push notifications and three languages.' },
+      { title: 'Real-time sync', status: 'Live demo', text: 'Everyone sees the same thing at the same moment: live sync between devices, with no accounts and no setup. The same technology can power live order boards or shared views.' },
+      { title: 'AI assistant', status: 'In development', text: 'A chat assistant that answers with your own data first (menu, products, FAQs) and only reaches for outside sources when needed. API keys stay on the server.' },
     ],
     svcEyebrow: 'What we do', svcTitleA: 'Capabilities &', svcTitleB: 'Services',
     svcIntro: "We're a small full-stack team that ships complete products — from the first line of code to the app store and production servers.",
@@ -118,10 +148,29 @@ const copy = {
     workEyebrow: 'Ausgewählte Arbeiten', workTitleA: 'Unsere', workTitleB: 'Projekte', workCount: 'Klick auf ein Projekt, um mehr zu erfahren',
     hintDesktop: 'Für die Vorschau über ein Projekt fahren · Zum Öffnen klicken', hintMobile: 'Ziehen zum Blättern · Zum Öffnen tippen',
     carouselLabels: [
+      'UnderEvents — Komplette E-Commerce-Plattform',
       'Bumerán — Tauschbörse für Nachbarschaftshilfe',
       'Echoes & Paths — App für historische Wahrzeichen',
       'El Dulce de la Nonna — Online-Shop für eine Bäckerei',
       'MVG Lash & Brow — Salon-Website',
+      'Savora — Rezept-App mit KI-Köchin',
+      'WatchIt — Gemeinsam schauen in Echtzeit',
+    ],
+    modEyebrow: 'Bausteine', modTitleA: 'Keine Versprechen.', modTitleB: 'Funktionierende Systeme.',
+    modIntro: 'Sechs Bausteine, die schon funktionieren. Such dir einen aus, und wir passen ihn an dein Geschäft an: schneller und günstiger als ein Start bei null.',
+    modFlow: ['Events entdecken', 'Warenkorb', 'Stripe-Zahlung', 'Bestätigungs-E-Mail', 'Admin-Verwaltung'],
+    modRole: 'Unser Teil: Frontend-Architektur und -Umsetzung, angebunden an eine Node.js- und PostgreSQL-API.',
+    modSee: 'So funktioniert es', modWant: 'Das will ich',
+    modCustomTitle: 'Deine Idee hier.',
+    modCustomText: 'Du hast etwas anderes im Kopf? Wir bauen es maßgeschneidert, von der ersten Skizze bis zum Livegang.',
+    modCustomCta: 'Erzähl uns davon',
+    mods: [
+      { title: 'Komplette E-Commerce-Plattform', status: 'Live-Demo', text: 'Unser umfangreichster Baustein: ein echter Online-Shop, von der Entdeckung eines Events bis zur Bestätigungs-E-Mail. Katalog mit Suche und Karte, Benutzerkonten, echter Stripe-Checkout mit Webhook-Bestätigung, Transaktions-E-Mails und Admin-Bereich, auf Englisch und Deutsch.' },
+      { title: 'Einfache Online-Bestellungen', status: 'Live-Kundenprojekt', text: 'Bestellungen mit klarem Ablauf, E-Mail-Bestätigung und serverseitig geprüften Regeln, zum Beispiel Vorbestellfristen. Ohne Datenbank oder Admin-Bereich, den du pflegen musst, und mit klarem Weg zum Stripe-Checkout, wenn du wächst.' },
+      { title: 'Website & Buchung', status: 'Live-Kundenprojekt', text: 'Eine schnelle One-Page-Website (Lighthouse 95+) mit Buchungslinks, DSGVO-freundlich von Anfang an, deren Inhalte du selbst über eine einzige Konfigurationsdatei pflegst.' },
+      { title: 'Mobile App mit Karte & Community', status: 'Geschlossener Test auf Google Play', text: 'Plattformübergreifende iOS- und Android-Apps mit GPS-gefilterter Karte, Google-Login, SMS-Verifizierung, Push-Nachrichten und drei Sprachen.' },
+      { title: 'Echtzeit-Synchronisation', status: 'Live-Demo', text: 'Alle sehen im selben Moment dasselbe: Live-Abgleich zwischen Geräten, ohne Konto und ohne Einrichtung. Dieselbe Technik trägt Live-Bestelltafeln oder gemeinsame Ansichten.' },
+      { title: 'KI-Assistent', status: 'In Entwicklung', text: 'Ein Chat-Assistent, der zuerst mit deinen eigenen Daten antwortet (Speisekarte, Produkte, FAQs) und nur bei Bedarf externe Quellen nutzt. Die API-Schlüssel bleiben auf dem Server.' },
     ],
     svcEyebrow: 'Was wir tun', svcTitleA: 'Kompetenzen &', svcTitleB: 'Leistungen',
     svcIntro: 'Wir sind ein kleines Full-Stack-Team, das komplette Produkte liefert — von der ersten Codezeile bis zum App Store und zu den Produktionsservern.',
@@ -648,7 +697,197 @@ const c = copy[lang];
 
   </section>
 
+  <section id="modules" class="modules">
+    <div class="modules-inner">
+      <span class="eyebrow" style="color: #2f4436; display: block; margin-bottom: 0.6rem;">{c.modEyebrow}</span>
+      <h2 class="modules-title">{c.modTitleA} <span class="text-gradient">{c.modTitleB}</span></h2>
+      <p class="modules-intro">{c.modIntro}</p>
+
+      <div class="module-grid">
+        {moduleCards.map((m, i) => m.featured ? (
+          <article class="module-card module-card--featured">
+            <div class="module-feat-main">
+              <div class="module-top">
+                <span class="module-num">01</span>
+                <span class="module-status">{c.mods[i].status}</span>
+              </div>
+              <h3>{c.mods[i].title}</h3>
+              <p>{c.mods[i].text}</p>
+              <p class="module-role">{c.modRole}</p>
+              <div class="module-links">
+                {m.cases.map((cs) => (
+                  <a class="module-link" href={l(lang, '/work/' + cs.slug)}>{cs.label ?? c.modSee} →</a>
+                ))}
+                <a class="module-cta" href="#contact">{c.modWant}</a>
+              </div>
+            </div>
+            <div class="module-feat-side">
+              <ol class="module-flow">
+                {c.modFlow.map((step) => <li>{step}</li>)}
+              </ol>
+              <div class="module-stack">
+                {m.stack.map((t) => <span>{t}</span>)}
+              </div>
+            </div>
+          </article>
+        ) : (
+          <article class="module-card">
+            <div class="module-top">
+              <span class="module-num">0{i + 1}</span>
+              <span class="module-status">{c.mods[i].status}</span>
+            </div>
+            <h3>{c.mods[i].title}</h3>
+            <p>{c.mods[i].text}</p>
+            <div class="module-stack">
+              {m.stack.map((t) => <span>{t}</span>)}
+            </div>
+            <div class="module-links">
+              {m.cases.map((cs) => (
+                <a class="module-link" href={l(lang, '/work/' + cs.slug)}>{cs.label ?? c.modSee} →</a>
+              ))}
+              <a class="module-cta" href="#contact">{c.modWant}</a>
+            </div>
+          </article>
+        ))}
+        <article class="module-card module-card--custom">
+          <h3>{c.modCustomTitle}</h3>
+          <p>{c.modCustomText}</p>
+          <div class="module-links">
+            <a class="module-cta module-cta--light" href="#contact">{c.modCustomCta} →</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <style>
+    .modules { position: relative; padding: 3rem 0 6rem; }
+    .modules-inner { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+    .modules-title {
+      font-size: clamp(34px, 5.2vw, 60px);
+      font-weight: 800;
+      letter-spacing: -2px;
+      line-height: 1.02;
+      margin: 0 0 1rem;
+    }
+    .modules-intro { max-width: 640px; font-size: 18px; line-height: 1.6; color: #444; margin: 0 0 3rem; }
+    .module-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+    .module-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+      padding: 1.75rem;
+      border-radius: 18px;
+      color: #eee;
+      background: linear-gradient(160deg, #141414 0%, #1f1f1f 100%);
+      border: 1px solid rgba(193, 102, 62, 0.35);
+      box-shadow: 0 24px 50px -28px rgba(0, 0, 0, 0.6);
+      overflow: hidden;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .module-card::before {
+      content: '';
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 3px;
+      background: linear-gradient(90deg, #c1663e, #e2865a, transparent);
+    }
+    .module-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(226, 134, 90, 0.8);
+      box-shadow: 0 30px 60px -26px rgba(193, 102, 62, 0.55);
+    }
+    .module-top { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
+    .module-num { font-size: 13px; font-weight: 700; letter-spacing: 1.5px; color: #e2865a; }
+    .module-status {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: #ccc;
+      padding: 4px 10px;
+      border-radius: 100px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .module-card h3 { margin: 0; font-size: 22px; font-weight: 800; color: #fff; letter-spacing: -0.5px; }
+    .module-card p { margin: 0; font-size: 15px; line-height: 1.65; color: #b8b8b8; }
+    .module-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .module-stack span {
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.07);
+      color: #ddd;
+    }
+    .module-links { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem; margin-top: auto; padding-top: 0.5rem; }
+    .module-link { font-size: 14px; font-weight: 600; color: #e2865a; text-decoration: none; }
+    .module-link:hover { text-decoration: underline; }
+    .module-cta {
+      margin-left: auto;
+      padding: 10px 18px;
+      border-radius: 100px;
+      background: #c1663e;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .module-cta:hover { background: #a4522f; transform: translateY(-1px); }
+    .module-card--featured {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 2.5rem;
+      padding: 2.5rem;
+      border-color: rgba(226, 134, 90, 0.7);
+      background: linear-gradient(135deg, #141414 0%, #241812 100%);
+      box-shadow: 0 34px 70px -30px rgba(193, 102, 62, 0.6);
+    }
+    .module-card--featured::before { height: 4px; background: linear-gradient(90deg, #c1663e, #e2865a 60%, #f0c9a8); }
+    .module-feat-main, .module-feat-side { display: flex; flex-direction: column; gap: 1rem; }
+    .module-card--featured h3 { font-size: clamp(28px, 3.2vw, 40px); letter-spacing: -1px; line-height: 1.05; }
+    .module-card--featured p { font-size: 16px; }
+    .module-role { font-size: 13px !important; color: #e2865a !important; }
+    .module-flow { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.5rem; counter-reset: step; }
+    .module-flow li {
+      counter-increment: step;
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      padding: 0.7rem 1rem;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+    }
+    .module-flow li::before {
+      content: counter(step);
+      width: 26px;
+      height: 26px;
+      flex: none;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: #c1663e;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .module-card--custom { background: linear-gradient(160deg, #c1663e 0%, #a4522f 100%); border-color: transparent; justify-content: center; }
+    .module-card--custom::before { display: none; }
+    .module-card--custom p { color: #fbeee6; }
+    .module-card--custom .module-cta--light { margin-left: 0; background: #fff; color: #a4522f; }
+    .module-card--custom .module-cta--light:hover { background: #f7f2e7; }
+    @media (max-width: 1000px) { .module-grid { grid-template-columns: repeat(2, 1fr); } .module-card--featured { grid-template-columns: 1fr; gap: 1.5rem; padding: 1.75rem; } }
+    @media (max-width: 640px) {
+      .module-grid { grid-template-columns: 1fr; }
+      .modules-inner { padding: 0 1.25rem; }
+      .module-cta { margin-left: 0; }
+    }
+
     .eyebrow {
       font-size: 12px;
       font-weight: 700;
