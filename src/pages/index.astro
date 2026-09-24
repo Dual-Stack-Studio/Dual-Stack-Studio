@@ -75,7 +75,7 @@ const c = copy[lang];
       <div class="door-half-bg" style="background-image: url('/images/web-hero-bg.jpg');"></div>
       <div class="door-scrim door-scrim--web"></div>
       <div class="door-content">
-        <span class="door-eyebrow door-eyebrow--lime">{c.dept2}</span>
+        <span class="door-eyebrow door-eyebrow--web">{c.dept2}</span>
         <h2 class="door-title door-title--light">Web &amp;<br />Full-Stack</h2>
         <p class="door-desc door-desc--light"><span class="desc-long">{c.webLong}</span><span class="desc-short">{c.webShort}</span></p>
       </div>
@@ -107,7 +107,7 @@ const c = copy[lang];
       --terracotta: #c1663e;
       --terracotta-deep: #a4522f;
       --ink: #2b2420;
-      --lime: #ccff33;
+      --web-accent: #e2865a;
     }
 
     .door {
@@ -223,7 +223,7 @@ const c = copy[lang];
       color: rgba(255,255,255,0.85);
       margin-bottom: 1rem;
     }
-    .door-eyebrow--lime { color: var(--lime); }
+    .door-eyebrow--web { color: var(--web-accent); }
 
     .door-title {
       font-family: 'Fraunces', serif;
@@ -315,14 +315,14 @@ const c = copy[lang];
       transform: scale(1.08);
     }
     .door-handle.lean-web .door-handle-grip {
-      background: var(--lime);
-      border-color: #0a0a0a;
-      color: #0a0a0a;
-      box-shadow: 0 16px 44px -12px rgba(204,255,51,0.65), inset 0 1px 0 rgba(255,255,255,0.5);
+      background: #f7f2e7;
+      border-color: #2f4436;
+      color: #2f4436;
+      box-shadow: 0 16px 44px -12px rgba(47,68,54,0.75), inset 0 1px 0 rgba(255,255,255,0.5);
       transform: scale(1.08);
     }
     .door-handle.lean-creative .door-handle-hint { color: #fff; }
-    .door-handle.lean-web .door-handle-hint { color: var(--lime); }
+    .door-handle.lean-web .door-handle-hint { color: var(--web-accent); }
     .door.is-grabbing .door-handle-hint { opacity: 0; }
     /* attention pulse — an expanding ring that pings to invite the drag.
        Uses box-shadow only (no transform) so it works in both the horizontal

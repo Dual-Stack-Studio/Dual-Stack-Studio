@@ -53,9 +53,9 @@ const carouselItems = [
 ];
 const pillIcons = ['code', 'mobile', 'cloud', 'design', 'plug', 'zap'];
 const serviceCards = [
-  { icon: 'code', accent: '#ccff33' },
-  { icon: 'mobile', accent: '#06b6d4' },
-  { icon: 'globe', accent: '#22d3ee' },
+  { icon: 'code', accent: '#c1663e' },
+  { icon: 'mobile', accent: '#2f4436' },
+  { icon: 'globe', accent: '#a4522f' },
 ];
 const roleIcons = ['laptop', 'design', 'rocket'];
 
@@ -163,12 +163,12 @@ const c = copy[lang];
 <Layout title={c.title} lang={lang}>
 
   <!-- Hero Section (visualidentity.studio-style: gray vignette, giant black wordmark, lime accent, rotating 3D glass asterisk) -->
-  <section style="position: relative; min-height: 100vh; padding-top: 90px; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at 85% 88%, rgba(204, 255, 51, 0.16) 0%, transparent 45%), radial-gradient(circle at 8% 15%, rgba(204, 255, 51, 0.08) 0%, transparent 35%), radial-gradient(ellipse 140% 120% at 50% 0%, #8c8c8c 0%, #5c5c5c 50%, #242424 78%, #0a0a0a 100%); overflow: hidden; border-bottom: 2px solid #242424;">
+  <section style="position: relative; min-height: 100vh; padding-top: 90px; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at 85% 88%, rgba(193, 102, 62, 0.24) 0%, transparent 45%), radial-gradient(circle at 8% 15%, rgba(47, 68, 54, 0.5) 0%, transparent 40%), radial-gradient(ellipse 140% 120% at 50% 0%, #8c8c8c 0%, #5c5c5c 50%, #242424 78%, #0a0a0a 100%); overflow: hidden; border-bottom: 2px solid #242424;">
 
     <!-- Header -->
     <header id="site-header" style="position: fixed; top: 0; left: 0; width: 100%; padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; z-index: 100; transition: background 0.3s, box-shadow 0.3s, padding 0.3s;">
       <a href={l(lang, '/web')} style="font-size: 22px; font-weight: 800; letter-spacing: -0.5px; cursor: pointer; display: flex; align-items: center; gap: 10px; text-decoration: none;">
-        <img src="/logo-web.svg" alt="Dual-Stack Studio" width="32" height="32" style="border-radius: 8px;" />
+        <img src="/logo.svg" alt="Dual-Stack Studio" width="32" height="32" style="border-radius: 8px;" />
         <span class="logo-text">Dual-Stack</span>
       </a>
       <nav class="desktop-nav" style="display: flex; gap: 2.25rem; font-size: 14px; font-weight: 500;">
@@ -178,7 +178,7 @@ const c = copy[lang];
         <a href={l(lang, '/creative')} class="nav-link" style="border: 1px solid rgba(10,10,10,0.35); padding: 5px 13px; border-radius: 100px;">{c.navCreative}</a>
         <span class="web-lang"><LangSwitch lang={lang} /></span>
       </nav>
-      <a href="#contact" class="header-cta" style="background: #ccff33; color: #0a0a0a; padding: 14px 32px; border-radius: 100px; text-decoration: none; font-size: 14px; font-weight: 600; box-shadow: 0 8px 24px rgba(204, 255, 51, 0.35); transition: transform 0.2s;">
+      <a href="#contact" class="header-cta" style="background: #c1663e; color: #fff; padding: 14px 32px; border-radius: 100px; text-decoration: none; font-size: 14px; font-weight: 600; box-shadow: 0 8px 24px rgba(193, 102, 62, 0.35); transition: transform 0.2s;">
         {c.cta}
       </a>
       <button id="menu-toggle" class="menu-toggle" aria-label={c.menuToggle} aria-expanded="false">
@@ -208,8 +208,8 @@ const c = copy[lang];
     <!-- Main Content (pointer-events: none so mouse reaches the network canvases beneath the text) -->
     <div style="position: relative; z-index: 10; width: 100%; max-width: 1300px; padding: 2rem 1.5rem; text-align: center; pointer-events: none;">
 
-      <span style="display: inline-block; font-size: 13px; color: #ccff33; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 1rem;">
-        {c.heroEyebrow}
+      <span style="display: inline-block; font-size: 13px; color: #f7f2e7; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 1rem;">
+        <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #c1663e; margin-right: 10px; vertical-align: 1px;"></span>{c.heroEyebrow}
       </span>
 
       <h1 class="hero-title-shine" style="font-size: clamp(56px, 12vw, 180px); margin: 0; font-weight: 800; letter-spacing: -4px; line-height: 0.88;">
@@ -224,8 +224,8 @@ const c = copy[lang];
 
     <!-- Scroll indicator, bottom left like the reference -->
     <div style="position: absolute; bottom: 48px; left: 48px; z-index: 10;">
-      <p style="font-size: 13px; color: #ccff33; margin: 0 0 10px 0; letter-spacing: 0.5px; font-weight: 500;">{c.scrollDown}</p>
-      <div style="width: 1px; height: 40px; background: linear-gradient(180deg, #ccff33 0%, transparent 100%); animation: scrollLine 2s infinite;"></div>
+      <p style="font-size: 13px; color: #e2865a; margin: 0 0 10px 0; letter-spacing: 0.5px; font-weight: 500;">{c.scrollDown}</p>
+      <div style="width: 1px; height: 40px; background: linear-gradient(180deg, #e2865a 0%, transparent 100%); animation: scrollLine 2s infinite;"></div>
     </div>
 
   </section>
@@ -243,7 +243,7 @@ const c = copy[lang];
       100% { transform: scaleY(0); transform-origin: bottom; opacity: 0.3; }
     }
 
-    /* Diagonal lime/gray shine sweeping across the hero title — plays once
+    /* Diagonal orange/gray shine sweeping across the hero title — plays once
        smoothly then holds still; replayed by JS whenever the title scrolls
        back into view (see IntersectionObserver below). */
     .hero-title-shine {
@@ -252,10 +252,10 @@ const c = copy[lang];
         115deg,
         #c8c8c8 0%,
         #c8c8c8 38%,
-        #9ea88f 46%,
-        #ccff33 50%,
-        #eaffb0 52%,
-        #9ea88f 56%,
+        #b5a598 46%,
+        #e2865a 50%,
+        #ffd9c2 52%,
+        #b5a598 56%,
         #c8c8c8 64%,
         #c8c8c8 100%
       );
@@ -352,19 +352,19 @@ const c = copy[lang];
     }
 
     .mobile-nav-link:hover {
-      color: #ccff33;
+      color: #e2865a;
     }
 
     .mobile-cta {
       margin-top: 1rem;
-      background: #ccff33;
-      color: #0a0a0a;
+      background: #c1663e;
+      color: #fff;
       padding: 14px 36px;
       border-radius: 100px;
       text-decoration: none;
       font-size: 15px;
       font-weight: 700;
-      box-shadow: 0 8px 24px rgba(204, 255, 51, 0.35);
+      box-shadow: 0 8px 24px rgba(193, 102, 62, 0.35);
     }
 
     .mobile-menu-close {
@@ -387,9 +387,9 @@ const c = copy[lang];
     }
 
     .mobile-menu-close:hover {
-      background: rgba(204, 255, 51, 0.12);
-      border-color: rgba(204, 255, 51, 0.4);
-      color: #ccff33;
+      background: rgba(193, 102, 62, 0.12);
+      border-color: rgba(193, 102, 62, 0.4);
+      color: #e2865a;
     }
 
     /* Keep header items on one line; the German labels are longer, so the
@@ -495,8 +495,9 @@ const c = copy[lang];
     }
 
     // Two hero-flanking particle networks — same algorithm as the Services canvas (black lines, lime dots, mouse-interactive), just denser
-    function initNetworkCluster(canvasId, lineColor) {
+    function initNetworkCluster(canvasId, lineColor, opts) {
       const line = lineColor || '10, 10, 10';
+      const { alpha = 0.3, width = 1, dist: maxDist = 320 } = opts || {};
       const canvas = document.getElementById(canvasId);
       if (!canvas) return;
       const ctx = canvas.getContext('2d');
@@ -565,9 +566,9 @@ const c = copy[lang];
             const dx = particles[i].x - particles[j].x;
             const dy = particles[i].y - particles[j].y;
             const dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < 320) {
-              ctx.strokeStyle = `rgba(${line}, ${(1 - dist / 320) * 0.3})`;
-              ctx.lineWidth = 1;
+            if (dist < maxDist) {
+              ctx.strokeStyle = `rgba(${line}, ${(1 - dist / maxDist) * alpha})`;
+              ctx.lineWidth = width;
               ctx.beginPath();
               ctx.moveTo(particles[i].x, particles[i].y);
               ctx.lineTo(particles[j].x, particles[j].y);
@@ -578,14 +579,14 @@ const c = copy[lang];
 
         particles.forEach((p) => {
           const glow = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 4);
-          glow.addColorStop(0, 'rgba(204, 255, 51, 0.5)');
-          glow.addColorStop(1, 'rgba(204, 255, 51, 0)');
+          glow.addColorStop(0, 'rgba(226, 134, 90, 0.5)');
+          glow.addColorStop(1, 'rgba(226, 134, 90, 0)');
           ctx.fillStyle = glow;
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.r * 4, 0, Math.PI * 2);
           ctx.fill();
 
-          ctx.fillStyle = '#ccff33';
+          ctx.fillStyle = '#e2865a';
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
           ctx.fill();
@@ -615,19 +616,19 @@ const c = copy[lang];
 
     window.initNetworkCluster = initNetworkCluster;
 
-    initNetworkCluster('hero-network-full');
-    initNetworkCluster('contact-network', '255, 255, 255');
-    initNetworkCluster('footer-network', '255, 255, 255');
+    initNetworkCluster('hero-network-full', '226, 134, 90', { alpha: 0.55, width: 1.6, dist: 440 });
+    initNetworkCluster('contact-network', '226, 134, 90', { alpha: 0.6, width: 1.5, dist: 440 });
+    initNetworkCluster('footer-network', '226, 134, 90', { alpha: 0.6, width: 1.5, dist: 440 });
   </script>
 
   <!-- Projects Section (editorial zigzag, big media, no card boxes) -->
   <section id="work" style="position: relative; padding: 8rem 0 4rem; overflow: hidden;">
 
-    <div style="position: absolute; top: 5%; right: -8%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(204, 255, 51, 0.06) 0%, transparent 70%); pointer-events: none;"></div>
-    <div style="position: absolute; bottom: 10%; left: -10%; width: 450px; height: 450px; background: radial-gradient(circle, rgba(217, 70, 239, 0.05) 0%, transparent 70%); pointer-events: none;"></div>
+    <div style="position: absolute; top: 5%; right: -8%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(193, 102, 62, 0.06) 0%, transparent 70%); pointer-events: none;"></div>
+    <div style="position: absolute; bottom: 10%; left: -10%; width: 450px; height: 450px; background: radial-gradient(circle, rgba(47, 68, 54, 0.08) 0%, transparent 70%); pointer-events: none;"></div>
 
     <div style="max-width: 1200px; margin: 0 auto 3.5rem; padding: 0 2rem; position: relative; z-index: 1;">
-      <span class="eyebrow" style="color: #6fa300; display: block; margin-bottom: 0.6rem;">{c.workEyebrow}</span>
+      <span class="eyebrow" style="color: #2f4436; display: block; margin-bottom: 0.6rem;">{c.workEyebrow}</span>
       <div style="display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap;">
         <h2 class="work-heading" style="font-size: 42px; margin: 0; font-weight: 800; letter-spacing: -1.5px;">{c.workTitleA} <span class="text-gradient">{c.workTitleB}</span></h2>
         <span class="work-count" style="font-size: 14px; font-weight: 500;">{c.workCount}</span>
@@ -678,7 +679,7 @@ const c = copy[lang];
 
     #work {
       background:
-        radial-gradient(ellipse 120% 90% at 50% 0%, rgba(204, 255, 51, 0.1) 0%, transparent 60%),
+        radial-gradient(ellipse 120% 90% at 50% 0%, rgba(193, 102, 62, 0.1) 0%, transparent 60%),
         #d8d8d8;
     }
 
@@ -692,7 +693,7 @@ const c = copy[lang];
     }
 
     .work-eyebrow {
-      color: #6b7a1e;
+      color: #2f4436;
     }
 
     .work-carousel-wrap {
@@ -711,7 +712,7 @@ const c = copy[lang];
       cursor: pointer;
       touch-action: pan-y;
       background:
-        radial-gradient(ellipse 90% 90% at 50% 50%, rgba(204, 255, 51, 0.1) 0%, transparent 60%),
+        radial-gradient(ellipse 90% 90% at 50% 50%, rgba(193, 102, 62, 0.1) 0%, transparent 60%),
         #d8d8d8;
     }
 
@@ -1007,7 +1008,7 @@ const c = copy[lang];
   <!-- Services -->
   <section id="services" style="position: relative; padding: 5rem 0 8rem; background: transparent; overflow: hidden;">
 
-    <div style="position: absolute; top: 0; left: 0; right: 0; height: 220px; background: linear-gradient(180deg, rgba(58, 61, 50, 0.14) 0%, rgba(204, 255, 51, 0.05) 45%, transparent 100%); pointer-events: none;"></div>
+    <div style="position: absolute; top: 0; left: 0; right: 0; height: 220px; background: linear-gradient(180deg, rgba(58, 61, 50, 0.14) 0%, rgba(193, 102, 62, 0.05) 45%, transparent 100%); pointer-events: none;"></div>
     <div style="position: absolute; top: 15%; left: -8%; width: 450px; height: 450px; background: radial-gradient(circle, rgba(10, 10, 10, 0.04) 0%, transparent 70%); pointer-events: none;"></div>
 
     <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 1;">
@@ -1083,7 +1084,7 @@ const c = copy[lang];
        system-font body text around it. */
     .text-gradient {
       font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: linear-gradient(100deg, #0a0a0a 0%, #6fa300 55%, #8a8a8a 100%);
+      background: linear-gradient(100deg, #0a0a0a 0%, #2f4436 40%, #c1663e 75%, #8a8a8a 100%);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
@@ -1167,7 +1168,7 @@ const c = copy[lang];
 
     .service-card {
       background: #ffffff;
-      border: 1.5px solid rgba(204, 255, 51, 0.65);
+      border: 1.5px solid rgba(193, 102, 62, 0.65);
       border-radius: 18px;
       padding: 2rem;
       transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
@@ -1175,8 +1176,8 @@ const c = copy[lang];
 
     .service-card:hover {
       transform: translateY(-6px);
-      border-color: rgba(204, 255, 51, 0.85);
-      box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.25), 0 0 14px -4px rgba(204, 255, 51, 0.3);
+      border-color: rgba(193, 102, 62, 0.85);
+      box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.25), 0 0 14px -4px rgba(193, 102, 62, 0.3);
     }
 
     .service-card-icon {
@@ -1184,7 +1185,7 @@ const c = copy[lang];
       height: 56px;
       border-radius: 14px;
       background: #eeeeee;
-      border: 1.5px solid rgba(204, 255, 51, 0.7);
+      border: 1.5px solid rgba(193, 102, 62, 0.7);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1286,7 +1287,7 @@ const c = copy[lang];
       height: 72px;
       border-radius: 18px;
       background: #ffffff;
-      border: 1.5px solid rgba(204, 255, 51, 0.6);
+      border: 1.5px solid rgba(193, 102, 62, 0.6);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1295,8 +1296,8 @@ const c = copy[lang];
 
     .tech-chip:hover .tech-icon-box {
       transform: translateY(-8px) scale(1.08);
-      box-shadow: 0 18px 34px -10px rgba(0, 0, 0, 0.25), 0 0 12px -3px rgba(204, 255, 51, 0.35);
-      border-color: rgba(204, 255, 51, 0.85);
+      box-shadow: 0 18px 34px -10px rgba(0, 0, 0, 0.25), 0 0 12px -3px rgba(193, 102, 62, 0.35);
+      border-color: rgba(193, 102, 62, 0.85);
     }
 
     .tech-icon-box svg {
@@ -1359,14 +1360,14 @@ const c = copy[lang];
       left: 0;
       right: 0;
       height: 3px;
-      background: linear-gradient(90deg, transparent, #ccff33, transparent);
+      background: linear-gradient(90deg, transparent, #c1663e, transparent);
       opacity: 0;
       transition: opacity 0.35s;
     }
 
     .team-member:hover {
       transform: translateY(-8px);
-      border-color: rgba(204, 255, 51, 0.55);
+      border-color: rgba(193, 102, 62, 0.55);
       box-shadow: 0 24px 50px -20px rgba(0, 0, 0, 0.22);
     }
 
@@ -1385,7 +1386,7 @@ const c = copy[lang];
     }
 
     .team-member:hover .team-role-tag {
-      color: #7a9114;
+      color: #a4522f;
     }
 
     .team-avatar {
@@ -1397,14 +1398,14 @@ const c = copy[lang];
       align-items: center;
       justify-content: center;
       background: #0a0a0a;
-      color: #ccff33;
+      color: #e2865a;
       box-shadow: 0 10px 24px -10px rgba(0, 0, 0, 0.35);
       transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s;
     }
 
     .team-member:hover .team-avatar {
       transform: scale(1.08) rotate(-3deg);
-      box-shadow: 0 16px 32px -10px rgba(204, 255, 51, 0.4);
+      box-shadow: 0 16px 32px -10px rgba(193, 102, 62, 0.4);
     }
 
     .team-member h3 {
@@ -1428,7 +1429,7 @@ const c = copy[lang];
     <canvas id="contact-network" style="position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; opacity: 0.6;"></canvas>
 
     <div style="position: relative; z-index: 1; max-width: 640px; margin: 0 auto; text-align: center;">
-      <span class="eyebrow" style="color: #ccff33;">{c.contactEyebrow}</span>
+      <span class="eyebrow" style="color: #e2865a;">{c.contactEyebrow}</span>
       <h2 style="font-size: clamp(32px, 5vw, 52px); margin: 0.75rem 0 1.25rem; font-weight: 800; letter-spacing: -1.5px; color: #ffffff;">{c.contactTitle}</h2>
       <p style="font-size: 17px; color: #999; margin: 0 0 3rem 0; line-height: 1.8; font-weight: 300;">
         {c.contactLead}
@@ -1530,8 +1531,8 @@ const c = copy[lang];
     .cf-field select:focus,
     .cf-field textarea:focus {
       outline: none;
-      border-color: #ccff33;
-      box-shadow: 0 0 0 3px rgba(204, 255, 51, 0.15);
+      border-color: #e2865a;
+      box-shadow: 0 0 0 3px rgba(193, 102, 62, 0.15);
     }
 
     .cf-field select {
@@ -1555,22 +1556,22 @@ const c = copy[lang];
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
-      background: #ccff33;
-      color: #0a0a0a;
+      background: #c1663e;
+      color: #fff;
       border: none;
       padding: 15px 32px;
       border-radius: 100px;
       font-size: 15.5px;
       font-weight: 600;
       cursor: pointer;
-      box-shadow: 0 16px 32px rgba(204, 255, 51, 0.3);
+      box-shadow: 0 16px 32px rgba(193, 102, 62, 0.3);
       transition: transform 0.2s, box-shadow 0.2s;
       margin-top: 0.5rem;
     }
 
     .cf-submit:hover {
       transform: translateY(-2px);
-      box-shadow: 0 20px 38px rgba(204, 255, 51, 0.4);
+      box-shadow: 0 20px 38px rgba(193, 102, 62, 0.4);
     }
 
     .cf-submit i {
@@ -1624,14 +1625,14 @@ const c = copy[lang];
       height: 64px;
       margin: 0 auto 1.5rem;
       border-radius: 50%;
-      background: rgba(204, 255, 51, 0.12);
-      border: 1px solid rgba(204, 255, 51, 0.3);
+      background: rgba(193, 102, 62, 0.12);
+      border: 1px solid rgba(193, 102, 62, 0.3);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 26px;
-      color: #ccff33;
-      box-shadow: 0 0 40px rgba(204, 255, 51, 0.25);
+      color: #e2865a;
+      box-shadow: 0 0 40px rgba(193, 102, 62, 0.25);
     }
 
     .cf-success h3 {
@@ -1673,7 +1674,7 @@ const c = copy[lang];
 
         <div class="footer-brand">
           <div style="font-size: 20px; font-weight: 800; color: #ffffff; margin-bottom: 1rem; display: flex; align-items: center; gap: 10px;">
-            <img src="/logo-web.svg" alt="Dual-Stack Studio" width="28" height="28" style="border-radius: 7px;" />
+            <img src="/logo.svg" alt="Dual-Stack Studio" width="28" height="28" style="border-radius: 7px;" />
             Dual-Stack Studio
           </div>
           <p>{c.footTagline}</p>
@@ -1752,7 +1753,7 @@ const c = copy[lang];
     }
 
     .footer-col a:hover {
-      color: #ccff33;
+      color: #e2865a;
     }
 
     .footer-note {
@@ -1794,7 +1795,7 @@ const c = copy[lang];
 
   <script>
     // Services intro network — same shared function/pattern as Hero, Contact and Footer
-    window.initNetworkCluster('network-canvas');
+    window.initNetworkCluster('network-canvas', '193, 102, 62', { alpha: 0.5, width: 1.5, dist: 400 });
 
     // "Learn More" links jump to the contact form and preselect the matching service
     document.querySelectorAll('.service-learn-more[data-service]').forEach((link) => {

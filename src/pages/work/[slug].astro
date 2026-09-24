@@ -49,7 +49,7 @@ const c = copy[lang];
 <Layout title={`${project.title} — Dual-Stack Studio`} description={project.tagline} lang={lang}>
   <header id="pd-header" style="position: sticky; top: 0; padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; z-index: 100; background: rgba(92, 92, 92, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
     <a href={l(lang, '/web')} class="pd-header-logo" style="font-size: 20px; font-weight: 800; letter-spacing: -0.5px; display: flex; align-items: center; gap: 10px; text-decoration: none; color: #ffffff; flex-shrink: 0;">
-      <img src="/logo-web.svg" alt="Dual-Stack Studio" width="30" height="30" style="border-radius: 7px; flex-shrink: 0;" />
+      <img src="/logo.svg" alt="Dual-Stack Studio" width="30" height="30" style="border-radius: 7px; flex-shrink: 0;" />
       <span class="pd-header-logo-text">Dual-Stack</span>
     </a>
     <a href={l(lang, '/web#work')} class="pd-back-link" style="font-size: 14px; font-weight: 600; color: #ccc; text-decoration: none; white-space: nowrap;">
@@ -58,7 +58,7 @@ const c = copy[lang];
     </a>
     <span class="pd-header-right">
       <LangSwitch lang={lang} />
-      <a href={l(lang, '/web#contact')} class="pd-header-cta" style="background: #ccff33; color: #0a0a0a; padding: 12px 26px; border-radius: 100px; text-decoration: none; font-size: 14px; font-weight: 600; box-shadow: 0 8px 20px rgba(204, 255, 51, 0.3); white-space: nowrap; flex-shrink: 0;">
+      <a href={l(lang, '/web#contact')} class="pd-header-cta" style="background: #c1663e; color: #fff; padding: 12px 26px; border-radius: 100px; text-decoration: none; font-size: 14px; font-weight: 600; box-shadow: 0 8px 20px rgba(193, 102, 62, 0.3); white-space: nowrap; flex-shrink: 0;">
         {c.proposal}
       </a>
     </span>
@@ -195,7 +195,7 @@ const c = copy[lang];
 
         <div class="footer-brand">
           <div style="font-size: 20px; font-weight: 800; color: #ffffff; margin-bottom: 1rem; display: flex; align-items: center; gap: 10px;">
-            <img src="/logo-web.svg" alt="Dual-Stack Studio" width="28" height="28" style="border-radius: 7px;" />
+            <img src="/logo.svg" alt="Dual-Stack Studio" width="28" height="28" style="border-radius: 7px;" />
             Dual-Stack Studio
           </div>
           <p>{c.footTagline}</p>
@@ -301,8 +301,8 @@ const c = copy[lang];
       background-position: center top, center top, center bottom;
       background-size: auto, auto, 100% 420px;
       background-image:
-        radial-gradient(circle at 85% 12%, rgba(204, 255, 51, 0.12) 0%, transparent 40%),
-        radial-gradient(circle at 8% 10%, rgba(204, 255, 51, 0.06) 0%, transparent 32%),
+        radial-gradient(circle at 85% 12%, rgba(193, 102, 62, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 8% 10%, rgba(193, 102, 62, 0.06) 0%, transparent 32%),
         linear-gradient(180deg, transparent 0%, #0a0a0a 100%);
     }
 
@@ -316,7 +316,7 @@ const c = copy[lang];
       font-weight: 700;
       letter-spacing: 0.5px;
       text-transform: uppercase;
-      color: #6b8a1e;
+      color: #2f4436;
       margin-bottom: 0.75rem;
     }
 
@@ -345,7 +345,7 @@ const c = copy[lang];
     .pd-media {
       border-radius: 18px;
       overflow: hidden;
-      box-shadow: 0 30px 80px -25px rgba(204, 255, 51, 0.25), 0 20px 50px -20px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 30px 80px -25px rgba(193, 102, 62, 0.25), 0 20px 50px -20px rgba(0, 0, 0, 0.15);
       border: 1px solid rgba(0, 0, 0, 0.08);
       margin-bottom: 2.5rem;
       transition: box-shadow 0.4s ease, transform 0.4s ease;
@@ -353,7 +353,7 @@ const c = copy[lang];
 
     .pd-media:hover {
       transform: translateY(-4px);
-      box-shadow: 0 40px 100px -20px rgba(204, 255, 51, 0.4), 0 25px 60px -20px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 40px 100px -20px rgba(193, 102, 62, 0.4), 0 25px 60px -20px rgba(0, 0, 0, 0.2);
     }
 
     .pd-media img {
@@ -390,8 +390,8 @@ const c = copy[lang];
       border-radius: 100px;
       background: rgba(10, 10, 10, 0.65);
       backdrop-filter: blur(6px);
-      border: 1px solid rgba(204, 255, 51, 0.6);
-      box-shadow: 0 0 16px rgba(204, 255, 51, 0.35), inset 0 0 8px rgba(204, 255, 51, 0.12);
+      border: 1px solid rgba(193, 102, 62, 0.6);
+      box-shadow: 0 0 16px rgba(193, 102, 62, 0.35), inset 0 0 8px rgba(193, 102, 62, 0.12);
       color: #eee;
       font-size: 12px;
       font-weight: 600;
@@ -416,7 +416,7 @@ const c = copy[lang];
     .pd-media-placeholder span {
       font-size: 32px;
       font-weight: 800;
-      color: #ccff33;
+      color: #e2865a;
     }
 
     .pd-lightbox-trigger {
@@ -471,8 +471,8 @@ const c = copy[lang];
     }
 
     .pd-lightbox-close:hover {
-      background: rgba(204, 255, 51, 0.15);
-      border-color: rgba(204, 255, 51, 0.4);
+      background: rgba(193, 102, 62, 0.15);
+      border-color: rgba(193, 102, 62, 0.4);
     }
 
     /* Bold horizontal-scrolling gallery strip — a filmstrip of extra shots,
@@ -519,7 +519,7 @@ const c = copy[lang];
     }
 
     .pd-gallery-nav:hover {
-      background: #ccff33;
+      background: #c1663e;
       transform: translateY(-50%) scale(1.08);
     }
 
@@ -570,8 +570,8 @@ const c = copy[lang];
 
     .pd-gallery-item:hover {
       transform: translateY(-4px);
-      border-color: rgba(204, 255, 51, 0.5);
-      box-shadow: 0 20px 50px -18px rgba(204, 255, 51, 0.35);
+      border-color: rgba(193, 102, 62, 0.5);
+      box-shadow: 0 20px 50px -18px rgba(193, 102, 62, 0.35);
     }
 
     .pd-gallery-item img {
@@ -593,7 +593,7 @@ const c = copy[lang];
     .pd-shot-placeholder span {
       font-size: 20px;
       font-weight: 800;
-      color: #ccff33;
+      color: #e2865a;
     }
 
     .pd-grid {
@@ -633,7 +633,7 @@ const c = copy[lang];
       content: '✓';
       position: absolute;
       left: 0;
-      color: #ccff33;
+      color: #e2865a;
       font-weight: 700;
     }
 
@@ -648,7 +648,7 @@ const c = copy[lang];
     }
 
     .pd-sidebar-block:hover {
-      border-color: rgba(204, 255, 51, 0.5);
+      border-color: rgba(193, 102, 62, 0.5);
       background: rgba(0, 0, 0, 0.05);
     }
 
@@ -669,17 +669,17 @@ const c = copy[lang];
     }
 
     .pd-growth-block {
-      background: linear-gradient(135deg, rgba(204, 255, 51, 0.1) 0%, rgba(204, 255, 51, 0.03) 100%);
-      border: 1px solid rgba(204, 255, 51, 0.4);
+      background: linear-gradient(135deg, rgba(193, 102, 62, 0.1) 0%, rgba(193, 102, 62, 0.03) 100%);
+      border: 1px solid rgba(193, 102, 62, 0.4);
     }
 
     .pd-growth-block:hover {
-      border-color: rgba(204, 255, 51, 0.7);
-      background: linear-gradient(135deg, rgba(204, 255, 51, 0.16) 0%, rgba(204, 255, 51, 0.05) 100%);
+      border-color: rgba(193, 102, 62, 0.7);
+      background: linear-gradient(135deg, rgba(193, 102, 62, 0.16) 0%, rgba(193, 102, 62, 0.05) 100%);
     }
 
     .pd-growth-block h3 {
-      color: #5a6b12;
+      color: #8a4325;
     }
 
     .pd-stack {
@@ -695,15 +695,15 @@ const c = copy[lang];
       text-transform: uppercase;
       padding: 0.4rem 0.75rem;
       border-radius: 6px;
-      background: rgba(204, 255, 51, 0.16);
-      color: #5a6b12;
-      border: 1px solid rgba(204, 255, 51, 0.45);
+      background: rgba(193, 102, 62, 0.16);
+      color: #8a4325;
+      border: 1px solid rgba(193, 102, 62, 0.45);
       transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s ease;
     }
 
     .pd-stack span:hover {
       transform: scale(1.08);
-      background: rgba(204, 255, 51, 0.28);
+      background: rgba(193, 102, 62, 0.28);
     }
 
     /* .pd-more sits inside pd-main-bg's fade-to-#0a0a0a band at the bottom of
@@ -726,7 +726,7 @@ const c = copy[lang];
     }
 
     .pd-more-head .pd-client {
-      color: #6fa300;
+      color: #2f4436;
     }
 
     .pd-more-title {
@@ -775,7 +775,7 @@ const c = copy[lang];
 
     .pd-more-card:hover .pd-more-card-media {
       transform: translateY(-6px);
-      box-shadow: 0 30px 60px -20px rgba(204, 255, 51, 0.4);
+      box-shadow: 0 30px 60px -20px rgba(193, 102, 62, 0.4);
     }
 
     .pd-more-card-media img {
@@ -797,7 +797,7 @@ const c = copy[lang];
     }
 
     .pd-more-card:hover .pd-more-card-client {
-      color: #ccff33;
+      color: #e2865a;
     }
 
     .pd-more-card-title {
@@ -809,7 +809,7 @@ const c = copy[lang];
     }
 
     .pd-more-card:hover .pd-more-card-title {
-      color: #ccff33;
+      color: #e2865a;
     }
 
     .pd-more-card-tagline {
@@ -856,20 +856,20 @@ const c = copy[lang];
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
-      background: #ccff33;
-      color: #0a0a0a;
+      background: #c1663e;
+      color: #fff;
       padding: 14px 24px;
       border-radius: 100px;
       text-decoration: none;
       font-size: 14px;
       font-weight: 700;
-      box-shadow: 0 12px 28px rgba(204, 255, 51, 0.3);
+      box-shadow: 0 12px 28px rgba(193, 102, 62, 0.3);
       transition: transform 0.2s, box-shadow 0.2s;
     }
 
     .pd-cta:hover {
       transform: translateY(-2px);
-      box-shadow: 0 16px 36px rgba(204, 255, 51, 0.45);
+      box-shadow: 0 16px 36px rgba(193, 102, 62, 0.45);
     }
 
     .pd-cta i {
@@ -920,7 +920,7 @@ const c = copy[lang];
     }
 
     .footer-col a:hover {
-      color: #ccff33;
+      color: #e2865a;
     }
 
     .footer-note {
@@ -956,8 +956,9 @@ const c = copy[lang];
   </style>
 
   <script>
-    function initNetworkCluster(canvasId, lineColor) {
+    function initNetworkCluster(canvasId, lineColor, opts) {
       const line = lineColor || '10, 10, 10';
+      const { alpha = 0.35, width = 1, dist: maxDist = 190 } = opts || {};
       const canvas = document.getElementById(canvasId);
       if (!canvas) return;
       const ctx = canvas.getContext('2d');
@@ -1026,9 +1027,9 @@ const c = copy[lang];
             const dx = particles[i].x - particles[j].x;
             const dy = particles[i].y - particles[j].y;
             const dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < 190) {
-              ctx.strokeStyle = `rgba(${line}, ${(1 - dist / 190) * 0.35})`;
-              ctx.lineWidth = 1;
+            if (dist < maxDist) {
+              ctx.strokeStyle = `rgba(${line}, ${(1 - dist / maxDist) * alpha})`;
+              ctx.lineWidth = width;
               ctx.beginPath();
               ctx.moveTo(particles[i].x, particles[i].y);
               ctx.lineTo(particles[j].x, particles[j].y);
@@ -1039,14 +1040,14 @@ const c = copy[lang];
 
         particles.forEach((p) => {
           const glow = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 4);
-          glow.addColorStop(0, 'rgba(204, 255, 51, 0.5)');
-          glow.addColorStop(1, 'rgba(204, 255, 51, 0)');
+          glow.addColorStop(0, 'rgba(226, 134, 90, 0.5)');
+          glow.addColorStop(1, 'rgba(226, 134, 90, 0)');
           ctx.fillStyle = glow;
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.r * 4, 0, Math.PI * 2);
           ctx.fill();
 
-          ctx.fillStyle = '#ccff33';
+          ctx.fillStyle = '#e2865a';
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
           ctx.fill();
@@ -1074,8 +1075,8 @@ const c = copy[lang];
       });
     }
 
-    initNetworkCluster('pd-network', '10, 10, 10');
-    initNetworkCluster('pd-footer-network', '255, 255, 255');
+    initNetworkCluster('pd-network', '193, 102, 62', { alpha: 0.5, width: 1.5, dist: 320 });
+    initNetworkCluster('pd-footer-network', '226, 134, 90', { alpha: 0.6, width: 1.5, dist: 320 });
 
     // Hero video: plays on hover, pauses (but keeps its position) on leave —
     // re-hovering resumes instead of restarting from the beginning.
