@@ -67,10 +67,10 @@ const copy = {
     lodgeAlt: 'A chef slicing fresh tuna sashimi', lodgeTag: 'Photography', lodgeTitle: 'A Restaurant in Japan',
     lodgeText: 'Photography for the restaurant of a mountain lodge in Japan — the craft, the plating, the ingredients.',
     photoEyebrow: 'Photography · Personal work', photoTitle: 'Pictures for myself',
-    photoLead: "Not client work — the photographs I take on my own, kept as series so they stay together.",
+    photoLead: "Not client work — the photographs I take on my own, kept together in one place.",
     photoAlt: 'Green hills and a wide valley under a sky streaked with cloud',
-    photoTag: 'Series 01', photoCardTitle: 'Close to home',
-    photoCardText: 'Woods, lanes and hills within a short drive of home. No client, no brief.',
+    photoTag: 'Personal work · 24 photographs', photoCardTitle: 'A slow way of seeing',
+    photoCardText: 'Lanes, forests and mountains from Austria and Japan. No client, no brief.',
     photoAll: 'See all photographs →',
     journalEyebrow: 'The Journal', journalTitle: 'Our Journal',
     journalLead: "Part travelogue, part about-us — the story of who we are, told one place at a time. We're starting with Australia.",
@@ -115,10 +115,10 @@ const copy = {
     lodgeAlt: 'Ein Koch schneidet frisches Thunfisch-Sashimi', lodgeTag: 'Fotografie', lodgeTitle: 'Ein Restaurant in Japan',
     lodgeText: 'Fotografie für das Restaurant einer Berglodge in Japan — das Handwerk, das Anrichten, die Zutaten.',
     photoEyebrow: 'Fotografie · Persönliche Arbeiten', photoTitle: 'Bilder für mich',
-    photoLead: 'Keine Kundenarbeit — die Fotografien, die ich für mich mache, als Serien, damit sie zusammenbleiben.',
+    photoLead: 'Keine Kundenarbeit — die Fotografien, die ich für mich mache, an einem Ort zusammengehalten.',
     photoAlt: 'Grüne Hügel und ein weites Tal unter einem von Wolken durchzogenen Himmel',
-    photoTag: 'Serie 01', photoCardTitle: 'Ganz in der Nähe',
-    photoCardText: 'Wälder, Gassen und Hügel, keine Autofahrt von zu Hause entfernt. Kein Kunde, kein Auftrag.',
+    photoTag: 'Persönliche Arbeit · 24 Fotografien', photoCardTitle: 'Eine langsame Art zu sehen',
+    photoCardText: 'Gassen, Wälder und Berge aus Österreich und Japan. Kein Kunde, kein Auftrag.',
     photoAll: 'Alle Fotografien ansehen →',
     journalEyebrow: 'Das Journal', journalTitle: 'Unser Journal',
     journalLead: 'Halb Reisetagebuch, halb Über-uns — die Geschichte, wer wir sind, Ort für Ort erzählt. Wir beginnen mit Australien.',
@@ -254,7 +254,7 @@ const c = copy[lang];
       <p class="section-lead">{c.photoLead}</p>
 
       <div class="work-grid work-grid--single">
-        <a href={l(lang, '/photography/close-to-home')} class="work-card work-card--lg">
+        <a href={l(lang, '/photography')} class="work-card work-card--lg">
           <img src="/images/photography/close-to-home/01-valley.webp" alt={c.photoAlt} loading="lazy" />
           <div class="work-card-info">
             <span class="work-card-tag">{c.photoTag}</span>
