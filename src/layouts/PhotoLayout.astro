@@ -1,0 +1,200 @@
+---
+import Layout from './Layout.astro';
+import LangSwitch from '../components/LangSwitch.astro';
+import { l } from '../i18n';
+import type { Lang } from '../i18n';
+
+interface Props {
+  title: string;
+  description?: string;
+  lang?: Lang;
+  backHref: string;
+  backLabel: string;
+}
+
+const { title, description, lang = 'en', backHref, backLabel } = Astro.props;
+
+const copy = {
+  en: {
+    tagline: 'We tell the story of small places doing real work — content, storytelling, and the web presence behind it.',
+    navTitle: 'Navigate', navWork: 'Work', navPhotography: 'Photography', navServices: 'Services', navTeam: 'Team', navJournal: 'Journal',
+    legalTitle: 'Legal', privacy: 'Privacy Policy', terms: 'Terms of Service', contactTitle: 'Get in touch',
+    rights: '© 2026 Dual-Stack Studio. Independently operated.', builtWith: 'Built with Astro, deployed on Vercel.',
+    close: 'Close', prev: 'Previous photograph', next: 'Next photograph',
+  },
+  de: {
+    tagline: 'Wir erzählen die Geschichten kleiner Orte, die echte Arbeit leisten — Content, Storytelling und der Webauftritt dahinter.',
+    navTitle: 'Navigation', navWork: 'Arbeiten', navPhotography: 'Fotografie', navServices: 'Leistungen', navTeam: 'Team', navJournal: 'Journal',
+    legalTitle: 'Rechtliches', privacy: 'Datenschutzerklärung', terms: 'Nutzungsbedingungen', contactTitle: 'Kontakt',
+    rights: '© 2026 Dual-Stack Studio. Unabhängig betrieben.', builtWith: 'Erstellt mit Astro, bereitgestellt auf Vercel.',
+    close: 'Schließen', prev: 'Vorheriges Foto', next: 'Nächstes Foto',
+  },
+};
+const c = copy[lang];
+---
+
+<Layout title={title} description={description} lang={lang}>
+  <header class="ph-header">
+    <a href={l(lang, '/creative')} class="ph-brand">
+      <img src="/logo.svg" alt="Dual-Stack Studio" width="32" height="32" style="border-radius: 8px;" />
+      <span>Dual-Stack Studio</span>
+    </a>
+    <span class="ph-header-right">
+      <LangSwitch lang={lang} />
+      <a href={backHref} class="ph-back">{backLabel}</a>
+    </span>
+  </header>
+
+  <main class="ph-page">
+    <slot />
+  </main>
+
+  <footer class="ph-footer">
+    <div class="ph-inner">
+      <div class="ph-footer-grid">
+        <div class="ph-footer-brand">
+          <div class="ph-footer-logo">
+            <img src="/logo.svg" alt="Dual-Stack Studio" width="28" height="28" style="border-radius: 7px;" />
+            Dual-Stack Studio
+          </div>
+          <p>{c.tagline}</p>
+        </div>
+        <div class="ph-footer-col">
+          <h4>{c.navTitle}</h4>
+          <a href={l(lang, '/creative#work')}>{c.navWork}</a>
+          <a href={l(lang, '/photography')}>{c.navPhotography}</a>
+          <a href={l(lang, '/creative#services')}>{c.navServices}</a>
+          <a href={l(lang, '/creative#team')}>{c.navTeam}</a>
+          <a href={l(lang, '/journal')}>{c.navJournal}</a>
+        </div>
+        <div class="ph-footer-col">
+          <h4>{c.legalTitle}</h4>
+          <a href={l(lang, '/privacy-policy')}>{c.privacy}</a>
+          <a href={l(lang, '/terms-of-service')}>{c.terms}</a>
+          <a href={l(lang, '/impressum')}>Impressum</a>
+        </div>
+        <div class="ph-footer-col">
+          <h4>{c.contactTitle}</h4>
+          <a href="mailto:hello@dualstackstudio.com">hello@dualstackstudio.com</a>
+        </div>
+      </div>
+      <div class="ph-footer-bottom">
+        <p>{c.rights}</p>
+        <p>{c.builtWith}</p>
+      </div>
+    </div>
+  </footer>
+
+  <div id="ph-lightbox" class="ph-lightbox" hidden role="dialog" aria-modal="true">
+    <button type="button" class="ph-lb-close" id="ph-lb-close" aria-label={c.close}>×</button>
+    <button type="button" class="ph-lb-nav ph-lb-prev" id="ph-lb-prev" aria-label={c.prev}>‹</button>
+    <button type="button" class="ph-lb-nav ph-lb-next" id="ph-lb-next" aria-label={c.next}>›</button>
+    <figure class="ph-lb-figure">
+      <img src="" alt="" class="ph-lb-img" id="ph-lb-img" />
+      <figcaption id="ph-lb-caption" class="ph-lb-caption"></figcaption>
+    </figure>
+  </div>
+
+  <style is:global>
+    body { background: #14110f; color: #e9e2d6; }
+
+    .ph-inner { max-width: 1240px; margin: 0 auto; padding: 0 1.75rem; }
+
+    /* ---------- HEADER ---------- */
+    .ph-header {
+      position: fixed; top: 0; left: 0; width: 100%;
+      padding: 1.25rem 2.5rem;
+      display: flex; justify-content: space-between; align-items: center;
+      z-index: 100;
+      background: rgba(20, 17, 15, 0.72);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .ph-brand { display: flex; align-items: center; gap: 10px; font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600; color: #fff; }
+    .ph-header-right { display: inline-flex; align-items: center; gap: 1.5rem; color: rgba(255, 255, 255, 0.9); }
+    .ph-back { font-size: 14px; font-weight: 600; color: rgba(255, 255, 255, 0.85); }
+    .ph-back:hover { color: #e2865a; }
+
+    /* ---------- FOOTER ---------- */
+    .ph-footer { background: #0e0c0a; color: rgba(255, 255, 255, 0.7); padding: 5rem 0 2.5rem; border-top: 1px solid rgba(255, 255, 255, 0.06); }
+    .ph-footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 2.5rem; padding-bottom: 3rem; margin-bottom: 2.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+    .ph-footer-logo { display: flex; align-items: center; gap: 10px; font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600; color: #fff; margin-bottom: 1rem; }
+    .ph-footer-brand p { font-size: 14px; color: rgba(255, 255, 255, 0.6); line-height: 1.7; max-width: 300px; }
+    .ph-footer-col h4 { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 1rem; font-family: 'Inter', sans-serif; }
+    .ph-footer-col a { display: block; font-size: 14px; color: rgba(255, 255, 255, 0.6); margin-bottom: 0.6rem; }
+    .ph-footer-col a:hover { color: #e2865a; }
+    .ph-footer-bottom { display: flex; justify-content: space-between; font-size: 12px; color: rgba(255, 255, 255, 0.4); flex-wrap: wrap; gap: 0.5rem; }
+
+    /* ---------- LIGHTBOX ---------- */
+    .ph-lightbox { position: fixed; inset: 0; z-index: 1000; background: rgba(10, 8, 6, 0.96); display: flex; align-items: center; justify-content: center; padding: 3.5rem 4.5rem; }
+    .ph-lightbox[hidden] { display: none; }
+    .ph-lb-figure { display: flex; flex-direction: column; align-items: center; gap: 0.9rem; max-width: 100%; max-height: 100%; }
+    .ph-lb-img { max-width: 100%; max-height: calc(100vh - 9rem); object-fit: contain; box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.7); }
+    .ph-lb-caption { font-size: 13px; letter-spacing: 0.4px; color: rgba(255, 255, 255, 0.7); text-align: center; }
+    .ph-lb-close, .ph-lb-nav {
+      position: absolute; width: 46px; height: 46px; border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.2); background: rgba(255, 255, 255, 0.07);
+      color: #fff; line-height: 1; display: flex; align-items: center; justify-content: center;
+    }
+    .ph-lb-close { top: 20px; right: 24px; font-size: 26px; }
+    .ph-lb-nav { top: 50%; transform: translateY(-50%); font-size: 30px; padding-bottom: 4px; }
+    .ph-lb-prev { left: 18px; }
+    .ph-lb-next { right: 18px; }
+    .ph-lb-close:hover, .ph-lb-nav:hover { background: rgba(193, 102, 62, 0.45); border-color: #c1663e; }
+
+    @media (max-width: 860px) {
+      .ph-header { padding: 1rem 1.25rem; }
+      .ph-footer-grid { grid-template-columns: 1fr 1fr; }
+      .ph-lightbox { padding: 3.5rem 1rem 4rem; }
+      .ph-lb-nav { top: auto; bottom: 14px; transform: none; }
+      .ph-lb-prev { left: calc(50% - 60px); }
+      .ph-lb-next { right: calc(50% - 60px); }
+    }
+    @media (max-width: 560px) {
+      .ph-footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <script>
+    (function () {
+      const box = document.getElementById('ph-lightbox');
+      const img = document.getElementById('ph-lb-img') as HTMLImageElement | null;
+      const cap = document.getElementById('ph-lb-caption');
+      if (!box || !img || !cap) return;
+      const items = Array.from(document.querySelectorAll<HTMLElement>('[data-plate]'));
+      if (!items.length) return;
+      let index = 0;
+
+      function show(i: number) {
+        index = (i + items.length) % items.length;
+        const it = items[index];
+        img!.src = it.dataset.full || '';
+        img!.alt = it.dataset.alt || '';
+        cap!.textContent = `${index + 1} / ${items.length} — ${it.dataset.title || ''}`;
+      }
+      function open(i: number) { show(i); box!.hidden = false; document.body.style.overflow = 'hidden'; }
+      function close() { box!.hidden = true; img!.src = ''; document.body.style.overflow = ''; }
+
+      items.forEach((it, i) => it.addEventListener('click', () => open(i)));
+      document.getElementById('ph-lb-close')?.addEventListener('click', close);
+      document.getElementById('ph-lb-prev')?.addEventListener('click', () => show(index - 1));
+      document.getElementById('ph-lb-next')?.addEventListener('click', () => show(index + 1));
+      box.addEventListener('click', (e) => { if (e.target === box) close(); });
+      document.addEventListener('keydown', (e) => {
+        if (box!.hidden) return;
+        if (e.key === 'Escape') close();
+        if (e.key === 'ArrowLeft') show(index - 1);
+        if (e.key === 'ArrowRight') show(index + 1);
+      });
+
+      // swipe on touch screens
+      let x0 = 0;
+      box.addEventListener('touchstart', (e) => { x0 = e.changedTouches[0].clientX; }, { passive: true });
+      box.addEventListener('touchend', (e) => {
+        const dx = e.changedTouches[0].clientX - x0;
+        if (Math.abs(dx) > 50) show(index + (dx < 0 ? 1 : -1));
+      }, { passive: true });
+    })();
+  </script>
+</Layout>

@@ -57,15 +57,21 @@ const [tallFirst, ...tallRest] = tallSlides;
 const copy = {
   en: {
     title: 'Dual-Stack Studio — We tell the story of small places doing real work',
-    navWork: 'Work', navServices: 'Services', navTeam: 'Team', navJournal: 'Journal',
+    navWork: 'Work', navPhotography: 'Photography', navServices: 'Services', navTeam: 'Team', navJournal: 'Journal',
     navWeb: 'Web & Full-Stack ↗', cta: "Let's talk", menuToggle: 'Toggle menu', menuClose: 'Close menu',
     heroTitle: 'Telling the stories<br />of small places<br />doing real work.',
     heroSub: "We build the digital presence for farms, guesthouses and small local businesses — the photos, the film, the story, and the site behind it when you're ready.",
     scroll: 'Scroll',
     workEyebrow: 'Selected work', workTitle: 'Our Work',
-    workLead: 'Real places, real stories — years of photography for a lodge in the mountains of Japan.',
-    lodgeAlt: 'Mountain lodge, Japan', lodgeTag: 'Photography', lodgeTitle: 'A Lodge in Japan',
-    lodgeText: 'Years of photography for a lodge and its restaurant in the mountains of Japan.',
+    workLead: 'Real places, real stories — photography for a restaurant in the mountains of Japan.',
+    lodgeAlt: 'A chef slicing fresh tuna sashimi', lodgeTag: 'Photography', lodgeTitle: 'A Restaurant in Japan',
+    lodgeText: 'Photography for the restaurant of a mountain lodge in Japan — the craft, the plating, the ingredients.',
+    photoEyebrow: 'Photography · Personal work', photoTitle: 'Pictures for myself',
+    photoLead: "Not client work — the photographs I take on my own, kept as series so they stay together.",
+    photoAlt: 'Green hills and a wide valley under a sky streaked with cloud',
+    photoTag: 'Series 01', photoCardTitle: 'Close to home',
+    photoCardText: 'Woods, lanes and hills within a short drive of home. No client, no brief.',
+    photoAll: 'See all photographs →',
     journalEyebrow: 'The Journal', journalTitle: 'Our Journal',
     journalLead: "Part travelogue, part about-us — the story of who we are, told one place at a time. We're starting with Australia.",
     journalAlt: 'The Brisbane skyline seen across the bush from a lookout',
@@ -99,15 +105,21 @@ const copy = {
   },
   de: {
     title: 'Dual-Stack Studio — Wir erzählen die Geschichten kleiner Orte, die echte Arbeit leisten',
-    navWork: 'Arbeiten', navServices: 'Leistungen', navTeam: 'Team', navJournal: 'Journal',
+    navWork: 'Arbeiten', navPhotography: 'Fotografie', navServices: 'Leistungen', navTeam: 'Team', navJournal: 'Journal',
     navWeb: 'Web & Full-Stack ↗', cta: 'Sprechen wir', menuToggle: 'Menü umschalten', menuClose: 'Menü schließen',
     heroTitle: 'Wir erzählen die <br />Geschichten kleiner Orte, <br />die echte Arbeit leisten.',
     heroSub: 'Wir bauen den digitalen Auftritt für Bauernhöfe, Gästehäuser und kleine lokale Betriebe — die Fotos, den Film, die Geschichte und die Website dahinter, wenn du so weit bist.',
     scroll: 'Scrollen',
     workEyebrow: 'Ausgewählte Arbeiten', workTitle: 'Unsere Arbeiten',
-    workLead: 'Echte Orte, echte Geschichten — jahrelange Fotografie für eine Lodge in den Bergen Japans.',
-    lodgeAlt: 'Berglodge in Japan', lodgeTag: 'Fotografie', lodgeTitle: 'Eine Lodge in Japan',
-    lodgeText: 'Jahrelange Fotografie für eine Lodge und ihr Restaurant in den Bergen Japans.',
+    workLead: 'Echte Orte, echte Geschichten — Fotografie für ein Restaurant in den Bergen Japans.',
+    lodgeAlt: 'Ein Koch schneidet frisches Thunfisch-Sashimi', lodgeTag: 'Fotografie', lodgeTitle: 'Ein Restaurant in Japan',
+    lodgeText: 'Fotografie für das Restaurant einer Berglodge in Japan — das Handwerk, das Anrichten, die Zutaten.',
+    photoEyebrow: 'Fotografie · Persönliche Arbeiten', photoTitle: 'Bilder für mich',
+    photoLead: 'Keine Kundenarbeit — die Fotografien, die ich für mich mache, als Serien, damit sie zusammenbleiben.',
+    photoAlt: 'Grüne Hügel und ein weites Tal unter einem von Wolken durchzogenen Himmel',
+    photoTag: 'Serie 01', photoCardTitle: 'Ganz in der Nähe',
+    photoCardText: 'Wälder, Gassen und Hügel, keine Autofahrt von zu Hause entfernt. Kein Kunde, kein Auftrag.',
+    photoAll: 'Alle Fotografien ansehen →',
     journalEyebrow: 'Das Journal', journalTitle: 'Unser Journal',
     journalLead: 'Halb Reisetagebuch, halb Über-uns — die Geschichte, wer wir sind, Ort für Ort erzählt. Wir beginnen mit Australien.',
     journalAlt: 'Die Skyline von Brisbane, von einem Aussichtspunkt über den Busch gesehen',
@@ -177,6 +189,7 @@ const c = copy[lang];
       </a>
       <nav class="desktop-nav">
         <a href="#work">{c.navWork}</a>
+        <a href={l(lang, '/photography')}>{c.navPhotography}</a>
         <a href="#services">{c.navServices}</a>
         <a href="#team">{c.navTeam}</a>
         <a href={l(lang, '/journal')}>{c.navJournal}</a>
@@ -194,6 +207,7 @@ const c = copy[lang];
     <div id="mobile-menu" class="mobile-menu">
       <button id="mobile-menu-close" class="mobile-menu-close" aria-label={c.menuClose}>✕</button>
       <a href="#work" class="mobile-nav-link">{c.navWork}</a>
+      <a href={l(lang, '/photography')} class="mobile-nav-link">{c.navPhotography}</a>
       <a href="#services" class="mobile-nav-link">{c.navServices}</a>
       <a href="#team" class="mobile-nav-link">{c.navTeam}</a>
       <a href={l(lang, '/journal')} class="mobile-nav-link">{c.navJournal}</a>
@@ -220,8 +234,8 @@ const c = copy[lang];
       <p class="section-lead">{c.workLead}</p>
 
       <div class="work-grid work-grid--single">
-        <a href={l(lang, '/work/japan-lodge')} class="work-card work-card--lg">
-          <img src="/images/japan-lodge/lodge-hero-mountain-cabin.jpg" alt={c.lodgeAlt} loading="lazy" />
+        <a href={l(lang, '/work/japan-restaurant')} class="work-card work-card--lg">
+          <img src="/images/japan-restaurant/restaurant-tuna-slicing.jpg" alt={c.lodgeAlt} loading="lazy" />
           <div class="work-card-info">
             <span class="work-card-tag">{c.lodgeTag}</span>
             <h3>{c.lodgeTitle}</h3>
@@ -229,6 +243,28 @@ const c = copy[lang];
           </div>
         </a>
       </div>
+    </div>
+  </section>
+
+  <!-- ============ PHOTOGRAPHY (personal work) ============ -->
+  <section id="photography" class="section photo-section">
+    <div class="section-inner">
+      <span class="eyebrow">{c.photoEyebrow}</span>
+      <h2 class="section-title">{c.photoTitle}</h2>
+      <p class="section-lead">{c.photoLead}</p>
+
+      <div class="work-grid work-grid--single">
+        <a href={l(lang, '/photography/close-to-home')} class="work-card work-card--lg">
+          <img src="/images/photography/close-to-home/01-valley.webp" alt={c.photoAlt} loading="lazy" />
+          <div class="work-card-info">
+            <span class="work-card-tag">{c.photoTag}</span>
+            <h3>{c.photoCardTitle}</h3>
+            <p>{c.photoCardText}</p>
+          </div>
+        </a>
+      </div>
+
+      <a href={l(lang, '/photography')} class="journal-all-link photo-all-link">{c.photoAll}</a>
     </div>
   </section>
 
@@ -370,6 +406,7 @@ const c = copy[lang];
         <div class="footer-col">
           <h4>{c.footNavTitle}</h4>
           <a href="#work">{c.navWork}</a>
+          <a href={l(lang, '/photography')}>{c.navPhotography}</a>
           <a href="#services">{c.navServices}</a>
           <a href="#team">{c.navTeam}</a>
           <a href={l(lang, '/journal')}>{c.navJournal}</a>
@@ -653,6 +690,12 @@ const c = copy[lang];
 
     /* ---------- JOURNAL ---------- */
     .journal-section { background: var(--cream-deep); }
+    .photo-section { background: #14110f; }
+    .photo-section .eyebrow { color: #e2865a; }
+    .photo-section .section-title { color: #fff; }
+    .photo-section .section-lead { color: rgba(233, 226, 214, 0.75); }
+    .photo-section .photo-all-link { color: #e2865a; }
+    .photo-section .photo-all-link:hover { color: #f0a47a; }
     .journal-all-link {
       display: inline-block;
       margin-top: 1.75rem;

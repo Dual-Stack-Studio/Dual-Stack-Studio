@@ -1,0 +1,132 @@
+---
+import PhotoLayout from '../layouts/PhotoLayout.astro';
+import { l } from '../i18n';
+import type { Lang } from '../i18n';
+import { series } from '../data/photography';
+
+const { lang = 'en' } = Astro.props as { lang?: Lang };
+
+const copy = {
+  en: {
+    title: 'Photography — Dual-Stack Studio',
+    description: 'Personal photography, kept as series: the pictures taken for myself, not for clients.',
+    back: '← Back to the studio',
+    eyebrow: 'Photography · Personal work',
+    h1: 'Pictures for myself.',
+    lead: "These aren't client photographs. They're the pictures I make on my own — kept as series rather than posts, so they stay together, in order, and don't scroll away.",
+    listEyebrow: 'Series', photos: 'photographs', open: 'View the series',
+    bizTitle: 'Looking for photography for your business?',
+    bizText: 'Client work lives on the studio side, with its own portfolio.',
+    bizLink: 'See our work →',
+  },
+  de: {
+    title: 'Fotografie — Dual-Stack Studio',
+    description: 'Persönliche Fotografie in Serien: die Bilder, die ich für mich mache, nicht für Kunden.',
+    back: '← Zurück zum Studio',
+    eyebrow: 'Fotografie · Persönliche Arbeiten',
+    h1: 'Bilder für mich.',
+    lead: 'Das sind keine Kundenfotos. Es sind die Bilder, die ich für mich mache — als Serien statt als Beiträge, damit sie zusammenbleiben, in Reihenfolge, und nicht wegscrollen.',
+    listEyebrow: 'Serien', photos: 'Fotografien', open: 'Serie ansehen',
+    bizTitle: 'Du suchst Fotografie für dein Unternehmen?',
+    bizText: 'Kundenarbeiten liegen auf der Studioseite, mit eigenem Portfolio.',
+    bizLink: 'Unsere Arbeiten ansehen →',
+  },
+};
+const c = copy[lang];
+
+const items = series.map((s) => {
+  const cover = s.plates.find((p) => p.file === s.cover)!;
+  return {
+    href: l(lang, `/photography/${s.slug}`),
+    num: s.num,
+    title: s.title[lang],
+    meta: s.meta[lang],
+    lead: s.lead[lang],
+    count: s.plates.length,
+    src: s.folder + s.cover,
+    w: cover.w,
+    h: cover.h,
+    alt: cover.alt[lang],
+  };
+});
+---
+
+<PhotoLayout title={c.title} description={c.description} lang={lang} backHref={l(lang, '/creative')} backLabel={c.back}>
+  <section class="phx-hero">
+    <div class="ph-inner">
+      <span class="phx-eyebrow">{c.eyebrow}</span>
+      <h1>{c.h1}</h1>
+      <p>{c.lead}</p>
+    </div>
+  </section>
+
+  <section class="phx-list">
+    <div class="ph-inner">
+      <span class="phx-eyebrow phx-eyebrow--small">{c.listEyebrow}</span>
+      {items.map((s, i) => (
+        <a href={s.href} class:list={['phx-card', { 'phx-card--flip': i % 2 === 1 }]}>
+          <div class="phx-card-img">
+            <img src={s.src} alt={s.alt} width={s.w} height={s.h} loading={i === 0 ? 'eager' : 'lazy'} decoding="async" />
+          </div>
+          <div class="phx-card-text">
+            <span class="phx-num">{s.num}</span>
+            <h2>{s.title}</h2>
+            <p class="phx-meta">{s.meta} · {s.count} {c.photos}</p>
+            <p class="phx-lead">{s.lead}</p>
+            <span class="phx-open">{c.open} <i>→</i></span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="phx-biz">
+    <div class="ph-inner">
+      <h3>{c.bizTitle}</h3>
+      <p>{c.bizText}</p>
+      <a href={l(lang, '/creative#work')}>{c.bizLink}</a>
+    </div>
+  </section>
+</PhotoLayout>
+
+<style is:global>
+  .phx-hero { padding: 10rem 0 4rem; }
+  .phx-eyebrow { display: block; font-size: 12px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase; color: #e2865a; margin-bottom: 1.25rem; }
+  .phx-eyebrow--small { margin-bottom: 2rem; color: rgba(255, 255, 255, 0.5); }
+  .phx-hero h1 { font-family: 'Fraunces', Georgia, serif; font-size: clamp(44px, 8vw, 92px); font-weight: 500; letter-spacing: -2.5px; line-height: 1; color: #fff; margin: 0 0 1.75rem; }
+  .phx-hero p { max-width: 620px; font-size: 18px; line-height: 1.7; color: rgba(233, 226, 214, 0.78); }
+
+  .phx-list { padding: 1rem 0 6rem; }
+  .phx-card {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 3.5rem;
+    align-items: center;
+    padding: 3rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .phx-card:last-of-type { border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+  .phx-card--flip .phx-card-img { order: 2; }
+  .phx-card-img { overflow: hidden; background: #1c1814; }
+  .phx-card-img img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 32%; transition: transform 0.9s ease; }
+  .phx-card:hover .phx-card-img img { transform: scale(1.03); }
+  .phx-num { display: block; font-family: 'Fraunces', Georgia, serif; font-size: 15px; color: #e2865a; letter-spacing: 2px; margin-bottom: 1.25rem; }
+  .phx-card h2 { font-family: 'Fraunces', Georgia, serif; font-size: clamp(32px, 4.5vw, 56px); font-weight: 500; letter-spacing: -1.5px; line-height: 1.05; color: #fff; margin: 0 0 1rem; }
+  .phx-meta { font-size: 13px; letter-spacing: 0.6px; text-transform: uppercase; color: rgba(255, 255, 255, 0.5); margin-bottom: 1.25rem; }
+  .phx-lead { font-size: 16px; line-height: 1.7; color: rgba(233, 226, 214, 0.75); max-width: 460px; margin-bottom: 1.75rem; }
+  .phx-open { font-size: 14px; font-weight: 600; color: #e2865a; }
+  .phx-open i { font-style: normal; display: inline-block; transition: transform 0.3s; }
+  .phx-card:hover .phx-open i { transform: translateX(5px); }
+
+  .phx-biz { padding: 4rem 0 6rem; border-top: 1px solid rgba(255, 255, 255, 0.08); }
+  .phx-biz h3 { font-family: 'Fraunces', Georgia, serif; font-size: 24px; font-weight: 500; color: #fff; margin-bottom: 0.6rem; }
+  .phx-biz p { font-size: 15px; color: rgba(233, 226, 214, 0.65); margin-bottom: 1rem; }
+  .phx-biz a { font-size: 14px; font-weight: 600; color: #e2865a; }
+  .phx-biz a:hover { color: #f0a47a; }
+
+  @media (max-width: 860px) {
+    .phx-hero { padding: 8rem 0 2.5rem; }
+    .phx-card { grid-template-columns: 1fr; gap: 1.75rem; padding: 2.25rem 0; }
+    .phx-card--flip .phx-card-img { order: 0; }
+  }
+</style>

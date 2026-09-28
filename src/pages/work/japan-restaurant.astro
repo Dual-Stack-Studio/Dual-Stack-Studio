@@ -8,21 +8,6 @@ const { lang = 'en' } = Astro.props as { lang?: Lang };
 const de = lang === 'de';
 
 // [file, English alt, German alt]
-const lodgeRaw: [string, string, string][] = [
-  ['lodge-hero-mountain-cabin.jpg', 'A conical mountain peak above a dark mountain cabin', 'Ein kegelförmiger Berggipfel über einer dunklen Berghütte'],
-  ['lodge-mountain-night-stars.jpg', 'The same mountain peak at night under a field of stars', 'Derselbe Berggipfel bei Nacht unter einem Sternenhimmel'],
-  ['lodge-sunset-coast.jpg', 'Sunset over a rocky coastline with waves', 'Sonnenuntergang über einer felsigen Küste mit Wellen'],
-  ['lodge-mountain-range-birch.jpg', 'A wide mountain range seen through birch trees', 'Eine weite Bergkette, durch Birken gesehen'],
-  ['lodge-mountain-range-muted.jpg', 'A wide mountain range in muted morning tones', 'Eine weite Bergkette in gedämpften Morgenfarben'],
-  ['lodge-lake-pagoda-snow.jpg', 'A lake with a red pagoda and footprints in the snow', 'Ein See mit einer roten Pagode und Fußspuren im Schnee'],
-  ['lodge-seagull-dock.jpg', 'A seagull resting on a weathered dock post over a lake', 'Eine Möwe ruht auf einem verwitterten Stegpfosten über einem See'],
-  ['lodge-sunset-lake.jpg', 'Sunset over still water with a lamppost silhouette', 'Sonnenuntergang über stillem Wasser mit der Silhouette einer Laterne'],
-  ['lodge-monument-mountain.jpg', 'A stone monument with a mountain in the background', 'Ein Steindenkmal mit einem Berg im Hintergrund'],
-  ['lodge-night-sky-trees.jpg', 'A warm glow in the night sky above tree silhouettes', 'Ein warmer Schein am Nachthimmel über Baumsilhouetten'],
-  ['lodge-canal-seagulls.jpg', 'A canal-side warehouse building with seagulls on a lamppost', 'Ein Lagerhaus am Kanal mit Möwen auf einer Laterne'],
-  ['lodge-foggy-window.jpg', 'A foggy window looking out over a quiet street', 'Ein beschlagenes Fenster mit Blick auf eine ruhige Straße'],
-];
-
 const restaurantRaw: [string, string, string][] = [
   ['restaurant-tuna-slicing.jpg', 'A chef slicing fresh tuna sashimi', 'Ein Koch schneidet frisches Thunfisch-Sashimi'],
   ['restaurant-plating-hand.jpg', 'A hand arranging a plate of sashimi and abalone', 'Eine Hand richtet einen Teller mit Sashimi und Abalone an'],
@@ -35,45 +20,40 @@ const restaurantRaw: [string, string, string][] = [
 ];
 
 const toItems = (raw: [string, string, string][]) =>
-  raw.map(([file, en, deAlt]) => ({ src: `/images/japan-lodge/${file}`, alt: de ? deAlt : en }));
-const lodgeGallery = toItems(lodgeRaw);
+  raw.map(([file, en, deAlt]) => ({ src: `/images/japan-restaurant/${file}`, alt: de ? deAlt : en }));
 const restaurantGallery = toItems(restaurantRaw);
 
 const copy = {
   en: {
-    title: 'A Lodge in Japan — Dual-Stack Studio',
-    description: 'Photography from a lodge and its restaurant in the mountains of Japan.',
+    title: 'A Restaurant in Japan — Dual-Stack Studio',
+    description: 'Restaurant photography from the mountains of Japan.',
     back: '← Back to work',
-    eyebrow: 'Photography · Personal archive', h1: 'A Lodge in Japan',
-    intro: "Years ago, before Dual-Stack Studio existed, we spent time photographing a lodge and its restaurant in the mountains of Japan — the peaks around it, the quiet in-between moments, and the food coming out of the kitchen. It's the kind of storytelling we now do for small places everywhere.",
-    lodgeEyebrow: 'The lodge & mountains', lodgeTitle: 'Where the peaks meet the sky',
-    lodgeLead: 'A lodge lives and dies by its setting. These are the mountains, the water, and the quiet hours that made this place worth the trip.',
+    eyebrow: 'Photography · Restaurant', h1: 'A Restaurant in Japan',
+    intro: "Years ago, before Dual-Stack Studio existed, we photographed the restaurant of a mountain lodge in Japan — the craft, the plating and the ingredients, up close. It's the kind of storytelling we now do for small places everywhere.",
     restEyebrow: 'The restaurant', restTitle: 'What came out of the kitchen',
-    restLead: "The lodge's restaurant, shot the same way we'd shoot it today — the craft, the plating, the ingredients, up close.",
+    restLead: "Shot the same way we'd shoot it today — the craft, the plating, the ingredients, up close, and a look behind the scenes.",
     ctaTitle: 'Have a place worth telling a story about?',
     ctaText: 'This is exactly the kind of work we do for farms, guesthouses and small local businesses today.',
     ctaBtn: "Let's talk",
     footTagline: 'We tell the story of small places doing real work — content, storytelling, and the web presence behind it.',
-    navTitle: 'Navigate', navWork: 'Work', navServices: 'Services', navTeam: 'Team', navJournal: 'Journal',
+    navTitle: 'Navigate', navWork: 'Work', navPhotography: 'Photography', navServices: 'Services', navTeam: 'Team', navJournal: 'Journal',
     legalTitle: 'Legal', privacy: 'Privacy Policy', terms: 'Terms of Service', contactTitle: 'Get in touch',
     rights: '© 2026 Dual-Stack Studio. Independently operated.', builtWith: 'Built with Astro, deployed on Vercel.',
     close: 'Close',
   },
   de: {
-    title: 'Eine Lodge in Japan — Dual-Stack Studio',
-    description: 'Fotografie von einer Lodge und ihrem Restaurant in den Bergen Japans.',
+    title: 'Ein Restaurant in Japan — Dual-Stack Studio',
+    description: 'Restaurantfotografie aus den Bergen Japans.',
     back: '← Zurück zu den Arbeiten',
-    eyebrow: 'Fotografie · Persönliches Archiv', h1: 'Eine Lodge in Japan',
-    intro: 'Vor Jahren, noch bevor es Dual-Stack Studio gab, verbrachten wir Zeit damit, eine Lodge und ihr Restaurant in den Bergen Japans zu fotografieren — die Gipfel ringsum, die stillen Momente dazwischen und das Essen, das aus der Küche kam. Es ist die Art von Storytelling, die wir heute für kleine Orte überall machen.',
-    lodgeEyebrow: 'Die Lodge & die Berge', lodgeTitle: 'Wo die Gipfel den Himmel berühren',
-    lodgeLead: 'Eine Lodge lebt und stirbt mit ihrer Umgebung. Das sind die Berge, das Wasser und die stillen Stunden, die diesen Ort die Reise wert machten.',
+    eyebrow: 'Fotografie · Restaurant', h1: 'Ein Restaurant in Japan',
+    intro: 'Vor Jahren, noch bevor es Dual-Stack Studio gab, fotografierten wir das Restaurant einer Berglodge in Japan — das Handwerk, das Anrichten und die Zutaten, aus nächster Nähe. Es ist die Art von Storytelling, die wir heute für kleine Orte überall machen.',
     restEyebrow: 'Das Restaurant', restTitle: 'Was aus der Küche kam',
-    restLead: 'Das Restaurant der Lodge, so fotografiert, wie wir es heute fotografieren würden — das Handwerk, das Anrichten, die Zutaten, aus nächster Nähe.',
+    restLead: 'So fotografiert, wie wir es heute fotografieren würden — das Handwerk, das Anrichten, die Zutaten, aus nächster Nähe und ein Blick hinter die Kulissen.',
     ctaTitle: 'Hast du einen Ort, über den es sich lohnt, eine Geschichte zu erzählen?',
     ctaText: 'Genau diese Art von Arbeit machen wir heute für Bauernhöfe, Gästehäuser und kleine lokale Betriebe.',
     ctaBtn: 'Sprechen wir',
     footTagline: 'Wir erzählen die Geschichten kleiner Orte, die echte Arbeit leisten — Content, Storytelling und der Webauftritt dahinter.',
-    navTitle: 'Navigation', navWork: 'Arbeiten', navServices: 'Leistungen', navTeam: 'Team', navJournal: 'Journal',
+    navTitle: 'Navigation', navWork: 'Arbeiten', navPhotography: 'Fotografie', navServices: 'Leistungen', navTeam: 'Team', navJournal: 'Journal',
     legalTitle: 'Rechtliches', privacy: 'Datenschutzerklärung', terms: 'Nutzungsbedingungen', contactTitle: 'Kontakt',
     rights: '© 2026 Dual-Stack Studio. Unabhängig betrieben.', builtWith: 'Erstellt mit Astro, bereitgestellt auf Vercel.',
     close: 'Schließen',
@@ -96,7 +76,7 @@ const c = copy[lang];
   </header>
 
   <section class="jl-hero">
-    <img class="jl-hero-img" src="/images/japan-lodge/lodge-hero-mountain-cabin.jpg" alt={lodgeGallery[0].alt} />
+    <img class="jl-hero-img" src={restaurantGallery[0].src} alt={restaurantGallery[0].alt} />
     <div class="jl-hero-scrim"></div>
     <div class="jl-hero-content">
       <span class="jl-eyebrow">{c.eyebrow}</span>
@@ -106,21 +86,6 @@ const c = copy[lang];
   </section>
 
   <section class="jl-section">
-    <div class="jl-inner">
-      <span class="jl-eyebrow jl-eyebrow--dark">{c.lodgeEyebrow}</span>
-      <h2 class="jl-section-title">{c.lodgeTitle}</h2>
-      <p class="jl-section-lead">{c.lodgeLead}</p>
-      <div class="jl-masonry">
-        {lodgeGallery.map((img) => (
-          <div class="jl-item">
-            <img src={img.src} alt={img.alt} loading="lazy" class="jl-lightbox-trigger" />
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="jl-section jl-section--alt">
     <div class="jl-inner">
       <span class="jl-eyebrow jl-eyebrow--dark">{c.restEyebrow}</span>
       <h2 class="jl-section-title">{c.restTitle}</h2>
@@ -157,6 +122,7 @@ const c = copy[lang];
         <div class="jl-footer-col">
           <h4>{c.navTitle}</h4>
           <a href={l(lang, '/creative#work')}>{c.navWork}</a>
+          <a href={l(lang, '/photography')}>{c.navPhotography}</a>
           <a href={l(lang, '/creative#services')}>{c.navServices}</a>
           <a href={l(lang, '/creative#team')}>{c.navTeam}</a>
           <a href={l(lang, '/journal')}>{c.navJournal}</a>
