@@ -32,14 +32,14 @@ const heroSlide = (name: string, widths: number[], pos: string, dim: number) => 
   dim,
 });
 const wideSlides = [
-  { src: '/images/hero-alps.jpg', srcset: '', pos: '50% 50%', dim: 0 },
-  heroSlide('austria-valley', [1280, 1920], '28% 50%', 0.06),
-  heroSlide('japan-sunset', [1280, 1920], '22% 50%', 0),
-  heroSlide('tasmania-boardwalk', [1280, 1600], '30% 62%', 0.08),
-  heroSlide('japan-toya-snow', [1280, 1920], '40% 60%', 0.24),
-  heroSlide('austria-meadow', [1280, 1920], '72% 50%', 0),
-  heroSlide('tasmania-fog', [1280, 1920], '45% 50%', 0.08),
-  heroSlide('japan-window', [1280, 1920], '62% 50%', 0.3),
+  heroSlide('wide-forest-cabin', [1280, 1920], '50% 50%', 0.1),
+  heroSlide('wide-pink-basilica', [1280, 1920], '60% 50%', 0.2),
+  heroSlide('wide-hunting-stand', [1280, 1920], '50% 50%', 0.1),
+  heroSlide('wide-yellow-van', [1280, 1920], '50% 50%', 0.14),
+  heroSlide('wide-beech-forest', [1280, 1920], '50% 50%', 0.14),
+  heroSlide('wide-church-tower', [1280, 1920], '50% 50%', 0.16),
+  heroSlide('wide-rally-car', [1280, 1920], '55% 50%', 0.12),
+  heroSlide('wide-tree-carving', [1280, 1920], '50% 50%', 0.2),
 ];
 const tallSlides = [
   heroSlide('mobile-forest-cabin', [750, 1000], '50% 50%', 0.08),
@@ -154,7 +154,7 @@ const c = copy[lang];
       >
         <picture>
           <source media="(max-aspect-ratio: 1/1)" srcset={tallFirst.srcset} sizes="max(100vw, 57vh)" />
-          <img src={wideFirst.src} alt="" fetchpriority="high" decoding="async" />
+          <img src={wideFirst.src} srcset={wideFirst.srcset} sizes="max(100vw, 178vh)" alt="" fetchpriority="high" decoding="async" />
         </picture>
       </div>
       {wideRest.map((s) => (
