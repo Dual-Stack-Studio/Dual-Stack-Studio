@@ -3,6 +3,7 @@ import Layout from '../layouts/WebLayout.astro';
 import LangSwitch from '../components/LangSwitch.astro';
 import { l } from '../i18n';
 import type { Lang } from '../i18n';
+import { getProject } from '../data/projects';
 
 const techIcons = [
   { name: 'React', accent: '#0a0a0a', path: 'M14.23 12.004a2.236 2.236 0 0 1-2.235 2.236 2.236 2.236 0 0 1-2.236-2.236 2.236 2.236 0 0 1 2.235-2.236 2.236 2.236 0 0 1 2.236 2.236zm2.648-10.69c-1.346 0-3.107.96-4.888 2.622-1.78-1.653-3.542-2.602-4.887-2.602-.41 0-.783.093-1.106.278-1.375.793-1.683 3.264-.973 6.365C1.98 8.917 0 10.42 0 12.004c0 1.59 1.99 3.097 5.043 4.03-.704 3.113-.39 5.588.988 6.38.32.187.69.275 1.102.275 1.345 0 3.107-.96 4.888-2.624 1.78 1.654 3.542 2.603 4.887 2.603.41 0 .783-.09 1.106-.275 1.374-.792 1.683-3.263.973-6.365C22.02 15.096 24 13.59 24 12.004c0-1.59-1.99-3.097-5.043-4.032.704-3.11.39-5.587-.988-6.38-.318-.184-.688-.277-1.092-.278zm-.005 1.09v.006c.225 0 .406.044.558.127.666.382.955 1.835.73 3.704-.054.46-.142.945-.25 1.44-.96-.236-2.006-.417-3.107-.534-.66-.905-1.345-1.727-2.035-2.447 1.592-1.48 3.087-2.292 4.105-2.295zm-9.77.02c1.012 0 2.514.808 4.11 2.28-.686.72-1.37 1.537-2.02 2.442-1.107.117-2.154.298-3.113.538-.112-.49-.195-.964-.254-1.42-.23-1.868.054-3.32.714-3.707.19-.09.4-.127.563-.132zm4.882 3.05c.455.468.91.992 1.36 1.564-.44-.02-.89-.034-1.345-.034-.46 0-.915.01-1.36.034.44-.572.895-1.096 1.345-1.565zM12 8.1c.74 0 1.477.034 2.202.093.406.582.802 1.203 1.183 1.86.372.64.71 1.29 1.018 1.946-.308.655-.646 1.31-1.013 1.95-.38.66-.773 1.288-1.18 1.87-.728.063-1.466.098-2.21.098-.74 0-1.477-.035-2.202-.093-.406-.582-.802-1.204-1.183-1.86-.372-.64-.71-1.29-1.018-1.946.303-.657.646-1.313 1.013-1.954.38-.66.773-1.286 1.18-1.868.728-.064 1.466-.098 2.21-.098zm-3.635.254c-.24.377-.48.763-.704 1.16-.225.39-.435.782-.635 1.174-.265-.656-.49-1.31-.676-1.947.64-.15 1.315-.283 2.015-.386zm7.26 0c.695.103 1.365.23 2.006.387-.18.632-.405 1.282-.66 1.933-.2-.39-.41-.783-.64-1.174-.225-.392-.465-.774-.705-1.146zm3.063.675c.484.15.944.317 1.375.498 1.732.74 2.852 1.708 2.852 2.476-.005.768-1.125 1.74-2.857 2.475-.42.18-.88.342-1.355.493-.28-.958-.646-1.956-1.1-2.98.45-1.017.81-2.01 1.085-2.964zm-13.395.004c.278.96.645 1.957 1.1 2.98-.45 1.017-.812 2.01-1.086 2.964-.484-.15-.944-.318-1.37-.5-1.732-.737-2.852-1.706-2.852-2.474 0-.768 1.12-1.742 2.852-2.476.42-.18.88-.342 1.356-.494zm11.678 4.28c.265.657.49 1.312.676 1.948-.64.157-1.316.29-2.016.39.24-.375.48-.762.705-1.158.225-.39.435-.788.636-1.18zm-9.945.02c.2.392.41.783.64 1.175.23.39.465.772.705 1.143-.695-.102-1.365-.23-2.006-.386.18-.63.406-1.282.66-1.933zM17.92 16.32c.112.493.2.968.254 1.423.23 1.868-.054 3.32-.714 3.708-.147.09-.338.128-.563.128-1.012 0-2.514-.807-4.11-2.28.686-.72 1.37-1.536 2.02-2.44 1.107-.118 2.154-.3 3.113-.54zm-11.83.01c.96.234 2.006.415 3.107.532.66.905 1.345 1.727 2.035 2.446-1.595 1.483-3.092 2.295-4.11 2.295-.22-.005-.406-.05-.553-.132-.666-.38-.955-1.834-.73-3.703.054-.46.142-.944.25-1.438zm4.56.64c.44.02.89.034 1.345.034.46 0 .915-.01 1.36-.034-.44.572-.895 1.095-1.345 1.565-.455-.47-.91-.993-1.36-1.565z' },
@@ -62,11 +63,11 @@ const serviceCards = [
 ];
 const roleIcons = ['laptop', 'design', 'rocket'];
 const moduleCards = [
-  { featured: true, stack: ['React 18', 'Redux Toolkit', 'Auth0', 'Stripe', 'Leaflet', 'Node.js API', 'PostgreSQL', 'Redis', 'Brevo'], cases: [{ slug: 'underevents' }] },
+  { featured: true, demo: getProject('underevents', 'en').url, stack: ['React 18', 'Redux Toolkit', 'Auth0', 'Stripe', 'Leaflet', 'Node.js API', 'PostgreSQL', 'Redis', 'Brevo'], cases: [{ slug: 'underevents' }] },
   { stack: ['Laravel', 'Tailwind', 'Email flow'], cases: [{ slug: 'nonna' }] },
   { stack: ['Astro', 'TypeScript', 'Lighthouse 95+'], cases: [{ slug: 'mvg' }] },
   { stack: ['React Native', 'Expo', 'NestJS', 'PostgreSQL'], cases: [{ slug: 'bumeran', label: 'Bumerán' }, { slug: 'echoesandpaths', label: 'Echoes & Paths' }] },
-  { stack: ['React 19', 'Socket.IO', 'Node.js'], cases: [{ slug: 'watchit' }] },
+  { demo: getProject('watchit', 'en').url, stack: ['React 19', 'Socket.IO', 'Node.js'], cases: [{ slug: 'watchit' }] },
   { stack: ['Claude', 'FastAPI', 'Expo'], cases: [{ slug: 'savora' }] },
 ];
 
@@ -93,7 +94,7 @@ const copy = {
     modIntro: 'Six building blocks, already working. Pick one and we adapt it to your business: faster, and for less than starting from scratch.',
     modFlow: ['Event discovery', 'Cart', 'Stripe payment', 'Confirmation email', 'Admin management'],
     modRole: 'Our part: frontend architecture and implementation, integrated with a Node.js and PostgreSQL API.',
-    modSee: 'See how it works', modWant: 'I want this',
+    modSee: 'See how it works', modWant: 'I want this', modDemoTitle: 'Opens the live app in a new tab',
     modCustomTitle: 'Your idea here.',
     modCustomText: 'Something else in mind? We build it custom, from the first sketch to production.',
     modCustomCta: 'Tell us about it',
@@ -160,7 +161,7 @@ const copy = {
     modIntro: 'Sechs Bausteine, die schon funktionieren. Such dir einen aus, und wir passen ihn an dein Geschäft an: schneller und günstiger als ein Start bei null.',
     modFlow: ['Events entdecken', 'Warenkorb', 'Stripe-Zahlung', 'Bestätigungs-E-Mail', 'Admin-Verwaltung'],
     modRole: 'Unser Teil: Frontend-Architektur und -Umsetzung, angebunden an eine Node.js- und PostgreSQL-API.',
-    modSee: 'So funktioniert es', modWant: 'Das will ich',
+    modSee: 'So funktioniert es', modWant: 'Das will ich', modDemoTitle: 'Öffnet die Live-App in einem neuen Tab',
     modCustomTitle: 'Deine Idee hier.',
     modCustomText: 'Du hast etwas anderes im Kopf? Wir bauen es maßgeschneidert, von der ersten Skizze bis zum Livegang.',
     modCustomCta: 'Erzähl uns davon',
@@ -212,7 +213,7 @@ const c = copy[lang];
 <Layout title={c.title} lang={lang}>
 
   <!-- Hero Section (visualidentity.studio-style: gray vignette, giant black wordmark, lime accent, rotating 3D glass asterisk) -->
-  <section style="position: relative; min-height: 100vh; padding-top: 90px; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at 85% 88%, rgba(193, 102, 62, 0.24) 0%, transparent 45%), radial-gradient(circle at 8% 15%, rgba(47, 68, 54, 0.5) 0%, transparent 40%), radial-gradient(ellipse 140% 120% at 50% 0%, #8c8c8c 0%, #5c5c5c 50%, #242424 78%, #0a0a0a 100%); overflow: hidden; border-bottom: 2px solid #242424;">
+  <section style="position: relative; min-height: 100vh; padding-top: 90px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
 
     <!-- Header -->
     <header id="site-header" style="position: fixed; top: 0; left: 0; width: 100%; padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; z-index: 100; transition: background 0.3s, box-shadow 0.3s, padding 0.3s;">
@@ -278,6 +279,35 @@ const c = copy[lang];
     </div>
 
   </section>
+
+  <!-- One page background from hero to footer: the hero's own gradient over the first screen, then the same dark
+       with soft clouds of the hero's gray plus its orange/green glows all the way down. Sections are transparent on top. -->
+  <style is:global>
+    html body {
+      background-color: #0a0a0a;
+      background-image:
+        radial-gradient(circle max(46vw, 420px) at 85% 88vh, rgba(193, 102, 62, 0.24) 0%, transparent 100%),
+        radial-gradient(circle max(42vw, 380px) at 8% 15vh, rgba(47, 68, 54, 0.5) 0%, transparent 100%),
+        linear-gradient(180deg, rgba(10, 10, 10, 0) 0%, rgba(10, 10, 10, 0) 76%, #0a0a0a 100%),
+        radial-gradient(ellipse 140% 120% at 50% 0%, #8c8c8c 0%, #5c5c5c 50%, #242424 78%, #0a0a0a 100%),
+        radial-gradient(ellipse max(76vw, 660px) max(46vh, 340px) at 46% 16%, rgba(150, 150, 150, 0.36) 0%, rgba(100, 100, 100, 0.18) 45%, transparent 100%),
+        radial-gradient(ellipse max(76vw, 660px) max(46vh, 340px) at 54% 26%, rgba(150, 150, 150, 0.42) 0%, rgba(100, 100, 100, 0.21) 45%, transparent 100%),
+        radial-gradient(ellipse max(76vw, 660px) max(46vh, 340px) at 46% 38%, rgba(150, 150, 150, 0.40) 0%, rgba(100, 100, 100, 0.20) 45%, transparent 100%),
+        radial-gradient(ellipse max(76vw, 660px) max(46vh, 340px) at 54% 50%, rgba(150, 150, 150, 0.40) 0%, rgba(100, 100, 100, 0.20) 45%, transparent 100%),
+        radial-gradient(ellipse max(76vw, 660px) max(46vh, 340px) at 46% 62%, rgba(150, 150, 150, 0.40) 0%, rgba(100, 100, 100, 0.20) 45%, transparent 100%),
+        radial-gradient(ellipse max(76vw, 660px) max(46vh, 340px) at 54% 74%, rgba(150, 150, 150, 0.36) 0%, rgba(100, 100, 100, 0.18) 45%, transparent 100%),
+        radial-gradient(ellipse max(76vw, 660px) max(46vh, 340px) at 46% 86%, rgba(150, 150, 150, 0.28) 0%, rgba(100, 100, 100, 0.14) 45%, transparent 100%),
+        radial-gradient(circle max(44vw, 400px) at 96% 31%, rgba(193, 102, 62, 0.15) 0%, transparent 100%),
+        radial-gradient(circle max(40vw, 360px) at 4% 45%, rgba(47, 68, 54, 0.34) 0%, transparent 100%),
+        radial-gradient(circle max(44vw, 400px) at 96% 59%, rgba(193, 102, 62, 0.15) 0%, transparent 100%),
+        radial-gradient(circle max(40vw, 360px) at 4% 73%, rgba(47, 68, 54, 0.3) 0%, transparent 100%),
+        radial-gradient(circle max(48vw, 420px) at 88% 97%, rgba(193, 102, 62, 0.16) 0%, transparent 100%),
+        radial-gradient(circle max(36vw, 320px) at 8% 90%, rgba(193, 102, 62, 0.07) 0%, transparent 100%);
+      background-size: auto, auto, 100% 100vh, 100% 100vh, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto;
+      background-position: 0 0;
+      background-repeat: no-repeat;
+    }
+  </style>
 
   <style>
     @keyframes pulseDot {
@@ -666,18 +696,20 @@ const c = copy[lang];
     window.initNetworkCluster = initNetworkCluster;
 
     initNetworkCluster('hero-network-full', '226, 134, 90', { alpha: 0.55, width: 1.6, dist: 440 });
+    initNetworkCluster('work-network', '226, 134, 90', { alpha: 0.5, width: 1.5, dist: 440 });
     initNetworkCluster('contact-network', '226, 134, 90', { alpha: 0.6, width: 1.5, dist: 440 });
     initNetworkCluster('footer-network', '226, 134, 90', { alpha: 0.6, width: 1.5, dist: 440 });
   </script>
 
   <!-- Projects Section (editorial zigzag, big media, no card boxes) -->
   <section id="work" style="position: relative; padding: 8rem 0 4rem; overflow: hidden;">
+    <canvas id="work-network" style="position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; opacity: 0.6;"></canvas>
 
     <div style="position: absolute; top: 5%; right: -8%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(193, 102, 62, 0.06) 0%, transparent 70%); pointer-events: none;"></div>
     <div style="position: absolute; bottom: 10%; left: -10%; width: 450px; height: 450px; background: radial-gradient(circle, rgba(47, 68, 54, 0.08) 0%, transparent 70%); pointer-events: none;"></div>
 
     <div style="max-width: 1200px; margin: 0 auto 3.5rem; padding: 0 2rem; position: relative; z-index: 1;">
-      <span class="eyebrow" style="color: #2f4436; display: block; margin-bottom: 0.6rem;">{c.workEyebrow}</span>
+      <span class="eyebrow" style="color: #e2865a; display: block; margin-bottom: 0.6rem;">{c.workEyebrow}</span>
       <div style="display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap;">
         <h2 class="work-heading" style="font-size: 42px; margin: 0; font-weight: 800; letter-spacing: -1.5px;">{c.workTitleA} <span class="text-gradient">{c.workTitleB}</span></h2>
         <span class="work-count" style="font-size: 14px; font-weight: 500;">{c.workCount}</span>
@@ -699,7 +731,7 @@ const c = copy[lang];
 
   <section id="modules" class="modules">
     <div class="modules-inner">
-      <span class="eyebrow" style="color: #2f4436; display: block; margin-bottom: 0.6rem;">{c.modEyebrow}</span>
+      <span class="eyebrow" style="color: #e2865a; display: block; margin-bottom: 0.6rem;">{c.modEyebrow}</span>
       <h2 class="modules-title">{c.modTitleA} <span class="text-gradient">{c.modTitleB}</span></h2>
       <p class="modules-intro">{c.modIntro}</p>
 
@@ -709,7 +741,11 @@ const c = copy[lang];
             <div class="module-feat-main">
               <div class="module-top">
                 <span class="module-num">01</span>
-                <span class="module-status">{c.mods[i].status}</span>
+                {m.demo ? (
+                  <a class="module-status module-status--demo" href={m.demo} target="_blank" rel="noopener" title={c.modDemoTitle}><span class="demo-dot" aria-hidden="true"></span>{c.mods[i].status} <i aria-hidden="true">↗</i></a>
+                ) : (
+                  <span class="module-status">{c.mods[i].status}</span>
+                )}
               </div>
               <h3>{c.mods[i].title}</h3>
               <p>{c.mods[i].text}</p>
@@ -734,7 +770,11 @@ const c = copy[lang];
           <article class="module-card">
             <div class="module-top">
               <span class="module-num">0{i + 1}</span>
-              <span class="module-status">{c.mods[i].status}</span>
+              {m.demo ? (
+                <a class="module-status module-status--demo" href={m.demo} target="_blank" rel="noopener" title={c.modDemoTitle}><span class="demo-dot" aria-hidden="true"></span>{c.mods[i].status} <i aria-hidden="true">↗</i></a>
+              ) : (
+                <span class="module-status">{c.mods[i].status}</span>
+              )}
             </div>
             <h3>{c.mods[i].title}</h3>
             <p>{c.mods[i].text}</p>
@@ -769,8 +809,9 @@ const c = copy[lang];
       letter-spacing: -2px;
       line-height: 1.02;
       margin: 0 0 1rem;
+      color: #ffffff;
     }
-    .modules-intro { max-width: 640px; font-size: 18px; line-height: 1.6; color: #444; margin: 0 0 3rem; }
+    .modules-intro { max-width: 640px; font-size: 18px; line-height: 1.6; color: #b8b8b8; margin: 0 0 3rem; }
     .module-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
     .module-card {
       position: relative;
@@ -780,9 +821,9 @@ const c = copy[lang];
       padding: 1.75rem;
       border-radius: 18px;
       color: #eee;
-      background: linear-gradient(160deg, #141414 0%, #1f1f1f 100%);
-      border: 1px solid rgba(193, 102, 62, 0.35);
-      box-shadow: 0 24px 50px -28px rgba(0, 0, 0, 0.6);
+      background: linear-gradient(160deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.07) 100%);
+      border: 1px solid rgba(226, 134, 90, 0.4);
+      box-shadow: 0 24px 50px -28px rgba(0, 0, 0, 0.7);
       overflow: hidden;
       transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     }
@@ -810,14 +851,40 @@ const c = copy[lang];
       border-radius: 100px;
       border: 1px solid rgba(255, 255, 255, 0.2);
     }
+    /* "Live demo" pill: a real link to the running app, pulsing so it reads as the thing to press */
+    .module-status--demo {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 6px 14px;
+      color: #fff;
+      font-weight: 700;
+      text-decoration: none;
+      background: linear-gradient(135deg, #c1663e, #e2865a);
+      border-color: transparent;
+      cursor: pointer;
+      animation: demoPulse 1.8s ease-out infinite;
+      transition: transform 0.2s, filter 0.2s;
+    }
+    .module-status--demo i { font-style: normal; font-size: 13px; line-height: 1; transition: transform 0.2s; }
+    .module-status--demo:hover { transform: translateY(-2px); filter: brightness(1.08); animation-play-state: paused; box-shadow: 0 0 0 4px rgba(226, 134, 90, 0.35); }
+    .module-status--demo:hover i { transform: translate(2px, -2px); }
+    .module-status--demo:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+    .demo-dot { width: 8px; height: 8px; border-radius: 50%; background: #fff; animation: demoBlink 1.2s ease-in-out infinite; }
+    @keyframes demoPulse {
+      0% { box-shadow: 0 0 0 0 rgba(226, 134, 90, 0.7); }
+      70%, 100% { box-shadow: 0 0 0 14px rgba(226, 134, 90, 0); }
+    }
+    @keyframes demoBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
+    @media (prefers-reduced-motion: reduce) { .module-status--demo, .demo-dot { animation: none; } }
     .module-card h3 { margin: 0; font-size: 22px; font-weight: 800; color: #fff; letter-spacing: -0.5px; }
-    .module-card p { margin: 0; font-size: 15px; line-height: 1.65; color: #b8b8b8; }
+    .module-card p { margin: 0; font-size: 15px; line-height: 1.65; color: #d0d0d0; }
     .module-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; }
     .module-stack span {
       font-size: 12px;
       padding: 4px 10px;
       border-radius: 6px;
-      background: rgba(255, 255, 255, 0.07);
+      background: rgba(255, 255, 255, 0.1);
       color: #ddd;
     }
     .module-links { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem; margin-top: auto; padding-top: 0.5rem; }
@@ -842,7 +909,7 @@ const c = copy[lang];
       gap: 2.5rem;
       padding: 2.5rem;
       border-color: rgba(226, 134, 90, 0.7);
-      background: linear-gradient(135deg, #141414 0%, #241812 100%);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.17) 0%, rgba(193, 102, 62, 0.26) 100%);
       box-shadow: 0 34px 70px -30px rgba(193, 102, 62, 0.6);
     }
     .module-card--featured::before { height: 4px; background: linear-gradient(90deg, #c1663e, #e2865a 60%, #f0c9a8); }
@@ -858,8 +925,8 @@ const c = copy[lang];
       gap: 0.85rem;
       padding: 0.7rem 1rem;
       border-radius: 12px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.14);
       font-size: 15px;
       font-weight: 600;
       color: #fff;
@@ -916,19 +983,13 @@ const c = copy[lang];
       font-style: normal;
     }
 
-    #work {
-      background:
-        radial-gradient(ellipse 120% 90% at 50% 0%, rgba(193, 102, 62, 0.1) 0%, transparent 60%),
-        #d8d8d8;
-    }
-
     .work-heading {
       font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      color: #0a0a0a;
+      color: #ffffff;
     }
 
     .work-count {
-      color: #666;
+      color: #a3a3a3;
     }
 
     .work-eyebrow {
@@ -950,9 +1011,7 @@ const c = copy[lang];
       width: 100%;
       cursor: pointer;
       touch-action: pan-y;
-      background:
-        radial-gradient(ellipse 90% 90% at 50% 50%, rgba(193, 102, 62, 0.1) 0%, transparent 60%),
-        #d8d8d8;
+      background: transparent;
     }
 
     [class^='mdw-curved-slider'] canvas {
@@ -978,7 +1037,7 @@ const c = copy[lang];
       font-size: 12px;
       font-weight: 600;
       letter-spacing: 0.5px;
-      color: #999;
+      color: #8a8a8a;
     }
 
     .work-carousel-hint .hint-mobile {
@@ -1255,7 +1314,7 @@ const c = copy[lang];
       <!-- Intro: label + heading + description + pills + network canvas -->
       <div class="services-intro">
         <div class="services-intro-text">
-          <span class="eyebrow" style="color: #0a0a0a;">{c.svcEyebrow}</span>
+          <span class="eyebrow" style="color: #e2865a;">{c.svcEyebrow}</span>
           <h2>{c.svcTitleA} <span class="text-gradient">{c.svcTitleB}</span></h2>
           <p>{c.svcIntro}</p>
           <div class="capability-pills">
@@ -1289,7 +1348,7 @@ const c = copy[lang];
 
     <!-- Tech stack carousel -->
     <div style="max-width: 1200px; margin: 5rem auto 0; padding: 0 2rem; position: relative; z-index: 1;">
-      <span style="display: block; font-size: 13px; color: #666; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 2rem;">{c.stackLabel}</span>
+      <span style="display: block; font-size: 13px; color: #9a9a9a; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 2rem;">{c.stackLabel}</span>
     </div>
 
     <div class="tech-marquee">
@@ -1323,7 +1382,7 @@ const c = copy[lang];
        system-font body text around it. */
     .text-gradient {
       font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: linear-gradient(100deg, #0a0a0a 0%, #2f4436 40%, #c1663e 75%, #8a8a8a 100%);
+      background: linear-gradient(100deg, #f0c9a8 0%, #e2865a 55%, #c1663e 100%);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
@@ -1343,13 +1402,13 @@ const c = copy[lang];
       margin: 0.75rem 0 1.25rem 0;
       font-weight: 800;
       letter-spacing: -1.5px;
-      color: #0a0a0a;
+      color: #ffffff;
       line-height: 1.1;
     }
 
     .services-intro-text p {
       font-size: 16px;
-      color: #555;
+      color: #b8b8b8;
       line-height: 1.7;
       margin: 0 0 2rem 0;
       max-width: 460px;
@@ -1367,22 +1426,22 @@ const c = copy[lang];
       gap: 0.5rem;
       font-size: 13px;
       font-weight: 500;
-      color: #333;
-      background: #ffffff;
-      border: 1px solid rgba(0, 0, 0, 0.1);
+      color: #e6e6e6;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.16);
       padding: 0.55rem 1.1rem;
       border-radius: 100px;
       transition: border-color 0.3s, transform 0.3s, background 0.3s;
     }
 
     .capability-pills span svg {
-      color: #0a0a0a;
+      color: #e2865a;
       flex-shrink: 0;
     }
 
     .capability-pills span:hover {
-      border-color: #0a0a0a;
-      background: #f5f5f5;
+      border-color: #e2865a;
+      background: rgba(255, 255, 255, 0.13);
       transform: translateY(-2px);
     }
 
@@ -1406,7 +1465,7 @@ const c = copy[lang];
     }
 
     .service-card {
-      background: #ffffff;
+      background: linear-gradient(160deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.07) 100%);
       border: 1.5px solid rgba(193, 102, 62, 0.65);
       border-radius: 18px;
       padding: 2rem;
@@ -1416,19 +1475,19 @@ const c = copy[lang];
     .service-card:hover {
       transform: translateY(-6px);
       border-color: rgba(193, 102, 62, 0.85);
-      box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.25), 0 0 14px -4px rgba(193, 102, 62, 0.3);
+      box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.6), 0 0 18px -4px rgba(193, 102, 62, 0.4);
     }
 
     .service-card-icon {
       width: 56px;
       height: 56px;
       border-radius: 14px;
-      background: #eeeeee;
+      background: rgba(255, 255, 255, 0.08);
       border: 1.5px solid rgba(193, 102, 62, 0.7);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #0a0a0a;
+      color: #e2865a;
       margin-bottom: 1.5rem;
     }
 
@@ -1436,13 +1495,13 @@ const c = copy[lang];
       margin: 0 0 0.75rem 0;
       font-size: 20px;
       font-weight: 700;
-      color: #0a0a0a;
+      color: #ffffff;
     }
 
     .service-card > p {
       margin: 0 0 1.5rem 0;
       font-size: 14px;
-      color: #555;
+      color: #c4c4c4;
       line-height: 1.65;
     }
 
@@ -1455,7 +1514,7 @@ const c = copy[lang];
 
     .service-checklist span {
       font-size: 12.5px;
-      color: #666;
+      color: #a8a8a8;
     }
 
     .service-learn-more {
@@ -1464,7 +1523,7 @@ const c = copy[lang];
       gap: 0.4rem;
       font-size: 14px;
       font-weight: 600;
-      color: #0a0a0a;
+      color: #e2865a;
       text-decoration: none;
       transition: gap 0.3s;
     }
@@ -1525,7 +1584,7 @@ const c = copy[lang];
       width: 72px;
       height: 72px;
       border-radius: 18px;
-      background: #ffffff;
+      background: rgba(255, 255, 255, 0.08);
       border: 1.5px solid rgba(193, 102, 62, 0.6);
       display: flex;
       align-items: center;
@@ -1542,13 +1601,13 @@ const c = copy[lang];
     .tech-icon-box svg {
       width: 32px;
       height: 32px;
-      color: var(--tech-accent, #0a0a0a);
+      color: #e8e8e8;
       transition: color 0.35s;
     }
 
     .tech-chip span {
       font-size: 11px;
-      color: #666;
+      color: #9a9a9a;
       font-weight: 500;
       text-align: center;
       white-space: nowrap;
@@ -1556,15 +1615,15 @@ const c = copy[lang];
     }
 
     .tech-chip:hover span {
-      color: #0a0a0a;
+      color: #ffffff;
     }
   </style>
 
   <!-- Team -->
   <section id="team" style="position: relative; padding: 8rem 2rem; background: transparent; overflow: hidden;">
     <div style="max-width: 1200px; margin: 0 auto; position: relative; z-index: 1;">
-      <h2 style="font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 42px; margin: 0 0 1rem 0; font-weight: 800; letter-spacing: -1.5px; color: #0a0a0a;">{c.teamTitleA} <span class="text-gradient">{c.teamTitleB}</span></h2>
-      <p style="font-size: 15px; color: #666; margin: 0 0 3.5rem 0; max-width: 560px;">{c.teamLead}</p>
+      <h2 style="font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 42px; margin: 0 0 1rem 0; font-weight: 800; letter-spacing: -1.5px; color: #ffffff;">{c.teamTitleA} <span class="text-gradient">{c.teamTitleB}</span></h2>
+      <p style="font-size: 15px; color: #b8b8b8; margin: 0 0 3.5rem 0; max-width: 560px;">{c.teamLead}</p>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.75rem;">
 
         {c.roles.map((role, i) => (
@@ -1586,8 +1645,8 @@ const c = copy[lang];
       text-align: left;
       padding: 2.25rem 1.75rem 2rem;
       border-radius: 18px;
-      border: 1px solid rgba(0, 0, 0, 0.08);
-      background: linear-gradient(160deg, rgba(255, 255, 255, 0.6) 0%, rgba(0, 0, 0, 0.02) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: linear-gradient(160deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.06) 100%);
       overflow: hidden;
       transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.35s, box-shadow 0.35s;
     }
@@ -1607,7 +1666,7 @@ const c = copy[lang];
     .team-member:hover {
       transform: translateY(-8px);
       border-color: rgba(193, 102, 62, 0.55);
-      box-shadow: 0 24px 50px -20px rgba(0, 0, 0, 0.22);
+      box-shadow: 0 24px 50px -20px rgba(0, 0, 0, 0.6);
     }
 
     .team-member:hover::before {
@@ -1636,7 +1695,8 @@ const c = copy[lang];
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #0a0a0a;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(226, 134, 90, 0.4);
       color: #e2865a;
       box-shadow: 0 10px 24px -10px rgba(0, 0, 0, 0.35);
       transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s;
@@ -1652,12 +1712,12 @@ const c = copy[lang];
       margin: 0 0 0.6rem 0;
       font-weight: 700;
       letter-spacing: -0.3px;
-      color: #0a0a0a;
+      color: #ffffff;
     }
 
     .team-member p {
       font-size: 14px;
-      color: #666;
+      color: #b8b8b8;
       margin: 0;
       line-height: 1.65;
     }
