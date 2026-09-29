@@ -55,11 +55,12 @@ const carouselItems = [
   { slug: 'savora', img: '/images/savora-hero.jpg' },
   { slug: 'watchit', img: '/images/watchit-hero.jpg' },
 ];
-const pillIcons = ['code', 'mobile', 'cloud', 'design', 'plug', 'zap'];
+const pillIcons = ['code', 'mobile', 'cloud', 'design', 'sparkles', 'plug', 'zap'];
 const serviceCards = [
   { icon: 'code', accent: '#c1663e' },
   { icon: 'mobile', accent: '#2f4436' },
   { icon: 'globe', accent: '#a4522f' },
+  { icon: 'sparkles', accent: '#e2865a' },
 ];
 const roleIcons = ['laptop', 'design', 'rocket'];
 const moduleCards = [
@@ -108,11 +109,12 @@ const copy = {
     ],
     svcEyebrow: 'What we do', svcTitleA: 'Capabilities &', svcTitleB: 'Services',
     svcIntro: "We're a small full-stack team that ships complete products — from the first line of code to the app store and production servers.",
-    pills: ['Full-Stack Dev', 'React Native', 'Cloud & DevOps', 'UI/UX Design', 'API Integration', 'Performance'],
+    pills: ['Full-Stack Dev', 'React Native', 'Cloud & DevOps', 'UI/UX Design', 'Brand & Logo Design', 'API Integration', 'Performance'],
     cards: [
       { title: 'Full-Stack Development', text: 'End-to-end product development — frontend, backend, database and deployment, all handled by the same team.', checks: ['React & React Native', 'Node.js & NestJS', 'PostgreSQL Databases', 'Cloud Deployment'] },
       { title: 'React Native Apps', text: 'iOS and Android from a single codebase, built on the Expo managed workflow through to app store release.', checks: ['Expo Managed Workflow', 'Push Notifications', 'App Store Deployment', 'Native Performance'] },
       { title: 'Web Platforms', text: 'Modern, fast web applications built with a performance-first mindset — every page tuned to load instantly.', checks: ['Next.js & Astro', 'TypeScript', 'Lighthouse 95+', 'SEO Optimized'] },
+      { title: 'Brand & Logo Design', text: 'A logo and visual identity that actually fits the site we build around it — designed by the same team, not handed off to someone else.', checks: ['Logo Design', 'Brand Guidelines', 'Color & Typography', 'Social Media Kit'] },
     ],
     learnMore: 'Learn More', stackLabel: 'Our stack',
     teamTitleA: 'One person,', teamTitleB: 'three disciplines', teamLead: 'Every step handled start to finish — from first commit to production deploy.',
@@ -125,7 +127,7 @@ const copy = {
     contactEyebrow: 'Get in touch', contactTitle: 'Ready to ship?',
     contactLead: "Tell us about your project and we'll get back to you within 1–2 business days.",
     fName: 'Name', fNamePh: 'Your name', fEmail: 'Email', fEmailPh: 'you@company.com', fService: 'What do you need?',
-    serviceOptions: ['Full-Stack Development', 'React Native App', 'Web Platform', 'Something else'],
+    serviceOptions: ['Full-Stack Development', 'React Native App', 'Web Platform', 'Brand & Logo Design', 'Something else'],
     fMessage: 'Message', fMessagePh: "Tell us a bit about your project — timeline, budget range, what you're trying to build.",
     send: 'Send message', note: "We'll get back to you within 1–2 business days.",
     okTitle: 'Message sent', okText: "Thanks for reaching out — your inquiry landed straight in our inbox. We'll get back to you within 1–2 business days.",
@@ -175,11 +177,12 @@ const copy = {
     ],
     svcEyebrow: 'Was wir tun', svcTitleA: 'Kompetenzen &', svcTitleB: 'Leistungen',
     svcIntro: 'Wir sind ein kleines Full-Stack-Team, das komplette Produkte liefert — von der ersten Codezeile bis zum App Store und zu den Produktionsservern.',
-    pills: ['Full-Stack-Entwicklung', 'React Native', 'Cloud & DevOps', 'UI/UX-Design', 'API-Integration', 'Performance'],
+    pills: ['Full-Stack-Entwicklung', 'React Native', 'Cloud & DevOps', 'UI/UX-Design', 'Logo & Markendesign', 'API-Integration', 'Performance'],
     cards: [
       { title: 'Full-Stack-Entwicklung', text: 'Produktentwicklung aus einer Hand — Frontend, Backend, Datenbank und Deployment, alles vom selben Team.', checks: ['React & React Native', 'Node.js & NestJS', 'PostgreSQL-Datenbanken', 'Cloud-Deployment'] },
       { title: 'React-Native-Apps', text: 'iOS und Android aus einer einzigen Codebasis, auf Basis des Expo Managed Workflow bis zur Veröffentlichung im App Store.', checks: ['Expo Managed Workflow', 'Push-Benachrichtigungen', 'App-Store-Veröffentlichung', 'Native Performance'] },
       { title: 'Web-Plattformen', text: 'Moderne, schnelle Webanwendungen mit Performance als oberster Priorität — jede Seite auf sofortiges Laden getrimmt.', checks: ['Next.js & Astro', 'TypeScript', 'Lighthouse 95+', 'SEO-optimiert'] },
+      { title: 'Logo & Markendesign', text: 'Ein Logo und eine visuelle Identität, die wirklich zur Website passt, die wir drumherum bauen — vom selben Team gestaltet, nicht ausgelagert.', checks: ['Logo-Design', 'Markenrichtlinien', 'Farben & Typografie', 'Social-Media-Kit'] },
     ],
     learnMore: 'Mehr erfahren', stackLabel: 'Unser Stack',
     teamTitleA: 'Eine Person,', teamTitleB: 'drei Disziplinen', teamLead: 'Jeder Schritt aus einer Hand — vom ersten Commit bis zum Produktiv-Deployment.',
@@ -192,7 +195,7 @@ const copy = {
     contactEyebrow: 'Kontakt', contactTitle: 'Bereit für den Livegang?',
     contactLead: 'Erzähl uns von deinem Projekt — wir melden uns innerhalb von 1–2 Werktagen bei dir.',
     fName: 'Name', fNamePh: 'Dein Name', fEmail: 'E-Mail', fEmailPh: 'name@firma.at', fService: 'Was brauchst du?',
-    serviceOptions: ['Full-Stack-Entwicklung', 'React-Native-App', 'Web-Plattform', 'Etwas anderes'],
+    serviceOptions: ['Full-Stack-Entwicklung', 'React-Native-App', 'Web-Plattform', 'Logo & Markendesign', 'Etwas anderes'],
     fMessage: 'Nachricht', fMessagePh: 'Erzähl uns kurz von deinem Projekt — Zeitrahmen, Budgetrahmen und was du umsetzen möchtest.',
     send: 'Nachricht senden', note: 'Wir melden uns innerhalb von 1–2 Werktagen bei dir.',
     okTitle: 'Nachricht gesendet', okText: 'Danke für deine Nachricht — sie ist direkt in unserem Posteingang gelandet. Wir melden uns innerhalb von 1–2 Werktagen bei dir.',

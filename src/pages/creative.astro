@@ -12,6 +12,8 @@ const lineIcons: Record<string, string> = {
   design: '<path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z" /><circle cx="13.5" cy="6.5" r=".5" fill="currentColor" /><circle cx="17.5" cy="10.5" r=".5" fill="currentColor" /><circle cx="6.5" cy="12.5" r=".5" fill="currentColor" /><circle cx="8.5" cy="7.5" r=".5" fill="currentColor" />',
   camera: '<path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" /><circle cx="12" cy="13" r="3" />',
   globe: '<circle cx="12" cy="12" r="10" /><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" /><path d="M2 12h20" />',
+  share: '<circle cx="18" cy="5" r="3" /><circle cx="6" cy="12" r="3" /><circle cx="18" cy="19" r="3" /><path d="m8.59 13.51 6.83 3.98" /><path d="m15.41 6.51-6.82 3.98" />',
+  pin: '<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" />',
 };
 
 function lineIcon(name: string, size = 32, strokeWidth = 1.6) {
@@ -78,11 +80,16 @@ const copy = {
     journalTag: 'Journal · Part 01', journalCardTitle: 'Australia',
     journalCardText: 'Months on the other side of the world — a city on the river, rainforest at the edge of it, and the work in between.',
     journalAll: 'Read the whole journal →',
-    servicesEyebrow: 'What we do', servicesTitle: 'Two ways we help',
+    servicesEyebrow: 'What we do', servicesTitle: 'Three ways we help',
     s1Kicker: '01 — Where most people start', s1Title: 'Content & Storytelling',
     s1Text: 'Photography, drone footage and short-form video that actually shows what makes your place worth visiting. We shoot it, edit it, and help you tell the story on social — no website required to get started.',
-    s2Kicker: "02 — When you're ready to grow", s2Title: 'Web & Booking',
-    s2Text: 'Once content is working, we build the site behind it — a real online presence, and a booking system if you need one. Same team, same story, just the next step.',
+    s1Location: 'Austria only — shot in person',
+    s2Kicker: '02 — Wherever your business is', s2Title: 'Social Media & Community Management',
+    s2Text: 'We run your accounts day to day — posting, replying, keeping the page alive between visits — so your place stays present without you having to think about it.',
+    s2Location: 'Available worldwide — fully remote',
+    s3Kicker: "03 — When you're ready to grow", s3Title: 'Web & Booking',
+    s3Text: 'Once content is working, we build the site behind it — a real online presence, and a booking system if you need one. Same team, same story, just the next step.',
+    s3Location: 'Available worldwide — fully remote',
     teamEyebrow: 'Who I am', teamTitle: 'One person, three disciplines',
     teamLead: 'Every step handled start to finish — from the first photo to production deploy.',
     t1Title: 'Content & Storytelling', t1Text: 'Photography, drone video and social storytelling for small local businesses.',
@@ -91,7 +98,8 @@ const copy = {
     contactEyebrow: 'Get in touch', contactTitle: "Let's tell your story.",
     contactLead: "Tell us a bit about your business and we'll get back to you within 1–2 business days.",
     fName: 'Name', fNamePh: 'Your name', fEmail: 'Email', fEmailPh: 'you@business.com',
-    fService: 'What do you need?', optContent: 'Content & Storytelling', optWeb: 'Web & Booking', optOther: 'Something else',
+    fService: 'What do you need?', optContent: 'Content & Storytelling', optSocial: 'Social Media & Community Management', optWeb: 'Web & Booking', optOther: 'Something else',
+    fLocation: 'Where are you based?', fLocationPh: 'Country or city',
     fMessage: 'Message', fMessagePh: "Tell us a bit about your business and what you're looking for.",
     send: 'Send message', sending: 'Sending…',
     okMsg: "Thanks — we'll get back to you soon.", errMsg: 'Something went wrong. Please email us directly instead.',
@@ -126,11 +134,16 @@ const copy = {
     journalTag: 'Journal · Teil 01', journalCardTitle: 'Australien',
     journalCardText: 'Monate am anderen Ende der Welt — eine Stadt am Fluss, Regenwald an ihrem Rand und die Arbeit dazwischen.',
     journalAll: 'Das ganze Journal lesen →',
-    servicesEyebrow: 'Was wir tun', servicesTitle: 'Zwei Wege, wie wir helfen',
+    servicesEyebrow: 'Was wir tun', servicesTitle: 'Drei Wege, wie wir helfen',
     s1Kicker: '01 — Hier beginnen die meisten', s1Title: 'Content & Storytelling',
     s1Text: 'Fotografie, Drohnenaufnahmen und Kurzvideos, die wirklich zeigen, was deinen Ort besuchenswert macht. Wir drehen, schneiden und helfen dir, die Geschichte auf Social Media zu erzählen — zum Start brauchst du noch keine Website.',
-    s2Kicker: '02 — Wenn du wachsen möchtest', s2Title: 'Web & Buchung',
-    s2Text: 'Sobald der Content funktioniert, bauen wir die Website dahinter — einen echten Online-Auftritt und, wenn nötig, ein Buchungssystem. Gleiches Team, gleiche Geschichte, nur der nächste Schritt.',
+    s1Location: 'Nur Österreich — vor Ort gedreht',
+    s2Kicker: '02 — Egal, wo dein Betrieb ist', s2Title: 'Social Media & Community Management',
+    s2Text: 'Wir betreuen deine Kanäle im Alltag — posten, antworten, die Seite zwischen den Besuchen lebendig halten — damit dein Ort präsent bleibt, ohne dass du daran denken musst.',
+    s2Location: 'Weltweit verfügbar — komplett remote',
+    s3Kicker: '03 — Wenn du wachsen möchtest', s3Title: 'Web & Buchung',
+    s3Text: 'Sobald der Content funktioniert, bauen wir die Website dahinter — einen echten Online-Auftritt und, wenn nötig, ein Buchungssystem. Gleiches Team, gleiche Geschichte, nur der nächste Schritt.',
+    s3Location: 'Weltweit verfügbar — komplett remote',
     teamEyebrow: 'Wer ich bin', teamTitle: 'Eine Person, drei Disziplinen',
     teamLead: 'Jeder Schritt aus einer Hand — vom ersten Foto bis zum Livegang.',
     t1Title: 'Content & Storytelling', t1Text: 'Fotografie, Drohnenvideo und Social-Storytelling für kleine lokale Betriebe.',
@@ -139,7 +152,8 @@ const copy = {
     contactEyebrow: 'Kontakt', contactTitle: 'Erzählen wir deine Geschichte.',
     contactLead: 'Erzähl uns kurz von deinem Betrieb, wir melden uns innerhalb von 1–2 Werktagen.',
     fName: 'Name', fNamePh: 'Dein Name', fEmail: 'E-Mail', fEmailPh: 'name@betrieb.at',
-    fService: 'Was brauchst du?', optContent: 'Content & Storytelling', optWeb: 'Web & Buchung', optOther: 'Etwas anderes',
+    fService: 'Was brauchst du?', optContent: 'Content & Storytelling', optSocial: 'Social Media & Community Management', optWeb: 'Web & Buchung', optOther: 'Etwas anderes',
+    fLocation: 'Wo bist du?', fLocationPh: 'Land oder Stadt',
     fMessage: 'Nachricht', fMessagePh: 'Erzähl uns kurz von deinem Betrieb und was du suchst.',
     send: 'Nachricht senden', sending: 'Wird gesendet…',
     okMsg: 'Danke — wir melden uns bald bei dir.', errMsg: 'Etwas ist schiefgelaufen. Schreib uns stattdessen direkt eine E-Mail.',
@@ -302,13 +316,23 @@ const c = copy[lang];
           <span class="service-kicker">{c.s1Kicker}</span>
           <h3>{c.s1Title}</h3>
           <p>{c.s1Text}</p>
+          <span class="service-location service-location--local"><Fragment set:html={lineIcon('pin', 14, 2)} />{c.s1Location}</span>
+        </div>
+
+        <div class="service-block">
+          <div class="service-icon" set:html={lineIcon('share', 34)} />
+          <span class="service-kicker">{c.s2Kicker}</span>
+          <h3>{c.s2Title}</h3>
+          <p>{c.s2Text}</p>
+          <span class="service-location"><Fragment set:html={lineIcon('globe', 14, 2)} />{c.s2Location}</span>
         </div>
 
         <div class="service-block">
           <div class="service-icon" set:html={lineIcon('globe', 34)} />
-          <span class="service-kicker">{c.s2Kicker}</span>
-          <h3>{c.s2Title}</h3>
-          <p>{c.s2Text}</p>
+          <span class="service-kicker">{c.s3Kicker}</span>
+          <h3>{c.s3Title}</h3>
+          <p>{c.s3Text}</p>
+          <span class="service-location"><Fragment set:html={lineIcon('globe', 14, 2)} />{c.s3Location}</span>
         </div>
       </div>
     </div>
@@ -367,13 +391,20 @@ const c = copy[lang];
           </div>
         </div>
 
-        <div class="cf-field">
-          <label for="cf-service">{c.fService}</label>
-          <select id="cf-service" name="service">
-            <option>{c.optContent}</option>
-            <option>{c.optWeb}</option>
-            <option>{c.optOther}</option>
-          </select>
+        <div class="cf-row">
+          <div class="cf-field">
+            <label for="cf-service">{c.fService}</label>
+            <select id="cf-service" name="service">
+              <option>{c.optContent}</option>
+              <option>{c.optSocial}</option>
+              <option>{c.optWeb}</option>
+              <option>{c.optOther}</option>
+            </select>
+          </div>
+          <div class="cf-field">
+            <label for="cf-location">{c.fLocation}</label>
+            <input type="text" id="cf-location" name="location" required placeholder={c.fLocationPh} />
+          </div>
         </div>
 
         <div class="cf-field">
@@ -774,9 +805,12 @@ const c = copy[lang];
     .services-section .section-lead { color: #fff; }
     .services-section .section-lead { color: rgba(255,255,255,0.75); }
 
-    .services-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 2rem; }
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem; }
 
     .service-block {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
       background: rgba(255,255,255,0.05);
       border: 1px solid rgba(255,255,255,0.12);
       border-radius: 6px;
@@ -789,7 +823,19 @@ const c = copy[lang];
     .service-kicker { display: block; font-size: 12px; font-weight: 600; letter-spacing: 0.5px; color: rgba(255,255,255,0.55); margin-bottom: 0.75rem; text-transform: uppercase; }
 
     .service-block h3 { font-family: 'Fraunces', serif; font-size: 28px; font-weight: 600; color: #fff; margin: 0 0 1rem; }
-    .service-block p { font-size: 15px; color: rgba(255,255,255,0.78); line-height: 1.7; margin: 0; }
+    .service-block p { font-size: 15px; color: rgba(255,255,255,0.78); line-height: 1.7; margin: 0 0 1.25rem; }
+    .service-location {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.3px;
+      color: #a8d9b8;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 100px;
+      padding: 0.4rem 0.85rem;
+      margin-top: auto;
+    }
+    .service-location svg { flex-shrink: 0; }
+    .service-location--local { color: #f0c9a8; }
 
     /* ---------- TEAM ---------- */
     .team-section { background: var(--cream); }
