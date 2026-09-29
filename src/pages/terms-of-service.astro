@@ -4,19 +4,22 @@ import type { Lang } from '../i18n';
 
 const { lang = 'en' } = Astro.props as { lang?: Lang };
 const de = lang === 'de';
-const lastUpdated = de ? '21. September 2026' : 'September 21, 2026';
+const es = lang === 'es';
+const lastUpdated = de ? '21. September 2026' : es ? '21 de septiembre de 2026' : 'September 21, 2026';
+const title = de ? 'Nutzungsbedingungen — Dual-Stack Studio' : es ? 'Términos de Servicio — Dual-Stack Studio' : 'Terms of Service — Dual-Stack Studio';
+const description = de
+  ? 'Die Bedingungen für die Nutzung der Website von Dual-Stack Studio und für Projektaufträge.'
+  : es
+  ? 'Los términos que rigen el uso del sitio web de Dual-Stack Studio y la contratación de proyectos.'
+  : 'The terms that govern use of the Dual-Stack Studio website and engagement for project work.';
 ---
 
-<LegalLayout
-  lang={lang}
-  title={de ? 'Nutzungsbedingungen — Dual-Stack Studio' : 'Terms of Service — Dual-Stack Studio'}
-  description={de ? 'Die Bedingungen für die Nutzung der Website von Dual-Stack Studio und für Projektaufträge.' : 'The terms that govern use of the Dual-Stack Studio website and engagement for project work.'}
->
-  <span class="legal-eyebrow">{de ? 'Rechtliches' : 'Legal'}</span>
-  <h1>{de ? 'Nutzungsbedingungen' : 'Terms of Service'}</h1>
-  <p class="legal-updated">{de ? 'Zuletzt aktualisiert' : 'Last updated'}: {lastUpdated}</p>
+<LegalLayout lang={lang} langs={['en', 'de', 'es']} title={title} description={description}>
+  <span class="legal-eyebrow">Legal</span>
+  <h1>{de ? 'Nutzungsbedingungen' : es ? 'Términos de Servicio' : 'Terms of Service'}</h1>
+  <p class="legal-updated">{de ? 'Zuletzt aktualisiert' : es ? 'Última actualización' : 'Last updated'}: {lastUpdated}</p>
 
-  {!de && (
+  {lang === 'en' && (
     <>
       <p>
         These terms govern your use of this website. Dual-Stack Studio is the working name of an
@@ -182,6 +185,93 @@ const lastUpdated = de ? '21. September 2026' : 'September 21, 2026';
         Dieses Dokument ist allgemeiner Mustertext für ein kleines unabhängiges Studio und wurde nicht von einem
         Anwalt geprüft. Es ersetzt keine Rechtsberatung — für alles Projektspezifische gilt Ihre
         unterzeichnete Vereinbarung.
+      </p>
+    </>
+  )}
+
+  {es && (
+    <>
+      <p>
+        Estos términos rigen el uso que hagas de este sitio web. Dual-Stack Studio es el nombre
+        comercial de un estudio independiente, operado por una sola persona (desarrollo web, marketing
+        y fotografía), a cargo de Sebastian Rodriguez, empresario unipersonal con base en Haag, Austria
+        — no es una entidad jurídica registrada por separado. Al navegar este sitio, aceptás los
+        términos que siguen. Si no estás de acuerdo, por favor no uses el sitio.
+      </p>
+
+      <h2>1. Sobre este sitio</h2>
+      <p>
+        Este sitio web es un portfolio y un canal de consultas comerciales. Describe los servicios
+        ofrecidos y muestra trabajos de proyectos anteriores. Nada en este sitio constituye una oferta
+        vinculante ni un contrato — cualquier contratación real de un proyecto se acuerda por separado,
+        por escrito, una vez que se hayan discutido directamente el alcance, el cronograma y el precio.
+      </p>
+
+      <h2>2. Trabajo de proyectos y contrataciones</h2>
+      <p>
+        El trabajo freelance o por contrato mencionado o solicitado a través de este sitio (por correo
+        electrónico) se rige por un acuerdo separado entre vos y Sebastian Rodriguez / Dual-Stack
+        Studio, no únicamente por estos términos del sitio web. Ese acuerdo cubrirá el alcance, los
+        entregables, el cronograma, el pago y la propiedad intelectual específica de tu proyecto.
+      </p>
+
+      <h2>3. Propiedad intelectual</h2>
+      <p>
+        El diseño, el código y el contenido escrito de este sitio web pertenecen a Dual-Stack Studio a
+        menos que se indique lo contrario, y no pueden copiarse ni reutilizarse sin permiso. Los casos
+        de estudio de proyectos describen trabajo real de clientes; los nombres, logos y marcas de
+        clientes mencionados pertenecen a sus respectivos dueños y se usan aquí con fines de portfolio,
+        bajo el entendimiento de que se trata de una representación precisa y no engañosa del trabajo
+        realizado.
+      </p>
+
+      <h2>4. Exactitud de la información</h2>
+      <p>
+        Se toma un cuidado razonable para mantener las descripciones de proyectos, las tecnologías
+        utilizadas y los resultados precisos y actualizados. Los enlaces a demos en vivo y los servicios
+        de terceros mencionados en este sitio están fuera de nuestro control y pueden cambiar o dejar
+        de estar disponibles sin previo aviso.
+      </p>
+
+      <h2>5. Sin garantía sobre la disponibilidad del sitio</h2>
+      <p>
+        Este sitio se ofrece "tal cual". Si bien buscamos mantenerlo disponible y funcionando
+        correctamente, no garantizamos acceso ininterrumpido, y no somos responsables por caídas,
+        pérdida de datos o problemas derivados del uso que hagas del sitio.
+      </p>
+
+      <h2>6. Limitación de responsabilidad</h2>
+      <p>
+        En la medida permitida por la ley, Dual-Stack Studio / Sebastian Rodriguez no es responsable por
+        daños indirectos, incidentales o consecuentes derivados del uso de este sitio web. Esta
+        limitación no aplica a los acuerdos de proyecto firmados por separado, que se rigen por sus
+        propios términos.
+      </p>
+
+      <h2>7. Enlaces externos</h2>
+      <p>
+        Este sitio enlaza a proyectos de clientes en producción y plataformas de terceros (por ejemplo,
+        proveedores de hosting, pago o reservas usados por esos proyectos). No somos responsables por el
+        contenido, la disponibilidad ni las prácticas de sitios externos.
+      </p>
+
+      <h2>8. Cambios a estos términos</h2>
+      <p>
+        Estos términos pueden actualizarse a medida que el sitio o los servicios cambien. La fecha de
+        "última actualización" de arriba refleja la revisión más reciente. Seguir usando el sitio
+        después de un cambio significa que aceptás los términos actualizados.
+      </p>
+
+      <h2>9. Contacto</h2>
+      <p>
+        Las preguntas sobre estos términos pueden enviarse a
+        <a href="mailto:hello@dualstackstudio.com">hello@dualstackstudio.com</a>.
+      </p>
+
+      <p class="legal-disclaimer">
+        Este documento es un modelo general para una pequeña práctica independiente y no fue revisado
+        por un abogado. No sustituye el asesoramiento legal — para cualquier cuestión específica de un
+        proyecto, remitite a tu acuerdo firmado.
       </p>
     </>
   )}

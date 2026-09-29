@@ -8,19 +8,24 @@ interface Props {
   title: string;
   description?: string;
   lang?: Lang;
+  langs?: Lang[];
 }
 
-const { title, description, lang = 'en' } = Astro.props;
-const de = lang === 'de';
+const { title, description, lang = 'en', langs = ['en', 'de'] } = Astro.props;
+const t = {
+  en: { back: '← Back to site', rights: '© 2026 Dual-Stack Studio. Independently operated.', privacy: 'Privacy Policy', terms: 'Terms of Service' },
+  de: { back: '← Zurück zur Website', rights: '© 2026 Dual-Stack Studio. Unabhängig betrieben.', privacy: 'Datenschutzerklärung', terms: 'Nutzungsbedingungen' },
+  es: { back: '← Volver al sitio', rights: '© 2026 Dual-Stack Studio. Operado de forma independiente.', privacy: 'Política de Privacidad', terms: 'Términos de Servicio' },
+}[lang];
 ---
 
-<Layout title={title} description={description} lang={lang}>
+<Layout title={title} description={description} lang={lang} langs={langs}>
   <div class="legal-page">
     <header class="legal-header">
       <a href={l(lang, '/')} class="legal-logo"><img src="/logo.svg" alt="" width="24" height="24" style="border-radius: 6px;" /> Dual-Stack Studio</a>
       <span class="legal-header-right">
-        <LangSwitch lang={lang} />
-        <a href={l(lang, '/')} class="legal-back">{de ? '← Zurück zur Website' : '← Back to site'}</a>
+        <LangSwitch lang={lang} langs={langs} />
+        <a href={l(lang, '/')} class="legal-back">{t.back}</a>
       </span>
     </header>
 
@@ -29,10 +34,10 @@ const de = lang === 'de';
     </main>
 
     <footer class="legal-footer">
-      <p>{de ? '© 2026 Dual-Stack Studio. Unabhängig betrieben.' : '© 2026 Dual-Stack Studio. Independently operated.'}</p>
+      <p>{t.rights}</p>
       <div>
-        <a href={l(lang, '/privacy-policy')}>{de ? 'Datenschutzerklärung' : 'Privacy Policy'}</a>
-        <a href={l(lang, '/terms-of-service')}>{de ? 'Nutzungsbedingungen' : 'Terms of Service'}</a>
+        <a href={l(lang, '/privacy-policy')}>{t.privacy}</a>
+        <a href={l(lang, '/terms-of-service')}>{t.terms}</a>
         <a href={l(lang, '/impressum')}>Impressum</a>
       </div>
     </footer>

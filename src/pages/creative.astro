@@ -487,7 +487,7 @@ const lOut: Lang = lang === 'es' ? 'en' : lang;
           <h4>{c.builtTitle}</h4>
           <p class="footer-note-text">{c.builtText}</p>
           <h4>{c.licencesTitle}</h4>
-          <p class="footer-note-text">Werbeagentur (GISA 40150451) · Berufsfotograf (GISA 40150383)<br />Sebastian Rodriguez, Haag. <a href={l(lOut, '/impressum')}>Impressum</a></p>
+          <p class="footer-note-text">Werbeagentur (GISA 40150451) · Berufsfotograf (GISA 40150383)<br />Sebastian Rodriguez, Haag. <a href={l(lang, '/impressum')}>Impressum</a></p>
         </div>
 
         <div class="footer-col">
@@ -502,9 +502,9 @@ const lOut: Lang = lang === 'es' ? 'en' : lang;
 
         <div class="footer-col">
           <h4>{c.footLegalTitle}</h4>
-          <a href={l(lOut, '/privacy-policy')}>{c.privacy}</a>
-          <a href={l(lOut, '/terms-of-service')}>{c.terms}</a>
-          <a href={l(lOut, '/impressum')}>Impressum</a>
+          <a href={l(lang, '/privacy-policy')}>{c.privacy}</a>
+          <a href={l(lang, '/terms-of-service')}>{c.terms}</a>
+          <a href={l(lang, '/impressum')}>Impressum</a>
         </div>
 
         <div class="footer-col">

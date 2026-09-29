@@ -4,20 +4,27 @@ import type { Lang } from '../i18n';
 
 const { lang = 'en' } = Astro.props as { lang?: Lang };
 const de = lang === 'de';
-const lastUpdated = de ? '21. September 2026' : 'September 21, 2026';
+const es = lang === 'es';
+const lastUpdated = de ? '21. September 2026' : es ? '21 de septiembre de 2026' : 'September 21, 2026';
 const RIS = 'https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=10007517';
+const description = de
+  ? 'Rechtliche Hinweise und Pflichtangaben für Dual-Stack Studio (Impressum, § 5 ECG, § 63 GewO, § 25 MedienG).'
+  : es
+  ? 'Aviso legal y datos obligatorios de Dual-Stack Studio (Impressum, § 5 ECG, § 63 GewO, § 25 MedienG).'
+  : 'Legal notice and mandatory disclosures for Dual-Stack Studio (Impressum, § 5 ECG, § 63 GewO, § 25 MedienG).';
 ---
 
 <LegalLayout
   lang={lang}
+  langs={['en', 'de', 'es']}
   title="Impressum — Dual-Stack Studio"
-  description={de ? 'Rechtliche Hinweise und Pflichtangaben für Dual-Stack Studio (Impressum, § 5 ECG, § 63 GewO, § 25 MedienG).' : 'Legal notice and mandatory disclosures for Dual-Stack Studio (Impressum, § 5 ECG, § 63 GewO, § 25 MedienG).'}
+  description={description}
 >
-  <span class="legal-eyebrow">{de ? 'Rechtliches' : 'Legal'}</span>
+  <span class="legal-eyebrow">{de ? 'Rechtliches' : es ? 'Legal' : 'Legal'}</span>
   <h1>Impressum</h1>
-  <p class="legal-updated">{de ? 'Zuletzt aktualisiert' : 'Last updated'}: {lastUpdated}</p>
+  <p class="legal-updated">{de ? 'Zuletzt aktualisiert' : es ? 'Última actualización' : 'Last updated'}: {lastUpdated}</p>
 
-  {!de && (
+  {lang === 'en' && (
     <>
       <p>
         Legal notice and disclosures in accordance with § 5 of the Austrian E-Commerce Act (ECG),
@@ -165,6 +172,83 @@ const RIS = 'https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&
         Diese Angaben folgen den gesetzlichen Offenlegungspflichten für österreichische Unternehmens-Websites,
         wurden aber nicht von einem Anwalt geprüft. Ändern sich Ihre Umstände (etwa durch die Vergabe einer
         UID-Nummer oder eine neue Geschäftsadresse), sollte diese Seite aktualisiert werden.
+      </p>
+    </>
+  )}
+
+  {es && (
+    <>
+      <p>
+        Aviso legal y datos obligatorios conforme al § 5 de la Ley de Comercio Electrónico austríaca (ECG),
+        al § 63 de la Ley de Ordenanza Comercial (GewO) y al § 25 de la Ley de Medios (MedienG).
+      </p>
+
+      <h2>Prestador del servicio</h2>
+      <p>
+        Sebastian Rodriguez<br />
+        Empresa unipersonal (Einzelunternehmer), que opera bajo el nombre "Dual-Stack Studio"<br />
+        Linzer Straße 7/3<br />
+        3350 Haag<br />
+        Austria
+      </p>
+      <p>
+        Dual-Stack Studio es un nombre comercial, no una entidad jurídica registrada por separado. La
+        empresa no está inscripta en el registro mercantil (Firmenbuch).
+      </p>
+
+      <h2>Contacto</h2>
+      <p>
+        Correo electrónico: <a href="mailto:hello@dualstackstudio.com">hello@dualstackstudio.com</a>
+      </p>
+
+      <h2>Habilitaciones comerciales (Gewerbe)</h2>
+      <p>Las tres son habilitaciones libres (freie Gewerbe), registradas en el Sistema de Información Comercial de Austria (GISA):</p>
+      <ul>
+        <li>
+          Dienstleistungen in der automatischen Datenverarbeitung und Informationstechnik
+          (servicios de TI) — número GISA 40150468
+        </li>
+        <li>Werbeagentur (agencia de publicidad) — número GISA 40150451</li>
+        <li>Berufsfotograf (fotógrafo profesional) — número GISA 40150383</li>
+      </ul>
+      <p>
+        Domicilio comercial (Standort): Linzer Straße 7, Tür 3, 3350 Haag, Austria. Las habilitaciones
+        comerciales están vigentes desde el 18 de septiembre de 2026. Los registros se pueden verificar
+        de forma gratuita en
+        <a href="https://www.gisa.gv.at/abfrage" target="_blank" rel="noopener">gisa.gv.at/abfrage</a>.
+      </p>
+
+      <h2>Autoridad de supervisión</h2>
+      <p>
+        Bezirkshauptmannschaft Amstetten (autoridad comercial)<br />
+        Preinsbacher Straße 11, 3300 Amstetten, Austria
+      </p>
+
+      <h2>Membresía de cámara</h2>
+      <p>
+        Wirtschaftskammer Niederösterreich (Cámara de Comercio de Baja Austria) —
+        <a href="https://www.wko.at/noe" target="_blank" rel="noopener">wko.at/noe</a>
+      </p>
+
+      <h2>Normativa profesional aplicable</h2>
+      <p>
+        Gewerbeordnung 1994 (GewO), disponible en el sistema de información legal austríaco:
+        <a href={RIS} target="_blank" rel="noopener">ris.bka.gv.at</a>.
+      </p>
+
+      <h2>Divulgación conforme al § 25 de la Ley de Medios</h2>
+      <p>
+        Titular del medio y editor: Sebastian Rodriguez, 3350 Haag, Austria.<br />
+        Objeto de la empresa: servicios de TI y desarrollo de software, servicios de publicidad y
+        marketing, y fotografía profesional.<br />
+        Línea editorial: presentación de los servicios, proyectos y trabajo fotográfico de Dual-Stack
+        Studio, junto con un diario personal de trabajo y viajes.
+      </p>
+
+      <p class="legal-disclaimer">
+        Este aviso sigue las normas de divulgación obligatorias para sitios web de empresas austríacas,
+        pero no fue revisado por un abogado. Si tu situación cambia (por ejemplo, se asigna un número de
+        IVA o cambia la dirección comercial), esta página debería actualizarse.
       </p>
     </>
   )}

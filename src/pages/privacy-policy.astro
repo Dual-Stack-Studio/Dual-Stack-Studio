@@ -4,19 +4,22 @@ import type { Lang } from '../i18n';
 
 const { lang = 'en' } = Astro.props as { lang?: Lang };
 const de = lang === 'de';
-const lastUpdated = de ? '21. September 2026' : 'September 21, 2026';
+const es = lang === 'es';
+const lastUpdated = de ? '21. September 2026' : es ? '21 de septiembre de 2026' : 'September 21, 2026';
+const title = de ? 'Datenschutzerklärung — Dual-Stack Studio' : es ? 'Política de Privacidad — Dual-Stack Studio' : 'Privacy Policy — Dual-Stack Studio';
+const description = de
+  ? 'Wie Dual-Stack Studio Ihre Informationen erhebt, verwendet und schützt.'
+  : es
+  ? 'Cómo Dual-Stack Studio recopila, usa y protege tu información.'
+  : 'How Dual-Stack Studio collects, uses, and protects your information.';
 ---
 
-<LegalLayout
-  lang={lang}
-  title={de ? 'Datenschutzerklärung — Dual-Stack Studio' : 'Privacy Policy — Dual-Stack Studio'}
-  description={de ? 'Wie Dual-Stack Studio Ihre Informationen erhebt, verwendet und schützt.' : 'How Dual-Stack Studio collects, uses, and protects your information.'}
->
-  <span class="legal-eyebrow">{de ? 'Rechtliches' : 'Legal'}</span>
-  <h1>{de ? 'Datenschutzerklärung' : 'Privacy Policy'}</h1>
-  <p class="legal-updated">{de ? 'Zuletzt aktualisiert' : 'Last updated'}: {lastUpdated}</p>
+<LegalLayout lang={lang} langs={['en', 'de', 'es']} title={title} description={description}>
+  <span class="legal-eyebrow">Legal</span>
+  <h1>{de ? 'Datenschutzerklärung' : es ? 'Política de Privacidad' : 'Privacy Policy'}</h1>
+  <p class="legal-updated">{de ? 'Zuletzt aktualisiert' : es ? 'Última actualización' : 'Last updated'}: {lastUpdated}</p>
 
-  {!de && (
+  {lang === 'en' && (
     <>
       <p>
         Dual-Stack Studio is the working name of an independent, individually-operated studio (web development, marketing and photography)
@@ -186,6 +189,95 @@ const lastUpdated = de ? '21. September 2026' : 'September 21, 2026';
       <p>
         Fragen zu dieser Erklärung können an
         <a href="mailto:hello@dualstackstudio.com">hello@dualstackstudio.com</a> gerichtet werden.
+      </p>
+    </>
+  )}
+
+  {es && (
+    <>
+      <p>
+        Dual-Stack Studio es el nombre comercial de un estudio independiente, operado por una sola
+        persona (desarrollo web, marketing y fotografía), a cargo de Sebastian Rodriguez, empresario
+        unipersonal con base en Haag, Austria. No es una entidad jurídica registrada por separado. Esta
+        política explica qué información recopila este sitio, por qué, y qué derechos tenés sobre ella.
+      </p>
+
+      <h2>1. Lo que este sitio <em>no</em> hace</h2>
+      <p>
+        Este sitio no usa cookies, no ejecuta scripts de análisis ni de seguimiento, y no comparte datos
+        con redes publicitarias. No hay sistema de inicio de sesión ni cuentas de usuario. Navegar este
+        sitio de forma anónima no requiere ninguna acción de tu parte — no hay nada de qué optar por
+        salir.
+      </p>
+
+      <h2>2. Información recopilada cuando nos contactás</h2>
+      <p>
+        Podés contactar a Dual-Stack Studio por correo electrónico, o a través del formulario de
+        contacto en la página de Creative &amp; Marketing. Si enviás un correo (incluso a través de los
+        enlaces de contacto de este sitio, que abren tu propio cliente de correo), recibimos la
+        información que decidas incluir — normalmente tu nombre, dirección de correo y el contenido de
+        tu mensaje. Los mensajes enviados a través del formulario de contacto nos llegan por correo
+        mediante el servicio de terceros Web3Forms; consultá la propia política de privacidad de
+        Web3Forms para saber cómo procesa los envíos de formularios.
+      </p>
+      <p>Esta información se usa únicamente para:</p>
+      <ul>
+        <li>Responder a tu consulta</li>
+        <li>Conversar y, si corresponde, llevar a cabo un proyecto o servicio que hayas solicitado</li>
+        <li>Mantener registros básicos de la correspondencia con clientes por motivos contables y legales</li>
+      </ul>
+      <p>Nunca se vende, se alquila ni se comparte con terceros con fines de marketing.</p>
+
+      <h2>3. Hosting e infraestructura</h2>
+      <p>
+        Este sitio está alojado en Vercel. Como la mayoría de los proveedores de hosting, la
+        infraestructura de Vercel puede registrar información técnica estándar (como dirección IP, tipo
+        de navegador y marcas de tiempo de las solicitudes) por motivos de seguridad y rendimiento,
+        independientemente del código propio de este sitio. Ese procesamiento se rige por la
+        <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener">propia política de privacidad de Vercel</a>.
+      </p>
+
+      <h2>4. Retención de datos</h2>
+      <p>
+        La correspondencia por correo electrónico se conserva solo durante el tiempo razonablemente
+        necesario para gestionar la relación con el cliente o cumplir obligaciones legales y contables.
+        Podés solicitar su eliminación en cualquier momento (ver Sección 6).
+      </p>
+
+      <h2>5. Enlaces a otros sitios</h2>
+      <p>
+        Este sitio enlaza a proyectos de clientes en producción (por ejemplo, demos de proyectos) y
+        servicios de terceros. Una vez que salís de este sitio, esta política deja de aplicar — por
+        favor revisá la política de privacidad de cualquier sitio que visites.
+      </p>
+
+      <h2>6. Tus derechos</h2>
+      <p>Sin importar dónde estés ubicado, podés pedir en cualquier momento:</p>
+      <ul>
+        <li>Ver qué información tenemos sobre vos</li>
+        <li>Corregir información inexacta</li>
+        <li>Solicitar que tu información sea eliminada</li>
+        <li>Retirar el consentimiento para cualquier contacto futuro</li>
+      </ul>
+      <p>
+        Para ejercer cualquiera de estos derechos, escribí a
+        <a href="mailto:hello@dualstackstudio.com?subject=Solicitud%20de%20privacidad">hello@dualstackstudio.com</a>.
+        Vamos a responder dentro de un plazo razonable, generalmente dentro de 30 días.
+      </p>
+
+      <h2>7. Privacidad de menores</h2>
+      <p>Este sitio está dirigido a un público profesional y empresarial, y no está dirigido a menores.</p>
+
+      <h2>8. Cambios a esta política</h2>
+      <p>
+        Esta política puede actualizarse de tanto en tanto a medida que el sitio o sus servicios
+        cambien. La fecha de "última actualización" que aparece arriba refleja la revisión más reciente.
+      </p>
+
+      <h2>9. Contacto</h2>
+      <p>
+        Las preguntas sobre esta política pueden enviarse a
+        <a href="mailto:hello@dualstackstudio.com">hello@dualstackstudio.com</a>.
       </p>
     </>
   )}

@@ -2054,7 +2054,7 @@ const lOut: Lang = lang === 'es' ? 'en' : lang;
           <h4 style="font-size: 11px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: #999; margin: 1.5rem 0 0.5rem 0;">{c.builtTitle}</h4>
           <p style="font-size: 13px; color: #888; line-height: 1.6; margin: 0; max-width: 280px;">{c.builtText}</p>
           <h4 style="font-size: 11px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: #999; margin: 1.5rem 0 0.5rem 0;">{c.licenceTitle}</h4>
-          <p style="font-size: 13px; color: #888; line-height: 1.6; margin: 0; max-width: 280px;">IT-Dienstleistungen (GISA 40150468)<br />Sebastian Rodriguez, Haag. <a href={l(lOut, '/impressum')} style="color: inherit; text-decoration: underline;">Impressum</a></p>
+          <p style="font-size: 13px; color: #888; line-height: 1.6; margin: 0; max-width: 280px;">IT-Dienstleistungen (GISA 40150468)<br />Sebastian Rodriguez, Haag. <a href={l(lang, '/impressum')} style="color: inherit; text-decoration: underline;">Impressum</a></p>
         </div>
 
         <div class="footer-col">
@@ -2067,9 +2067,9 @@ const lOut: Lang = lang === 'es' ? 'en' : lang;
 
         <div class="footer-col">
           <h4>{c.footLegalTitle}</h4>
-          <a href={l(lOut, '/privacy-policy')}>{c.privacy}</a>
-          <a href={l(lOut, '/terms-of-service')}>{c.terms}</a>
-          <a href={l(lOut, '/impressum')}>Impressum</a>
+          <a href={l(lang, '/privacy-policy')}>{c.privacy}</a>
+          <a href={l(lang, '/terms-of-service')}>{c.terms}</a>
+          <a href={l(lang, '/impressum')}>Impressum</a>
         </div>
 
         <div class="footer-col">
