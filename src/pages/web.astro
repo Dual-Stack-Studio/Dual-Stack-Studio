@@ -127,6 +127,7 @@ const copy = {
     contactEyebrow: 'Get in touch', contactTitle: 'Ready to ship?',
     contactLead: "Tell us about your project and we'll get back to you within 1–2 business days.",
     fName: 'Name', fNamePh: 'Your name', fEmail: 'Email', fEmailPh: 'you@company.com', fService: 'What do you need?',
+    fLocation: 'Where are you based?', fLocationPh: 'Country or city',
     serviceOptions: ['Full-Stack Development', 'React Native App', 'Web Platform', 'Brand & Logo Design', 'Something else'],
     fMessage: 'Message', fMessagePh: "Tell us a bit about your project — timeline, budget range, what you're trying to build.",
     send: 'Send message', note: "We'll get back to you within 1–2 business days.",
@@ -195,6 +196,7 @@ const copy = {
     contactEyebrow: 'Kontakt', contactTitle: 'Bereit für den Livegang?',
     contactLead: 'Erzähl uns von deinem Projekt — wir melden uns innerhalb von 1–2 Werktagen bei dir.',
     fName: 'Name', fNamePh: 'Dein Name', fEmail: 'E-Mail', fEmailPh: 'name@firma.at', fService: 'Was brauchst du?',
+    fLocation: 'Wo bist du?', fLocationPh: 'Land oder Stadt',
     serviceOptions: ['Full-Stack-Entwicklung', 'React-Native-App', 'Web-Plattform', 'Logo & Markendesign', 'Etwas anderes'],
     fMessage: 'Nachricht', fMessagePh: 'Erzähl uns kurz von deinem Projekt — Zeitrahmen, Budgetrahmen und was du umsetzen möchtest.',
     send: 'Nachricht senden', note: 'Wir melden uns innerhalb von 1–2 Werktagen bei dir.',
@@ -263,6 +265,7 @@ const copy = {
     contactEyebrow: 'Contacto', contactTitle: '¿Listo para lanzar?',
     contactLead: 'Cuéntanos sobre tu proyecto y te responderemos dentro de 1–2 días hábiles.',
     fName: 'Nombre', fNamePh: 'Tu nombre', fEmail: 'Correo electrónico', fEmailPh: 'tu@empresa.com', fService: '¿Qué necesitas?',
+    fLocation: '¿Dónde estás ubicado?', fLocationPh: 'País o ciudad',
     serviceOptions: ['Desarrollo Full-Stack', 'App con React Native', 'Plataforma Web', 'Logo y Diseño de Marca', 'Otra cosa'],
     fMessage: 'Mensaje', fMessagePh: 'Cuéntanos un poco sobre tu proyecto — plazos, rango de presupuesto, qué estás buscando construir.',
     send: 'Enviar mensaje', note: 'Te responderemos dentro de 1–2 días hábiles.',
@@ -1828,11 +1831,17 @@ const lOut: Lang = lang === 'es' ? 'en' : lang;
         </div>
       </div>
 
-      <div class="cf-field">
-        <label for="cf-service">{c.fService}</label>
-        <select id="cf-service" name="service">
-          {c.serviceOptions.map((o) => <option>{o}</option>)}
-        </select>
+      <div class="cf-row">
+        <div class="cf-field">
+          <label for="cf-service">{c.fService}</label>
+          <select id="cf-service" name="service">
+            {c.serviceOptions.map((o) => <option>{o}</option>)}
+          </select>
+        </div>
+        <div class="cf-field">
+          <label for="cf-location">{c.fLocation}</label>
+          <input type="text" id="cf-location" name="location" required placeholder={c.fLocationPh} />
+        </div>
       </div>
 
       <div class="cf-field">
