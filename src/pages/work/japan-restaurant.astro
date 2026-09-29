@@ -6,21 +6,22 @@ import type { Lang } from '../../i18n';
 
 const { lang = 'en' } = Astro.props as { lang?: Lang };
 const de = lang === 'de';
+const es = lang === 'es';
 
-// [file, English alt, German alt]
-const restaurantRaw: [string, string, string][] = [
-  ['restaurant-tuna-slicing.jpg', 'A chef slicing fresh tuna sashimi', 'Ein Koch schneidet frisches Thunfisch-Sashimi'],
-  ['restaurant-plating-hand.jpg', 'A hand arranging a plate of sashimi and abalone', 'Eine Hand richtet einen Teller mit Sashimi und Abalone an'],
-  ['restaurant-abalone-shell.jpg', 'Abalone served in its shell over shredded daikon', 'Abalone in der Schale, auf geraspeltem Daikon serviert'],
-  ['restaurant-salad-sake.jpg', 'A fresh salad plated with sake bottles in the background', 'Ein frischer Salat, angerichtet, mit Sake-Flaschen im Hintergrund'],
-  ['restaurant-noodles-chopsticks.jpg', 'Chopsticks lifting noodles over a strainer, beside a fresh salad', 'Essstäbchen heben Nudeln über einem Sieb, neben einem frischen Salat'],
-  ['restaurant-chef-prep.jpg', 'A chef preparing shellfish at a table set for service', 'Ein Koch bereitet Meeresfrüchte an einem für den Service gedeckten Tisch vor'],
-  ['restaurant-shoot-setup.jpg', 'Behind the scenes — the camera and table set up for the restaurant shoot', 'Hinter den Kulissen — Kamera und Tisch für das Restaurant-Shooting aufgebaut'],
-  ['restaurant-shoot-chair.jpg', 'Behind the scenes — the shoot setup with camera, ingredients and prep table', 'Hinter den Kulissen — der Aufbau mit Kamera, Zutaten und Arbeitstisch'],
+// [file, English alt, German alt, Spanish alt]
+const restaurantRaw: [string, string, string, string][] = [
+  ['restaurant-tuna-slicing.jpg', 'A chef slicing fresh tuna sashimi', 'Ein Koch schneidet frisches Thunfisch-Sashimi', 'Un chef cortando sashimi de atún fresco'],
+  ['restaurant-plating-hand.jpg', 'A hand arranging a plate of sashimi and abalone', 'Eine Hand richtet einen Teller mit Sashimi und Abalone an', 'Una mano acomodando un plato de sashimi y abalón'],
+  ['restaurant-abalone-shell.jpg', 'Abalone served in its shell over shredded daikon', 'Abalone in der Schale, auf geraspeltem Daikon serviert', 'Abalón servido en su concha sobre daikon rallado'],
+  ['restaurant-salad-sake.jpg', 'A fresh salad plated with sake bottles in the background', 'Ein frischer Salat, angerichtet, mit Sake-Flaschen im Hintergrund', 'Una ensalada fresca emplatada, con botellas de sake de fondo'],
+  ['restaurant-noodles-chopsticks.jpg', 'Chopsticks lifting noodles over a strainer, beside a fresh salad', 'Essstäbchen heben Nudeln über einem Sieb, neben einem frischen Salat', 'Palillos levantando fideos sobre un colador, junto a una ensalada fresca'],
+  ['restaurant-chef-prep.jpg', 'A chef preparing shellfish at a table set for service', 'Ein Koch bereitet Meeresfrüchte an einem für den Service gedeckten Tisch vor', 'Un chef preparando mariscos en una mesa lista para el servicio'],
+  ['restaurant-shoot-setup.jpg', 'Behind the scenes — the camera and table set up for the restaurant shoot', 'Hinter den Kulissen — Kamera und Tisch für das Restaurant-Shooting aufgebaut', 'Detrás de escena — la cámara y la mesa listas para la sesión del restaurante'],
+  ['restaurant-shoot-chair.jpg', 'Behind the scenes — the shoot setup with camera, ingredients and prep table', 'Hinter den Kulissen — der Aufbau mit Kamera, Zutaten und Arbeitstisch', 'Detrás de escena — el armado con cámara, ingredientes y mesa de trabajo'],
 ];
 
-const toItems = (raw: [string, string, string][]) =>
-  raw.map(([file, en, deAlt]) => ({ src: `/images/japan-restaurant/${file}`, alt: de ? deAlt : en }));
+const toItems = (raw: [string, string, string, string][]) =>
+  raw.map(([file, en, deAlt, esAlt]) => ({ src: `/images/japan-restaurant/${file}`, alt: de ? deAlt : es ? esAlt : en }));
 const restaurantGallery = toItems(restaurantRaw);
 
 const copy = {
@@ -58,11 +59,28 @@ const copy = {
     rights: '© 2026 Dual-Stack Studio. Unabhängig betrieben.', builtWith: 'Erstellt mit Astro, bereitgestellt auf Vercel.',
     close: 'Schließen', prev: 'Vorheriges Foto', next: 'Nächstes Foto',
   },
+  es: {
+    title: 'Un Restaurante en Japón — Dual-Stack Studio',
+    description: 'Fotografía de restaurante desde las montañas de Japón.',
+    back: '← Volver al trabajo',
+    eyebrow: 'Fotografía · Restaurante', h1: 'Un Restaurante en Japón',
+    intro: 'Hace años, antes de que existiera Dual-Stack Studio, fotografiamos el restaurante de un lodge de montaña en Japón — el oficio, el emplatado y los ingredientes, de cerca. Es el tipo de storytelling que hoy hacemos para lugares pequeños en todas partes.',
+    restEyebrow: 'El restaurante', restTitle: 'Lo que salió de la cocina',
+    restLead: 'Fotografiado de la misma forma en que lo haríamos hoy — el oficio, el emplatado, los ingredientes, de cerca, y una mirada detrás de escena.',
+    ctaTitle: '¿Tenés un lugar que merece que le cuenten su historia?',
+    ctaText: 'Este es exactamente el tipo de trabajo que hacemos hoy para granjas, alojamientos y pequeños negocios locales.',
+    ctaBtn: 'Hablemos',
+    footTagline: 'Contamos la historia de lugares pequeños que hacen un trabajo real — contenido, storytelling y la presencia web detrás.',
+    navTitle: 'Navegación', navWork: 'Trabajo', navPhotography: 'Fotografía', navServices: 'Servicios', navTeam: 'Equipo', navJournal: 'Diario',
+    legalTitle: 'Legal', privacy: 'Política de Privacidad', terms: 'Términos de Servicio', contactTitle: 'Contacto',
+    rights: '© 2026 Dual-Stack Studio. Operado de forma independiente.', builtWith: 'Construido con Astro, desplegado en Vercel.',
+    close: 'Cerrar', prev: 'Foto anterior', next: 'Foto siguiente',
+  },
 };
 const c = copy[lang];
 ---
 
-<Layout title={c.title} description={c.description} lang={lang}>
+<Layout title={c.title} description={c.description} lang={lang} langs={['en', 'de', 'es']}>
 
   <header id="jl-header" class="jl-header">
     <a href={l(lang, '/creative')} class="jl-brand">
@@ -70,7 +88,7 @@ const c = copy[lang];
       <span>Dual-Stack Studio</span>
     </a>
     <span class="jl-header-right">
-      <LangSwitch lang={lang} />
+      <LangSwitch lang={lang} langs={['en', 'de', 'es']} />
       <a href={l(lang, '/creative#work')} class="jl-back">{c.back}</a>
     </span>
   </header>
