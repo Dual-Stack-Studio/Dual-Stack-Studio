@@ -41,16 +41,35 @@ const copy = {
     hintCreative: 'loslassen für Creative',
     hintWeb: 'loslassen für Web',
   },
+  es: {
+    title: 'Dual-Stack Studio — Creative & Web',
+    description: 'Un equipo, dos oficios. Desliza para elegir un departamento: Creative & Marketing, o Web & Full-Stack.',
+    tag: 'Un equipo. Dos oficios. Desliza para elegir.',
+    dept1: 'Departamento 01',
+    dept2: 'Departamento 02',
+    creativeLong: 'Fotografía, cine y storytelling para lugares que vale la pena recordar, más la presencia en redes que los sostiene.',
+    creativeShort: 'Fotografía, cine y storytelling — y la presencia en redes detrás.',
+    webLong: 'Sitios web, aplicaciones y los sistemas de reservas detrás de ellos, diseñados, construidos y entregados de punta a punta.',
+    webShort: 'Sitios web, apps y sistemas de reservas — construidos de punta a punta.',
+    enterCreative: 'Entrar a Creative & Marketing',
+    enterWeb: 'Entrar a Web & Full-Stack',
+    sliderLabel: 'Desliza a la izquierda para Creative, a la derecha para Web',
+    hintIdle: 'desliza para elegir',
+    hintCreative: 'suelta para Creative',
+    hintWeb: 'suelta para Web',
+  },
 };
 const c = copy[lang];
+// Impressum doesn't have a Spanish page yet — fall back to English for that link.
+const lOut: Lang = lang === 'es' ? 'en' : lang;
 ---
 
-<Layout title={c.title} description={c.description} lang={lang}>
+<Layout title={c.title} description={c.description} lang={lang} langs={['en', 'de', 'es']}>
 
   <div class="door" id="door" data-hint-idle={c.hintIdle} data-hint-creative={c.hintCreative} data-hint-web={c.hintWeb}>
 
     <!-- Language switch -->
-    <div class="door-lang"><LangSwitch lang={lang} /></div>
+    <div class="door-lang"><LangSwitch lang={lang} langs={['en', 'de', 'es']} /></div>
 
     <!-- Brand, centred over both panels -->
     <div class="door-brand">
@@ -92,7 +111,7 @@ const c = copy[lang];
     </div>
 
     <!-- Legal notice (Impressum must be reachable from every page) -->
-    <a href={l(lang, '/impressum')} class="door-legal">Impressum</a>
+    <a href={l(lOut, '/impressum')} class="door-legal">Impressum</a>
 
     <!-- Commit curtain -->
     <div class="door-curtain" id="door-curtain"></div>
@@ -119,7 +138,7 @@ const c = copy[lang];
       overflow: hidden;
       touch-action: pan-y;
     }
-    .door.is-grabbing { cursor: grabbing; }
+    .door.is-grabbing { cursor: pointer; }
 
     /* ---------- BRAND ---------- */
     .door-brand {
@@ -264,13 +283,13 @@ const c = copy[lang];
       align-items: center;
       gap: 0.85rem;
       transform: translate(-50%, -50%);
-      cursor: grab;
+      cursor: pointer;
       user-select: none;
       touch-action: none;
       will-change: transform, opacity;
     }
     .door.is-animating .door-handle { transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease; }
-    .door-handle:active { cursor: grabbing; }
+    .door-handle:active { cursor: pointer; }
     .door-handle-grip {
       display: flex;
       align-items: center;

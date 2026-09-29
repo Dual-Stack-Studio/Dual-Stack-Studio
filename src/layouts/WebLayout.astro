@@ -6,9 +6,16 @@ interface Props {
   title: string;
   description?: string;
   lang?: Lang;
+  /** Which languages actually exist for this page (controls which hreflang alternates are emitted). */
+  langs?: Lang[];
 }
 
-const { title, lang = "en", description = lang === "de" ? "Dual-Stack Studio — Wir bauen Full-Stack-Produkte" : "Dual-Stack Studio — We build full-stack products" } = Astro.props;
+const descriptions: Record<Lang, string> = {
+  en: "Dual-Stack Studio — We build full-stack products",
+  de: "Dual-Stack Studio — Wir bauen Full-Stack-Produkte",
+  es: "Dual-Stack Studio — Construimos productos full-stack",
+};
+const { title, lang = "en", description = descriptions[lang as Lang] ?? descriptions.en, langs = ["en", "de"] } = Astro.props;
 const alt = altPaths(Astro.url.pathname);
 ---
 
@@ -18,8 +25,9 @@ const alt = altPaths(Astro.url.pathname);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <link rel="alternate" hreflang="en" href={SITE + alt.en} />
-    <link rel="alternate" hreflang="de" href={SITE + alt.de} />
+    {langs.includes('en') && <link rel="alternate" hreflang="en" href={SITE + alt.en} />}
+    {langs.includes('de') && <link rel="alternate" hreflang="de" href={SITE + alt.de} />}
+    {langs.includes('es') && <link rel="alternate" hreflang="es" href={SITE + alt.es} />}
     <link rel="alternate" hreflang="x-default" href={SITE + alt.en} />
     <link rel="icon" type="image/svg+xml" href="/logo.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />

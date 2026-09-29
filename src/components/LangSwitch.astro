@@ -5,16 +5,23 @@ import type { Lang } from '../i18n';
 interface Props {
   lang: Lang;
   class?: string;
+  /** Which languages to offer on this page. Pages without a Spanish version keep the default. */
+  langs?: Lang[];
 }
 
-const { lang, class: className = '' } = Astro.props;
-const { en, de } = altPaths(Astro.url.pathname);
+const { lang, class: className = '', langs = ['en', 'de'] } = Astro.props;
+const paths = altPaths(Astro.url.pathname);
+const hrefs: Record<Lang, string> = { en: paths.en, de: paths.de, es: paths.es };
+const labels: Record<Lang, string> = { en: 'EN', de: 'DE', es: 'ES' };
 ---
 
-<span class={`lang-switch ${className}`} role="group" aria-label="Language / Sprache">
-  <a href={en} hreflang="en" lang="en" aria-current={lang === 'en' ? 'true' : undefined} class:list={[{ 'is-active': lang === 'en' }]}>EN</a>
-  <span class="lang-switch-sep" aria-hidden="true">/</span>
-  <a href={de} hreflang="de" lang="de" aria-current={lang === 'de' ? 'true' : undefined} class:list={[{ 'is-active': lang === 'de' }]}>DE</a>
+<span class={`lang-switch ${className}`} role="group" aria-label="Language / Sprache / Idioma">
+  {langs.map((l, i) => (
+    <>
+      {i > 0 && <span class="lang-switch-sep" aria-hidden="true">/</span>}
+      <a href={hrefs[l]} hreflang={l} lang={l} aria-current={lang === l ? 'true' : undefined} class:list={[{ 'is-active': lang === l }]}>{labels[l]}</a>
+    </>
+  ))}
 </span>
 
 <style is:global>

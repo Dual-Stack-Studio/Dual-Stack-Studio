@@ -209,11 +209,81 @@ const copy = {
     footContactTitle: 'Kontakt', reply: 'Antwortet in der Regel innerhalb von 1–2 Werktagen.',
     rights: '© 2026 Dual-Stack Studio. Unabhängig betrieben.', builtWith: 'Erstellt mit Astro, bereitgestellt auf Vercel. Website in aktiver Weiterentwicklung.',
   },
+  es: {
+    title: 'Dual-Stack Studio — Construimos productos full-stack',
+    navProjects: 'Proyectos', navServices: 'Servicios', navTeam: 'Equipo', navCreative: 'Creative & Marketing ↗',
+    cta: 'Solicitar propuesta', menuToggle: 'Abrir menú', menuClose: 'Cerrar menú',
+    heroEyebrow: 'Estudio de desarrollo full-stack',
+    heroSub: 'Del concepto a producción. Entregamos productos que importan.',
+    scrollDown: 'Desliza hacia abajo',
+    workEyebrow: 'Trabajo seleccionado', workTitleA: 'Nuestros', workTitleB: 'Proyectos', workCount: 'Haz clic en los proyectos para ver más',
+    hintDesktop: 'Pasa el cursor sobre un proyecto para previsualizar · Haz clic para abrir', hintMobile: 'Desliza para explorar · Toca para abrir',
+    carouselLabels: [
+      'UnderEvents — Plataforma completa de e-commerce',
+      'Bumerán — Intercambio de favores entre vecinos',
+      'Echoes & Paths — App de sitios históricos',
+      'El Dulce de la Nonna — E-commerce de panadería',
+      'MVG Lash & Brow — Sitio web de salón de belleza',
+      'Savora — App de recetas con cocinera IA',
+      'WatchIt — Ver contenido juntos en tiempo real',
+    ],
+    modEyebrow: 'Bloques de construcción', modTitleA: 'No promesas.', modTitleB: 'Sistemas funcionando.',
+    modIntro: 'Seis bloques de construcción, ya funcionando. Elige uno y lo adaptamos a tu negocio: más rápido, y por menos que empezar desde cero.',
+    modFlow: ['Descubrimiento de eventos', 'Carrito', 'Pago con Stripe', 'Email de confirmación', 'Gestión de administrador'],
+    modRole: 'Nuestra parte: arquitectura e implementación de frontend, integrado con una API de Node.js y PostgreSQL.',
+    modSee: 'Ver cómo funciona', modWant: 'Quiero esto', modDemoTitle: 'Abre la app en vivo en una nueva pestaña',
+    modCustomTitle: 'Tu idea aquí.',
+    modCustomText: '¿Tienes algo más en mente? Lo construimos a medida, desde el primer boceto hasta producción.',
+    modCustomCta: 'Cuéntanos',
+    mods: [
+      { title: 'Plataforma completa de e-commerce', status: 'Demo en vivo', text: 'Nuestro bloque más completo: una tienda online real, desde el descubrimiento del evento hasta el email de confirmación. Catálogo con búsqueda y mapas, cuentas de usuario, checkout real con Stripe confirmado por webhooks, emails transaccionales y un panel de administración, en inglés y alemán.' },
+      { title: 'Pedidos online simples', status: 'Proyecto de cliente en vivo', text: 'Recibe pedidos con un flujo claro, confirmaciones por email y reglas aplicadas en el servidor, como ventanas de pedido anticipado. Sin base de datos ni panel de administración que mantener, y un camino claro hacia el checkout con Stripe cuando crezcas.' },
+      { title: 'Sitio web y reservas', status: 'Proyecto de cliente en vivo', text: 'Un sitio de una sola página, rápido (Lighthouse 95+), con enlaces de reserva, compatible con el RGPD desde el diseño, y contenido que tú mismo actualizas desde un único archivo de configuración.' },
+      { title: 'App móvil con mapas y comunidad', status: 'Prueba cerrada en Google Play', text: 'Apps multiplataforma para iOS y Android con mapas filtrados por GPS, inicio de sesión con Google, verificación por SMS, notificaciones push y tres idiomas.' },
+      { title: 'Sincronización en tiempo real', status: 'Demo en vivo', text: 'Todos ven lo mismo en el mismo momento: sincronización en vivo entre dispositivos, sin cuentas y sin configuración. La misma tecnología puede impulsar tableros de pedidos en vivo o vistas compartidas.' },
+      { title: 'Asistente de IA', status: 'En desarrollo', text: 'Un asistente de chat que responde primero con tus propios datos (menú, productos, preguntas frecuentes) y solo recurre a fuentes externas cuando es necesario. Las claves de API permanecen en el servidor.' },
+    ],
+    svcEyebrow: 'Qué hacemos', svcTitleA: 'Capacidades y', svcTitleB: 'Servicios',
+    svcIntro: 'Somos un pequeño equipo full-stack que entrega productos completos — desde la primera línea de código hasta la tienda de apps y los servidores de producción.',
+    pills: ['Desarrollo Full-Stack', 'React Native', 'Cloud & DevOps', 'Diseño UI/UX', 'Logo y Diseño de Marca', 'Integración de API', 'Rendimiento'],
+    cards: [
+      { title: 'Desarrollo Full-Stack', text: 'Desarrollo de producto de punta a punta — frontend, backend, base de datos y despliegue, todo a cargo del mismo equipo.', checks: ['React y React Native', 'Node.js y NestJS', 'Bases de datos PostgreSQL', 'Despliegue en la nube'] },
+      { title: 'Apps con React Native', text: 'iOS y Android desde un mismo código, construido sobre el flujo de Expo hasta la publicación en la tienda de apps.', checks: ['Expo Managed Workflow', 'Notificaciones push', 'Publicación en App Store', 'Rendimiento nativo'] },
+      { title: 'Plataformas Web', text: 'Aplicaciones web modernas y rápidas, construidas priorizando el rendimiento — cada página ajustada para cargar al instante.', checks: ['Next.js y Astro', 'TypeScript', 'Lighthouse 95+', 'Optimizado para SEO'] },
+      { title: 'Logo y Diseño de Marca', text: 'Un logo e identidad visual que realmente encaja con el sitio que construimos alrededor — diseñado por el mismo equipo, no tercerizado.', checks: ['Diseño de logo', 'Manual de marca', 'Color y tipografía', 'Kit para redes sociales'] },
+    ],
+    learnMore: 'Saber más', stackLabel: 'Nuestro stack',
+    teamTitleA: 'Una persona,', teamTitleB: 'tres disciplinas', teamLead: 'Cada paso resuelto de principio a fin — desde el primer commit hasta el despliegue en producción.',
+    roleTag: 'ROL',
+    roles: [
+      { title: 'Desarrollador Full-Stack', text: 'React, React Native, Node.js, PostgreSQL. Se encarga de todo, desde mobile hasta el despliegue.' },
+      { title: 'Diseñador UI/UX', text: 'Enfocado en la experiencia de usuario y un diseño limpio. Desde mockups hasta una implementación pixel-perfect.' },
+      { title: 'DevOps y Despliegue', text: 'Se encarga de CI/CD, pipelines de despliegue e infraestructura. Vercel, AWS, optimización de bases de datos.' },
+    ],
+    contactEyebrow: 'Contacto', contactTitle: '¿Listo para lanzar?',
+    contactLead: 'Cuéntanos sobre tu proyecto y te responderemos dentro de 1–2 días hábiles.',
+    fName: 'Nombre', fNamePh: 'Tu nombre', fEmail: 'Correo electrónico', fEmailPh: 'tu@empresa.com', fService: '¿Qué necesitas?',
+    serviceOptions: ['Desarrollo Full-Stack', 'App con React Native', 'Plataforma Web', 'Logo y Diseño de Marca', 'Otra cosa'],
+    fMessage: 'Mensaje', fMessagePh: 'Cuéntanos un poco sobre tu proyecto — plazos, rango de presupuesto, qué estás buscando construir.',
+    send: 'Enviar mensaje', note: 'Te responderemos dentro de 1–2 días hábiles.',
+    okTitle: 'Mensaje enviado', okText: 'Gracias por contactarnos — tu consulta llegó directo a nuestra bandeja de entrada. Te responderemos dentro de 1–2 días hábiles.',
+    sending: 'Enviando…', errMsg: 'Algo salió mal. Por favor escríbenos directamente a hello@dualstackstudio.com.',
+    subject: 'Consulta de {service} de {name}',
+    footTagline: 'Estudio full-stack independiente. Productos con React, React Native y Node.js, diseñados y entregados de punta a punta.',
+    builtTitle: 'Construido en Paralelo',
+    builtText: 'Este sitio web fue construido en paralelo — diseño y visión de Dual-Stack Studio, implementación asistida por Claude AI. Un flujo de trabajo colaborativo que resultó efectivo para iterar y refinar rápidamente.',
+    licenceTitle: 'Habilitación comercial',
+    footNavTitle: 'Navegación', footLegalTitle: 'Legal', privacy: 'Política de Privacidad', terms: 'Términos de Servicio',
+    footContactTitle: 'Contacto', reply: 'Normalmente responde dentro de 1–2 días hábiles.',
+    rights: '© 2026 Dual-Stack Studio. Operado de forma independiente.', builtWith: 'Construido con Astro, desplegado en Vercel. Sitio en desarrollo activo.',
+  },
 };
 const c = copy[lang];
+// Individual project case studies don't have Spanish pages yet — fall back to English for those links.
+const lOut: Lang = lang === 'es' ? 'en' : lang;
 ---
 
-<Layout title={c.title} lang={lang}>
+<Layout title={c.title} lang={lang} langs={['en', 'de', 'es']}>
 
   <!-- Hero Section (visualidentity.studio-style: gray vignette, giant black wordmark, lime accent, rotating 3D glass asterisk) -->
   <section style="position: relative; min-height: 100vh; padding-top: 90px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
@@ -229,7 +299,7 @@ const c = copy[lang];
         <a href="#services" class="nav-link">{c.navServices}</a>
         <a href="#team" class="nav-link">{c.navTeam}</a>
         <a href={l(lang, '/creative')} class="nav-link" style="border: 1px solid rgba(10,10,10,0.35); padding: 5px 13px; border-radius: 100px;">{c.navCreative}</a>
-        <span class="web-lang"><LangSwitch lang={lang} /></span>
+        <span class="web-lang"><LangSwitch lang={lang} langs={['en', 'de', 'es']} /></span>
       </nav>
       <a href="#contact" class="header-cta" style="background: #c1663e; color: #fff; padding: 14px 32px; border-radius: 100px; text-decoration: none; font-size: 14px; font-weight: 600; box-shadow: 0 8px 24px rgba(193, 102, 62, 0.35); transition: transform 0.2s;">
         {c.cta}
@@ -248,7 +318,7 @@ const c = copy[lang];
       <a href="#services" class="mobile-nav-link">{c.navServices}</a>
       <a href="#team" class="mobile-nav-link">{c.navTeam}</a>
       <a href={l(lang, '/creative')} class="mobile-nav-link">{c.navCreative}</a>
-      <span class="mobile-lang"><LangSwitch lang={lang} /></span>
+      <span class="mobile-lang"><LangSwitch lang={lang} langs={['en', 'de', 'es']} /></span>
       <a href="#contact" class="mobile-cta">{c.cta}</a>
     </div>
 
@@ -723,7 +793,7 @@ const c = copy[lang];
       <div id="work-carousel" class="mdw-curved-slider-speed-16-gap-9-curve-9-size-20">
         <div class="carousel-source">
           {carouselItems.map((p, i) => (
-            <a href={l(lang, '/work/' + p.slug)} data-img={p.img}>{c.carouselLabels[i]}</a>
+            <a href={l(lOut, '/work/' + p.slug)} data-img={p.img}>{c.carouselLabels[i]}</a>
           ))}
         </div>
       </div>
@@ -755,7 +825,7 @@ const c = copy[lang];
               <p class="module-role">{c.modRole}</p>
               <div class="module-links">
                 {m.cases.map((cs) => (
-                  <a class="module-link" href={l(lang, '/work/' + cs.slug)}>{cs.label ?? c.modSee} →</a>
+                  <a class="module-link" href={l(lOut, '/work/' + cs.slug)}>{cs.label ?? c.modSee} →</a>
                 ))}
                 <a class="module-cta" href="#contact">{c.modWant}</a>
               </div>
@@ -786,7 +856,7 @@ const c = copy[lang];
             </div>
             <div class="module-links">
               {m.cases.map((cs) => (
-                <a class="module-link" href={l(lang, '/work/' + cs.slug)}>{cs.label ?? c.modSee} →</a>
+                <a class="module-link" href={l(lOut, '/work/' + cs.slug)}>{cs.label ?? c.modSee} →</a>
               ))}
               <a class="module-cta" href="#contact">{c.modWant}</a>
             </div>
@@ -1983,7 +2053,7 @@ const c = copy[lang];
           <h4 style="font-size: 11px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: #999; margin: 1.5rem 0 0.5rem 0;">{c.builtTitle}</h4>
           <p style="font-size: 13px; color: #888; line-height: 1.6; margin: 0; max-width: 280px;">{c.builtText}</p>
           <h4 style="font-size: 11px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: #999; margin: 1.5rem 0 0.5rem 0;">{c.licenceTitle}</h4>
-          <p style="font-size: 13px; color: #888; line-height: 1.6; margin: 0; max-width: 280px;">IT-Dienstleistungen (GISA 40150468)<br />Sebastian Rodriguez, Haag. <a href={l(lang, '/impressum')} style="color: inherit; text-decoration: underline;">Impressum</a></p>
+          <p style="font-size: 13px; color: #888; line-height: 1.6; margin: 0; max-width: 280px;">IT-Dienstleistungen (GISA 40150468)<br />Sebastian Rodriguez, Haag. <a href={l(lOut, '/impressum')} style="color: inherit; text-decoration: underline;">Impressum</a></p>
         </div>
 
         <div class="footer-col">
@@ -1996,9 +2066,9 @@ const c = copy[lang];
 
         <div class="footer-col">
           <h4>{c.footLegalTitle}</h4>
-          <a href={l(lang, '/privacy-policy')}>{c.privacy}</a>
-          <a href={l(lang, '/terms-of-service')}>{c.terms}</a>
-          <a href={l(lang, '/impressum')}>Impressum</a>
+          <a href={l(lOut, '/privacy-policy')}>{c.privacy}</a>
+          <a href={l(lOut, '/terms-of-service')}>{c.terms}</a>
+          <a href={l(lOut, '/impressum')}>Impressum</a>
         </div>
 
         <div class="footer-col">
