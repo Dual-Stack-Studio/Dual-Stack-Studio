@@ -91,18 +91,6 @@ export const photos: Plate[] = [
     },
   },
   {
-    src: A + "07-castle-dusk.webp",
-    w: 2000,
-    h: 1377,
-    size: "half",
-    place: AUSTRIA,
-    title: { en: "Three towers, one sky", de: "Drei Türme, ein Himmel" },
-    alt: {
-      en: "A castle with three towers in silhouette against a deep orange sunset sky",
-      de: "Ein Schloss mit drei Türmen als Silhouette vor tiefrotem Sonnenuntergangshimmel",
-    },
-  },
-  {
     src: A + "01-valley.webp",
     w: 2000,
     h: 1333,
@@ -187,6 +175,18 @@ export const photos: Plate[] = [
     },
   },
   {
+    src: A + "14-road-willow.webp",
+    w: 1333,
+    h: 2000,
+    size: "half",
+    place: AUSTRIA,
+    title: { en: "Home before dark", de: "Heim vor der Dunkelheit" },
+    alt: {
+      en: "A gravel road leading toward a barn, framed by hanging willow branches, under a sky fading from blue to orange",
+      de: "Ein Feldweg zu einer Scheune, gerahmt von herabhängenden Weidenzweigen, unter einem von Blau zu Orange verblassenden Himmel",
+    },
+  },
+  {
     src: J + "mountain-range-muted.jpg",
     w: 2000,
     h: 1330,
@@ -235,6 +235,18 @@ export const photos: Plate[] = [
     },
   },
   {
+    src: A + "07-castle-dusk.webp",
+    w: 2000,
+    h: 1377,
+    size: "half",
+    place: AUSTRIA,
+    title: { en: "Three towers, one sky", de: "Drei Türme, ein Himmel" },
+    alt: {
+      en: "A castle with three towers in silhouette against a deep orange sunset sky",
+      de: "Ein Schloss mit drei Türmen als Silhouette vor tiefrotem Sonnenuntergangshimmel",
+    },
+  },
+  {
     src: A + "12-contrail.webp",
     w: 2000,
     h: 1383,
@@ -271,18 +283,6 @@ export const photos: Plate[] = [
     alt: {
       en: "Sunset over still water with a lamppost silhouette",
       de: "Sonnenuntergang über stillem Wasser mit der Silhouette einer Laterne",
-    },
-  },
-  {
-    src: A + "14-road-willow.webp",
-    w: 1333,
-    h: 2000,
-    size: "half",
-    place: AUSTRIA,
-    title: { en: "Home before dark", de: "Heim vor der Dunkelheit" },
-    alt: {
-      en: "A gravel road leading toward a barn, framed by hanging willow branches, under a sky fading from blue to orange",
-      de: "Ein Feldweg zu einer Scheune, gerahmt von herabhängenden Weidenzweigen, unter einem von Blau zu Orange verblassenden Himmel",
     },
   },
   {
