@@ -76,7 +76,7 @@ const copy = {
     navTitle: 'Navigate', navWork: 'Work', navServices: 'Services', navTeam: 'Team', navJournal: 'Journal',
     legalTitle: 'Legal', privacy: 'Privacy Policy', terms: 'Terms of Service', contactTitle: 'Get in touch',
     rights: '© 2026 Dual-Stack Studio. Independently operated.', builtWith: 'Built with Astro, deployed on Vercel.',
-    close: 'Close',
+    close: 'Close', prev: 'Previous photo', next: 'Next photo',
   },
   de: {
     title: 'Australien — Journal — Dual-Stack Studio',
@@ -102,7 +102,7 @@ const copy = {
     navTitle: 'Navigation', navWork: 'Arbeiten', navServices: 'Leistungen', navTeam: 'Team', navJournal: 'Journal',
     legalTitle: 'Rechtliches', privacy: 'Datenschutzerklärung', terms: 'Nutzungsbedingungen', contactTitle: 'Kontakt',
     rights: '© 2026 Dual-Stack Studio. Unabhängig betrieben.', builtWith: 'Erstellt mit Astro, bereitgestellt auf Vercel.',
-    close: 'Schließen',
+    close: 'Schließen', prev: 'Vorheriges Foto', next: 'Nächstes Foto',
   },
 };
 const c = copy[lang];
@@ -237,7 +237,9 @@ const c = copy[lang];
   </footer>
 
   <div id="au-lightbox" class="au-lightbox" hidden>
-    <button type="button" class="au-lightbox-close" id="au-lightbox-close" aria-label={c.close}>×</button>
+    <button type="button" class="au-lightbox-close" id="au-lightbox-close" aria-label={c.close}><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 2l12 12M14 2 2 14"/></svg></button>
+    <button type="button" class="au-lightbox-nav au-lightbox-prev" id="au-lightbox-prev" aria-label={c.prev}><svg width="11" height="18" viewBox="0 0 11 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2 2 9l7 7"/></svg></button>
+    <button type="button" class="au-lightbox-nav au-lightbox-next" id="au-lightbox-next" aria-label={c.next}><svg width="11" height="18" viewBox="0 0 11 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l7 7-7 7"/></svg></button>
     <img src="" alt="" class="au-lightbox-img" id="au-lightbox-img" />
   </div>
 
@@ -373,7 +375,7 @@ const c = copy[lang];
       overflow: hidden;
       box-shadow: 0 12px 30px -18px rgba(43,36,32,0.35);
     }
-    .au-item img { display: block; width: 100%; height: auto; cursor: zoom-in; transition: transform 0.5s ease; }
+    .au-item img { display: block; width: 100%; height: auto; cursor: pointer; transition: transform 0.5s ease; }
     .au-item:hover img { transform: scale(1.03); }
     /* Smooth loading: space is reserved via width/height, a soft placeholder shows
        while the photo loads, then it fades in (only when JS marks it pending). */
@@ -464,7 +466,26 @@ const c = copy[lang];
       align-items: center;
       justify-content: center;
     }
-    .au-lightbox-close:hover { background: rgba(193,102,62,0.4); border-color: var(--terracotta); }
+    .au-lightbox-close:hover, .au-lightbox-nav:hover { background: rgba(193,102,62,0.4); border-color: var(--terracotta); }
+    .au-lightbox-nav {
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .au-lightbox-prev { left: 18px; }
+    .au-lightbox-next { right: 18px; }
+    @media (max-width: 700px) {
+      .au-lightbox-nav { top: auto; bottom: 16px; transform: none; }
+      .au-lightbox-prev { left: calc(50% - 58px); }
+      .au-lightbox-next { right: calc(50% - 58px); }
+    }
 
     /* ---------- FOOTER ---------- */
     .au-footer { background: var(--forest-deep); color: rgba(255,255,255,0.7); padding: 5rem 0 2.5rem; }
@@ -494,25 +515,43 @@ const c = copy[lang];
       const lightbox = document.getElementById('au-lightbox');
       const lightboxImg = document.getElementById('au-lightbox-img') as HTMLImageElement | null;
       const closeBtn = document.getElementById('au-lightbox-close');
+      const prevBtn = document.getElementById('au-lightbox-prev');
+      const nextBtn = document.getElementById('au-lightbox-next');
       if (!lightbox || !lightboxImg) return;
 
-      function open(src: string, alt: string) {
-        lightboxImg!.src = src;
-        lightboxImg!.alt = alt;
+      const triggers = Array.from(document.querySelectorAll<HTMLImageElement>('.au-lightbox-trigger'));
+      let index = 0;
+
+      function show(i: number) {
+        if (!triggers.length) return;
+        index = (i + triggers.length) % triggers.length;
+        const img = triggers[index];
+        lightboxImg!.src = img.currentSrc || img.src;
+        lightboxImg!.alt = img.alt;
+      }
+      function open(i: number) {
+        show(i);
         lightbox!.hidden = false;
+        document.body.style.overflow = 'hidden';
       }
       function close() {
         lightbox!.hidden = true;
         lightboxImg!.src = '';
+        document.body.style.overflow = '';
       }
 
-      document.querySelectorAll('.au-lightbox-trigger').forEach((img) => {
-        img.addEventListener('click', () => open((img as HTMLImageElement).currentSrc || (img as HTMLImageElement).src, (img as HTMLImageElement).alt));
-      });
+      triggers.forEach((img, i) => img.addEventListener('click', () => open(i)));
 
       closeBtn?.addEventListener('click', close);
+      prevBtn?.addEventListener('click', () => show(index - 1));
+      nextBtn?.addEventListener('click', () => show(index + 1));
       lightbox.addEventListener('click', (e) => { if (e.target === lightbox) close(); });
-      document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !lightbox!.hidden) close(); });
+      document.addEventListener('keydown', (e) => {
+        if (lightbox!.hidden) return;
+        if (e.key === 'Escape') close();
+        if (e.key === 'ArrowLeft') show(index - 1);
+        if (e.key === 'ArrowRight') show(index + 1);
+      });
     })();
 
     // Hover-to-play for the video clips (muted preview on hover).

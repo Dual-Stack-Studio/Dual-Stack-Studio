@@ -86,9 +86,9 @@ const c = copy[lang];
   </footer>
 
   <div id="ph-lightbox" class="ph-lightbox" hidden role="dialog" aria-modal="true">
-    <button type="button" class="ph-lb-close" id="ph-lb-close" aria-label={c.close}>×</button>
-    <button type="button" class="ph-lb-nav ph-lb-prev" id="ph-lb-prev" aria-label={c.prev}>‹</button>
-    <button type="button" class="ph-lb-nav ph-lb-next" id="ph-lb-next" aria-label={c.next}>›</button>
+    <button type="button" class="ph-lb-close" id="ph-lb-close" aria-label={c.close}><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 2l14 14M16 2 2 16" /></svg></button>
+    <button type="button" class="ph-lb-nav ph-lb-prev" id="ph-lb-prev" aria-label={c.prev}><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2 2 10l8 8" /></svg></button>
+    <button type="button" class="ph-lb-nav ph-lb-next" id="ph-lb-next" aria-label={c.next}><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8" /></svg></button>
     <figure class="ph-lb-figure">
       <img src="" alt="" class="ph-lb-img" id="ph-lb-img" />
       <figcaption id="ph-lb-caption" class="ph-lb-caption"></figcaption>
@@ -137,8 +137,8 @@ const c = copy[lang];
       border: 1px solid rgba(255, 255, 255, 0.2); background: rgba(255, 255, 255, 0.07);
       color: #fff; line-height: 1; display: flex; align-items: center; justify-content: center;
     }
-    .ph-lb-close { top: 20px; right: 24px; font-size: 26px; }
-    .ph-lb-nav { top: 50%; transform: translateY(-50%); font-size: 30px; padding-bottom: 4px; }
+    .ph-lb-close { top: 20px; right: 24px; }
+    .ph-lb-nav { top: 50%; transform: translateY(-50%); }
     .ph-lb-prev { left: 18px; }
     .ph-lb-next { right: 18px; }
     .ph-lb-close:hover, .ph-lb-nav:hover { background: rgba(193, 102, 62, 0.45); border-color: #c1663e; }
