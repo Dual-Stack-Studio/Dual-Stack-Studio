@@ -7,10 +7,13 @@ export default defineConfig({
   redirects: {
     '/work/japan-lodge': '/work/japan-restaurant',
     '/de/work/japan-lodge': '/de/work/japan-restaurant',
+    '/es/work/japan-lodge': '/work/japan-restaurant',
     '/photography/close-to-home': '/photography',
     '/photography/japan': '/photography',
     '/de/photography/close-to-home': '/de/photography',
     '/de/photography/japan': '/de/photography',
+    '/es/photography/close-to-home': '/es/photography',
+    '/es/photography/japan': '/es/photography',
   },
   vite: {
     ssr: {

@@ -259,7 +259,7 @@ const lOut: Lang = lang === 'es' ? 'en' : lang;
       </a>
       <nav class="desktop-nav">
         <a href="#work">{c.navWork}</a>
-        <a href={l(lOut, '/photography')}>{c.navPhotography}</a>
+        <a href={l(lang, '/photography')}>{c.navPhotography}</a>
         <a href="#services">{c.navServices}</a>
         <a href="#team">{c.navTeam}</a>
         <a href={l(lOut, '/journal')}>{c.navJournal}</a>
@@ -277,7 +277,7 @@ const lOut: Lang = lang === 'es' ? 'en' : lang;
     <div id="mobile-menu" class="mobile-menu">
       <button id="mobile-menu-close" class="mobile-menu-close" aria-label={c.menuClose}>✕</button>
       <a href="#work" class="mobile-nav-link">{c.navWork}</a>
-      <a href={l(lOut, '/photography')} class="mobile-nav-link">{c.navPhotography}</a>
+      <a href={l(lang, '/photography')} class="mobile-nav-link">{c.navPhotography}</a>
       <a href="#services" class="mobile-nav-link">{c.navServices}</a>
       <a href="#team" class="mobile-nav-link">{c.navTeam}</a>
       <a href={l(lOut, '/journal')} class="mobile-nav-link">{c.navJournal}</a>
@@ -324,7 +324,7 @@ const lOut: Lang = lang === 'es' ? 'en' : lang;
       <p class="section-lead">{c.photoLead}</p>
 
       <div class="work-grid work-grid--single">
-        <a href={l(lOut, '/photography')} class="work-card work-card--lg">
+        <a href={l(lang, '/photography')} class="work-card work-card--lg">
           <img src="/images/photography/close-to-home/01-valley.webp" alt={c.photoAlt} loading="lazy" />
           <div class="work-card-info">
             <span class="work-card-tag">{c.photoTag}</span>
@@ -334,7 +334,7 @@ const lOut: Lang = lang === 'es' ? 'en' : lang;
         </a>
       </div>
 
-      <a href={l(lOut, '/photography')} class="journal-all-link photo-all-link">{c.photoAll}</a>
+      <a href={l(lang, '/photography')} class="journal-all-link photo-all-link">{c.photoAll}</a>
     </div>
   </section>
 
@@ -493,7 +493,7 @@ const lOut: Lang = lang === 'es' ? 'en' : lang;
         <div class="footer-col">
           <h4>{c.footNavTitle}</h4>
           <a href="#work">{c.navWork}</a>
-          <a href={l(lOut, '/photography')}>{c.navPhotography}</a>
+          <a href={l(lang, '/photography')}>{c.navPhotography}</a>
           <a href="#services">{c.navServices}</a>
           <a href="#team">{c.navTeam}</a>
           <a href={l(lOut, '/journal')}>{c.navJournal}</a>

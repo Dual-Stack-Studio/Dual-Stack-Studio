@@ -31,6 +31,18 @@ const copy = {
     bizText: 'Kundenarbeiten liegen auf der Studioseite, mit eigenem Portfolio.',
     bizLink: 'Unsere Arbeiten ansehen →',
   },
+  es: {
+    title: 'Fotografía — Dual-Stack Studio',
+    description: 'Fotografía personal: las fotos que tomo para mí, no para clientes — todas en un solo lugar.',
+    back: '← Volver al estudio',
+    eyebrow: 'Fotografía · Trabajo personal',
+    h1: 'Fotos para mí.',
+    lead: 'Estas no son fotos de clientes. Son las fotos que tomo por cuenta propia — reunidas en un solo lugar, en orden, en vez de publicadas una por una y perdidas en el scroll.',
+    meta: 'fotografías · Austria y Japón',
+    bizTitle: '¿Buscás fotografía para tu negocio?',
+    bizText: 'El trabajo de clientes vive del lado del estudio, con su propio portfolio.',
+    bizLink: 'Ver nuestro trabajo →',
+  },
 };
 const c = copy[lang];
 
@@ -42,7 +54,7 @@ const numbered = rows.map((row) => ({
 }));
 ---
 
-<PhotoLayout title={c.title} description={c.description} lang={lang} backHref={l(lang, '/creative')} backLabel={c.back}>
+<PhotoLayout title={c.title} description={c.description} lang={lang} langs={['en', 'de', 'es']} backHref={l(lang, '/creative')} backLabel={c.back}>
   <section class="phs-hero">
     <div class="ph-inner">
       <span class="phs-eyebrow">{c.eyebrow}</span>

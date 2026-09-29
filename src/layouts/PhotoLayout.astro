@@ -8,11 +8,12 @@ interface Props {
   title: string;
   description?: string;
   lang?: Lang;
+  langs?: Lang[];
   backHref: string;
   backLabel: string;
 }
 
-const { title, description, lang = 'en', backHref, backLabel } = Astro.props;
+const { title, description, lang = 'en', langs = ['en', 'de'], backHref, backLabel } = Astro.props;
 
 const copy = {
   en: {
@@ -29,18 +30,27 @@ const copy = {
     rights: '© 2026 Dual-Stack Studio. Unabhängig betrieben.', builtWith: 'Erstellt mit Astro, bereitgestellt auf Vercel.',
     close: 'Schließen', prev: 'Vorheriges Foto', next: 'Nächstes Foto',
   },
+  es: {
+    tagline: 'Contamos la historia de lugares pequeños que hacen un trabajo real — contenido, storytelling y la presencia web detrás.',
+    navTitle: 'Navegación', navWork: 'Trabajo', navPhotography: 'Fotografía', navServices: 'Servicios', navTeam: 'Equipo', navJournal: 'Diario',
+    legalTitle: 'Legal', privacy: 'Política de Privacidad', terms: 'Términos de Servicio', contactTitle: 'Contacto',
+    rights: '© 2026 Dual-Stack Studio. Operado de forma independiente.', builtWith: 'Construido con Astro, desplegado en Vercel.',
+    close: 'Cerrar', prev: 'Foto anterior', next: 'Foto siguiente',
+  },
 };
 const c = copy[lang];
+// The Journal doesn't have a Spanish version yet — fall back to English for that one link.
+const lOut: Lang = lang === 'es' ? 'en' : lang;
 ---
 
-<Layout title={title} description={description} lang={lang}>
+<Layout title={title} description={description} lang={lang} langs={langs}>
   <header class="ph-header">
     <a href={l(lang, '/creative')} class="ph-brand">
       <img src="/logo.svg" alt="Dual-Stack Studio" width="32" height="32" style="border-radius: 8px;" />
       <span>Dual-Stack Studio</span>
     </a>
     <span class="ph-header-right">
-      <LangSwitch lang={lang} />
+      <LangSwitch lang={lang} langs={langs} />
       <a href={backHref} class="ph-back">{backLabel}</a>
     </span>
   </header>
@@ -65,7 +75,7 @@ const c = copy[lang];
           <a href={l(lang, '/photography')}>{c.navPhotography}</a>
           <a href={l(lang, '/creative#services')}>{c.navServices}</a>
           <a href={l(lang, '/creative#team')}>{c.navTeam}</a>
-          <a href={l(lang, '/journal')}>{c.navJournal}</a>
+          <a href={l(lOut, '/journal')}>{c.navJournal}</a>
         </div>
         <div class="ph-footer-col">
           <h4>{c.legalTitle}</h4>
