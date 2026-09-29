@@ -1,5 +1,5 @@
-// Project case studies shown at /work/<slug> and /de/work/<slug>.
-// Language-neutral fields (media, stack, url) live once; the prose lives in `en` / `de`.
+// Project case studies shown at /work/<slug>, /de/work/<slug> and /es/work/<slug>.
+// Language-neutral fields (media, stack, url) live once; the prose lives in `en` / `de` / `es`.
 import type { Lang } from '../i18n';
 
 interface ProjectText {
@@ -21,6 +21,7 @@ interface ProjectDef {
   url: string | null;
   en: ProjectText;
   de: ProjectText;
+  es: ProjectText;
 }
 
 const projects: Record<string, ProjectDef> = {
@@ -69,6 +70,26 @@ const projects: Record<string, ProjectDef> = {
       ],
       status: 'In aktiver Entwicklung · geschlossener Test auf Google Play',
       growthPitch: 'Die Kernabläufe sind produktionsreif — GPS-gefilterter Feed, Telefonverifizierung und der komplette Verbindungsablauf laufen bereits live auf Railway. Der Schritt über eine einzelne Stadt hinaus bringt echte, nutzungsabhängige Kosten mit sich: Twilio-SMS pro Verifizierung, Karten-/GPS-API-Aufrufe und Community-Moderation, sobald das Netzwerk wächst. Offen für Investitionen, um die Infrastruktur zu finanzieren und einen Roll-out in mehreren Städten voranzutreiben.',
+    },
+    es: {
+      client: 'Proyecto personal · Dual-Stack Studio',
+      title: 'Bumerán',
+      tagline: '"Lo que das, vuelve" — intercambio de favores entre vecinos',
+      description: 'Una app de intercambio de favores entre vecinos para pedir ayuda, ofrecer asistencia o regalar objetos — filtrada por GPS en 13 categorías. Los usuarios ven solo contenido complementario: quienes buscan ayuda ven ofertas y regalos, quienes ayudan ven pedidos. En desarrollo activo bajo Dual-Stack Studio, con Claude Sonnet 4.6 como compañero de ingeniería.',
+      features: [
+        'Tres tipos de publicación — necesito, ofrezco, regalo — con filtrado de feed según la intención, para que cada usuario vea solo contenido complementario',
+        'Mapa a pantalla completa con pines codificados por color según el tipo de publicación, más una hoja inferior deslizable (puntos de ajuste en 20/45/85%) para explorar',
+        'Modal de seguridad con consejos prácticos antes de pasar a WhatsApp — la ubicación GPS exacta nunca se muestra públicamente',
+        'Verificación por SMS con Twilio (código de 6 dígitos, vence en 10 minutos) — un número de teléfono por cuenta, validado en el servidor',
+        'Ciclo completo de conexión — pendiente → aceptada → completada/cancelada — con sistema de reseñas para la reputación local',
+        'Backend en NestJS con límite de peticiones global (100 req/min por IP) y encabezados de seguridad Helmet',
+        'Autenticación con Google OAuth + JWT, sesión persistida en AsyncStorage con restauración automática al abrir la app',
+        'Localización en español, inglés y alemán, conforme al RGPD con un pie de página legal reutilizable en 4 pantallas',
+        'En producción en Railway',
+        'Construido con Claude Sonnet 4.6 como compañero de IA diario durante todo el desarrollo',
+      ],
+      status: 'Desarrollo activo · prueba cerrada en Google Play',
+      growthPitch: 'Los flujos principales ya están listos para producción — el feed filtrado por GPS, la verificación telefónica y el ciclo completo de conexión ya funcionan en vivo en Railway. Escalar más allá de una sola ciudad implica costos reales, ligados al uso: SMS de Twilio por cada verificación, llamadas a la API de mapas/GPS, y moderación de comunidad a medida que la red crece. Abierto a inversión para financiar la infraestructura e impulsar una expansión a varias ciudades.',
     },
   },
 
@@ -131,6 +152,26 @@ const projects: Record<string, ProjectDef> = {
       status: 'Geschlossener Test auf Google Play',
       growthPitch: 'Die Architektur ist bereits auf Skalierung ausgelegt — Hybrid-Caching, Eroberungssystem und die komplette soziale Ebene sind produktionsreif. Was das Projekt im geschlossenen Test hält, ist das API-Budget: Die Kosten der Google Places API wachsen direkt mit den aktiven Nutzern, und ein öffentlicher Start bedeutet eine echte, laufende Rechnung. Offen für Investitionen oder einen Sponsoring-Partner, um den öffentlichen Launch zu ermöglichen.',
     },
+    es: {
+      client: 'Proyecto personal · Dual-Stack Studio',
+      title: 'Echoes & Paths',
+      tagline: 'Conquistá sitios históricos, un check-in GPS a la vez',
+      description: 'Una app de sitios históricos basada en GPS, nacida de las ganas de tener castillos, ruinas y museos al frente en un mapa, y no perdidos entre restaurantes y estaciones de servicio. Visitás un castillo, una ruina, un museo — lo conquistás físicamente a menos de 150m — subís de rango medieval, agregás amigos y ves qué exploraron ellos. Actualmente en prueba cerrada para familia y amigos, por los costos operativos de la API de Google Places a gran escala.',
+      features: [
+        'Sistema de conquista validado por GPS — chequeo de distancia Haversine en el servidor (≤150m) rechaza check-ins falsificados o remotos',
+        'Progresión de rango medieval en 7 niveles — Campesino → Escudero → Caballero → Barón → Conde → Duque → Alto Rey',
+        'Capa social — solicitudes de amistad, visibilidad de conquistas entre usuarios y notificaciones push vía la API de Expo Push',
+        'Feed híbrido que combina la API de Google Places (New), descripciones históricas de Wikipedia y aportes de la comunidad — cacheado y paginado en el servidor',
+        'Aportes de fotos y texto de la comunidad vía Cloudinary, moderados antes de publicarse',
+        'Autenticación con Google Sign-In + JWT',
+        'Actualizaciones OTA vía EAS Update — envía correcciones de JS a producción sin esperar una revisión de Play Store',
+        'Localización en inglés y alemán, detectada automáticamente según el idioma del dispositivo',
+        'Páginas legales totalmente conformes al RGPD — derechos según Art. 13/14, enlaces de reclamo ante las autoridades de protección de datos de 6 países de la UE',
+        'Construido en solitario con Claude Sonnet 4.6 como compañero de IA diario durante todo el desarrollo',
+      ],
+      status: 'Prueba cerrada en Google Play',
+      growthPitch: 'La arquitectura ya está preparada para escalar — el cacheo híbrido, el sistema de conquista y toda la capa social están listos para producción. Lo que lo limita a la prueba cerrada es el presupuesto de API: los costos de Google Places escalan directamente con los usuarios activos, y salir al público implica una factura real y continua. Abierto a inversión o un socio patrocinador para habilitar un lanzamiento público.',
+    },
   },
 
   nonna: {
@@ -173,6 +214,21 @@ const projects: Record<string, ProjectDef> = {
         'Bewusst skalierbar angelegt — ein klarer Weg zu Stripe-Checkout und Admin-Panel ohne Neuentwicklung',
       ],
       status: 'Live · in aktiver Weiterentwicklung',
+    },
+    es: {
+      client: 'El Dulce de la Nonna · Proyecto de cliente en producción',
+      title: 'E-commerce de panadería',
+      tagline: 'Pedidos sin fricción para una panadería artesanal de alfajores',
+      description: 'Un sitio de e-commerce para una panadería artesanal de alfajores en Miami, construido para expatriados argentinos que extrañan el sabor de los alfajores que hacían sus abuelas. Cada pedido se elabora a mano según especificación, con una ventana de 48 horas de anticipación, y todo el flujo funciona por email — sin base de datos, sin panel de administración, sin carga de mantenimiento para la clienta. El cumplimiento legal está al frente: divulgación de alérgenos según la ley de seguridad alimentaria de Florida, términos de cancelación conformes a la FDUTPA, y una política de privacidad conforme a la FDBR con derechos de datos explícitos. La arquitectura se mantiene intencionalmente simple para el momento actual del negocio, con un camino claro de mejora hacia checkout con Stripe, emails automáticos de pedido y un panel de administración liviano cuando el volumen de pedidos justifique la complejidad adicional — construido bajo Dual-Stack Studio.',
+      features: [
+        'Flujo de pedidos basado en email — sin persistencia en base de datos, dos Mailables por pedido',
+        'Ventana mínima de 48 horas de anticipación, aplicada en el servidor con Carbon',
+        'Divulgación de alérgenos y cumplimiento legal FDUTPA/FDBR integrado según la ley de seguridad alimentaria de Florida',
+        'Monolito Blade renderizado en el servidor — sin framework de JS del lado del cliente, rápido por defecto',
+        'Tokens de marca personalizados en Tailwind v4, acordes a la identidad de la panadería',
+        'Diseñado a propósito para escalar — un camino claro hacia checkout con Stripe y un panel de administración sin reescribir el sitio',
+      ],
+      status: 'En producción · desarrollo activo',
     },
   },
 
@@ -218,6 +274,22 @@ const projects: Record<string, ProjectDef> = {
         'Besteht die Core Web Vitals von Google und ist in der Google-Suche indexiert — über die Search Console verifiziert und damit auf dem Qualitätsniveau der Seitenerfahrung, das Google für das Ranking heranzieht',
       ],
       status: 'Live · Lighthouse 95+, LCP ca. 1,2 s, CLS < 0,05',
+    },
+    es: {
+      client: 'MVG Lash & Brow · Proyecto de cliente en producción',
+      title: 'Sitio web de salón',
+      tagline: 'Sitio estático, privado por defecto, para un salón en Trondheim',
+      description: 'Un sitio de una sola página para un salón de pestañas y cejas en Trondheim, Noruega — generado de forma estática, con fuentes alojadas propias, sin cookies ni seguimiento, y construido para mantenerse accesible sin sacrificar velocidad.',
+      features: [
+        'Generación estática con Astro 7 — HTML plano, contenido gestionado por configuración',
+        'Modal nativo de HTML5 para la sección "Sobre nosotros", sin librerías adicionales',
+        'Fuentes alojadas propias vía Fontsource — sin solicitudes a servidores de fuentes externos',
+        'Privacidad primero: sin cookies, sin analítica, sin seguimiento',
+        'Accesible según WCAG 2.1 AA en todo el sitio',
+        'Integración de reservas con el sistema de gestión de salones Timma',
+        'Aprueba los Core Web Vitals de Google y está indexado en la Búsqueda de Google — verificado vía Search Console, cumpliendo el estándar de calidad de experiencia de página que Google usa para el ranking',
+      ],
+      status: 'En producción · Lighthouse 95+, LCP ~1.2s, CLS < 0.05',
     },
   },
   savora: {
@@ -265,6 +337,23 @@ const projects: Record<string, ProjectDef> = {
       ],
       status: 'In Entwicklung · Veröffentlichung im Google Play Store in Arbeit',
     },
+    es: {
+      client: 'Proyecto personal · Dual-Stack Studio',
+      title: 'Savora',
+      tagline: '¿Qué puedo cocinar con lo que tengo? Una app de recetas con compañera de cocina con IA',
+      description: 'Una app móvil de recetas construida alrededor de una sola pregunta: ¿qué puedo cocinar con lo que tengo? Escribís tus ingredientes, elegís un filtro de dieta y recibís sugerencias ordenadas al instante desde un catálogo local, enriquecidas con resultados de una base de datos online mucho más grande cuando las coincidencias locales escasean. La pieza central es Linna, una asistente potenciada por Claude con la mascota oveja de peluche de la app como su cara: un agente conversacional real que busca primero en tu propio catálogo y solo recurre a la fuente externa con cupo limitado cuando lo necesita.',
+      features: [
+        'Búsqueda basada en ingredientes con filtros de dieta (vegano, vegetariano, con carne) y un puntaje de coincidencia que muestra qué tenés y qué falta',
+        'Linna, una asistente potenciada por Claude que llama herramientas: busca primero en el catálogo local y usa la API externa de recetas solo cuando los resultados locales son débiles',
+        'Cada receta que sugiere la asistente se abre directamente dentro de la app mediante navegación profunda',
+        'Backend en Python/FastAPI en Railway, reescrito desde Node/Express con la API original replicada 1:1 y cubierta por 73 tests antes de agregar la asistente',
+        'Catálogo SQLite embebido que se crea y se carga solo en cada inicio, sin pasos de migración manual',
+        'Todas las claves de API externas permanecen en el servidor, así el cliente nunca toca una clave paga',
+        'Pantalla de inicio diseñada alrededor de la mascota y fotografía real, más favoritos y lista de compras',
+        'Construido con Claude como compañero de ingeniería diario, desde la migración del backend hasta la depuración del despliegue',
+      ],
+      status: 'En desarrollo · en trámite de publicación en Google Play',
+    },
   },
   watchit: {
     stack: ['React 19', 'Redux Toolkit', 'Socket.IO', 'Node.js', 'Express 5', 'YouTube API', 'Vercel'],
@@ -302,6 +391,22 @@ const projects: Record<string, ProjectDef> = {
         'Dieselbe Echtzeit-Technik kann Live-Bestelltafeln, gemeinsame Ansichten oder Live-Verfügbarkeit für ein Geschäft antreiben',
       ],
       status: 'Live',
+    },
+    es: {
+      client: 'Proyecto personal · Dual-Stack Studio',
+      title: 'WatchIt',
+      tagline: 'Miren juntos en perfecta sincronía: sin cuentas, sin configuración',
+      description: 'Para quienes no pueden estar en la misma habitación. Creás una sala, compartís un link y miran videos de YouTube en perfecta sincronía. Una persona le da play, todos miran juntos; pausar, adelantar y cambiar de video se mantiene sincronizado al instante. Por dentro: una progressive web app en React 19 con sincronización impulsada por Socket.IO, y un servidor Node.js sin estado con un protocolo de negociación personalizado para sincronización precisa al cuadro cuando alguien se une a mitad de un video.',
+      features: [
+        'Salas compartidas por link, sin cuentas ni configuración',
+        'Play, pausa, avance y cambios de video llegan a todos en tiempo real vía WebSockets (Socket.IO)',
+        'Sincronización precisa al cuadro para quienes se unen a mitad de un video, gracias a un protocolo de negociación personalizado',
+        'Servidor Node.js/Express sin estado: no hay estado de sala que guardar, respaldar ni migrar',
+        'Progressive web app en React 19 con gestión de estado con Redux Toolkit',
+        'En producción en Vercel',
+        'La misma tecnología en tiempo real puede impulsar tableros de pedidos en vivo, vistas compartidas o disponibilidad en vivo para un negocio',
+      ],
+      status: 'En producción',
     },
   },
   underevents: {
@@ -345,6 +450,24 @@ const projects: Record<string, ProjectDef> = {
       ],
       status: 'Live-Demo · auf Vercel veröffentlicht',
     },
+    es: {
+      client: 'Proyecto de muestra · Dual-Stack Studio',
+      title: 'UnderEvents',
+      tagline: 'Una plataforma completa de e-commerce para entradas de eventos en vivo, desde el descubrimiento hasta el email de confirmación',
+      description: 'Una tienda online real que vende entradas para eventos, no una app de juguete tipo CRUD. Los visitantes descubren eventos por ciudad, género y mes, agregan entradas al carrito, pagan con Stripe y reciben un email de confirmación, mientras los administradores crean y gestionan eventos. Nuestra parte: la arquitectura e implementación del frontend (estructura de carpetas, gestión de estado, límites de componentes y convenciones, todo definido antes de construir la primera pantalla), integrado con una API REST de Node.js con webhooks de Stripe, email con Brevo y cacheo con Redis.',
+      features: [
+        'Ciclo de compra completo: descubrimiento de eventos, carrito, pago con Stripe, email de confirmación y gestión de administrador',
+        'Checkout real con Stripe, con pagos confirmados del lado del servidor mediante webhooks',
+        'Búsqueda y filtros por ciudad, género y mes, más mapas interactivos con Leaflet para las ubicaciones de los eventos',
+        'Autenticación con Auth0 en el frontend y JWT firmados con RS256 en la API',
+        'Emails transaccionales vía Brevo, y cacheo con Redis en la API',
+        'Área de administración para crear y gestionar eventos',
+        'Interfaz en inglés y alemán',
+        'Arquitectura de frontend definida de antemano (estado con Redux Toolkit, estructura de carpetas, límites de componentes, convenciones de nombres) y validada mediante pull requests claros',
+        'En producción en Vercel',
+      ],
+      status: 'Demo en vivo · desplegado en Vercel',
+    },
   },
 };
 
@@ -362,8 +485,9 @@ export interface Project extends ProjectText {
 
 /** One project's full data in the requested language. */
 export function getProject(slug: string, lang: Lang): Project {
-  const { en, de, ...shared } = projects[slug];
-  return { slug, ...shared, ...(lang === 'de' ? de : en) };
+  const { en, de, es, ...shared } = projects[slug];
+  const text = lang === 'de' ? de : lang === 'es' ? es : en;
+  return { slug, ...shared, ...text };
 }
 
 /** The short card data for every project except `slug`, in the requested language. */

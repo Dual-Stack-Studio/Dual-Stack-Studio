@@ -42,11 +42,24 @@ const copy = {
     contactTitle: 'Kontakt', reply: 'Antwortet in der Regel innerhalb von 1–2 Werktagen.',
     rights: '© 2026 Dual-Stack Studio. Unabhängig betrieben.', builtWith: 'Erstellt mit Astro, bereitgestellt auf Vercel. Website in aktiver Weiterentwicklung.',
   },
+  es: {
+    backFull: '← Volver a los proyectos', proposal: 'Solicitar propuesta', hoverHint: '▶ Pasá el mouse para reproducir',
+    prevImage: 'Imagen anterior', nextImage: 'Imagen siguiente', preview: 'vista previa',
+    about: 'Sobre el proyecto', features: 'Funcionalidades clave', stack: 'Stack tecnológico', status: 'Estado',
+    growth: 'Crecimiento e Inversión', visit: 'Visitar sitio en vivo', unavailable: 'No disponible públicamente',
+    exploreEyebrow: 'Seguir explorando', exploreTitle: 'Más proyectos', prevProject: 'Proyecto anterior', nextProject: 'Proyecto siguiente',
+    close: 'Cerrar',
+    footTagline: 'Estudio full-stack independiente. Productos con React, React Native y Node.js, diseñados y entregados de punta a punta.',
+    navTitle: 'Navegación', navProjects: 'Proyectos', navServices: 'Servicios', navTeam: 'Equipo', navTestimonials: 'Testimonios',
+    legalTitle: 'Legal', privacy: 'Política de Privacidad', terms: 'Términos de Servicio',
+    contactTitle: 'Contacto', reply: 'Normalmente responde dentro de 1–2 días hábiles.',
+    rights: '© 2026 Dual-Stack Studio. Operado de forma independiente.', builtWith: 'Construido con Astro, desplegado en Vercel. Sitio en desarrollo activo.',
+  },
 };
 const c = copy[lang];
 ---
 
-<Layout title={`${project.title} — Dual-Stack Studio`} description={project.tagline} lang={lang}>
+<Layout title={`${project.title} — Dual-Stack Studio`} description={project.tagline} lang={lang} langs={['en', 'de', 'es']}>
   <header id="pd-header" style="position: sticky; top: 0; padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; z-index: 100; background: rgba(92, 92, 92, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
     <a href={l(lang, '/web')} class="pd-header-logo" style="font-size: 20px; font-weight: 800; letter-spacing: -0.5px; display: flex; align-items: center; gap: 10px; text-decoration: none; color: #ffffff; flex-shrink: 0;">
       <img src="/logo.svg" alt="Dual-Stack Studio" width="30" height="30" style="border-radius: 7px; flex-shrink: 0;" />
@@ -57,7 +70,7 @@ const c = copy[lang];
       <span class="pd-back-short">←</span>
     </a>
     <span class="pd-header-right">
-      <LangSwitch lang={lang} />
+      <LangSwitch lang={lang} langs={['en', 'de', 'es']} />
       <a href={l(lang, '/web#contact')} class="pd-header-cta" style="background: #c1663e; color: #fff; padding: 12px 26px; border-radius: 100px; text-decoration: none; font-size: 14px; font-weight: 600; box-shadow: 0 8px 20px rgba(193, 102, 62, 0.3); white-space: nowrap; flex-shrink: 0;">
         {c.proposal}
       </a>
