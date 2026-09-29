@@ -8,6 +8,7 @@ import tasData from '../../data/journal-tasmania.json';
 
 const { lang = 'en' } = Astro.props as { lang?: Lang };
 const de = lang === 'de';
+const es = lang === 'es';
 
 const photos = data.photos;
 const heroImg = '/images/journal/australia/au-28.jpg';
@@ -16,15 +17,15 @@ const gallery = photos.filter((p) => p.src !== heroImg);
 
 // Videos are woven into the photo galleries (not a separate section).
 const auVideos = [
-  { type: 'video', orientation: 'landscape', src: '/videos/journal/australia-video-01.mp4', poster: '/images/journal/australia/au-video-01-poster.jpg', label: de ? 'Ein langer Blick über den Busch · August 2025' : 'A long look out over the bush · August 2025' },
-  { type: 'video', orientation: 'portrait', src: '/videos/journal/australia-video-02.mp4', poster: '/images/journal/australia/au-video-02-poster.jpg', label: de ? 'Kakadu · Juni 2025' : 'Cockatoo · June 2025' },
-  { type: 'video', orientation: 'portrait', src: '/videos/journal/australia-video-03.mp4', poster: '/images/journal/australia/au-video-03-poster.jpg', label: de ? 'Unterwegs · März 2025' : 'Out and about · March 2025' },
-  { type: 'video', orientation: 'portrait', src: '/videos/journal/australia-video-04.mp4', poster: '/images/journal/australia/au-video-04-poster.jpg', label: de ? 'In der Stadt unterwegs · März 2025' : 'Around town · March 2025' },
+  { type: 'video', orientation: 'landscape', src: '/videos/journal/australia-video-01.mp4', poster: '/images/journal/australia/au-video-01-poster.jpg', label: de ? 'Ein langer Blick über den Busch · August 2025' : es ? 'Una mirada larga sobre el monte · agosto 2025' : 'A long look out over the bush · August 2025' },
+  { type: 'video', orientation: 'portrait', src: '/videos/journal/australia-video-02.mp4', poster: '/images/journal/australia/au-video-02-poster.jpg', label: de ? 'Kakadu · Juni 2025' : es ? 'Cacatúa · junio 2025' : 'Cockatoo · June 2025' },
+  { type: 'video', orientation: 'portrait', src: '/videos/journal/australia-video-03.mp4', poster: '/images/journal/australia/au-video-03-poster.jpg', label: de ? 'Unterwegs · März 2025' : es ? 'De paseo · marzo 2025' : 'Out and about · March 2025' },
+  { type: 'video', orientation: 'portrait', src: '/videos/journal/australia-video-04.mp4', poster: '/images/journal/australia/au-video-04-poster.jpg', label: de ? 'In der Stadt unterwegs · März 2025' : es ? 'Recorriendo la ciudad · marzo 2025' : 'Around town · March 2025' },
 ];
 
 const tasVideos = [
-  { type: 'video', orientation: 'landscape', src: '/videos/journal/tasmania-video-01.mp4', poster: '/images/journal/australia/tasmania/tas-video-01-poster.jpg', label: de ? 'Unten an der Küste · Dezember 2024' : 'Down on the coast · December 2024' },
-  { type: 'video', orientation: 'portrait', src: '/videos/journal/tasmania-video-02.mp4', poster: '/images/journal/australia/tasmania/tas-video-02-poster.jpg', label: de ? 'Ein Moment am Wasser · Februar 2025' : 'A moment by the water · February 2025' },
+  { type: 'video', orientation: 'landscape', src: '/videos/journal/tasmania-video-01.mp4', poster: '/images/journal/australia/tasmania/tas-video-01-poster.jpg', label: de ? 'Unten an der Küste · Dezember 2024' : es ? 'Abajo en la costa · diciembre 2024' : 'Down on the coast · December 2024' },
+  { type: 'video', orientation: 'portrait', src: '/videos/journal/tasmania-video-02.mp4', poster: '/images/journal/australia/tasmania/tas-video-02-poster.jpg', label: de ? 'Ein Moment am Wasser · Februar 2025' : es ? 'Un momento junto al agua · febrero 2025' : 'A moment by the water · February 2025' },
 ];
 
 // Photo caption: a formatted date when the photo has one, otherwise a translated generic label.
@@ -104,11 +105,37 @@ const copy = {
     rights: '© 2026 Dual-Stack Studio. Unabhängig betrieben.', builtWith: 'Erstellt mit Astro, bereitgestellt auf Vercel.',
     close: 'Schließen', prev: 'Vorheriges Foto', next: 'Nächstes Foto',
   },
+  es: {
+    title: 'Australia — Diario — Dual-Stack Studio',
+    description: 'Parte uno de nuestro diario: meses en Australia — Brisbane, el monte, la fauna y el trabajo entre medio.',
+    back: '← Volver al diario',
+    heroAlt: 'El perfil de Brisbane visto a través del monte desde un mirador',
+    eyebrow: 'Diario · Parte 01', h1: 'Australia',
+    meta: 'Marzo – agosto 2025 · Brisbane y alrededores',
+    lead: 'Meses al otro lado del mundo — una ciudad junto al río, selva tropical en su borde, y el trabajo que pagó los días libres.',
+    storyLead: 'Australia no fue unas vacaciones. Fue un tramo de vida real en un lugar que resultó ser hermoso.',
+    p1: 'Aterrizamos en Brisbane e hicimos primero la parte menos glamorosa — conseguir trabajo, encontrar un ritmo, aprender una ciudad nueva una línea de colectivo a la vez. Pero en los días libres salíamos a explorar: hasta el mirador desde donde todo el perfil de la ciudad se ve chico contra el monte, adentro de la selva tropical donde la luz baja en pedazos, hacia donde sea que el fin de semana nos llevara. En algún momento un cacatúa nos gritó desde un eucalipto, y eso se sintió justo.',
+    p2: 'Es el tipo de viaje que te enseña a fotografiar lo que realmente tenés adelante — no la postal, sino la textura real de un lugar donde estás viviendo. Es lo mismo que hacemos para los negocios con los que trabajamos. Lo que sigue es Australia, más o menos en el orden en que sucedió.',
+    note: 'Todavía estamos editando este capítulo — viene más.',
+    monthsEyebrow: 'Los meses, de punta a punta', monthsTitle: 'Del otoño a la primavera',
+    monthsLead: 'Fotografiado de marzo a agosto de 2025, más o menos en orden. Tocá cualquier foto para verla en tamaño completo.',
+    photoAlt: 'Australia', tasAlt: 'Tasmania',
+    tasBadge: 'Una escapada', tasTitle: 'Bajada a Tasmania',
+    tasIntro: 'Antes del continente, estuvo la isla. Pasamos el cambio de año abajo en Tasmania — playas salvajes sin nadie, agua fría y limpia, y el tipo de costa que te hace parar el auto cada pocos minutos. Se sintió como el borde de todo, así que lo dejamos en su propio capítulo.',
+    ctaTitle: 'Así vemos cada lugar.',
+    ctaText: 'La misma mirada que le ponemos a un tramo de vida en Australia es la que le ponemos a granjas, alojamientos y pequeños negocios locales.',
+    ctaBtn: 'Hablemos',
+    footTagline: 'Contamos la historia de lugares pequeños que hacen un trabajo real — contenido, storytelling y la presencia web detrás.',
+    navTitle: 'Navegación', navWork: 'Trabajo', navServices: 'Servicios', navTeam: 'Equipo', navJournal: 'Diario',
+    legalTitle: 'Legal', privacy: 'Política de Privacidad', terms: 'Términos de Servicio', contactTitle: 'Contacto',
+    rights: '© 2026 Dual-Stack Studio. Operado de forma independiente.', builtWith: 'Construido con Astro, desplegado en Vercel.',
+    close: 'Cerrar', prev: 'Foto anterior', next: 'Foto siguiente',
+  },
 };
 const c = copy[lang];
 ---
 
-<Layout title={c.title} description={c.description} lang={lang}>
+<Layout title={c.title} description={c.description} lang={lang} langs={['en', 'de', 'es']}>
 
   <header class="au-header">
     <a href={l(lang, '/creative')} class="au-brand">
@@ -116,7 +143,7 @@ const c = copy[lang];
       <span>Dual-Stack Studio</span>
     </a>
     <span class="au-header-right">
-      <LangSwitch lang={lang} />
+      <LangSwitch lang={lang} langs={['en', 'de', 'es']} />
       <a href={l(lang, '/journal')} class="au-back">{c.back}</a>
     </span>
   </header>

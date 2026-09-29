@@ -221,8 +221,6 @@ const copy = {
   },
 };
 const c = copy[lang];
-// Photography, the Journal and the Japan case study don't have Spanish pages yet — fall back to English for those links.
-const lOut: Lang = lang === 'es' ? 'en' : lang;
 ---
 
 <Layout title={c.title} lang={lang} langs={['en', 'de', 'es']}>
@@ -262,7 +260,7 @@ const lOut: Lang = lang === 'es' ? 'en' : lang;
         <a href={l(lang, '/photography')}>{c.navPhotography}</a>
         <a href="#services">{c.navServices}</a>
         <a href="#team">{c.navTeam}</a>
-        <a href={l(lOut, '/journal')}>{c.navJournal}</a>
+        <a href={l(lang, '/journal')}>{c.navJournal}</a>
         <a href={l(lang, '/web')} class="nav-dept">{c.navWeb}</a>
       </nav>
       <div class="header-actions">
@@ -280,7 +278,7 @@ const lOut: Lang = lang === 'es' ? 'en' : lang;
       <a href={l(lang, '/photography')} class="mobile-nav-link">{c.navPhotography}</a>
       <a href="#services" class="mobile-nav-link">{c.navServices}</a>
       <a href="#team" class="mobile-nav-link">{c.navTeam}</a>
-      <a href={l(lOut, '/journal')} class="mobile-nav-link">{c.navJournal}</a>
+      <a href={l(lang, '/journal')} class="mobile-nav-link">{c.navJournal}</a>
       <a href={l(lang, '/web')} class="mobile-nav-link">{c.navWeb}</a>
       <a href="#contact" class="mobile-cta">{c.cta}</a>
     </div>
@@ -346,7 +344,7 @@ const lOut: Lang = lang === 'es' ? 'en' : lang;
       <p class="section-lead">{c.journalLead}</p>
 
       <div class="work-grid work-grid--single">
-        <a href={l(lOut, '/journal/australia')} class="work-card work-card--lg">
+        <a href={l(lang, '/journal/australia')} class="work-card work-card--lg">
           <img src="/images/journal/australia/au-28.jpg" alt={c.journalAlt} loading="lazy" />
           <div class="work-card-info">
             <span class="work-card-tag">{c.journalTag}</span>
@@ -356,7 +354,7 @@ const lOut: Lang = lang === 'es' ? 'en' : lang;
         </a>
       </div>
 
-      <a href={l(lOut, '/journal')} class="journal-all-link">{c.journalAll}</a>
+      <a href={l(lang, '/journal')} class="journal-all-link">{c.journalAll}</a>
     </div>
   </section>
 
@@ -496,7 +494,7 @@ const lOut: Lang = lang === 'es' ? 'en' : lang;
           <a href={l(lang, '/photography')}>{c.navPhotography}</a>
           <a href="#services">{c.navServices}</a>
           <a href="#team">{c.navTeam}</a>
-          <a href={l(lOut, '/journal')}>{c.navJournal}</a>
+          <a href={l(lang, '/journal')}>{c.navJournal}</a>
           <a href={l(lang, '/web')}>{c.navWeb}</a>
         </div>
 

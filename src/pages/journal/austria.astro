@@ -7,6 +7,7 @@ import data from '../../data/journal-austria.json';
 
 const { lang = 'en' } = Astro.props as { lang?: Lang };
 const de = lang === 'de';
+const es = lang === 'es';
 
 const photos = data.photos;
 const heroImg = '/images/journal/austria/austria-01.jpg';
@@ -15,9 +16,9 @@ const gallery = photos.filter((p) => p.src !== heroImg);
 
 // Videos are woven into the photo gallery (not a separate section).
 const videos = [
-  { type: 'video', orientation: 'portrait', src: '/videos/journal/austria-video-01.mp4', poster: '/images/journal/austria/video-01-poster.jpg', label: de ? 'Unterwegs · Mai 2026' : 'On the road · May 2026' },
-  { type: 'video', orientation: 'portrait', src: '/videos/journal/austria-video-02.mp4', poster: '/images/journal/austria/video-02-poster.jpg', label: de ? 'Das Tal · Mai 2026' : 'The valley · May 2026' },
-  { type: 'video', orientation: 'portrait', src: '/videos/journal/austria-video-03.mp4', poster: '/images/journal/austria/video-03-poster.jpg', label: de ? 'Später Frühling · Mai 2026' : 'Late spring · May 2026' },
+  { type: 'video', orientation: 'portrait', src: '/videos/journal/austria-video-01.mp4', poster: '/images/journal/austria/video-01-poster.jpg', label: de ? 'Unterwegs · Mai 2026' : es ? 'En el camino · mayo 2026' : 'On the road · May 2026' },
+  { type: 'video', orientation: 'portrait', src: '/videos/journal/austria-video-02.mp4', poster: '/images/journal/austria/video-02-poster.jpg', label: de ? 'Das Tal · Mai 2026' : es ? 'El valle · mayo 2026' : 'The valley · May 2026' },
+  { type: 'video', orientation: 'portrait', src: '/videos/journal/austria-video-03.mp4', poster: '/images/journal/austria/video-03-poster.jpg', label: de ? 'Später Frühling · Mai 2026' : es ? 'Fin de la primavera · mayo 2026' : 'Late spring · May 2026' },
 ];
 
 // Photo caption: a formatted date when the photo has one, otherwise the stored label.
@@ -91,11 +92,35 @@ const copy = {
     rights: '© 2026 Dual-Stack Studio. Unabhängig betrieben.', builtWith: 'Erstellt mit Astro, bereitgestellt auf Vercel.',
     close: 'Schließen', prev: 'Vorheriges Foto', next: 'Nächstes Foto',
   },
+  es: {
+    title: 'Austria — Diario — Dual-Stack Studio',
+    description: 'Parte tres de nuestro diario: una temporada en el campo austríaco, desde la primera helada de marzo hasta fines del verano.',
+    back: '← Volver al diario',
+    heroAlt: 'Amanecer sobre campos escarchados en el campo austríaco',
+    eyebrow: 'Diario · Parte 03', h1: 'Austria',
+    meta: 'Marzo – septiembre 2026 · El campo de Alta Austria',
+    lead: 'Una temporada aprendiendo a mirar un lugar despacio — desde la primera helada de marzo hasta la larga luz verde de fines del verano.',
+    storyLead: 'Acá es donde empieza nuestra historia — no en una oficina, sino afuera, en un rincón tranquilo del campo austríaco donde las mañanas llegan frías y los días se estiran largos.',
+    p1: 'Llegamos a Austria e hicimos lo que siempre hacemos: empezamos a prestar atención. La helada en los campos en marzo. El valle llenándose de niebla al amanecer. La forma en que toda una ladera cambia de color entre una visita y la siguiente. Es el mismo instinto que nos hace buenos para contar la historia de un negocio pequeño — te desacelerás, mirás con atención, y dejás que un lugar te muestre qué lo hace memorable.',
+    p2: 'Durante estos meses fotografiamos el cambio de las estaciones, manejamos los caminos rurales con la cámara andando, y juntamos los pequeños momentos intermedios que nunca llegan a un folleto pero de alguna forma dicen lo más importante. Lo que sigue es un primer corte de eso — el comienzo de la historia, de punta a punta.',
+    note: 'Más de este capítulo, y de los que vienen después, están en camino.',
+    seasonEyebrow: 'La temporada, de punta a punta', seasonTitle: 'De la helada al fin del verano',
+    seasonLead: 'Fotografiado durante la primavera y el verano de 2026, en orden. Tocá cualquier foto para verla en tamaño completo.',
+    photoAlt: 'Campo austríaco',
+    ctaTitle: 'Así vemos cada lugar.',
+    ctaText: 'La misma mirada que le ponemos a una temporada en Austria es la que le ponemos a granjas, alojamientos y pequeños negocios locales.',
+    ctaBtn: 'Hablemos',
+    footTagline: 'Contamos la historia de lugares pequeños que hacen un trabajo real — contenido, storytelling y la presencia web detrás.',
+    navTitle: 'Navegación', navWork: 'Trabajo', navServices: 'Servicios', navTeam: 'Equipo', navJournal: 'Diario',
+    legalTitle: 'Legal', privacy: 'Política de Privacidad', terms: 'Términos de Servicio', contactTitle: 'Contacto',
+    rights: '© 2026 Dual-Stack Studio. Operado de forma independiente.', builtWith: 'Construido con Astro, desplegado en Vercel.',
+    close: 'Cerrar', prev: 'Foto anterior', next: 'Foto siguiente',
+  },
 };
 const c = copy[lang];
 ---
 
-<Layout title={c.title} description={c.description} lang={lang}>
+<Layout title={c.title} description={c.description} lang={lang} langs={['en', 'de', 'es']}>
 
   <header class="au-header">
     <a href={l(lang, '/creative')} class="au-brand">
@@ -103,7 +128,7 @@ const c = copy[lang];
       <span>Dual-Stack Studio</span>
     </a>
     <span class="au-header-right">
-      <LangSwitch lang={lang} />
+      <LangSwitch lang={lang} langs={['en', 'de', 'es']} />
       <a href={l(lang, '/journal')} class="au-back">{c.back}</a>
     </span>
   </header>

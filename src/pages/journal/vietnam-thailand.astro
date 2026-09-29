@@ -7,6 +7,7 @@ import data from '../../data/journal-vietnam-thailand.json';
 
 const { lang = 'en' } = Astro.props as { lang?: Lang };
 const de = lang === 'de';
+const es = lang === 'es';
 
 const photos = data.photos;
 const heroImg = '/images/journal/vietnam-thailand/vt-24.jpg';
@@ -15,7 +16,7 @@ const gallery = photos.filter((p) => p.src !== heroImg);
 
 // Video is woven into the photo gallery (not a separate section).
 const videos = [
-  { type: 'video', orientation: 'landscape', src: '/videos/journal/vietnam-thailand-video-01.mp4', poster: '/images/journal/vietnam-thailand/vt-video-01-poster.jpg', label: de ? 'Stoßzeit · Ho-Chi-Minh-Stadt · Oktober 2025' : 'Rush hour · Ho Chi Minh City · October 2025' },
+  { type: 'video', orientation: 'landscape', src: '/videos/journal/vietnam-thailand-video-01.mp4', poster: '/images/journal/vietnam-thailand/vt-video-01-poster.jpg', label: de ? 'Stoßzeit · Ho-Chi-Minh-Stadt · Oktober 2025' : es ? 'Hora pico · Ciudad Ho Chi Minh · octubre 2025' : 'Rush hour · Ho Chi Minh City · October 2025' },
 ];
 
 // Photo caption: a formatted date when the photo has one, otherwise the stored label.
@@ -89,11 +90,35 @@ const copy = {
     rights: '© 2026 Dual-Stack Studio. Unabhängig betrieben.', builtWith: 'Erstellt mit Astro, bereitgestellt auf Vercel.',
     close: 'Schließen', prev: 'Vorheriges Foto', next: 'Nächstes Foto',
   },
+  es: {
+    title: 'Vietnam y Tailandia — Diario — Dual-Stack Studio',
+    description: 'Parte dos de nuestro diario: tres semanas por Vietnam y Tailandia — ríos kársticos, mercados nocturnos y tráfico de motos.',
+    back: '← Volver al diario',
+    heroAlt: 'Montañas kársticas sobre un río quieto en el norte de Vietnam',
+    eyebrow: 'Diario · Parte 02',
+    meta: 'Octubre 2025 · De los ríos de Vietnam a las costas de Tailandia',
+    lead: 'Tres semanas por el sudeste asiático — valles kársticos y agua tranquila, después el ruido y el neón de las calles.',
+    storyLead: 'Algunos lugares los fotografiás. A otros solo tratás de seguirles el ritmo. Este viaje fue las dos cosas.',
+    p1: 'Empezamos en Vietnam, entre los karsts de piedra caliza y los ríos lentos donde el único sonido es el remo. Después el ritmo cambió de golpe — una pared de motos en cada esquina, mercados que no paran, comida cocinada a un metro de donde la comés. Para cuando cruzamos a Tailandia, habíamos dejado de intentar capturarlo todo y empezado a buscar la única toma que dice lo más importante.',
+    p2: 'Ese es en el fondo todo el trabajo. Ya sea un mercado nocturno en una ciudad extranjera o un negocio chico en casa, el trabajo es el mismo: prestar atención, esperar el momento, y contarlo con honestidad. Lo que sigue es ese viaje, más o menos en el orden en que sucedió.',
+    note: 'Este capítulo todavía se está editando — volvé pronto.',
+    tripEyebrow: 'El viaje, de punta a punta', tripTitle: 'Primero Vietnam, después Tailandia',
+    tripLead: 'Fotografiado durante octubre de 2025, más o menos en orden. Tocá cualquier foto para verla en tamaño completo.',
+    photoAlt: 'Sudeste asiático',
+    ctaTitle: 'Así vemos cada lugar.',
+    ctaText: 'La misma mirada que le ponemos a un viaje por Asia es la que le ponemos a granjas, alojamientos y pequeños negocios locales.',
+    ctaBtn: 'Hablemos',
+    footTagline: 'Contamos la historia de lugares pequeños que hacen un trabajo real — contenido, storytelling y la presencia web detrás.',
+    navTitle: 'Navegación', navWork: 'Trabajo', navServices: 'Servicios', navTeam: 'Equipo', navJournal: 'Diario',
+    legalTitle: 'Legal', privacy: 'Política de Privacidad', terms: 'Términos de Servicio', contactTitle: 'Contacto',
+    rights: '© 2026 Dual-Stack Studio. Operado de forma independiente.', builtWith: 'Construido con Astro, desplegado en Vercel.',
+    close: 'Cerrar', prev: 'Foto anterior', next: 'Foto siguiente',
+  },
 };
 const c = copy[lang];
 ---
 
-<Layout title={c.title} description={c.description} lang={lang}>
+<Layout title={c.title} description={c.description} lang={lang} langs={['en', 'de', 'es']}>
 
   <header class="vt-header">
     <a href={l(lang, '/creative')} class="vt-brand">
@@ -101,7 +126,7 @@ const c = copy[lang];
       <span>Dual-Stack Studio</span>
     </a>
     <span class="vt-header-right">
-      <LangSwitch lang={lang} />
+      <LangSwitch lang={lang} langs={['en', 'de', 'es']} />
       <a href={l(lang, '/journal')} class="vt-back">{c.back}</a>
     </span>
   </header>

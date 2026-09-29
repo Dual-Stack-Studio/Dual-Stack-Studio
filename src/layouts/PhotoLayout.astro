@@ -39,8 +39,6 @@ const copy = {
   },
 };
 const c = copy[lang];
-// The Journal doesn't have a Spanish version yet — fall back to English for that one link.
-const lOut: Lang = lang === 'es' ? 'en' : lang;
 ---
 
 <Layout title={title} description={description} lang={lang} langs={langs}>
@@ -75,7 +73,7 @@ const lOut: Lang = lang === 'es' ? 'en' : lang;
           <a href={l(lang, '/photography')}>{c.navPhotography}</a>
           <a href={l(lang, '/creative#services')}>{c.navServices}</a>
           <a href={l(lang, '/creative#team')}>{c.navTeam}</a>
-          <a href={l(lOut, '/journal')}>{c.navJournal}</a>
+          <a href={l(lang, '/journal')}>{c.navJournal}</a>
         </div>
         <div class="ph-footer-col">
           <h4>{c.legalTitle}</h4>

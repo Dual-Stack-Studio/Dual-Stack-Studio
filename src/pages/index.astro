@@ -60,8 +60,6 @@ const copy = {
   },
 };
 const c = copy[lang];
-// Impressum doesn't have a Spanish page yet — fall back to English for that link.
-const lOut: Lang = lang === 'es' ? 'en' : lang;
 ---
 
 <Layout title={c.title} description={c.description} lang={lang} langs={['en', 'de', 'es']}>

@@ -69,6 +69,32 @@ const copy = {
       { title: 'Österreich', meta: 'März – September 2026 · Oberösterreich', blurb: 'Eine Saison auf dem österreichischen Land, von vorne bis hinten — vom ersten Frost im März bis zum langen Licht des Spätsommers.' },
     ],
   },
+  es: {
+    title: 'Diario — Dual-Stack Studio',
+    description: 'Mitad diario de viaje, mitad quiénes somos: la historia de quiénes somos, contada un lugar a la vez. Empezamos con Australia.',
+    back: '← Volver al inicio',
+    eyebrow: 'El Diario',
+    h1: 'Quiénes somos, un lugar a la vez.',
+    lead: 'Dual-Stack Studio es un pequeño estudio de contenido y storytelling. Ayudamos a que granjas, alojamientos y negocios locales en los Alpes se hagan ver — a través de fotografía, video, y la presencia web detrás.',
+    body: `Esta es la parte donde la mayoría de los estudios escribe un prolijo "sobre nosotros". Preferimos mostrarte cómo miramos. Así que, en cambio, contamos nuestra propia historia de la misma forma en que contaríamos la tuya — un lugar a la vez, en el orden en que sucedió. Cada parte de abajo es un capítulo. Empezamos desde el principio y avanzamos.`,
+    chaptersEyebrow: 'Los capítulos', chaptersTitle: 'Hacia dónde va la historia',
+    part: 'Parte', cover: 'portada', readPart: 'Leer esta parte', photos: 'fotos',
+    soonTitle: 'Próximamente',
+    soonText: 'El próximo capítulo se está escribiendo y editando. Nuevas partes aparecen acá a medida que las terminamos.',
+    ctaTitle: '¿Querés que contemos tu lugar de esta forma?',
+    ctaText: 'La misma mirada que le ponemos a nuestra propia historia es la que le ponemos a la tuya. Hablemos sobre lo que estás construyendo.',
+    ctaBtn: 'Contáctanos',
+    footTagline: 'Contamos la historia de lugares pequeños que hacen un trabajo real — contenido, storytelling y la presencia web detrás.',
+    navTitle: 'Navegación', navWork: 'Trabajo', navServices: 'Servicios', navTeam: 'Equipo', navJournal: 'Diario',
+    legalTitle: 'Legal', privacy: 'Política de Privacidad', terms: 'Términos de Servicio',
+    contactTitle: 'Contacto',
+    rights: '© 2026 Dual-Stack Studio. Operado de forma independiente.', builtWith: 'Construido con Astro, desplegado en Vercel.',
+    parts: [
+      { title: 'Australia', meta: 'Marzo – agosto 2025 · Brisbane y alrededores', blurb: 'Meses al otro lado del mundo — una ciudad junto al río, selva tropical en su borde, y el trabajo entre medio.' },
+      { title: 'Vietnam y Tailandia', meta: 'Octubre 2025 · Sudeste asiático', blurb: 'Tres semanas por Vietnam y Tailandia — ríos kársticos y agua tranquila, después el ruido y el neón de las calles.' },
+      { title: 'Austria', meta: 'Marzo – septiembre 2026 · Alta Austria', blurb: 'Una temporada en el campo austríaco, de punta a punta — desde la primera helada de marzo hasta la luz larga de fines del verano.' },
+    ],
+  },
 };
 const c = copy[lang];
 
@@ -79,7 +105,7 @@ const parts = [
 ].map((p, i) => ({ ...p, ...c.parts[i] }));
 ---
 
-<Layout title={c.title} description={c.description} lang={lang}>
+<Layout title={c.title} description={c.description} lang={lang} langs={['en', 'de', 'es']}>
 
   <header class="jn-header">
     <a href={l(lang, '/creative')} class="jn-brand">
@@ -87,7 +113,7 @@ const parts = [
       <span>Dual-Stack Studio</span>
     </a>
     <span class="jn-header-right">
-      <LangSwitch lang={lang} />
+      <LangSwitch lang={lang} langs={['en', 'de', 'es']} />
       <a href={l(lang, '/creative')} class="jn-back">{c.back}</a>
     </span>
   </header>
