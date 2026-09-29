@@ -292,7 +292,7 @@ const lOut: Lang = lang === 'es' ? 'en' : lang;
     <header id="site-header" style="position: fixed; top: 0; left: 0; width: 100%; padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; z-index: 100; transition: background 0.3s, box-shadow 0.3s, padding 0.3s;">
       <a href={l(lang, '/web')} style="font-size: 22px; font-weight: 800; letter-spacing: -0.5px; cursor: pointer; display: flex; align-items: center; gap: 10px; text-decoration: none;">
         <img src="/logo.svg" alt="Dual-Stack Studio" width="32" height="32" style="border-radius: 8px;" />
-        <span class="logo-text">Dual-Stack</span>
+        <span class="logo-text">Dual-Stack Studio</span>
       </a>
       <nav class="desktop-nav" style="display: flex; gap: 2.25rem; font-size: 14px; font-weight: 500;">
         <a href="#work" class="nav-link">{c.navProjects}</a>
@@ -544,15 +544,16 @@ const lOut: Lang = lang === 'es' ? 'en' : lang;
       color: #e2865a;
     }
 
-    /* Keep header items on one line; the German labels are longer, so the
-       hamburger takes over below 960px instead of letting them wrap. */
+    /* Keep header items on one line; the German labels (and the full "Dual-Stack
+       Studio" wordmark) are longer, so the hamburger takes over below 1080px
+       instead of letting them wrap or collide. */
     .logo-text,
     .desktop-nav a,
     .header-cta {
       white-space: nowrap;
     }
 
-    @media (max-width: 960px) {
+    @media (max-width: 1080px) {
       .desktop-nav,
       .header-cta {
         display: none !important;
