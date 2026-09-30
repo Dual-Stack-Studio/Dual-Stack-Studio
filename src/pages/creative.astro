@@ -86,6 +86,7 @@ const copy = {
     s1Location: 'Austria only — shot in person',
     s2Kicker: '02 — Wherever your business is', s2Title: 'Social Media & Community Management',
     s2Text: 'We run your accounts day to day — posting, replying, keeping the page alive between visits — so your place stays present without you having to think about it.',
+    s2Checks: ['Daily story posting', 'Profile & highlights makeover', 'Reels & video editing', 'Promotional graphics', 'Logo design', 'Monthly content strategy'],
     s2Location: 'Available worldwide — fully remote',
     s3Kicker: "03 — When you're ready to grow", s3Title: 'Web & Booking',
     s3Text: 'Once content is working, we build the site behind it — a real online presence, and a booking system if you need one. Same team, same story, just the next step.',
@@ -140,6 +141,7 @@ const copy = {
     s1Location: 'Nur Österreich — vor Ort gedreht',
     s2Kicker: '02 — Egal, wo dein Betrieb ist', s2Title: 'Social Media & Community Management',
     s2Text: 'Wir betreuen deine Kanäle im Alltag — posten, antworten, die Seite zwischen den Besuchen lebendig halten — damit dein Ort präsent bleibt, ohne dass du daran denken musst.',
+    s2Checks: ['Tägliche Story-Posts', 'Profil- & Highlights-Überarbeitung', 'Reels & Videobearbeitung', 'Werbegrafiken', 'Logo-Design', 'Monatliche Content-Strategie'],
     s2Location: 'Weltweit verfügbar — komplett remote',
     s3Kicker: '03 — Wenn du wachsen möchtest', s3Title: 'Web & Buchung',
     s3Text: 'Sobald der Content funktioniert, bauen wir die Website dahinter — einen echten Online-Auftritt und, wenn nötig, ein Buchungssystem. Gleiches Team, gleiche Geschichte, nur der nächste Schritt.',
@@ -194,6 +196,7 @@ const copy = {
     s1Location: 'Solo Austria — filmado en persona',
     s2Kicker: '02 — Donde sea que esté tu negocio', s2Title: 'Redes Sociales y Gestión de Comunidad',
     s2Text: 'Gestionamos tus cuentas día a día — publicando, respondiendo, manteniendo la página activa entre visitas — para que tu lugar se mantenga presente sin que tengas que pensarlo.',
+    s2Checks: ['Historias todos los días', 'Renovación de perfil y destacadas', 'Reels y edición de video', 'Piezas gráficas publicitarias', 'Creación de logo', 'Estrategia de contenido mensual'],
     s2Location: 'Disponible en todo el mundo — completamente remoto',
     s3Kicker: '03 — Cuando estés listo para crecer', s3Title: 'Web y Reservas',
     s3Text: 'Una vez que el contenido funciona, construimos el sitio detrás — una presencia online real, y un sistema de reservas si lo necesitas. Mismo equipo, misma historia, solo el siguiente paso.',
@@ -378,6 +381,9 @@ const c = copy[lang];
           <span class="service-kicker">{c.s2Kicker}</span>
           <h3>{c.s2Title}</h3>
           <p>{c.s2Text}</p>
+          <div class="service-checklist">
+            {c.s2Checks.map((chk) => <span>✓ {chk}</span>)}
+          </div>
           <span class="service-location"><Fragment set:html={lineIcon('globe', 14, 2)} />{c.s2Location}</span>
         </div>
 
@@ -891,6 +897,13 @@ const c = copy[lang];
 
     .service-block h3 { font-family: 'Fraunces', serif; font-size: 28px; font-weight: 600; color: #fff; margin: 0 0 1rem; }
     .service-block p { font-size: 15px; color: rgba(255,255,255,0.78); line-height: 1.7; margin: 0 0 1.25rem; }
+    .service-checklist {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .service-checklist span { font-size: 12.5px; color: rgba(255,255,255,0.68); }
     .service-location {
       display: inline-flex; align-items: center; gap: 0.4rem;
       font-size: 12px; font-weight: 600; letter-spacing: 0.3px;
