@@ -2200,6 +2200,7 @@ const c = copy[lang];
         const name = contactForm.name.value.trim();
         const email = contactForm.email.value.trim();
         const service = contactForm.service.value;
+        const location = contactForm.location.value.trim();
         const message = contactForm.message.value.trim();
 
         const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -2208,6 +2209,7 @@ const c = copy[lang];
         [
           [contactForm.querySelector('#cf-name').closest('.cf-field'), !!name],
           [contactForm.querySelector('#cf-email').closest('.cf-field'), emailValid],
+          [contactForm.querySelector('#cf-location').closest('.cf-field'), !!location],
           [contactForm.querySelector('#cf-message').closest('.cf-field'), !!message],
         ].forEach(([field, isValid]) => {
           field.classList.toggle('cf-error', !isValid);

@@ -426,7 +426,7 @@ const c = copy[lang];
       <h2 class="section-title">{c.contactTitle}</h2>
       <p class="section-lead">{c.contactLead}</p>
 
-      <form id="contact-form" class="contact-form" novalidate data-sending={c.sending} data-send={c.send} data-ok={c.okMsg} data-error={c.errMsg}>
+      <form id="contact-form" class="contact-form" data-sending={c.sending} data-send={c.send} data-ok={c.okMsg} data-error={c.errMsg}>
         <!-- Web3Forms -->
         <input type="hidden" name="access_key" value={import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY} />
         <input type="hidden" name="subject" value="New inquiry from dualstackstudio.com" />
