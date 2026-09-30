@@ -426,7 +426,7 @@ const c = copy[lang];
       <h2 class="section-title">{c.contactTitle}</h2>
       <p class="section-lead">{c.contactLead}</p>
 
-      <form id="contact-form" class="contact-form" data-sending={c.sending} data-send={c.send} data-ok={c.okMsg} data-error={c.errMsg}>
+      <form id="contact-form" class="contact-form" novalidate data-sending={c.sending} data-send={c.send} data-ok={c.okMsg} data-error={c.errMsg}>
         <!-- Web3Forms -->
         <input type="hidden" name="access_key" value={import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY} />
         <input type="hidden" name="subject" value="New inquiry from dualstackstudio.com" />
@@ -950,6 +950,7 @@ const c = copy[lang];
     .cf-field input:focus, .cf-field select:focus, .cf-field textarea:focus {
       outline: none; border-color: var(--terracotta);
     }
+    .cf-field.cf-error input, .cf-field.cf-error textarea { border-color: #d64545; }
     .cf-honeypot { position: absolute; left: -9999px; }
 
     .cf-submit {
@@ -1129,6 +1130,29 @@ const c = copy[lang];
     const status = document.getElementById('cf-status');
     form?.addEventListener('submit', async (e) => {
       e.preventDefault();
+
+      const name = (form.querySelector('#cf-name') as HTMLInputElement).value.trim();
+      const email = (form.querySelector('#cf-email') as HTMLInputElement).value.trim();
+      const location = (form.querySelector('#cf-location') as HTMLInputElement).value.trim();
+      const message = (form.querySelector('#cf-message') as HTMLTextAreaElement).value.trim();
+      const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      let firstInvalid: Element | null = null;
+
+      ([
+        [form.querySelector('#cf-name')!.closest('.cf-field')!, !!name],
+        [form.querySelector('#cf-email')!.closest('.cf-field')!, emailValid],
+        [form.querySelector('#cf-location')!.closest('.cf-field')!, !!location],
+        [form.querySelector('#cf-message')!.closest('.cf-field')!, !!message],
+      ] as [Element, boolean][]).forEach(([field, isValid]) => {
+        field.classList.toggle('cf-error', !isValid);
+        if (!isValid && !firstInvalid) firstInvalid = field;
+      });
+
+      if (firstInvalid) {
+        (firstInvalid as Element).querySelector<HTMLElement>('input, textarea')?.focus();
+        return;
+      }
+
       const submitBtn = form.querySelector('.cf-submit') as HTMLButtonElement | null;
       if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = form.dataset.sending || 'Sending…'; }
       if (status) { status.textContent = ''; status.className = 'cf-status'; }
@@ -1150,6 +1174,12 @@ const c = copy[lang];
       } finally {
         if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = form.dataset.send || 'Send message'; }
       }
+    });
+
+    form?.querySelectorAll('input, textarea').forEach((el) => {
+      el.addEventListener('input', () => {
+        el.closest('.cf-field')?.classList.remove('cf-error');
+      });
     });
   </script>
 
