@@ -3,9 +3,11 @@ import type { Lang } from '../i18n';
 
 interface Props {
   lang?: Lang;
+  /** 'default' = classic WhatsApp green. 'web' = the Web department's own dark/orange palette. */
+  variant?: 'default' | 'web';
 }
 
-const { lang = 'en' } = Astro.props;
+const { lang = 'en', variant = 'default' } = Astro.props;
 const WHATSAPP_NUMBER = '436706014921';
 
 const label: Record<Lang, string> = {
@@ -19,7 +21,7 @@ const label: Record<Lang, string> = {
   href={`https://wa.me/${WHATSAPP_NUMBER}`}
   target="_blank"
   rel="noopener"
-  class="wa-float"
+  class:list={['wa-float', { 'wa-float--web': variant === 'web' }]}
   aria-label={label[lang]}
   title={label[lang]}
 >
@@ -53,6 +55,13 @@ const label: Record<Lang, string> = {
     height: 30px;
     fill: #fff;
   }
+  .wa-float--web {
+    background: #1a1a1a;
+    border: 1px solid rgba(226, 134, 90, 0.35);
+  }
+  .wa-float--web svg { fill: #c1663e; }
+  .wa-float--web:hover { background: #232323; }
+  .wa-float--web:hover svg { fill: #e2865a; }
   @media (max-width: 480px) {
     .wa-float {
       right: 1rem;
