@@ -23,7 +23,7 @@ function lineIcon(name: string, size = 32, strokeWidth = 1.6) {
 // Hero background: our own photography, crossfaded by the script at the bottom.
 // Two sets: wide photos for landscape windows, and portrait photos for tall ones (phones,
 // portrait tablets), where a wide photo would be cropped hard. The first slide is shared and
-// art-directed with <picture> (Alps lake on wide windows, first portrait photo on tall ones);
+// art-directed with <picture> (blue tractor on wide windows, first portrait photo on tall ones);
 // it loads eagerly because it is the LCP image. The rest are requested after the page has
 // loaded. Each photo fills the hero and is cropped around `pos` (where its subject sits), and
 // `dim` evens out the brighter photos so the white headline stays readable.
@@ -34,14 +34,12 @@ const heroSlide = (name: string, widths: number[], pos: string, dim: number) => 
   dim,
 });
 const wideSlides = [
-  heroSlide('wide-forest-cabin', [1280, 1920], '50% 50%', 0.1),
+  heroSlide('wide-blue-tractor', [1280, 1920], '50% 60%', 0.12),
   heroSlide('wide-pink-basilica', [1280, 1920], '60% 50%', 0.2),
-  heroSlide('wide-hunting-stand', [1280, 1920], '50% 50%', 0.1),
-  heroSlide('wide-yellow-van', [1280, 1920], '50% 50%', 0.14),
-  heroSlide('wide-beech-forest', [1280, 1920], '50% 50%', 0.14),
-  heroSlide('wide-church-tower', [1280, 1920], '50% 50%', 0.16),
-  heroSlide('wide-rally-car', [1280, 1920], '55% 50%', 0.12),
-  heroSlide('wide-tree-carving', [1280, 1920], '50% 50%', 0.2),
+  heroSlide('wide-valley-road', [1280, 1920], '50% 60%', 0.1),
+  heroSlide('wide-japan-pine', [1280, 1920], '50% 85%', 0.25),
+  heroSlide('wide-castle-dusk', [1280, 1920], '50% 45%', 0.05),
+  heroSlide('wide-open-valley', [1280, 1920], '50% 55%', 0.12),
 ];
 const tallSlides = [
   heroSlide('mobile-forest-cabin', [750, 1000], '50% 50%', 0.08),
