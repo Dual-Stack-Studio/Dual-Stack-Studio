@@ -11,9 +11,9 @@ interface Props {
 }
 
 const descriptions: Record<Lang, string> = {
-  en: "Dual-Stack Studio — We tell the story of small places doing real work",
-  de: "Dual-Stack Studio — Wir erzählen die Geschichten kleiner Orte, die echte Arbeit leisten",
-  es: "Dual-Stack Studio — Contamos la historia de lugares pequeños que hacen un trabajo real",
+  en: "Dual-Stack Studio — Stories for family businesses and small places doing real work",
+  de: "Dual-Stack Studio — Geschichten für Familienbetriebe und kleine Orte, die echte Arbeit leisten",
+  es: "Dual-Stack Studio — Historias para negocios familiares y lugares pequeños que hacen un trabajo real",
 };
 const { title, lang = "en", description = descriptions[lang as Lang] ?? descriptions.en, langs = ["en", "de"] } = Astro.props;
 const alt = altPaths(Astro.url.pathname);
@@ -48,7 +48,7 @@ const alt = altPaths(Astro.url.pathname);
       body {
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         color: #2b2420;
-        background: #f7f2e7;
+        background: #fffdf9;
         line-height: 1.6;
         animation: dssPageIn 0.5s ease both;
       }

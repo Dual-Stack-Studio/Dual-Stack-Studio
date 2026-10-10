@@ -26,6 +26,7 @@ const copy = {
     h1: 'Who we are, one place at a time.',
     lead: 'Dual-Stack Studio is a small content and storytelling studio. We help farms, guesthouses and local businesses in the Alps be seen — through photography, film, and the web presence behind it.',
     body: `This is the part where most studios write a tidy "about us." We'd rather show you how we see. So instead, we're telling our own story the way we'd tell yours — a place at a time, in the order it happened. Each part below is a chapter. We're starting from the beginning and working forward.`,
+    aboutLink: 'The story before 2025 is mine alone: read how I got here →',
     chaptersEyebrow: 'The chapters', chaptersTitle: 'Where the story goes',
     part: 'Part', cover: 'cover', readPart: 'Read this part', photos: 'photos',
     soonTitle: 'Coming soon',
@@ -33,7 +34,7 @@ const copy = {
     ctaTitle: 'Want your place told this way?',
     ctaText: "The eye we bring to our own story is the one we bring to yours. Let's talk about what you're building.",
     ctaBtn: 'Get in touch',
-    footTagline: 'We tell the story of small places doing real work — content, storytelling, and the web presence behind it.',
+    footTagline: 'Stories for family businesses and small places doing real work — content, storytelling, and the web presence behind it.',
     navTitle: 'Navigate', navWork: 'Work', navServices: 'Services', navTeam: 'Team', navJournal: 'Journal',
     legalTitle: 'Legal', privacy: 'Privacy Policy', terms: 'Terms of Service',
     contactTitle: 'Get in touch',
@@ -52,6 +53,7 @@ const copy = {
     h1: 'Wer wir sind, Ort für Ort.',
     lead: 'Dual-Stack Studio ist ein kleines Content- und Storytelling-Studio. Wir helfen Bauernhöfen, Gästehäusern und lokalen Betrieben in den Alpen, gesehen zu werden — mit Fotografie, Film und dem Webauftritt dahinter.',
     body: 'Das ist der Teil, in dem die meisten Studios ein ordentliches „Über uns” schreiben. Wir zeigen dir lieber, wie wir sehen. Deshalb erzählen wir unsere eigene Geschichte so, wie wir deine erzählen würden — Ort für Ort, in der Reihenfolge, in der es passiert ist. Jeder Teil unten ist ein Kapitel. Wir beginnen am Anfang und arbeiten uns vorwärts.',
+    aboutLink: 'Die Geschichte vor 2025 ist meine allein: so bin ich hierhergekommen →',
     chaptersEyebrow: 'Die Kapitel', chaptersTitle: 'Wohin die Geschichte führt',
     part: 'Teil', cover: 'Titelbild', readPart: 'Diesen Teil lesen', photos: 'Fotos',
     soonTitle: 'Demnächst',
@@ -59,7 +61,7 @@ const copy = {
     ctaTitle: 'Möchtest du deinen Ort auf diese Art erzählt haben?',
     ctaText: 'Den Blick, den wir auf unsere eigene Geschichte richten, richten wir auch auf deine. Sprechen wir darüber, was du aufbaust.',
     ctaBtn: 'Kontakt aufnehmen',
-    footTagline: 'Wir erzählen die Geschichten kleiner Orte, die echte Arbeit leisten — Content, Storytelling und der Webauftritt dahinter.',
+    footTagline: 'Geschichten für Familienbetriebe und kleine Orte, die echte Arbeit leisten — Content, Storytelling und der Webauftritt dahinter.',
     navTitle: 'Navigation', navWork: 'Arbeiten', navServices: 'Leistungen', navTeam: 'Team', navJournal: 'Journal',
     legalTitle: 'Rechtliches', privacy: 'Datenschutzerklärung', terms: 'Nutzungsbedingungen',
     contactTitle: 'Kontakt',
@@ -78,6 +80,7 @@ const copy = {
     h1: 'Quiénes somos, un lugar a la vez.',
     lead: 'Dual-Stack Studio es un pequeño estudio de contenido y storytelling. Ayudamos a que granjas, alojamientos y negocios locales en los Alpes se hagan ver — a través de fotografía, video, y la presencia web detrás.',
     body: `Esta es la parte donde la mayoría de los estudios escribe un prolijo "sobre nosotros". Preferimos mostrarte cómo miramos. Así que, en cambio, contamos nuestra propia historia de la misma forma en que contaríamos la tuya — un lugar a la vez, en el orden en que sucedió. Cada parte de abajo es un capítulo. Empezamos desde el principio y avanzamos.`,
+    aboutLink: 'La historia anterior a 2025 es solo mía: así llegué hasta aquí →',
     chaptersEyebrow: 'Los capítulos', chaptersTitle: 'Hacia dónde va la historia',
     part: 'Parte', cover: 'portada', readPart: 'Leer esta parte', photos: 'fotos',
     soonTitle: 'Próximamente',
@@ -85,7 +88,7 @@ const copy = {
     ctaTitle: '¿Querés que contemos tu lugar de esta forma?',
     ctaText: 'La misma mirada que le ponemos a nuestra propia historia es la que le ponemos a la tuya. Hablemos sobre lo que estás construyendo.',
     ctaBtn: 'Contáctanos',
-    footTagline: 'Contamos la historia de lugares pequeños que hacen un trabajo real — contenido, storytelling y la presencia web detrás.',
+    footTagline: 'Historias para negocios familiares y lugares pequeños que hacen un trabajo real — contenido, storytelling y la presencia web detrás.',
     navTitle: 'Navegación', navWork: 'Trabajo', navServices: 'Servicios', navTeam: 'Equipo', navJournal: 'Diario',
     legalTitle: 'Legal', privacy: 'Política de Privacidad', terms: 'Términos de Servicio',
     contactTitle: 'Contacto',
@@ -126,6 +129,7 @@ const parts = [
       <h1>{c.h1}</h1>
       <p class="jn-intro-lead">{c.lead}</p>
       <p class="jn-intro-body">{c.body}</p>
+      <a href={l(lang, '/about')} class="jn-about-link">{c.aboutLink}</a>
     </div>
   </section>
 
@@ -210,8 +214,8 @@ const parts = [
 
   <style>
     :root {
-      --cream: #f7f2e7;
-      --cream-deep: #efe6d4;
+      --cream: #fffdf9;
+      --cream-deep: #fbf8f3;
       --forest: #2f4436;
       --forest-deep: #223226;
       --terracotta: #c1663e;
@@ -244,7 +248,7 @@ const parts = [
       justify-content: space-between;
       align-items: center;
       z-index: 100;
-      background: rgba(247, 242, 231, 0.85);
+      background: rgba(255, 253, 249, 0.85);
       backdrop-filter: blur(8px);
       border-bottom: 1px solid rgba(43,36,32,0.08);
     }
@@ -266,6 +270,8 @@ const parts = [
     }
     .jn-intro-lead { font-size: clamp(18px, 2.5vw, 21px); line-height: 1.6; color: var(--ink); margin: 0 0 1.25rem; }
     .jn-intro-body { font-size: 17px; line-height: 1.8; color: var(--muted); margin: 0; }
+    .jn-about-link { display: inline-block; margin-top: 1.6rem; font-size: 14px; font-weight: 600; color: var(--terracotta-deep, #a4522f); border-bottom: 1px solid rgba(164,82,47,0.35); padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; }
+    .jn-about-link:hover { color: var(--terracotta, #c1663e); border-color: var(--terracotta, #c1663e); }
 
     /* ---------- PARTS ---------- */
     .jn-parts { background: var(--cream-deep); padding: 5rem 0; }
