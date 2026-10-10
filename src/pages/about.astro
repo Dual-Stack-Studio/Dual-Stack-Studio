@@ -1,0 +1,873 @@
+---
+import Layout from '../layouts/Layout.astro';
+import LangSwitch from '../components/LangSwitch.astro';
+import ContactLinks from '../components/ContactLinks.astro';
+import { l } from '../i18n';
+import type { Lang } from '../i18n';
+
+const { lang = 'en' } = Astro.props as { lang?: Lang };
+
+// Photos: alt text and caption per language. `s` = width in a 12-column row (default 4), `pos` = object-position.
+type P = { src: string; w: number; h: number; ratio: 'r169' | 'r43' | 'r34' | 'r11' | 'r916'; s?: number; pos?: string; alt: Record<Lang, string>; cap: Record<Lang, string> };
+const t = (en: string, de: string, es: string): Record<Lang, string> => ({ en, de, es });
+const photo = (src: string, w: number, h: number, ratio: P['ratio'], alt: P['alt'], cap: P['cap'], extra: Partial<P> = {}): P => ({ src, w, h, ratio, alt, cap, ...extra });
+
+const heroImg = '/images/photography/japan/hero-mountain-cabin.jpg';
+const J = '/images/photography/japan/';
+const A = '/images/journal/australia/';
+const O = '/images/journal/austria/';
+const B = '/images/about/';
+// Photos in /images/about/ have a large version in /images/about/full/; photos from the journal and photography folders are already large.
+const fullOf = (src: string) => (src.startsWith(B) ? B + 'full/' + src.slice(B.length) : src);
+
+const BA = t('Buenos Aires', 'Buenos Aires', 'Buenos Aires');
+const HOKKAIDO = t('Hokkaido', 'Hokkaido', 'Hokkaido');
+const SKY = t('Night sky', 'Nachthimmel', 'Cielo nocturno');
+const SWEDEN = t('Sweden', 'Schweden', 'Suecia');
+
+const photos: Record<string, P[]> = {
+  ba: [
+    photo(B + 'ba-kirchner.jpg', 1000, 750, 'r43', t('The Centro Cultural Kirchner, a grand white palace in Buenos Aires, with a bronze monument in front and a car ramp in the foreground', 'Das Centro Cultural Kirchner, ein großer weißer Palast in Buenos Aires, davor ein Bronzedenkmal und im Vordergrund eine Autorampe', 'El Centro Cultural Kirchner, un gran palacio blanco en Buenos Aires, con un monumento de bronce delante y una rampa de autos en primer plano'), t('Centro Cultural Kirchner', 'Centro Cultural Kirchner', 'Centro Cultural Kirchner'), { s: 5 }),
+    photo(B + 'ba-street-e.jpg', 760, 1013, 'r34', t('A narrow pedestrian street between old and modern buildings in Buenos Aires, with a blue parking sign and people walking', 'Eine schmale Fußgängerstraße zwischen alten und modernen Häusern in Buenos Aires, mit blauem Parkschild und Passanten', 'Una calle peatonal angosta entre edificios antiguos y modernos en Buenos Aires, con un cartel azul de estacionamiento y gente caminando'), BA),
+    photo(B + 'ba-building.jpg', 760, 1013, 'r34', t('The corner of an ornate stone office building in Buenos Aires, with a yellow delivery van parked in front', 'Die Ecke eines reich verzierten Steingebäudes in Buenos Aires, davor parkt ein gelber Lieferwagen', 'La esquina de un edificio de piedra ornamentado en Buenos Aires, con una camioneta amarilla de reparto estacionada delante'), BA),
+    photo(B + 'ba-steps.jpg', 760, 1013, 'r34', t('A steep street in Buenos Aires climbing between tall stone buildings, with a wide staircase beside the road', 'Eine steile Straße in Buenos Aires steigt zwischen hohen Steingebäuden an, daneben eine breite Treppe', 'Una calle empinada de Buenos Aires que sube entre altos edificios de piedra, con una escalera ancha junto a la calzada'), BA),
+    photo(B + 'ba-opera.jpg', 760, 1351, 'r916', t('An orchestra playing on a brightly lit stage in a gilded opera house, seen from a high balcony under a painted ceiling and a chandelier', 'Ein Orchester spielt auf einer hell erleuchteten Bühne in einem vergoldeten Opernhaus, gesehen von einem hohen Balkon unter bemalter Decke und Kronleuchter', 'Una orquesta tocando en un escenario muy iluminado de una ópera dorada, vista desde un balcón alto bajo un techo pintado y una araña de luces'), BA, { s: 3 }),
+  ],
+  jp: [
+    photo(B + 'jp-niseko.jpg', 760, 1351, 'r916', t('A straight road in Hokkaido leading toward snow-covered Mount Yōtei, in black and white', 'Eine gerade Straße in Hokkaido, die auf den schneebedeckten Berg Yōtei zuführt, in Schwarzweiß', 'Un camino recto en Hokkaido que lleva hacia el monte Yōtei cubierto de nieve, en blanco y negro'), t('Mount Yōtei', 'Berg Yōtei', 'Monte Yōtei')),
+    photo(B + 'jp-window.jpg', 1000, 563, 'r43', t('A window looking out on a red-roofed cabin and a ski slope, in black and white', 'Ein Fenster mit Blick auf eine Hütte mit rotem Dach und eine Skipiste, in Schwarzweiß', 'Una ventana con vista a una cabaña de techo rojo y una pista de esquí, en blanco y negro'), HOKKAIDO, { s: 5, pos: '62% 50%' }),
+    photo(B + 'jp-park.jpg', 1000, 563, 'r43', t('A closed amusement park in winter, a wrapped ride and a sign in Japanese, in black and white', 'Ein geschlossener Freizeitpark im Winter, ein verhülltes Fahrgeschäft und ein japanisches Schild, in Schwarzweiß', 'Un parque de diversiones cerrado en invierno, un juego envuelto y un cartel en japonés, en blanco y negro'), HOKKAIDO, { s: 5, pos: '66% 50%' }),
+    photo(B + 'jp-stars-a.jpg', 760, 1351, 'r34', t('Bare winter trees against a sky glowing orange from the lights below', 'Kahle Winterbäume vor einem von unten orange leuchtenden Himmel', 'Árboles de invierno sin hojas contra un cielo que brilla naranja por las luces de abajo'), SKY, { pos: '50% 50%' }),
+  ],
+  se: [
+    photo(B + 'se-rainbow.jpg', 1000, 563, 'r43', t('A waterfall and a rainbow over a green hillside and spruce forest', 'Ein Wasserfall und ein Regenbogen über einem grünen Hang und Fichtenwald', 'Una cascada y un arcoíris sobre una ladera verde y un bosque de abetos'), SWEDEN, { pos: '50% 45%' }),
+    photo(B + 'se-ski-pov.jpg', 760, 1351, 'r34', t('The tips of cross-country skis on a snowy forest track, with the low sun ahead', 'Die Spitzen von Langlaufskiern auf einer verschneiten Waldloipe, die tiefe Sonne voraus', 'Las puntas de unos esquíes de fondo sobre una pista nevada en el bosque, con el sol bajo adelante'), t('Winter', 'Winter', 'Invierno'), { pos: '50% 55%' }),
+    photo(B + 'se-skier.jpg', 760, 1351, 'r34', t('Skiing on a groomed track above a wide view of forest and lakes', 'Skifahren auf einer präparierten Loipe über einer weiten Aussicht auf Wald und Seen', 'Esquiando en una pista marcada sobre una vista amplia de bosque y lagos'), t('On skis', 'Auf Skiern', 'En esquíes'), { pos: '50% 55%' }),
+    photo(B + 'se-road.jpg', 1000, 563, 'r169', t('An empty road running straight through spruce forest under a cloudy sky', 'Eine leere Straße, die geradewegs durch Fichtenwald unter bewölktem Himmel führt', 'Un camino vacío que atraviesa derecho un bosque de abetos bajo un cielo nublado'), t('The road north', 'Die Straße nach Norden', 'El camino al norte'), { s: 6 }),
+    photo(B + 'se-dogs.jpg', 1000, 750, 'r43', t('Crouching beside two German shepherds in a meadow of cotton grass', 'Neben zwei Deutschen Schäferhunden in einer Wiese voller Wollgras', 'Agachado junto a dos pastores alemanes en un prado de algodoncillo'), t('Summer', 'Sommer', 'Verano'), { s: 6, pos: '50% 55%' }),
+    photo(B + 'se-lake.jpg', 1000, 563, 'r43', t('A still lake at dusk with clouds reflected in the water', 'Ein stiller See in der Abenddämmerung, Wolken spiegeln sich im Wasser', 'Un lago quieto al atardecer con las nubes reflejadas en el agua'), t('Dusk', 'Abenddämmerung', 'Atardecer'), { pos: '50% 50%' }),
+    photo(B + 'pa-clouds.jpg', 1000, 750, 'r43', t('Iridescent clouds glowing pink and green at sunset above a dark, flat horizon', 'Schillernde Wolken in Rosa und Grün beim Sonnenuntergang über einem dunklen, flachen Horizont', 'Nubes iridiscentes rosadas y verdes al atardecer sobre un horizonte oscuro y plano'), t('Sky', 'Himmel', 'Cielo'), { pos: '50% 50%' }),
+    photo(B + 'se-waterfall-man.jpg', 760, 1013, 'r34', t('Standing at the foot of a large waterfall, small beside the rock and the falling water', 'Am Fuß eines großen Wasserfalls, klein neben Fels und fallendem Wasser', 'De pie al pie de una gran cascada, pequeño junto a la roca y el agua que cae'), SWEDEN, { pos: '50% 70%' }),
+  ],
+  pa: [
+    photo(B + 'pa-snow.jpg', 1000, 563, 'r43', t('Snow-covered bushes and rooftops above a town, with pink and orange clouds behind snowy mountains', 'Verschneite Büsche und Dächer über einer Stadt, rosa und orange Wolken hinter schneebedeckten Bergen', 'Arbustos y techos cubiertos de nieve sobre un pueblo, con nubes rosadas y naranjas detrás de montañas nevadas'), t('Patagonia', 'Patagonien', 'Patagonia'), { pos: '45% 50%' }),
+    photo(B + 'pa-flag.jpg', 1000, 563, 'r43', t('An Argentine flag flying over a lake and forested hills from a high viewpoint, with snowy mountains behind', 'Eine argentinische Flagge weht von einem hohen Aussichtspunkt über einem See und bewaldeten Hügeln, dahinter schneebedeckte Berge', 'Una bandera argentina flameando desde un mirador alto sobre un lago y colinas boscosas, con montañas nevadas detrás'), t('Patagonia', 'Patagonien', 'Patagonia'), { pos: '50% 40%' }),
+  ],
+  au: [
+    photo(A + 'au-31.jpg', 900, 1600, 'r34', t('A forklift inside a large warehouse with red safety lights', 'Ein Gabelstapler in einer großen Lagerhalle mit roten Warnlichtern', 'Un autoelevador dentro de un gran depósito con luces rojas de seguridad'), t('On shift', 'Im Dienst', 'En turno'), { pos: '50% 0%' }),
+    photo(A + 'au-24.jpg', 1200, 1600, 'r34', t('A shed full of sheep', 'Ein Stall voller Schafe', 'Un galpón lleno de ovejas'), t('Sheep shed', 'Schafstall', 'Galpón de ovejas')),
+    photo(A + 'tasmania/tas-34.jpg', 1600, 900, 'r43', t('A fiery orange sunset behind eucalyptus trees in Tasmania', 'Ein feuerorangefarbener Sonnenuntergang hinter Eukalyptusbäumen in Tasmanien', 'Un atardecer naranja intenso detrás de eucaliptos en Tasmania'), t('Tasmania', 'Tasmanien', 'Tasmania'), { pos: '50% 50%' }),
+  ],
+  at: [
+    photo(O + 'austria-22.jpg', 1600, 900, 'r43', t('Mountains and clouds reflected in a still alpine lake', 'Berge und Wolken spiegeln sich in einem stillen Bergsee', 'Montañas y nubes reflejadas en un lago alpino quieto'), t('Austria', 'Österreich', 'Austria'), { pos: '50% 60%' }),
+    photo(O + 'austria-06.jpg', 1600, 900, 'r43', t('Sunlight breaking through fir trees on a misty hillside above a wooden fence and a woodpile', 'Sonnenlicht bricht durch Tannen an einem nebligen Hang über einem Holzzaun und einem Holzstapel', 'La luz del sol atravesando abetos en una ladera con neblina, sobre una cerca de madera y una pila de leña'), t('Forest light', 'Waldlicht', 'Luz del bosque'), { pos: '65% 50%' }),
+    photo(O + 'austria-33.jpg', 1200, 1600, 'r34', t('Curious sheep behind a fence on a green hillside', 'Neugierige Schafe hinter einem Zaun auf einem grünen Hang', 'Ovejas curiosas detrás de una cerca en una ladera verde'), t('Neighbours', 'Nachbarn', 'Vecinos'), { pos: '50% 45%' }),
+    photo(O + 'austria-07.jpg', 1600, 900, 'r43', t('A road running through fields toward a low orange sun', 'Eine Straße führt durch Felder auf eine tiefe orangefarbene Sonne zu', 'Un camino que atraviesa campos hacia un sol bajo y anaranjado'), t('Evening road', 'Abendstraße', 'Camino al atardecer'), { pos: '50% 50%' }),
+    photo(O + 'austria-10.jpg', 1600, 900, 'r43', t('A dirt track between golden grain and green maize under a blue sky with clouds', 'Ein Feldweg zwischen goldenem Getreide und grünem Mais unter blauem Himmel mit Wolken', 'Un camino de tierra entre cereal dorado y maíz verde bajo un cielo azul con nubes'), t('Summer fields', 'Sommerfelder', 'Campos de verano'), { pos: '50% 55%' }),
+  ],
+};
+
+// Cascade: photos step down and to the right inside a 12-column grid; a new row starts when the next one no longer fits.
+type Placed = P & { c: number; k: number; g: number };
+const cascade = (list: P[]): Placed[] => {
+  let col = 1, k = 0, g = 1;
+  return list.map((p) => {
+    const s = p.s ?? 4;
+    if (col + s > 13) { col = 1; k = 0; g += 1; }
+    const placed = { ...p, c: col, k, g };
+    col += s; k += 1;
+    return placed;
+  });
+};
+const placed: Record<string, Placed[]> = Object.fromEntries(Object.entries(photos).map(([id, list]) => [id, cascade(list)]));
+
+// From 2025 the story continues in the journal written together
+const bridgeCards = [
+  { href: '/journal/australia', cover: '/images/journal/australia/au-28.jpg' },
+  { href: '/journal/vietnam-thailand', cover: '/images/journal/vietnam-thailand/vt-24.jpg' },
+  { href: '/journal/austria', cover: '/images/journal/austria/austria-01.jpg' },
+];
+
+type Chapter = { id: keyof typeof photos; num: string; place: string; years: string; title: string; text: string[]; lesson: string; it?: { label: string; title: string; points: [string, string][]; whyLabel: string; why: string }; link?: { label: string; href: string } };
+
+const copy = {
+  en: {
+    title: 'About — Dual-Stack Studio',
+    description: 'The long way here: work, travel and what they taught me, from Buenos Aires to a food-factory line in Hokkaido, a year in Sweden and a studio in Austria.',
+    back: '← Back to Creative',
+    heroAlt: 'A snow-covered volcano rising above dark forest and a wooden cabin in Hokkaido, in black and white',
+    eyebrow: 'About me', h1: 'The long way here.',
+    meta: 'Argentina · Japan · Sweden · Australia · Austria',
+    lead: `I'm Sebastian, an Argentine now living in Haag, Lower Austria. Before I started telling the stories of small places, I worked in Asia, Europe, South America and Oceania.`,
+    storyLead: 'Before the camera and the code, there was real work.',
+    p1: `A factory line. A ski resort. A year of volunteering. A lodge. Warehouses and a harvest. None of it was glamorous, and all of it taught me what small businesses already know: the work is the work, and it gets done properly every day, or it doesn't get done.`,
+    p2: 'This is that path, in the order it happened, and what each stretch left me with.',
+    learned: 'What it taught me',
+    chapters: [
+      { id: 'ba', num: '01', place: 'Buenos Aires', years: 'Where I come from', title: 'Where it started',
+        text: [
+          `I come from Buenos Aires: long, narrow streets between tall buildings, old stone facades beside glass towers, cobbled lanes.`,
+          `It is also a city of theatres and orchestras, of people who stop to talk, and of a habit I took with me everywhere: when something is missing, you find a way.`,
+        ],
+        lesson: `Buenos Aires taught me two things: find a way, and talk to anyone.` },
+      { id: 'jp', num: '02', place: 'Japan', years: '2018 – 2019', title: 'Learning to listen',
+        text: [
+          `I left home for Hokkaido, in northern Japan. I worked a production line at a food factory, with strict hygiene, strict quality and no room for "almost", and later welcomed guests and ran shuttles at a ski resort. I had no Japanese training.`,
+          `The winters there are long and white, and the nights are very dark and very clear. I spent a lot of them looking up.`,
+        ],
+        lesson: 'When you share no language with the people around you, attention does the talking: routines, standards, patience, small gestures. Attention and respect for the standard travel further than words, and I still use that every time I work with people across languages.',
+        link: { label: 'More from Japan: A restaurant in Japan →', href: '/work/japan-restaurant' } },
+      { id: 'se', num: '03', place: 'Sweden', years: '2020', title: 'A year in the north',
+        text: [
+          `After Japan I went to Sweden for a year of volunteering, living in the countryside and entirely in English: forest roads that run straight to the horizon, lakes that hold the evening light, waterfalls, and a winter on skis.`,
+          `I learned the language the only way it really sticks: by needing it every day.`,
+        ],
+        lesson: `The seasons set the rhythm in the north. Dark, cold and quiet in winter, long light in summer: you adapt, you slow down, and you get comfortable with silence. It taught me patience, and that a language lives when you use it with people.` },
+      { id: 'pa', num: '04', place: 'Patagonia', years: '2021 – 2023', title: 'Everything at once',
+        text: [
+          `At a lodge in Patagonia I was the allrounder: maintenance, guests, housekeeping, whatever the day needed.`,
+          `In those same years I taught myself full-stack development in a 700-hour bootcamp and, the month I graduated, started tutoring ten students in JavaScript, React and Node.`,
+        ],
+        lesson: `A lodge shows you how small places really run: someone fixes what breaks and makes people feel looked after, often at the same time. And I learned I could keep three commitments alive at once without dropping any of them.`,
+        it: { label: 'What it taught me · IT', title: 'Writing code is half the job. Explaining it is the other half.',
+          points: [
+            ['The whole picture.', 'A 700-hour full-stack bootcamp covered the front end, the back end and the database behind them, so I can follow one idea from a first sketch to a working site.'],
+            ['Plain words.', 'Nine months of tutoring ten beginners meant explaining JavaScript and React in steps anyone can follow. The same habit helps today when a business owner asks what a booking system actually does.'],
+            ['Finding the cause fast.', 'One-to-one debugging sessions trained me to see where a problem really starts, which saves time and surprises when something breaks on a live site.'],
+          ],
+          whyLabel: 'For the business', why: 'One person who understands the whole site, explains it without jargon and fixes what breaks.' } },
+      { id: 'au', num: '05', place: 'Australia', years: '2023 – 2025', title: 'Inside the system',
+        text: [
+          `In Australia I worked in two large warehouses, picking, packing, scanning, quality control and returns, and spent a season on a farm in Tasmania, harvesting and tending plants.`,
+          `From March 2024 I also worked part-time as a web developer for a team in New Zealand, fourteen hours away, alongside the full-time job.`,
+        ],
+        lesson: `Warehouse work taught me that small details matter. I bring that care to every website I build.`,
+        it: { label: 'What it taught me · IT', title: 'Shipping matters more than perfect circumstances.',
+          points: [
+            ['A live product.', 'Part-time on a production web app with real users: reading code I did not write, debugging reported bugs, shipping features, and working through code reviews, daily stand-ups and sprints with an international team.'],
+            ['Fourteen hours apart.', 'Six months of delivering on deadline from the other side of the world, next to a full-time job, which made clear written communication a habit.'],
+            ['Real users, real deadlines.', 'Features reached real users during the engagement, so quality was never theoretical.'],
+          ],
+          whyLabel: 'For the business', why: 'Experience on a live product, with deadlines and real users, not only on personal projects.' } },
+      { id: 'at', num: '06', place: 'Austria', years: 'Now', title: 'Slowing down',
+        text: [
+          `Haag, in Lower Austria, is home now: frost on the fields in March, valleys filling with mist at sunrise, a hillside that changes colour between one visit and the next.`,
+          `Here I run Dual-Stack Studio: photography, film and the websites behind them, for farms, guesthouses and small local businesses.`,
+        ],
+        lesson: `Slow down, look properly, and let a place show you what is worth remembering. It is the same thing I do for the businesses I work with.` },
+    ] as Chapter[],
+    stats: [['700 h', 'bootcamp'], ['10', 'students tutored'], ['9', 'months teaching']],
+    bridgeEyebrow: 'Our journal', bridgeTitle: 'From here, the road has two travellers.',
+    bridgeText: `The next part of the story I don't tell alone. The journal I keep with my wife picks up in 2025, one place at a time: Australia, Vietnam and Thailand, and a season in Austria.`,
+    bridgeGo: 'Read this part →',
+    bridgeCards: [['Australia', 'March – August 2025 · Brisbane & beyond'], ['Vietnam & Thailand', 'October 2025 · Southeast Asia'], ['Austria', 'March – September 2026 · Upper Austria']],
+    lbOpen: 'View the full photo', lbClose: 'Close', lbPrev: 'Previous photo', lbNext: 'Next photo',
+    carryEyebrow: 'What I bring', carryTitle: 'What I carry from all of it',
+    carry: [
+      ['Doing it properly', 'Zero-defect lines and busy warehouses taught me that quality is a daily habit, not a final check.'],
+      ['Attention before words', 'Working without a shared language made me a careful listener and a clear communicator.'],
+      ['Many things at once', 'Work, study and teaching, then two jobs in two countries: I keep several commitments moving without dropping one.'],
+      ['The one frame', 'Look slowly, then choose what says the most. For a photo, a page or a whole business.'],
+    ],
+    ctaTitle: 'Have a small place worth telling?',
+    ctaText: 'I bring the same care, patience and work ethic to every farm, guesthouse and local business I work with.',
+    ctaBtn: `Say hello`, ctaBtn2: 'Read the journal',
+    footTagline: 'Stories for family businesses and small places doing real work — content, storytelling, and the web presence behind it.',
+    navTitle: 'Navigate', navWork: 'Work', navServices: 'Services', navTeam: 'Team', navAbout: 'About me', navJournal: 'Journal',
+    legalTitle: 'Legal', privacy: 'Privacy Policy', terms: 'Terms of Service', contactTitle: 'Get in touch',
+    rights: '© 2026 Dual-Stack Studio. Independently operated.', builtWith: 'Built with Astro, deployed on Vercel.',
+  },
+  de: {
+    title: 'Über mich — Dual-Stack Studio',
+    description: 'Der lange Weg hierher: Arbeit, Reisen und was sie mir beigebracht haben, von einer Fabrikhalle in Hokkaido bis zu einem Studio in Österreich.',
+    back: '← Zurück zu Creative',
+    heroAlt: 'Ein schneebedeckter Vulkan über dunklem Wald und einer Holzhütte in Hokkaido, in Schwarzweiß',
+    eyebrow: 'Über mich', h1: 'Der lange Weg hierher.',
+    meta: 'Argentinien · Japan · Schweden · Australien · Österreich',
+    lead: 'Ich bin Sebastian, gebürtiger Argentinier, heute zu Hause in Haag in Niederösterreich. Bevor ich begann, die Geschichten kleiner Orte zu erzählen, habe ich in Asien, Europa, Südamerika und Ozeanien gearbeitet.',
+    storyLead: 'Vor der Kamera und dem Code stand echte Arbeit.',
+    p1: 'Eine Fabrikhalle. Ein Skiresort. Ein Jahr Freiwilligenarbeit. Eine Lodge. Lagerhallen und eine Ernte. Nichts davon war glamourös, und alles hat mir beigebracht, was kleine Betriebe längst wissen: Die Arbeit ist die Arbeit, und sie wird jeden Tag ordentlich gemacht, oder sie wird nicht gemacht.',
+    p2: 'Das ist dieser Weg, in der Reihenfolge, in der er passiert ist, und was jede Etappe mir mitgegeben hat.',
+    learned: 'Was ich daraus gelernt habe',
+    chapters: [
+      { id: 'ba', num: '01', place: 'Buenos Aires', years: 'Wo ich herkomme', title: 'Wo es begann',
+        text: [
+          'Ich komme aus Buenos Aires: lange, schmale Straßen zwischen hohen Häusern, alte Steinfassaden neben Glastürmen, Kopfsteinpflastergassen.',
+          'Es ist auch eine Stadt der Theater und Orchester, der Menschen, die stehen bleiben, um zu reden, und einer Gewohnheit, die ich überallhin mitgenommen habe: Wenn etwas fehlt, findet man einen Weg.',
+        ],
+        lesson: 'Buenos Aires hat mir zwei Dinge beigebracht: einen Weg zu finden und mit jedem zu reden.' },
+      { id: 'jp', num: '02', place: 'Japan', years: '2018 – 2019', title: 'Zuhören lernen',
+        text: [
+          'Ich bin von zu Hause nach Hokkaido im Norden Japans gegangen. Ich arbeitete an einer Produktionslinie in einer Lebensmittelfabrik, mit strenger Hygiene, strenger Qualität und ohne Platz für „fast“, und später empfing ich Gäste und fuhr Shuttles in einem Skiresort. Japanisch hatte ich nie gelernt.',
+          'Die Winter dort sind lang und weiß, und die Nächte sehr dunkel und sehr klar. Ich habe viele davon damit verbracht, nach oben zu schauen.',
+        ],
+        lesson: 'Wenn man mit den Menschen um sich keine Sprache teilt, spricht die Aufmerksamkeit: Abläufe, Standards, Geduld, kleine Gesten. Aufmerksamkeit und Respekt vor dem Standard reichen weiter als Worte, und das nutze ich bis heute, wenn ich mit Menschen über Sprachgrenzen hinweg arbeite.',
+        link: { label: 'Mehr aus Japan: Ein Restaurant in Japan →', href: '/work/japan-restaurant' } },
+      { id: 'se', num: '03', place: 'Schweden', years: '2020', title: 'Ein Jahr im Norden',
+        text: [
+          'Nach Japan ging ich für ein Jahr Freiwilligenarbeit nach Schweden, lebte auf dem Land und ganz auf Englisch: Waldstraßen, die geradewegs zum Horizont führen, Seen, die das Abendlicht halten, Wasserfälle und ein Winter auf Skiern.',
+          'Ich habe die Sprache so gelernt, wie sie wirklich hängen bleibt: weil ich sie jeden Tag brauchte.',
+        ],
+        lesson: 'Im Norden geben die Jahreszeiten den Takt vor. Dunkel, kalt und still im Winter, langes Licht im Sommer: Man passt sich an, wird langsamer und lernt, mit Stille zurechtzukommen. Das hat mich Geduld gelehrt, und dass eine Sprache lebt, wenn man sie mit Menschen benutzt.' },
+      { id: 'pa', num: '04', place: 'Patagonien', years: '2021 – 2023', title: 'Alles gleichzeitig',
+        text: [
+          'In einer Lodge in Patagonien war ich der Allrounder: Instandhaltung, Gäste, Zimmerservice, was der Tag eben brauchte.',
+          'In denselben Jahren habe ich mir in einem 700-Stunden-Bootcamp Full-Stack-Entwicklung beigebracht und im Monat meines Abschlusses begonnen, zehn Studierende in JavaScript, React und Node zu begleiten.',
+        ],
+        lesson: 'Eine Lodge zeigt dir, wie kleine Orte wirklich laufen: Jemand repariert, was kaputtgeht, und sorgt dafür, dass sich die Leute gut aufgehoben fühlen, oft gleichzeitig. Und ich habe gelernt, dass ich drei Verpflichtungen gleichzeitig am Laufen halten kann, ohne eine fallen zu lassen.',
+        it: { label: 'Was ich daraus gelernt habe · IT', title: 'Code zu schreiben ist die halbe Arbeit. Ihn zu erklären die andere Hälfte.',
+          points: [
+            ['Das ganze Bild.', 'Ein 700-Stunden-Bootcamp deckte Frontend, Backend und die Datenbank dahinter ab. So kann ich eine Idee von der ersten Skizze bis zur funktionierenden Website begleiten.'],
+            ['Klare Worte.', 'Neun Monate Nachhilfe für zehn Anfänger hießen, JavaScript und React in Schritten zu erklären, denen jeder folgen kann. Dieselbe Gewohnheit hilft heute, wenn jemand fragt, was ein Buchungssystem eigentlich macht.'],
+            ['Die Ursache schnell finden.', 'In Einzelsitzungen zum Debuggen habe ich gelernt zu erkennen, wo ein Problem wirklich beginnt. Das spart Zeit und Überraschungen, wenn auf einer Live-Website etwas kaputtgeht.'],
+          ],
+          whyLabel: 'Für den Betrieb', why: 'Eine Person, die die ganze Website versteht, sie ohne Fachjargon erklärt und repariert, was kaputtgeht.' } },
+      { id: 'au', num: '05', place: 'Australien', years: '2023 – 2025', title: 'Mitten im System',
+        text: [
+          'In Australien arbeitete ich in zwei großen Lagerhallen, mit Kommissionieren, Verpacken, Scannen, Qualitätskontrolle und Retouren, und verbrachte eine Saison auf einer Farm in Tasmanien, mit Ernten und Pflanzenpflege.',
+          'Ab März 2024 arbeitete ich zusätzlich in Teilzeit als Webentwickler für ein Team in Neuseeland, vierzehn Stunden entfernt, neben dem Vollzeitjob.',
+        ],
+        lesson: 'Die Arbeit in den Lagerhallen hat mir gezeigt, dass kleine Details zählen. Diese Sorgfalt bringe ich in jede Website ein, die ich baue.',
+        it: { label: 'Was ich daraus gelernt habe · IT', title: 'Ausliefern zählt mehr als perfekte Umstände.',
+          points: [
+            ['Ein Live-Produkt.', 'In Teilzeit an einer Web-App in Produktion mit echten Nutzern: Code lesen, den ich nicht geschrieben hatte, gemeldete Fehler beheben, Funktionen ausliefern und mit einem internationalen Team durch Code-Reviews, tägliche Stand-ups und Sprints arbeiten.'],
+            ['Vierzehn Stunden Abstand.', 'Sechs Monate lang pünktlich geliefert, von der anderen Seite der Welt und neben einer Vollzeitstelle. So wurde klare schriftliche Kommunikation zur Gewohnheit.'],
+            ['Echte Nutzer, echte Fristen.', 'Funktionen erreichten während des Einsatzes echte Nutzer, Qualität war also nie Theorie.'],
+          ],
+          whyLabel: 'Für den Betrieb', why: 'Erfahrung an einem Live-Produkt mit Fristen und echten Nutzern, nicht nur an eigenen Projekten.' } },
+      { id: 'at', num: '06', place: 'Österreich', years: 'Jetzt', title: 'Langsamer werden',
+        text: [
+          'Haag in Niederösterreich ist jetzt mein Zuhause: Frost auf den Feldern im März, Täler, die sich bei Sonnenaufgang mit Nebel füllen, ein Hang, der zwischen zwei Besuchen die Farbe wechselt.',
+          'Hier führe ich Dual-Stack Studio: Fotografie, Film und die Websites dahinter, für Bauernhöfe, Gästehäuser und kleine lokale Betriebe.',
+        ],
+        lesson: 'Langsamer werden, genau hinsehen und sich von einem Ort zeigen lassen, was sich zu merken lohnt. Das tue ich auch für die Betriebe, mit denen ich arbeite.' },
+    ] as Chapter[],
+    stats: [['700 h', 'Bootcamp'], ['10', 'Studierende begleitet'], ['9', 'Monate als Tutor']],
+    bridgeEyebrow: 'Unser Journal', bridgeTitle: 'Ab hier hat der Weg zwei Reisende.',
+    bridgeText: 'Den nächsten Teil der Geschichte erzähle ich nicht allein. Das Journal, das ich mit meiner Frau führe, setzt 2025 ein, Ort für Ort: Australien, Vietnam und Thailand und eine Saison in Österreich.',
+    bridgeGo: 'Diesen Teil lesen →',
+    bridgeCards: [['Australien', 'März – August 2025 · Brisbane und Umgebung'], ['Vietnam & Thailand', 'Oktober 2025 · Südostasien'], ['Österreich', 'März – September 2026 · Oberösterreich']],
+    lbOpen: 'Ganzes Foto ansehen', lbClose: 'Schließen', lbPrev: 'Vorheriges Foto', lbNext: 'Nächstes Foto',
+    carryEyebrow: 'Was ich mitbringe', carryTitle: 'Was ich von alldem mitnehme',
+    carry: [
+      ['Es richtig machen', 'Produktionslinien ohne Fehlertoleranz und volle Lagerhallen haben mir gezeigt: Qualität ist eine tägliche Gewohnheit, keine Endkontrolle.'],
+      ['Aufmerksamkeit vor Worten', 'Arbeiten ohne gemeinsame Sprache hat mich zu einem aufmerksamen Zuhörer und klaren Kommunikator gemacht.'],
+      ['Vieles gleichzeitig', 'Arbeit, Lernen und Unterrichten, dann zwei Jobs in zwei Ländern: Ich halte mehrere Verpflichtungen in Bewegung, ohne eine fallen zu lassen.'],
+      ['Das eine Bild', 'Langsam hinsehen, dann wählen, was am meisten sagt. Für ein Foto, eine Seite oder einen ganzen Betrieb.'],
+    ],
+    ctaTitle: 'Ein kleiner Ort, der erzählt werden will?',
+    ctaText: 'Dieselbe Sorgfalt, Geduld und Arbeitsmoral bringe ich in jeden Bauernhof, jedes Gästehaus und jeden lokalen Betrieb ein, mit dem ich arbeite.',
+    ctaBtn: 'Melde dich', ctaBtn2: 'Zum Journal',
+    footTagline: 'Geschichten für Familienbetriebe und kleine Orte, die echte Arbeit leisten — Content, Storytelling und der Webauftritt dahinter.',
+    navTitle: 'Navigation', navWork: 'Arbeiten', navServices: 'Leistungen', navTeam: 'Team', navAbout: 'Über mich', navJournal: 'Journal',
+    legalTitle: 'Rechtliches', privacy: 'Datenschutzerklärung', terms: 'Nutzungsbedingungen', contactTitle: 'Kontakt',
+    rights: '© 2026 Dual-Stack Studio. Unabhängig betrieben.', builtWith: 'Erstellt mit Astro, bereitgestellt auf Vercel.',
+  },
+  es: {
+    title: 'Sobre mí — Dual-Stack Studio',
+    description: 'El camino largo hasta aquí: trabajo, viajes y lo que me enseñaron, desde una línea de producción en Hokkaido hasta un estudio en Austria.',
+    back: '← Volver a Creative',
+    heroAlt: 'Un volcán nevado sobre un bosque oscuro y una cabaña de madera en Hokkaido, en blanco y negro',
+    eyebrow: 'Sobre mí', h1: 'El camino largo hasta aquí.',
+    meta: 'Argentina · Japón · Suecia · Australia · Austria',
+    lead: 'Soy Sebastian, argentino, y hoy vivo en Haag, Baja Austria. Antes de contar las historias de lugares pequeños, trabajé en Asia, Europa, Sudamérica y Oceanía.',
+    storyLead: 'Antes de la cámara y del código, hubo trabajo de verdad.',
+    p1: 'Una línea de producción. Un resort de esquí. Un año de voluntariado. Un lodge. Depósitos y una cosecha. Nada de eso fue glamoroso, y todo me enseñó lo que los negocios pequeños ya saben: el trabajo es el trabajo, y se hace bien todos los días, o no se hace.',
+    p2: 'Este es ese camino, en el orden en que ocurrió, y lo que cada etapa me dejó.',
+    learned: 'Lo que me enseñó',
+    chapters: [
+      { id: 'ba', num: '01', place: 'Buenos Aires', years: 'De dónde vengo', title: 'Donde empezó',
+        text: [
+          'Vengo de Buenos Aires: calles largas y angostas entre edificios altos, fachadas de piedra antigua junto a torres de vidrio, callecitas empedradas.',
+          'Es también una ciudad de teatros y orquestas, de gente que se detiene a conversar, y de un hábito que llevé conmigo a todas partes: cuando algo falta, se encuentra la manera.',
+        ],
+        lesson: 'Buenos Aires me enseñó dos cosas: buscar la manera y hablar con cualquiera.' },
+      { id: 'jp', num: '02', place: 'Japón', years: '2018 – 2019', title: 'Aprender a escuchar',
+        text: [
+          'Me fui de casa a Hokkaido, en el norte de Japón. Trabajé en una línea de producción de una fábrica de alimentos, con higiene estricta, calidad estricta y sin lugar para el «casi», y después recibí huéspedes y manejé traslados en un resort de esquí. No tenía ninguna formación en japonés.',
+          'Los inviernos allá son largos y blancos, y las noches muy oscuras y muy claras. Pasé muchas de ellas mirando hacia arriba.',
+        ],
+        lesson: 'Cuando no se comparte ningún idioma con la gente alrededor, habla la atención: las rutinas, los estándares, la paciencia, los gestos chicos. La atención y el respeto por el estándar llegan más lejos que las palabras, y lo sigo usando cada vez que trabajo con personas de distintos idiomas.',
+        link: { label: 'Más de Japón: Un restaurante en Japón →', href: '/work/japan-restaurant' } },
+      { id: 'se', num: '03', place: 'Suecia', years: '2020', title: 'Un año en el norte',
+        text: [
+          'Después de Japón me fui a Suecia por un año de voluntariado, viviendo en el campo y completamente en inglés: caminos de bosque que van derechos al horizonte, lagos que guardan la luz de la tarde, cascadas y un invierno sobre esquíes.',
+          'Aprendí el idioma de la única forma en que se queda de verdad: necesitándolo todos los días.',
+        ],
+        lesson: 'En el norte, las estaciones marcan el ritmo. Oscuro, frío y silencioso en invierno, luz larga en verano: uno se adapta, baja el ritmo y se acostumbra al silencio. Me enseñó paciencia, y que un idioma vive cuando se usa con personas.' },
+      { id: 'pa', num: '04', place: 'Patagonia', years: '2021 – 2023', title: 'Todo a la vez',
+        text: [
+          'En un lodge en la Patagonia hacía de todo un poco: mantenimiento, huéspedes, limpieza, lo que pidiera el día.',
+          'En esos mismos años aprendí desarrollo full-stack en un bootcamp de 700 horas y, el mes en que me gradué, empecé a dar tutorías a diez estudiantes en JavaScript, React y Node.',
+        ],
+        lesson: 'Un lodge muestra cómo funcionan de verdad los lugares chicos: alguien arregla lo que se rompe y hace que la gente se sienta atendida, muchas veces al mismo tiempo. Y aprendí que puedo mantener tres compromisos a la vez sin soltar ninguno.',
+        it: { label: 'Lo que me enseñó · IT', title: 'Escribir código es la mitad del trabajo. Explicarlo es la otra mitad.',
+          points: [
+            ['La imagen completa.', 'Un bootcamp full-stack de 700 horas cubrió el front end, el back end y la base de datos detrás, así que puedo acompañar una idea desde el primer boceto hasta un sitio funcionando.'],
+            ['Palabras claras.', 'Nueve meses de tutorías a diez principiantes significaron explicar JavaScript y React en pasos que cualquiera pueda seguir. El mismo hábito ayuda hoy cuando alguien pregunta qué hace en realidad un sistema de reservas.'],
+            ['Encontrar la causa rápido.', 'Las sesiones de depuración uno a uno me entrenaron para ver dónde empieza de verdad un problema, lo que ahorra tiempo y sorpresas cuando algo falla en un sitio en vivo.'],
+          ],
+          whyLabel: 'Para el negocio', why: 'Una sola persona que entiende todo el sitio, lo explica sin jerga y arregla lo que se rompe.' } },
+      { id: 'au', num: '05', place: 'Australia', years: '2023 – 2025', title: 'Dentro del sistema',
+        text: [
+          'En Australia trabajé en dos grandes depósitos, con picking, empaque, escaneo, control de calidad y devoluciones, y pasé una temporada en una granja de Tasmania, cosechando y cuidando plantas.',
+          'Desde marzo de 2024 trabajé además medio tiempo como desarrollador web para un equipo de Nueva Zelanda, a catorce horas de diferencia, junto con el trabajo de tiempo completo.',
+        ],
+        lesson: 'El trabajo en los depósitos me enseñó que los detalles pequeños importan. Esa atención la llevo a cada sitio web que construyo.',
+        it: { label: 'Lo que me enseñó · IT', title: 'Entregar importa más que las circunstancias perfectas.',
+          points: [
+            ['Un producto en vivo.', 'Medio tiempo en una aplicación web en producción con usuarios reales: leer código que no escribí, depurar errores reportados, entregar funciones y trabajar con revisiones de código, reuniones diarias y sprints junto a un equipo internacional.'],
+            ['A catorce horas de distancia.', 'Seis meses entregando a tiempo desde el otro lado del mundo, junto a un trabajo de tiempo completo, lo que volvió hábito la comunicación escrita clara.'],
+            ['Usuarios reales, plazos reales.', 'Las funciones llegaron a usuarios reales durante el trabajo, así que la calidad nunca fue teórica.'],
+          ],
+          whyLabel: 'Para el negocio', why: 'Experiencia en un producto en vivo, con plazos y usuarios reales, no solo en proyectos propios.' } },
+      { id: 'at', num: '06', place: 'Austria', years: 'Ahora', title: 'Bajar el ritmo',
+        text: [
+          'Haag, en la Baja Austria, es ahora mi casa: la helada en los campos en marzo, valles que se llenan de niebla al amanecer, una ladera que cambia de color entre una visita y la siguiente.',
+          'Aquí dirijo Dual-Stack Studio: fotografía, video y los sitios web detrás, para granjas, alojamientos y pequeños negocios locales.',
+        ],
+        lesson: 'Bajar el ritmo, mirar bien y dejar que un lugar muestre qué vale la pena recordar. Es lo mismo que hago por los negocios con los que trabajo.' },
+    ] as Chapter[],
+    stats: [['700 h', 'de bootcamp'], ['10', 'estudiantes con tutoría'], ['9', 'meses enseñando']],
+    bridgeEyebrow: 'Nuestro diario', bridgeTitle: 'Desde aquí, el camino tiene dos viajeros.',
+    bridgeText: 'La siguiente parte de la historia no la cuento solo. El diario que escribo con mi esposa retoma en 2025, un lugar a la vez: Australia, Vietnam y Tailandia, y una temporada en Austria.',
+    bridgeGo: 'Leer esta parte →',
+    bridgeCards: [['Australia', 'Marzo – agosto 2025 · Brisbane y alrededores'], ['Vietnam y Tailandia', 'Octubre 2025 · Sudeste asiático'], ['Austria', 'Marzo – septiembre 2026 · Alta Austria']],
+    lbOpen: 'Ver la foto completa', lbClose: 'Cerrar', lbPrev: 'Foto anterior', lbNext: 'Foto siguiente',
+    carryEyebrow: 'Lo que aporto', carryTitle: 'Lo que me llevo de todo esto',
+    carry: [
+      ['Hacerlo bien', 'Las líneas sin margen de error y los depósitos a pleno me enseñaron que la calidad es un hábito diario, no un control final.'],
+      ['Atención antes que palabras', 'Trabajar sin un idioma en común me volvió un oyente atento y alguien que se comunica con claridad.'],
+      ['Muchas cosas a la vez', 'Trabajo, estudio y enseñanza, y después dos empleos en dos países: mantengo varios compromisos en marcha sin soltar ninguno.'],
+      ['El cuadro justo', 'Mirar despacio y elegir lo que dice más. Para una foto, una página o un negocio entero.'],
+    ],
+    ctaTitle: '¿Un lugar pequeño que merece ser contado?',
+    ctaText: 'Pongo el mismo cuidado, paciencia y ética de trabajo en cada granja, alojamiento y negocio local con el que trabajo.',
+    ctaBtn: 'Di hola', ctaBtn2: 'Leer el diario',
+    footTagline: 'Historias para negocios familiares y lugares pequeños que hacen un trabajo real — contenido, storytelling y la presencia web detrás.',
+    navTitle: 'Navegación', navWork: 'Trabajo', navServices: 'Servicios', navTeam: 'Equipo', navAbout: 'Sobre mí', navJournal: 'Diario',
+    legalTitle: 'Legal', privacy: 'Política de Privacidad', terms: 'Términos de Servicio', contactTitle: 'Contacto',
+    rights: '© 2026 Dual-Stack Studio. Operado de forma independiente.', builtWith: 'Construido con Astro, desplegado en Vercel.',
+  },
+};
+const c = copy[lang];
+---
+
+<Layout title={c.title} description={c.description} lang={lang} langs={['en', 'de', 'es']}>
+  <script is:inline>document.documentElement.classList.add('ab-js');</script>
+
+  <header class="ab-header">
+    <a href={l(lang, '/creative')} class="ab-brand">
+      <img src="/logo.svg" alt="Dual-Stack Studio" width="32" height="32" style="border-radius: 8px;" />
+      <span>Dual-Stack Studio</span>
+    </a>
+    <span class="ab-header-right">
+      <LangSwitch lang={lang} langs={['en', 'de', 'es']} />
+      <a href={l(lang, '/creative')} class="ab-back">{c.back}</a>
+    </span>
+  </header>
+
+  <section class="ab-hero">
+    <img class="ab-hero-img" src={heroImg} alt={c.heroAlt} width="1672" height="941" fetchpriority="high" />
+    <div class="ab-hero-scrim"></div>
+    <div class="ab-hero-content">
+      <span class="ab-eyebrow">{c.eyebrow}</span>
+      <h1>{c.h1}</h1>
+      <p class="ab-hero-meta">{c.meta}</p>
+      <p class="ab-hero-lead">{c.lead}</p>
+    </div>
+  </section>
+
+  <section class="ab-story">
+    <div class="ab-inner ab-inner--narrow">
+      <p class="ab-story-lead ab-reveal">{c.storyLead}</p>
+      <p class="ab-reveal">{c.p1}</p>
+      <p class="ab-reveal">{c.p2}</p>
+    </div>
+  </section>
+
+  {c.chapters.map((ch, i) => (
+    <section class:list={['ab-chapter', { 'ab-chapter--alt': i % 2 === 1 }]} id={`ch-${ch.num}`}>
+      <div class="ab-inner">
+        <div class="ab-ch-grid">
+          <div class="ab-ch-side ab-reveal">
+            <span class="ab-ch-num">{ch.num}</span>
+            <span class="ab-ch-place">{ch.place}</span>
+            <span class="ab-ch-years">{ch.years}</span>
+          </div>
+          <div class="ab-ch-main">
+            <h2 class="ab-ch-title ab-reveal">{ch.title}</h2>
+            {ch.text.map((t) => <p class="ab-ch-text ab-reveal">{t}</p>)}
+            <aside class="ab-lesson ab-reveal">
+              <span class="ab-lesson-label">{c.learned}</span>
+              <p>{ch.lesson}</p>
+            </aside>
+            {ch.it && (
+              <aside class="ab-it ab-reveal">
+                <span class="ab-it-label">{ch.it.label}</span>
+                <h3 class="ab-it-title">{ch.it.title}</h3>
+                <ol class="ab-it-list">
+                  {ch.it.points.map(([lead, text]) => (
+                    <li><span><strong>{lead}</strong> {text}</span></li>
+                  ))}
+                </ol>
+                <p class="ab-it-why"><span>{ch.it.whyLabel}</span> {ch.it.why}</p>
+              </aside>
+            )}
+            {ch.link && <a href={l(lang, ch.link.href)} class="ab-link ab-reveal">{ch.link.label}</a>}
+          </div>
+        </div>
+
+        <div class={`ab-cas ab-cas--${ch.id}`}>
+          {placed[ch.id].map((p, n) => (
+            <figure class:list={['ab-ph', p.ratio, { 'ab-ph--first': p.k === 0 }, 'ab-reveal']} style={`--c:${p.c};--s:${p.s ?? 4};--k:${p.k};--g:${p.g};--n:${n + 1}`}>
+              <a href={fullOf(p.src)} class="ab-ph-open" data-full={fullOf(p.src)} data-cap={p.cap[lang]} title={c.lbOpen}>
+                <img src={p.src} width={p.w} height={p.h} alt={p.alt[lang]} loading="lazy" decoding="async" style={p.pos ? `object-position:${p.pos}` : undefined} />
+              </a>
+              <figcaption>{p.cap[lang]}</figcaption>
+            </figure>
+          ))}
+          {ch.id === 'pa' && (
+            <div class="ab-stats ab-reveal" style="--c:9;--s:4;--k:2;--g:1;--n:9">
+              {c.stats.map(([n, label]) => (
+                <div class="ab-stat"><b>{n}</b><span>{label}</span></div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <section class="ab-bridge" id="journal">
+    <div class="ab-inner">
+      <div class="ab-bridge-head">
+        <span class="ab-eyebrow ab-eyebrow--light ab-reveal">{c.bridgeEyebrow}</span>
+        <h2 class="ab-bridge-title ab-reveal">{c.bridgeTitle}</h2>
+        <p class="ab-bridge-text ab-reveal">{c.bridgeText}</p>
+      </div>
+      <div class="ab-bridge-cards">
+        {bridgeCards.map((b, i) => (
+          <a href={l(lang, b.href)} class="ab-bcard ab-reveal">
+            <div class="ab-bcard-media"><img src={b.cover} alt="" loading="lazy" decoding="async" /></div>
+            <div class="ab-bcard-body">
+              <h3>{c.bridgeCards[i][0]}</h3>
+              <p class="ab-bcard-meta">{c.bridgeCards[i][1]}</p>
+              <span class="ab-bcard-go">{c.bridgeGo}</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="ab-carry">
+    <div class="ab-inner">
+      <span class="ab-eyebrow ab-eyebrow--light">{c.carryEyebrow}</span>
+      <h2 class="ab-carry-title">{c.carryTitle}</h2>
+      <div class="ab-carry-grid">
+        {c.carry.map(([t, d], i) => (
+          <div class="ab-carry-item ab-reveal">
+            <span class="ab-carry-n">0{i + 1}</span>
+            <h3>{t}</h3>
+            <p>{d}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="ab-cta">
+    <div class="ab-inner ab-cta-inner">
+      <h2>{c.ctaTitle}</h2>
+      <p>{c.ctaText}</p>
+      <div class="ab-cta-btns">
+        <a href={l(lang, '/creative#contact')} class="ab-cta-btn">{c.ctaBtn}</a>
+        <a href={l(lang, '/journal')} class="ab-cta-btn ab-cta-btn--ghost">{c.ctaBtn2}</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="ab-footer">
+    <div class="ab-inner">
+      <div class="ab-footer-grid">
+        <div class="ab-footer-brand">
+          <div class="ab-footer-logo">
+            <img src="/logo.svg" alt="Dual-Stack Studio" width="28" height="28" style="border-radius: 7px;" />
+            Dual-Stack Studio
+          </div>
+          <p>{c.footTagline}</p>
+        </div>
+        <div class="ab-footer-col">
+          <h4>{c.navTitle}</h4>
+          <a href={l(lang, '/creative#work')}>{c.navWork}</a>
+          <a href={l(lang, '/creative#services')}>{c.navServices}</a>
+          <a href={l(lang, '/creative#team')}>{c.navTeam}</a>
+          <a href={l(lang, '/about')}>{c.navAbout}</a>
+          <a href={l(lang, '/journal')}>{c.navJournal}</a>
+        </div>
+        <div class="ab-footer-col">
+          <h4>{c.legalTitle}</h4>
+          <a href={l(lang, '/privacy-policy')}>{c.privacy}</a>
+          <a href={l(lang, '/terms-of-service')}>{c.terms}</a>
+          <a href={l(lang, '/impressum')}>Impressum</a>
+        </div>
+        <div class="ab-footer-col">
+          <h4>{c.contactTitle}</h4>
+          <ContactLinks theme="forest" />
+        </div>
+      </div>
+      <div class="ab-footer-bottom">
+        <p>{c.rights}</p>
+        <p>{c.builtWith}</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="ab-lb" id="ab-lb" role="dialog" aria-modal="true" aria-label={c.lbOpen} hidden>
+    <button type="button" class="ab-lb-close" aria-label={c.lbClose}>
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+    </button>
+    <button type="button" class="ab-lb-nav ab-lb-prev" aria-label={c.lbPrev}>
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7" /></svg>
+    </button>
+    <figure class="ab-lb-fig">
+      <img class="ab-lb-img" alt="" />
+      <figcaption class="ab-lb-cap"></figcaption>
+    </figure>
+    <button type="button" class="ab-lb-nav ab-lb-next" aria-label={c.lbNext}>
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>
+    </button>
+    <span class="ab-lb-count" aria-live="polite"></span>
+  </div>
+
+  <script is:inline>
+    (function () {
+      var lb = document.getElementById('ab-lb');
+      var links = Array.prototype.slice.call(document.querySelectorAll('.ab-ph-open'));
+      if (!lb || !links.length) return;
+      var img = lb.querySelector('.ab-lb-img');
+      var cap = lb.querySelector('.ab-lb-cap');
+      var count = lb.querySelector('.ab-lb-count');
+      var btnClose = lb.querySelector('.ab-lb-close');
+      var btnPrev = lb.querySelector('.ab-lb-prev');
+      var btnNext = lb.querySelector('.ab-lb-next');
+      var root = document.documentElement;
+      var cur = 0, token = 0, lastFocus = null, isOpen = false, startX = null;
+
+      function preload(i) {
+        var n = new Image();
+        n.src = links[(i + links.length) % links.length].getAttribute('data-full');
+      }
+      function show(i) {
+        cur = (i + links.length) % links.length;
+        var a = links[cur];
+        var thumb = a.querySelector('img');
+        var full = a.getAttribute('data-full');
+        var t = ++token;
+        img.classList.add('loading');
+        img.src = thumb.currentSrc || thumb.src; // the small copy appears at once, then the large one replaces it
+        img.alt = thumb.alt;
+        var big = new Image();
+        big.onload = function () { if (t === token) { img.src = full; img.classList.remove('loading'); } };
+        big.onerror = function () { if (t === token) img.classList.remove('loading'); };
+        big.src = full;
+        cap.textContent = a.getAttribute('data-cap') || '';
+        count.textContent = (cur + 1) + ' / ' + links.length;
+        preload(cur + 1);
+        preload(cur - 1);
+      }
+      function open(i) {
+        lastFocus = document.activeElement;
+        isOpen = true;
+        lb.hidden = false;
+        root.classList.add('ab-lb-lock');
+        show(i);
+        requestAnimationFrame(function () { lb.classList.add('open'); });
+        btnClose.focus();
+      }
+      function close() {
+        if (!isOpen) return;
+        isOpen = false;
+        token++;
+        lb.classList.remove('open');
+        root.classList.remove('ab-lb-lock');
+        setTimeout(function () { if (!isOpen) { lb.hidden = true; img.removeAttribute('src'); } }, 220);
+        if (lastFocus && lastFocus.focus) lastFocus.focus();
+      }
+
+      links.forEach(function (a, i) {
+        a.addEventListener('click', function (e) {
+          if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return; // let "open in new tab" work
+          e.preventDefault();
+          open(i);
+        });
+      });
+      btnClose.addEventListener('click', close);
+      btnPrev.addEventListener('click', function () { show(cur - 1); });
+      btnNext.addEventListener('click', function () { show(cur + 1); });
+      lb.addEventListener('click', function (e) {
+        if (e.target.closest('.ab-lb-img, .ab-lb-nav, .ab-lb-close')) return;
+        close();
+      });
+      document.addEventListener('keydown', function (e) {
+        if (!isOpen) return;
+        if (e.key === 'Escape') { close(); }
+        else if (e.key === 'ArrowLeft') { show(cur - 1); }
+        else if (e.key === 'ArrowRight') { show(cur + 1); }
+        else if (e.key === 'Tab') {
+          var f = [btnClose, btnPrev, btnNext];
+          var k = f.indexOf(document.activeElement);
+          e.preventDefault();
+          f[(k + (e.shiftKey ? f.length - 1 : 1)) % f.length].focus();
+        }
+      });
+      lb.addEventListener('touchstart', function (e) { startX = e.touches.length === 1 ? e.touches[0].clientX : null; }, { passive: true });
+      lb.addEventListener('touchend', function (e) {
+        if (startX === null) return;
+        var dx = e.changedTouches[0].clientX - startX;
+        startX = null;
+        if (Math.abs(dx) > 50) show(cur + (dx < 0 ? 1 : -1));
+      }, { passive: true });
+    })();
+  </script>
+
+  <script is:inline>
+    (function () {
+      var els = document.querySelectorAll('.ab-reveal');
+      if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        els.forEach(function (e) { e.classList.add('in'); });
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+      els.forEach(function (e) { io.observe(e); });
+    })();
+  </script>
+
+  <style>
+    :root {
+      --cream: #fffdf9;
+      --cream-deep: #fbf8f3;
+      --forest: #2f4436;
+      --forest-deep: #223226;
+      --terracotta: #c1663e;
+      --terracotta-deep: #a4522f;
+      --ink: #2b2420;
+      --muted: #6b6156;
+    }
+
+    .ab-inner { max-width: 1180px; margin: 0 auto; padding: 0 1.75rem; }
+    .ab-inner--narrow { max-width: 720px; }
+    .ab-eyebrow { display: block; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.85); margin-bottom: 0.75rem; }
+    .ab-eyebrow--light { color: var(--terracotta); }
+
+    /* reveal on scroll (only when JS is on) */
+    :global(.ab-js) .ab-reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.8s ease, transform 0.8s cubic-bezier(.2,.7,.2,1); }
+    :global(.ab-js) .ab-reveal.in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) { :global(.ab-js) .ab-reveal { opacity: 1; transform: none; transition: none; } }
+
+    /* header */
+    .ab-header { position: fixed; top: 0; left: 0; width: 100%; padding: 1.5rem 2.5rem; display: flex; justify-content: space-between; align-items: center; z-index: 100; background: rgba(34, 50, 38, 0.55); backdrop-filter: blur(8px); }
+    .ab-brand { display: flex; align-items: center; gap: 10px; font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600; color: #fff; }
+    .ab-header-right { display: inline-flex; align-items: center; gap: 1.5rem; color: rgba(255,255,255,0.9); }
+    .ab-back { font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.9); }
+    .ab-back:hover { color: var(--terracotta); }
+
+    /* hero */
+    /* the height follows the photo's own 16:9 shape, so on most screens it is shown whole instead of cropped and zoomed */
+    .ab-hero { position: relative; height: clamp(540px, 56.25vw, 100vh); display: flex; align-items: flex-end; overflow: hidden; background: var(--forest-deep); }
+    .ab-hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; }
+    .ab-hero-scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,24,16,0.2) 0%, rgba(20,24,16,0.2) 40%, rgba(20,24,16,0.9) 100%); }
+    .ab-hero-content { position: relative; z-index: 5; max-width: 820px; padding: 6rem 2.5rem 4.5rem; }
+    .ab-hero-content h1 { font-family: 'Fraunces', serif; font-size: clamp(46px, 8.5vw, 96px); font-weight: 600; letter-spacing: -2px; color: #fff; margin: 0 0 0.9rem; line-height: 1; }
+    .ab-hero-meta { font-size: 13px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.72); margin: 0 0 1.1rem; }
+    .ab-hero-lead { font-size: 18px; line-height: 1.65; color: rgba(255,255,255,0.92); margin: 0; max-width: 600px; }
+
+    /* intro */
+    .ab-story { background: var(--cream); padding: 5.5rem 0 3.5rem; }
+    .ab-story-lead { font-family: 'Fraunces', serif; font-size: clamp(26px, 3.6vw, 40px); font-weight: 500; line-height: 1.25; color: var(--ink); margin: 0 0 1.75rem; letter-spacing: -0.5px; }
+    .ab-story p { font-size: 17px; line-height: 1.8; color: var(--ink); margin: 0 0 1.3rem; }
+
+    /* chapters */
+    .ab-chapter { background: var(--cream); padding: 4.5rem 0 5rem; border-top: 1px solid rgba(43,36,32,0.1); overflow-x: clip; }
+    .ab-chapter--alt { background: var(--cream-deep); }
+    .ab-ch-grid { display: grid; grid-template-columns: 240px 1fr; gap: 3rem; align-items: start; }
+    .ab-ch-side { position: sticky; top: 110px; display: grid; gap: 0.35rem; }
+    .ab-ch-num { font-family: 'Fraunces', serif; font-size: clamp(72px, 9vw, 120px); font-weight: 600; line-height: 0.9; color: var(--terracotta); letter-spacing: -3px; }
+    .ab-ch-place { font-size: 13px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: var(--ink); margin-top: 0.6rem; }
+    .ab-ch-years { font-size: 13px; letter-spacing: 0.5px; color: var(--muted); }
+    .ab-ch-title { font-family: 'Fraunces', serif; font-size: clamp(30px, 4vw, 48px); font-weight: 600; letter-spacing: -1px; line-height: 1.08; color: var(--ink); margin: 0 0 1.4rem; }
+    .ab-ch-text { font-size: 17px; line-height: 1.8; color: var(--ink); margin: 0 0 1.2rem; max-width: 640px; }
+    .ab-lesson { margin: 1.8rem 0 0; padding: 1.3rem 1.5rem; border-left: 3px solid var(--terracotta); background: rgba(193,102,62,0.07); max-width: 640px; border-radius: 0 8px 8px 0; }
+    .ab-chapter--alt .ab-lesson { background: rgba(193,102,62,0.07); }
+    .ab-lesson-label { display: block; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--terracotta-deep); margin-bottom: 0.5rem; }
+    .ab-lesson p { margin: 0; font-size: 16px; line-height: 1.7; color: var(--ink); }
+    /* the IT lessons matter for the business, so they get their own, louder block */
+    .ab-it { position: relative; overflow: hidden; margin: 2.2rem 0 0; max-width: 640px; padding: 1.9rem 1.9rem 1.7rem 2.2rem; background: var(--forest); color: #fff; border-radius: 12px; box-shadow: 0 22px 44px -26px rgba(34,24,16,0.55); }
+    .ab-it::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background: var(--terracotta); }
+    .ab-it-label { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #fff; background: #b95c35; padding: 5px 12px; border-radius: 999px; }
+    .ab-it-title { font-family: 'Fraunces', serif; font-size: clamp(22px, 2.6vw, 28px); font-weight: 600; line-height: 1.2; letter-spacing: -0.4px; color: #fff; margin: 1rem 0 1.3rem; }
+    .ab-it-list { list-style: none; counter-reset: it; margin: 0; padding: 0; display: grid; gap: 1.05rem; }
+    .ab-it-list li { counter-increment: it; display: grid; grid-template-columns: 28px 1fr; gap: 0.85rem; align-items: start; font-size: 15.5px; line-height: 1.65; color: rgba(255,255,255,0.92); }
+    .ab-it-list li::before { content: counter(it); display: grid; place-items: center; width: 26px; height: 26px; margin-top: 1px; border-radius: 50%; background: rgba(255,255,255,0.12); color: #f0a47a; font-size: 13px; font-weight: 700; }
+    .ab-it-list strong { color: #fff; font-weight: 700; }
+    .ab-it-why { margin: 1.5rem 0 0; padding-top: 1.2rem; border-top: 1px solid rgba(255,255,255,0.2); font-size: 15px; line-height: 1.65; color: #fff; }
+    .ab-it-why span { display: block; margin-bottom: 0.3rem; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #f0a47a; }
+    .ab-link { display: inline-block; margin-top: 1.4rem; font-size: 14px; font-weight: 600; color: var(--terracotta-deep); border-bottom: 1px solid rgba(164,82,47,0.35); padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; }
+    .ab-link:hover { color: var(--terracotta); border-color: var(--terracotta); }
+
+    /* photos: a cascade that steps down and to the right */
+    .ab-cas { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 1.1rem; row-gap: 2.2rem; margin-top: 3.5rem; padding-bottom: 0.5rem; }
+    .ab-ph { grid-column: var(--c) / span var(--s); grid-row: var(--g); align-self: start; margin: calc(var(--k) * 3.2rem) 0 0 -2rem; z-index: var(--n); position: relative; overflow: hidden; box-sizing: content-box; border: 5px solid #fff; border-radius: 10px; background: var(--forest-deep); box-shadow: 0 22px 44px -22px rgba(34,24,16,0.6); }
+    .ab-ph--first { margin-left: 0; }
+    .ab-ph img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.2s cubic-bezier(.2,.7,.2,1); }
+    .ab-ph:hover img { transform: scale(1.035); }
+    .ab-ph figcaption { position: absolute; left: 0.7rem; top: 0.7rem; font-size: 10.5px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: #fff; background: rgba(20,24,16,0.55); backdrop-filter: blur(4px); padding: 4px 10px; border-radius: 999px; }
+    .r169 { aspect-ratio: 16 / 9; }
+    .r43 { aspect-ratio: 4 / 3; }
+    .r34 { aspect-ratio: 3 / 4; }
+    .r11 { aspect-ratio: 1 / 1; }
+    .r916 { aspect-ratio: 9 / 16; }
+
+    /* each photo drifts in from the left and settles; the steps follow one after another */
+    :global(.ab-js) .ab-cas .ab-ph.ab-reveal, :global(.ab-js) .ab-cas .ab-stats.ab-reveal { transform: translate(-34px, 30px); transition-delay: calc(var(--k) * 120ms); }
+    :global(.ab-js) .ab-cas .ab-ph.ab-reveal.in, :global(.ab-js) .ab-cas .ab-stats.ab-reveal.in { transform: none; }
+    @media (prefers-reduced-motion: reduce) { :global(.ab-js) .ab-cas .ab-ph.ab-reveal, :global(.ab-js) .ab-cas .ab-stats.ab-reveal { transform: none; transition: none; } }
+
+    /* Patagonia: three numbers take the last step of the cascade */
+    .ab-stats { grid-column: var(--c) / span var(--s); grid-row: var(--g); align-self: start; margin: calc(var(--k) * 3.2rem) 0 0 -2rem; z-index: var(--n); display: grid; grid-template-columns: 1fr; gap: 1px; background: rgba(255,255,255,0.12); border-radius: 10px; overflow: hidden; box-shadow: 0 22px 44px -22px rgba(34,24,16,0.6); }
+    .ab-stat { background: var(--forest-deep); padding: 1.5rem 1.6rem; display: grid; grid-template-columns: auto 1fr; align-items: center; column-gap: 1rem; }
+    .ab-stat b { font-family: 'Fraunces', serif; font-size: clamp(32px, 3.4vw, 46px); font-weight: 600; color: var(--terracotta); letter-spacing: -1.5px; line-height: 1; }
+    .ab-stat span { text-align: right; font-size: 12px; font-weight: 600; letter-spacing: 1.1px; text-transform: uppercase; color: rgba(255,255,255,0.7); }
+
+    /* every photo opens full size */
+    .ab-ph-open { position: absolute; inset: 0; display: block; cursor: pointer; }
+    /* small "expand" badge instead of a special cursor: shows on hover and keyboard focus, always visible on touch screens */
+    .ab-ph-open::after { content: ''; position: absolute; right: 0.7rem; bottom: 0.7rem; width: 34px; height: 34px; border-radius: 50%; background: rgba(20,24,16,0.55) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 4H4v5M15 4h5v5M20 15v5h-5M4 15v5h5'/%3E%3C/svg%3E") center / 16px 16px no-repeat; backdrop-filter: blur(4px); opacity: 0; transform: scale(0.85); transition: opacity 0.25s ease, transform 0.25s ease; pointer-events: none; }
+    .ab-ph:hover .ab-ph-open::after, .ab-ph-open:focus-visible::after { opacity: 1; transform: none; }
+    @media (hover: none) { .ab-ph-open::after { opacity: 0.9; transform: none; width: 30px; height: 30px; } }
+    @media (prefers-reduced-motion: reduce) { .ab-ph-open::after { transition: none; } }
+    .ab-ph-open:focus-visible { outline: 3px solid var(--terracotta); outline-offset: -3px; }
+    .ab-ph figcaption { pointer-events: none; }
+    :global(html.ab-lb-lock) { overflow: hidden; }
+    .ab-lb { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 3.5rem 5rem; background: rgba(14, 18, 12, 0.97); opacity: 0; transition: opacity 0.22s ease; }
+    .ab-lb[hidden] { display: none; }
+    .ab-lb.open { opacity: 1; }
+    .ab-lb-fig { margin: 0; max-width: 100%; max-height: 100%; display: flex; flex-direction: column; align-items: center; gap: 0.85rem; }
+    .ab-lb-img { display: block; max-width: 100%; max-height: calc(100vh - 9rem); width: auto; height: auto; object-fit: contain; border-radius: 6px; background: var(--forest-deep); box-shadow: 0 30px 80px -30px rgba(0,0,0,0.8); transition: opacity 0.25s ease; }
+    .ab-lb-img.loading { opacity: 0.82; }
+    .ab-lb-cap { font-size: 12px; font-weight: 700; letter-spacing: 1.3px; text-transform: uppercase; color: rgba(255,255,255,0.85); }
+    .ab-lb-close, .ab-lb-nav { position: absolute; display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.22); background: rgba(255,255,255,0.08); color: #fff; cursor: pointer; transition: background 0.2s, border-color 0.2s; }
+    .ab-lb-close:hover, .ab-lb-nav:hover { background: var(--terracotta); border-color: var(--terracotta); }
+    .ab-lb-close:focus-visible, .ab-lb-nav:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+    .ab-lb-close { top: 1rem; right: 1.2rem; }
+    .ab-lb-nav { top: 50%; transform: translateY(-50%); }
+    .ab-lb-prev { left: 1.2rem; }
+    .ab-lb-next { right: 1.2rem; }
+    .ab-lb-count { position: absolute; bottom: 1.1rem; left: 50%; transform: translateX(-50%); font-size: 12px; letter-spacing: 1.2px; color: rgba(255,255,255,0.6); }
+    @media (prefers-reduced-motion: reduce) { .ab-lb, .ab-lb-img { transition: none; } }
+    @media (max-width: 720px) {
+      .ab-lb { padding: 3.6rem 0.6rem 3.4rem; }
+      .ab-lb-img { max-height: calc(100vh - 10rem); }
+      .ab-lb-nav { top: auto; bottom: 0.9rem; transform: none; width: 42px; height: 42px; }
+      .ab-lb-prev { left: 1rem; }
+      .ab-lb-next { right: 1rem; }
+    }
+
+    /* from 2025 on: the journal written together */
+    .ab-bridge { background: var(--cream); padding: 5.5rem 0 6rem; border-top: 1px solid rgba(43,36,32,0.1); overflow-x: clip; }
+    .ab-bridge-head { max-width: 680px; margin-bottom: 3.2rem; }
+    .ab-bridge-title { font-family: 'Fraunces', serif; font-size: clamp(30px, 4vw, 48px); font-weight: 600; letter-spacing: -1px; line-height: 1.08; color: var(--ink); margin: 0 0 1.2rem; }
+    .ab-bridge-text { font-size: 17px; line-height: 1.8; color: var(--ink); margin: 0; }
+    .ab-bridge-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; align-items: start; }
+    .ab-bcard { display: block; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 22px 44px -26px rgba(34,24,16,0.55); }
+    .ab-bcard:nth-child(2) { margin-top: 2.4rem; transition-delay: 0.12s; }
+    .ab-bcard:nth-child(3) { margin-top: 4.8rem; transition-delay: 0.24s; }
+    .ab-bcard-media { aspect-ratio: 4 / 3; overflow: hidden; background: var(--forest-deep); }
+    .ab-bcard-media img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.2s cubic-bezier(.2,.7,.2,1); }
+    .ab-bcard:hover .ab-bcard-media img { transform: scale(1.04); }
+    .ab-bcard-body { padding: 1.3rem 1.4rem 1.5rem; }
+    .ab-bcard-body h3 { font-family: 'Fraunces', serif; font-size: 24px; font-weight: 600; letter-spacing: -0.5px; color: var(--ink); margin: 0 0 0.35rem; }
+    .ab-bcard-meta { font-size: 13px; color: var(--muted); margin: 0 0 1rem; }
+    .ab-bcard-go { font-size: 14px; font-weight: 600; color: var(--terracotta-deep); border-bottom: 1px solid rgba(164,82,47,0.35); padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; }
+    .ab-bcard:hover .ab-bcard-go { color: var(--terracotta); border-color: var(--terracotta); }
+
+    /* what I carry */
+    .ab-carry { background: var(--forest-deep); padding: 6rem 0; }
+    .ab-carry-title { font-family: 'Fraunces', serif; font-size: clamp(30px, 4.4vw, 52px); font-weight: 600; letter-spacing: -1px; color: #fff; margin: 0 0 3rem; max-width: 640px; line-height: 1.08; }
+    .ab-carry-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+    .ab-carry-item { border-top: 1px solid rgba(255,255,255,0.18); padding-top: 1.3rem; }
+    .ab-carry-n { font-family: 'Fraunces', serif; font-size: 15px; color: var(--terracotta); letter-spacing: 1px; }
+    .ab-carry-item h3 { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 600; color: #fff; margin: 0.6rem 0 0.7rem; line-height: 1.2; }
+    .ab-carry-item p { font-size: 14.5px; line-height: 1.7; color: rgba(255,255,255,0.7); margin: 0; }
+
+    /* cta + footer */
+    .ab-cta { background: var(--forest); padding: 5.5rem 0; text-align: center; }
+    .ab-cta-inner { max-width: 620px; }
+    .ab-cta h2 { font-family: 'Fraunces', serif; font-size: clamp(28px, 3.8vw, 40px); font-weight: 600; color: #fff; margin: 0 0 0.9rem; }
+    .ab-cta p { font-size: 15px; color: rgba(255,255,255,0.78); margin: 0 0 2rem; line-height: 1.65; }
+    .ab-cta-btns { display: flex; gap: 0.9rem; justify-content: center; flex-wrap: wrap; }
+    .ab-cta-btn { display: inline-block; background: var(--terracotta); color: #fff; padding: 14px 32px; border-radius: 100px; font-size: 14px; font-weight: 600; border: 1px solid var(--terracotta); transition: background 0.2s, transform 0.2s, border-color 0.2s; }
+    .ab-cta-btn:hover { background: var(--terracotta-deep); border-color: var(--terracotta-deep); transform: translateY(-1px); }
+    .ab-cta-btn--ghost { background: transparent; border-color: rgba(255,255,255,0.4); }
+    .ab-cta-btn--ghost:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
+
+    .ab-footer { background: var(--forest-deep); color: rgba(255,255,255,0.7); padding: 5rem 0 2.5rem; }
+    .ab-footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 2.5rem; padding-bottom: 3rem; margin-bottom: 2.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .ab-footer-logo { display: flex; align-items: center; gap: 10px; font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600; color: #fff; margin-bottom: 1rem; }
+    .ab-footer-brand p { font-size: 14px; color: rgba(255,255,255,0.65); line-height: 1.7; margin: 0; max-width: 300px; }
+    .ab-footer-col h4 { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 1rem; }
+    .ab-footer-col > a { display: block; font-size: 14px; color: rgba(255,255,255,0.65); margin-bottom: 0.6rem; }
+    .ab-footer-col > a:hover { color: var(--terracotta); }
+    .ab-footer-bottom { display: flex; justify-content: space-between; font-size: 12px; color: rgba(255,255,255,0.4); flex-wrap: wrap; gap: 0.5rem; }
+
+    @media (max-width: 960px) {
+      .ab-ch-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+      .ab-ch-side { position: static; grid-template-columns: auto 1fr; align-items: end; column-gap: 1.2rem; }
+      .ab-ch-num { grid-row: span 2; font-size: 84px; }
+      .ab-ch-place { margin-top: 0; align-self: end; }
+      .ab-carry-grid { grid-template-columns: 1fr 1fr; }
+      .ab-cas { column-gap: 0.8rem; }
+      .ab-ph { margin-top: calc(var(--k) * 2.2rem); margin-left: -1.4rem; }
+      .ab-ph--first { margin-left: 0; }
+      .ab-stats { margin: calc(var(--k) * 2.2rem) 0 0 -1.4rem; }
+      .ab-bridge-cards { gap: 1rem; }
+    }
+    @media (max-width: 860px) {
+      .ab-footer-grid { grid-template-columns: 1fr 1fr; }
+      .ab-header { padding: 1rem 1.25rem; }
+    }
+    /* small screens: a gentler zigzag instead of the full cascade */
+    @media (max-width: 720px) {
+      .ab-cas { display: flex; flex-direction: column; margin-top: 2.5rem; padding-bottom: 1.8rem; row-gap: 0; }
+      .ab-ph, .ab-ph--first { width: 76%; margin: 0 0 -1.6rem 0; }
+      .ab-ph:nth-of-type(odd) { align-self: flex-start; }
+      .ab-ph:nth-of-type(even) { align-self: flex-end; }
+      :global(.ab-js) .ab-cas .ab-ph.ab-reveal:nth-of-type(even) { transform: translate(34px, 30px); }
+      :global(.ab-js) .ab-cas .ab-ph.ab-reveal.in, :global(.ab-js) .ab-cas .ab-ph.ab-reveal.in:nth-of-type(even), :global(.ab-js) .ab-cas .ab-stats.ab-reveal.in { transform: none; }
+      .ab-stats { margin: 2.8rem 0 0; align-self: stretch; grid-template-columns: repeat(3, 1fr); }
+      .ab-stat { padding: 1.5rem 0.4rem; display: block; text-align: center; }
+      .ab-stat b { display: block; font-size: clamp(32px, 9vw, 44px); }
+      .ab-stat span { display: block; margin-top: 0.6rem; text-align: center; font-size: 10.5px; letter-spacing: 0.8px; }
+      .ab-bridge { padding: 4rem 0 4.5rem; }
+      .ab-bridge-cards { grid-template-columns: 1fr; }
+      .ab-bcard:nth-child(2), .ab-bcard:nth-child(3) { margin-top: 0; }
+    }
+    @media (max-width: 720px) {
+      .ab-hero { height: auto; display: block; padding-top: 64px; }
+      .ab-hero-img { position: relative; inset: auto; display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-position: 50% 45%; }
+      .ab-hero-scrim { display: none; }
+      .ab-hero-content { padding: 2rem 1.5rem 2.8rem; max-width: none; }
+    }
+    @media (max-width: 560px) {
+      .ab-carry-grid { grid-template-columns: 1fr; }
+      .ab-footer-grid { grid-template-columns: 1fr; }
+      .ab-back { display: none; }
+      .ab-chapter { padding: 3.5rem 0 4rem; }
+      .ab-it { padding: 1.5rem 1.2rem 1.4rem 1.5rem; }
+      .ab-it-list li { grid-template-columns: 26px 1fr; gap: 0.7rem; font-size: 15px; }
+    }
+  </style>
+</Layout>
