@@ -125,7 +125,7 @@ const c = copy[lang];
 
   <header class="au-header">
     <a href={l(lang, '/creative')} class="au-brand">
-      <img src="/logo.svg" alt="Dual-Stack Studio" width="32" height="32" style="border-radius: 50%;" />
+      <img src="/logo.svg" alt="Dual-Stack Studio" width="64" height="64" style="border-radius: 50%;" />
       <span>Dual-Stack Studio</span>
     </a>
     <span class="au-header-right">
@@ -190,7 +190,7 @@ const c = copy[lang];
       <div class="au-footer-grid">
         <div class="au-footer-brand">
           <div class="au-footer-logo">
-            <img src="/logo.svg" alt="Dual-Stack Studio" width="28" height="28" style="border-radius: 50%;" />
+            <img src="/logo.svg" alt="Dual-Stack Studio" width="48" height="48" style="border-radius: 50%;" />
             Dual-Stack Studio
           </div>
           <p>{c.footTagline}</p>
@@ -451,6 +451,16 @@ const c = copy[lang];
       .au-hero-content { padding: 5rem 1.5rem 3rem; }
       .au-masonry { column-count: 1; }
       .au-footer-grid { grid-template-columns: 1fr; }
+    }
+
+    /* phones: wordmark on one line, bigger logo kept, back link as a plain arrow */
+    @media (max-width: 560px) {
+      .au-header { padding: 1rem 1.1rem; }
+      .au-brand { font-size: 14px; gap: 8px; white-space: nowrap; }
+      .au-brand img { width: 46px; height: 46px; }
+      .au-header-right { gap: 0.9rem; }
+      .au-back { font-size: 0; }
+      .au-back::before { content: '←'; font-size: 22px; font-weight: 700; }
     }
   </style>
 

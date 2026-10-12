@@ -46,7 +46,7 @@ const photos: Record<string, P[]> = {
     photo(B + 'se-road.jpg', 1000, 563, 'r169', t('An empty road running straight through spruce forest under a cloudy sky', 'Eine leere Straße, die geradewegs durch Fichtenwald unter bewölktem Himmel führt', 'Un camino vacío que atraviesa derecho un bosque de abetos bajo un cielo nublado'), t('The road north', 'Die Straße nach Norden', 'El camino al norte'), { s: 6 }),
     photo(B + 'se-dogs.jpg', 1000, 750, 'r43', t('Crouching beside two German shepherds in a meadow of cotton grass', 'Neben zwei Deutschen Schäferhunden in einer Wiese voller Wollgras', 'Agachado junto a dos pastores alemanes en un prado de algodoncillo'), t('Summer', 'Sommer', 'Verano'), { s: 6, pos: '50% 55%' }),
     photo(B + 'se-lake.jpg', 1000, 563, 'r43', t('A still lake at dusk with clouds reflected in the water', 'Ein stiller See in der Abenddämmerung, Wolken spiegeln sich im Wasser', 'Un lago quieto al atardecer con las nubes reflejadas en el agua'), t('Dusk', 'Abenddämmerung', 'Atardecer'), { pos: '50% 50%' }),
-    photo(B + 'pa-clouds.jpg', 1000, 750, 'r43', t('Iridescent clouds glowing pink and green at sunset above a dark, flat horizon', 'Schillernde Wolken in Rosa und Grün beim Sonnenuntergang über einem dunklen, flachen Horizont', 'Nubes iridiscentes rosadas y verdes al atardecer sobre un horizonte oscuro y plano'), t('Sky', 'Himmel', 'Cielo'), { pos: '50% 50%' }),
+    photo(B + 'se-clouds.jpg', 1000, 750, 'r43', t('Iridescent clouds glowing pink and green at sunset above a dark, flat horizon', 'Schillernde Wolken in Rosa und Grün beim Sonnenuntergang über einem dunklen, flachen Horizont', 'Nubes iridiscentes rosadas y verdes al atardecer sobre un horizonte oscuro y plano'), t('Sky', 'Himmel', 'Cielo'), { pos: '50% 50%' }),
     photo(B + 'se-waterfall-man.jpg', 760, 1013, 'r34', t('Standing at the foot of a large waterfall, small beside the rock and the falling water', 'Am Fuß eines großen Wasserfalls, klein neben Fels und fallendem Wasser', 'De pie al pie de una gran cascada, pequeño junto a la roca y el agua que cae'), SWEDEN, { pos: '50% 70%' }),
   ],
   pa: [
@@ -358,7 +358,7 @@ const c = copy[lang];
 
   <header class="ab-header">
     <a href={l(lang, '/creative')} class="ab-brand">
-      <img src="/logo.svg" alt="Dual-Stack Studio" width="32" height="32" style="border-radius: 50%;" />
+      <img src="/logo.svg" alt="Dual-Stack Studio" width="64" height="64" style="border-radius: 50%;" />
       <span>Dual-Stack Studio</span>
     </a>
     <span class="ab-header-right">
@@ -493,7 +493,7 @@ const c = copy[lang];
       <div class="ab-footer-grid">
         <div class="ab-footer-brand">
           <div class="ab-footer-logo">
-            <img src="/logo.svg" alt="Dual-Stack Studio" width="28" height="28" style="border-radius: 50%;" />
+            <img src="/logo.svg" alt="Dual-Stack Studio" width="48" height="48" style="border-radius: 50%;" />
             Dual-Stack Studio
           </div>
           <p>{c.footTagline}</p>
@@ -856,7 +856,7 @@ const c = copy[lang];
       .ab-bcard:nth-child(2), .ab-bcard:nth-child(3) { margin-top: 0; }
     }
     @media (max-width: 720px) {
-      .ab-hero { height: auto; display: block; padding-top: 64px; }
+      .ab-hero { height: auto; display: block; padding-top: 80px; }
       .ab-hero-img { position: relative; inset: auto; display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-position: 50% 45%; }
       .ab-hero-scrim { display: none; }
       .ab-hero-content { padding: 2rem 1.5rem 2.8rem; max-width: none; }
@@ -868,6 +868,12 @@ const c = copy[lang];
       .ab-chapter { padding: 3.5rem 0 4rem; }
       .ab-it { padding: 1.5rem 1.2rem 1.4rem 1.5rem; }
       .ab-it-list li { grid-template-columns: 26px 1fr; gap: 0.7rem; font-size: 15px; }
+    }
+
+    /* phones: wordmark on one line with the bigger logo */
+    @media (max-width: 560px) {
+      .ab-brand { font-size: 14px; gap: 8px; white-space: nowrap; }
+      .ab-brand img { width: 46px; height: 46px; }
     }
   </style>
 </Layout>

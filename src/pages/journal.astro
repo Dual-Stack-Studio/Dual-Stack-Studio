@@ -113,7 +113,7 @@ const parts = [
 
   <header class="jn-header">
     <a href={l(lang, '/creative')} class="jn-brand">
-      <img src="/logo.svg" alt="Dual-Stack Studio" width="32" height="32" style="border-radius: 50%;" />
+      <img src="/logo.svg" alt="Dual-Stack Studio" width="64" height="64" style="border-radius: 50%;" />
       <span>Dual-Stack Studio</span>
     </a>
     <span class="jn-header-right">
@@ -182,7 +182,7 @@ const parts = [
       <div class="jn-footer-grid">
         <div class="jn-footer-brand">
           <div class="jn-footer-logo">
-            <img src="/logo.svg" alt="Dual-Stack Studio" width="28" height="28" style="border-radius: 50%;" />
+            <img src="/logo.svg" alt="Dual-Stack Studio" width="48" height="48" style="border-radius: 50%;" />
             Dual-Stack Studio
           </div>
           <p>{c.footTagline}</p>
@@ -365,6 +365,16 @@ const parts = [
     }
     @media (max-width: 520px) {
       .jn-footer-grid { grid-template-columns: 1fr; }
+    }
+
+    /* phones: wordmark on one line, bigger logo kept, back link as a plain arrow */
+    @media (max-width: 560px) {
+      .jn-header { padding: 1rem 1.1rem; }
+      .jn-brand { font-size: 14px; gap: 8px; white-space: nowrap; }
+      .jn-brand img { width: 46px; height: 46px; }
+      .jn-header-right { gap: 0.9rem; }
+      .jn-back { font-size: 0; }
+      .jn-back::before { content: '←'; font-size: 22px; font-weight: 700; }
     }
   </style>
 

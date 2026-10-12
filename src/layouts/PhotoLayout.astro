@@ -45,7 +45,7 @@ const c = copy[lang];
 <Layout title={title} description={description} lang={lang} langs={langs}>
   <header class="ph-header">
     <a href={l(lang, '/creative')} class="ph-brand">
-      <img src="/logo.svg" alt="Dual-Stack Studio" width="32" height="32" style="border-radius: 50%;" />
+      <img src="/logo.svg" alt="Dual-Stack Studio" width="64" height="64" style="border-radius: 50%;" />
       <span>Dual-Stack Studio</span>
     </a>
     <span class="ph-header-right">
@@ -63,7 +63,7 @@ const c = copy[lang];
       <div class="ph-footer-grid">
         <div class="ph-footer-brand">
           <div class="ph-footer-logo">
-            <img src="/logo.svg" alt="Dual-Stack Studio" width="28" height="28" style="border-radius: 50%;" />
+            <img src="/logo.svg" alt="Dual-Stack Studio" width="48" height="48" style="border-radius: 50%;" />
             Dual-Stack Studio
           </div>
           <p>{c.tagline}</p>
@@ -162,6 +162,16 @@ const c = copy[lang];
     }
     @media (max-width: 560px) {
       .ph-footer-grid { grid-template-columns: 1fr; }
+    }
+
+    /* phones: wordmark on one line, bigger logo kept, back link as a plain arrow */
+    @media (max-width: 560px) {
+      .ph-header { padding: 1rem 1.1rem; }
+      .ph-brand { font-size: 14px; gap: 8px; white-space: nowrap; }
+      .ph-brand img { width: 46px; height: 46px; }
+      .ph-header-right { gap: 0.9rem; }
+      .ph-back { font-size: 0; }
+      .ph-back::before { content: '←'; font-size: 22px; font-weight: 700; }
     }
   </style>
 
