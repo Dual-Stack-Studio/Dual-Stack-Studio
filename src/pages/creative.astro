@@ -273,26 +273,31 @@ const c = copy[lang];
     <div class="hero-scrim"></div>
 
     <header id="site-header" class:list={['site-header', { 'site-header--de': lang === 'de' || lang === 'es' }]}>
-      <a href={l(lang, '/creative')} class="brand">
-        <img src="/logo.svg" alt="Dual-Stack Studio" width="64" height="64" style="border-radius: 25%;" />
-        <span>Dual-Stack Studio</span>
-      </a>
-      <nav class="desktop-nav">
-        <a href="#work">{c.navWork}</a>
-        <a href={l(lang, '/photography')}>{c.navPhotography}</a>
-        <a href="#services">{c.navServices}</a>
-        <a href="#team">{c.navTeam}</a>
-        <a href={l(lang, '/about')}>{c.navAbout}</a>
-        <a href={l(lang, '/journal')}>{c.navJournal}</a>
-        <a href={l(lang, '/web')} class="nav-dept">{c.navWeb}</a>
-      </nav>
-      <div class="header-actions">
-        <LangSwitch lang={lang} langs={['en', 'de', 'es']} />
-        <a href="#contact" class="header-cta">{c.cta}</a>
+      <div class="hdr-left">
+        <button id="menu-toggle" class="menu-toggle" aria-label={c.menuToggle} aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+        <nav class="desktop-nav">
+          <a href="#work">{c.navWork}</a>
+          <a href={l(lang, '/photography')}>{c.navPhotography}</a>
+          <a href="#services">{c.navServices}</a>
+          <a href="#team">{c.navTeam}</a>
+          <a href={l(lang, '/about')}>{c.navAbout}</a>
+        </nav>
       </div>
-      <button id="menu-toggle" class="menu-toggle" aria-label={c.menuToggle} aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
+      <a href={l(lang, '/creative')} class="brand">
+        <img src="/logo.svg" alt="Dual-Stack Studio" width="52" height="52" style="border-radius: 25%;" />
+      </a>
+      <div class="hdr-right">
+        <nav class="desktop-nav">
+          <a href={l(lang, '/journal')}>{c.navJournal}</a>
+          <a href={l(lang, '/web')} class="nav-dept">{c.navWeb}</a>
+        </nav>
+        <div class="header-actions">
+          <LangSwitch lang={lang} langs={['en', 'de', 'es']} />
+          <a href="#contact" class="header-cta">{c.cta}</a>
+        </div>
+      </div>
     </header>
 
     <div id="mobile-menu" class="mobile-menu">
@@ -704,10 +709,11 @@ const c = copy[lang];
       top: 0;
       left: 0;
       width: 100%;
-      padding: 1.5rem 2.5rem;
-      display: flex;
-      justify-content: space-between;
+      padding: 1.25rem 2.5rem;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
       align-items: center;
+      column-gap: 25px;
       z-index: 100;
       transition: background 0.3s, padding 0.3s;
     }
@@ -719,42 +725,59 @@ const c = copy[lang];
 
     .site-header.scrolled {
       background: rgba(20, 24, 16, 0.72);
-      backdrop-filter: blur(8px);
-      padding: 1rem 2.5rem;
+      backdrop-filter: blur(10px);
+      padding: 0.7rem 2.5rem;
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-family: 'Fraunces', serif;
-      font-size: 19px;
-      font-weight: 600;
-      color: #fff;
+    /* logo mark in the middle, a little smaller; it shrinks again once the page scrolls */
+    .brand { display: block; justify-self: center; line-height: 0; }
+    .brand img {
+      width: 52px;
+      height: 52px;
+      filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.35));
+      transition: width 0.3s, height 0.3s, transform 0.25s;
     }
+    .brand:hover img { transform: scale(1.07) rotate(-2deg); }
+    .site-header.scrolled .brand img { width: 42px; height: 42px; }
+
+    .hdr-left { display: flex; align-items: center; justify-content: flex-end; }
+    .hdr-right { display: flex; align-items: center; justify-content: flex-start; gap: 1.1rem; }
 
     .desktop-nav a, .header-cta { white-space: nowrap; }
-    @media (min-width: 1216px) { .brand { white-space: nowrap; } }
-    .desktop-nav { display: flex; gap: 2.25rem; font-size: 14px; font-weight: 500; }
-    @media (max-width: 1400px) { .desktop-nav { gap: 1.5rem; } }
+    .desktop-nav { display: flex; align-items: center; gap: 1.6rem; font-size: 14px; font-weight: 500; }
+    @media (max-width: 1400px) { .desktop-nav { gap: 1.35rem; } }
     .desktop-nav a { color: rgba(255,255,255,0.9); }
     .desktop-nav a:hover { color: var(--terracotta); }
+    .desktop-nav a:not(.nav-dept) { position: relative; padding: 4px 0; }
+    .desktop-nav a:not(.nav-dept)::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -1px;
+      height: 1.5px;
+      background: var(--terracotta);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.25s ease;
+    }
+    .desktop-nav a:not(.nav-dept):hover::after { transform: scaleX(1); }
     .desktop-nav a.nav-dept {
       border: 1px solid rgba(255,255,255,0.35);
-      padding: 6px 14px;
+      padding: 6px 12px;
       border-radius: 100px;
       font-size: 13px;
       transition: border-color 0.2s, color 0.2s;
     }
     .desktop-nav a.nav-dept:hover { border-color: var(--terracotta); color: var(--terracotta); }
 
-    .header-actions { display: flex; align-items: center; gap: 1.25rem; }
+    .header-actions { display: flex; align-items: center; gap: 1rem; }
     .header-actions :global(.lang-switch) { color: #fff; }
 
     .header-cta {
       background: var(--terracotta);
       color: #fff;
-      padding: 12px 26px;
+      padding: 11px 22px;
       border-radius: 100px;
       font-size: 14px;
       font-weight: 600;
@@ -1122,20 +1145,25 @@ const c = copy[lang];
     @media (max-width: 1215px) {
       .desktop-nav, .header-cta { display: none; }
       .menu-toggle { display: flex; }
+      .hdr-left { justify-content: flex-start; }
+      .hdr-right { justify-content: flex-end; }
     }
     @media (max-width: 1270px) {
       .site-header--de .desktop-nav, .site-header--de .header-cta { display: none; }
       .site-header--de .menu-toggle { display: flex; }
+      .site-header--de .hdr-left { justify-content: flex-start; }
+      .site-header--de .hdr-right { justify-content: flex-end; }
     }
 
     /* Phones: the language switch now sits next to the menu button, so trim the
        header padding to keep the logo on one line. */
     @media (max-width: 560px) {
       .site-header, .site-header.scrolled { padding-left: 1.25rem; padding-right: 1.25rem; }
+      .brand img { width: 44px; height: 44px; }
+      .site-header.scrolled .brand img { width: 38px; height: 38px; }
     }
     @media (max-width: 380px) {
-      .brand { font-size: 16px; gap: 8px; }
-      .brand img { width: 38px; height: 38px; }
+      .brand img { width: 40px; height: 40px; }
       .header-actions { gap: 0.75rem; }
     }
 
@@ -1145,14 +1173,6 @@ const c = copy[lang];
       .footer-grid { grid-template-columns: 1fr; }
     }
 
-    /* phones up to 420px: wordmark on one line with the bigger logo */
-    @media (max-width: 420px) {
-      .brand { font-size: 15px; gap: 8px; white-space: nowrap; }
-      .brand img { width: 44px; height: 44px; }
-    }
-    @media (max-width: 380px) {
-      .brand { font-size: 14px; }
-    }
   </style>
 
   <script>
