@@ -44,8 +44,8 @@ const c = copy[lang];
 
 <Layout title={title} description={description} lang={lang} langs={langs}>
   <header class="ph-header">
-    <a href={l(lang, '/creative')} class="ph-brand">
-      <img src="/logo.svg" alt="Dual-Stack Studio" width="64" height="64" style="border-radius: 25%;" />
+    <a href={l(lang, '/')} class="ph-brand">
+      <img src="/logo.svg" alt="Dual-Stack Studio" width="40" height="40" style="border-radius: 25%;" />
       <span>Dual-Stack Studio</span>
     </a>
     <span class="ph-header-right">
@@ -70,10 +70,9 @@ const c = copy[lang];
         </div>
         <div class="ph-footer-col">
           <h4>{c.navTitle}</h4>
-          <a href={l(lang, '/creative#work')}>{c.navWork}</a>
+          <a href={l(lang, '/#work')}>{c.navWork}</a>
           <a href={l(lang, '/photography')}>{c.navPhotography}</a>
-          <a href={l(lang, '/creative#services')}>{c.navServices}</a>
-          <a href={l(lang, '/creative#team')}>{c.navTeam}</a>
+          <a href={l(lang, '/#services')}>{c.navServices}</a>
           <a href={l(lang, '/journal')}>{c.navJournal}</a>
         </div>
         <div class="ph-footer-col">
@@ -105,28 +104,28 @@ const c = copy[lang];
   </div>
 
   <style is:global>
-    body { background: #2f4436; color: #f1ede2; }
+    body { background: #161616; color: #f1ede2; }
 
     .ph-inner { max-width: 1240px; margin: 0 auto; padding: 0 1.75rem; }
 
     /* ---------- HEADER ---------- */
     .ph-header {
       position: fixed; top: 0; left: 0; width: 100%;
-      padding: 1.25rem 2.5rem;
+      padding: 0.7rem 2.5rem;
       display: flex; justify-content: space-between; align-items: center;
       z-index: 100;
-      background: rgba(34, 50, 38, 0.78);
+      background: rgba(10,10,10,0.78);
       -webkit-backdrop-filter: blur(10px);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
-    .ph-brand { display: flex; align-items: center; gap: 10px; font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600; color: #fff; }
+    .ph-brand { display: flex; align-items: center; gap: 10px; font-family: 'Fraunces', serif; font-size: 16px; font-weight: 600; color: #fff; }
     .ph-header-right { display: inline-flex; align-items: center; gap: 1.5rem; color: rgba(255, 255, 255, 0.9); }
     .ph-back { font-size: 14px; font-weight: 600; color: rgba(255, 255, 255, 0.85); }
     .ph-back:hover { color: #e2865a; }
 
     /* ---------- FOOTER ---------- */
-    .ph-footer { background: #223226; color: rgba(255, 255, 255, 0.7); padding: 5rem 0 2.5rem; }
+    .ph-footer { background: #0a0a0a; color: rgba(255, 255, 255, 0.7); padding: 5rem 0 2.5rem; }
     .ph-footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 2.5rem; padding-bottom: 3rem; margin-bottom: 2.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
     .ph-footer-logo { display: flex; align-items: center; gap: 10px; font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600; color: #fff; margin-bottom: 1rem; }
     .ph-footer-brand p { font-size: 14px; color: rgba(255, 255, 255, 0.6); line-height: 1.7; max-width: 300px; }
@@ -136,7 +135,7 @@ const c = copy[lang];
     .ph-footer-bottom { display: flex; justify-content: space-between; font-size: 12px; color: rgba(255, 255, 255, 0.4); flex-wrap: wrap; gap: 0.5rem; }
 
     /* ---------- LIGHTBOX ---------- */
-    .ph-lightbox { position: fixed; inset: 0; z-index: 1000; background: rgba(14, 22, 17, 0.96); display: flex; align-items: center; justify-content: center; padding: 3.5rem 4.5rem; }
+    .ph-lightbox { position: fixed; inset: 0; z-index: 1000; background: rgba(10,10,10,0.96); display: flex; align-items: center; justify-content: center; padding: 3.5rem 4.5rem; }
     .ph-lightbox[hidden] { display: none; }
     .ph-lb-figure { display: flex; flex-direction: column; align-items: center; gap: 0.9rem; max-width: 100%; max-height: 100%; }
     .ph-lb-img { max-width: 100%; max-height: calc(100vh - 9rem); object-fit: contain; box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.7); }
@@ -153,7 +152,7 @@ const c = copy[lang];
     .ph-lb-close:hover, .ph-lb-nav:hover { background: rgba(193, 102, 62, 0.45); border-color: #c1663e; }
 
     @media (max-width: 860px) {
-      .ph-header { padding: 1rem 1.25rem; }
+      .ph-header { padding: 0.6rem 1.25rem; }
       .ph-footer-grid { grid-template-columns: 1fr 1fr; }
       .ph-lightbox { padding: 3.5rem 1rem 4rem; }
       .ph-lb-nav { top: auto; bottom: 14px; transform: none; }
@@ -166,9 +165,9 @@ const c = copy[lang];
 
     /* phones: wordmark on one line, bigger logo kept, back link as a plain arrow */
     @media (max-width: 560px) {
-      .ph-header { padding: 1rem 1.1rem; }
+      .ph-header { padding: 0.6rem 1.1rem; }
       .ph-brand { font-size: 14px; gap: 8px; white-space: nowrap; }
-      .ph-brand img { width: 46px; height: 46px; }
+      .ph-brand img { width: 34px; height: 34px; }
       .ph-header-right { gap: 0.9rem; }
       .ph-back { font-size: 0; }
       .ph-back::before { content: '←'; font-size: 22px; font-weight: 700; }

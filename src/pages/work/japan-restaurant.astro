@@ -38,7 +38,7 @@ const copy = {
     ctaText: 'This is exactly the kind of work we do for farms, guesthouses and small local businesses today.',
     ctaBtn: "Say hello",
     footTagline: 'Stories for family businesses and small places doing real work — content, storytelling, and the web presence behind it.',
-    navTitle: 'Navigate', navWork: 'Work', navPhotography: 'Photography', navServices: 'Services', navTeam: 'Team', navJournal: 'Journal',
+    navTitle: 'Navigate', navWork: 'Work', navAbout: 'About', navServices: 'Services', navTeam: 'Team', navJournal: 'Journal',
     legalTitle: 'Legal', privacy: 'Privacy Policy', terms: 'Terms of Service', contactTitle: 'Get in touch',
     rights: '© 2026 Dual-Stack Studio. Independently operated.', builtWith: 'Built with Astro, deployed on Vercel.',
     close: 'Close', prev: 'Previous photo', next: 'Next photo',
@@ -55,7 +55,7 @@ const copy = {
     ctaText: 'Genau diese Art von Arbeit machen wir heute für Bauernhöfe, Gästehäuser und kleine lokale Betriebe.',
     ctaBtn: 'Melde dich',
     footTagline: 'Geschichten für Familienbetriebe und kleine Orte, die echte Arbeit leisten — Content, Storytelling und der Webauftritt dahinter.',
-    navTitle: 'Navigation', navWork: 'Arbeiten', navPhotography: 'Fotografie', navServices: 'Leistungen', navTeam: 'Team', navJournal: 'Journal',
+    navTitle: 'Navigation', navWork: 'Arbeiten', navAbout: 'Über mich', navServices: 'Leistungen', navTeam: 'Team', navJournal: 'Journal',
     legalTitle: 'Rechtliches', privacy: 'Datenschutzerklärung', terms: 'Nutzungsbedingungen', contactTitle: 'Kontakt',
     rights: '© 2026 Dual-Stack Studio. Unabhängig betrieben.', builtWith: 'Erstellt mit Astro, bereitgestellt auf Vercel.',
     close: 'Schließen', prev: 'Vorheriges Foto', next: 'Nächstes Foto',
@@ -72,7 +72,7 @@ const copy = {
     ctaText: 'Este es exactamente el tipo de trabajo que hacemos hoy para granjas, alojamientos y pequeños negocios locales.',
     ctaBtn: 'Di hola',
     footTagline: 'Historias para negocios familiares y lugares pequeños que hacen un trabajo real — contenido, storytelling y la presencia web detrás.',
-    navTitle: 'Navegación', navWork: 'Trabajo', navPhotography: 'Fotografía', navServices: 'Servicios', navTeam: 'Equipo', navJournal: 'Diario',
+    navTitle: 'Navegación', navWork: 'Trabajo', navAbout: 'Sobre mí', navServices: 'Servicios', navTeam: 'Equipo', navJournal: 'Diario',
     legalTitle: 'Legal', privacy: 'Política de Privacidad', terms: 'Términos de Servicio', contactTitle: 'Contacto',
     rights: '© 2026 Dual-Stack Studio. Operado de forma independiente.', builtWith: 'Construido con Astro, desplegado en Vercel.',
     close: 'Cerrar', prev: 'Foto anterior', next: 'Foto siguiente',
@@ -84,13 +84,13 @@ const c = copy[lang];
 <Layout title={c.title} description={c.description} lang={lang} langs={['en', 'de', 'es']}>
 
   <header id="jl-header" class="jl-header">
-    <a href={l(lang, '/creative')} class="jl-brand">
-      <img src="/logo.svg" alt="Dual-Stack Studio" width="64" height="64" style="border-radius: 25%;" />
+    <a href={l(lang, '/')} class="jl-brand">
+      <img src="/logo.svg" alt="Dual-Stack Studio" width="40" height="40" style="border-radius: 25%;" />
       <span>Dual-Stack Studio</span>
     </a>
     <span class="jl-header-right">
       <LangSwitch lang={lang} langs={['en', 'de', 'es']} />
-      <a href={l(lang, '/creative#work')} class="jl-back">{c.back}</a>
+      <a href={l(lang, '/#work')} class="jl-back">{c.back}</a>
     </span>
   </header>
 
@@ -123,7 +123,7 @@ const c = copy[lang];
     <div class="jl-inner jl-cta-inner">
       <h2>{c.ctaTitle}</h2>
       <p>{c.ctaText}</p>
-      <a href={l(lang, '/creative#contact')} class="jl-cta-btn">{c.ctaBtn}</a>
+      <a href={l(lang, '/#contact')} class="jl-cta-btn">{c.ctaBtn}</a>
     </div>
   </section>
 
@@ -140,10 +140,9 @@ const c = copy[lang];
 
         <div class="jl-footer-col">
           <h4>{c.navTitle}</h4>
-          <a href={l(lang, '/creative#work')}>{c.navWork}</a>
-          <a href={l(lang, '/photography')}>{c.navPhotography}</a>
-          <a href={l(lang, '/creative#services')}>{c.navServices}</a>
-          <a href={l(lang, '/creative#team')}>{c.navTeam}</a>
+          <a href={l(lang, '/#work')}>{c.navWork}</a>
+          <a href={l(lang, '/about')}>{c.navAbout}</a>
+          <a href={l(lang, '/#services')}>{c.navServices}</a>
           <a href={l(lang, '/journal')}>{c.navJournal}</a>
         </div>
 
@@ -175,14 +174,14 @@ const c = copy[lang];
 
   <style>
     :root {
-      --cream: #fffdf9;
-      --cream-deep: #fbf8f3;
-      --forest: #2f4436;
-      --forest-deep: #223226;
+      --cream: #0a0a0a;
+      --cream-deep: #121212;
+      --forest: #161616;
+      --forest-deep: #0a0a0a;
       --terracotta: #c1663e;
-      --terracotta-deep: #a4522f;
-      --ink: #2b2420;
-      --muted: #6b6156;
+      --terracotta-deep: #e2865a;
+      --ink: #f6f1e8;
+      --muted: #b5aca2;
     }
 
     .jl-inner { max-width: 1180px; margin: 0 auto; padding: 0 1.75rem; }
@@ -204,15 +203,15 @@ const c = copy[lang];
       top: 0;
       left: 0;
       width: 100%;
-      padding: 1.5rem 2.5rem;
+      padding: 0.7rem 2.5rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
       z-index: 100;
-      background: rgba(34, 50, 38, 0.55);
+      background: rgba(10,10,10,0.55);
       backdrop-filter: blur(8px);
     }
-    .jl-brand { display: flex; align-items: center; gap: 10px; font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600; color: #fff; }
+    .jl-brand { display: flex; align-items: center; gap: 10px; font-family: 'Fraunces', serif; font-size: 16px; font-weight: 600; color: #fff; }
     .jl-header-right { display: inline-flex; align-items: center; gap: 1.5rem; color: rgba(255,255,255,0.9); }
     .jl-back { font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.9); }
     .jl-back:hover { color: var(--terracotta); }
@@ -227,7 +226,7 @@ const c = copy[lang];
       background: var(--forest-deep);
     }
     .jl-hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-    .jl-hero-scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,24,16,0.35) 0%, rgba(20,24,16,0.35) 40%, rgba(20,24,16,0.9) 100%); }
+    .jl-hero-scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,10,10,0.35) 0%, rgba(10,10,10,0.35) 40%, rgba(10,10,10,0.9) 100%); }
     .jl-hero-content { position: relative; z-index: 5; max-width: 720px; padding: 6rem 2.5rem 4rem; }
     .jl-hero-content h1 {
       font-family: 'Fraunces', serif;
@@ -263,7 +262,7 @@ const c = copy[lang];
       margin-bottom: 1.25rem;
       border-radius: 4px;
       overflow: hidden;
-      box-shadow: 0 12px 30px -18px rgba(43,36,32,0.35);
+      box-shadow: 0 12px 30px -18px rgba(0,0,0,0.56);
     }
     .jl-item img {
       display: block;
@@ -296,7 +295,7 @@ const c = copy[lang];
       position: fixed;
       inset: 0;
       z-index: 1000;
-      background: rgba(20, 16, 12, 0.92);
+      background: rgba(5,5,5,0.92);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -353,7 +352,7 @@ const c = copy[lang];
 
     /* ---------- RESPONSIVE ---------- */
     @media (max-width: 860px) {
-      .jl-header { padding: 1.25rem 1.5rem; }
+      .jl-header { padding: 0.6rem 1.5rem; }
       .jl-masonry { column-count: 2; }
       .jl-footer-grid { grid-template-columns: 1fr 1fr; }
     }
@@ -365,9 +364,9 @@ const c = copy[lang];
 
     /* phones: wordmark on one line, bigger logo kept, back link as a plain arrow */
     @media (max-width: 560px) {
-      .jl-header { padding: 1rem 1.1rem; }
+      .jl-header { padding: 0.6rem 1.1rem; }
       .jl-brand { font-size: 14px; gap: 8px; white-space: nowrap; }
-      .jl-brand img { width: 46px; height: 46px; }
+      .jl-brand img { width: 34px; height: 34px; }
       .jl-header-right { gap: 0.9rem; }
       .jl-back { font-size: 0; }
       .jl-back::before { content: '←'; font-size: 22px; font-weight: 700; }

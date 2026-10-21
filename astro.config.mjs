@@ -5,6 +5,10 @@ export default defineConfig({
   integrations: [],
   output: 'static',
   redirects: {
+    // the Creative page is the home page now
+    '/creative': '/',
+    '/de/creative': '/de/',
+    '/es/creative': '/es/',
     '/work/japan-lodge': '/work/japan-restaurant',
     '/de/work/japan-lodge': '/de/work/japan-restaurant',
     '/es/work/japan-lodge': '/work/japan-restaurant',

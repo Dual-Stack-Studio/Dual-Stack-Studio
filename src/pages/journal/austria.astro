@@ -124,8 +124,8 @@ const c = copy[lang];
 <Layout title={c.title} description={c.description} lang={lang} langs={['en', 'de', 'es']}>
 
   <header class="au-header">
-    <a href={l(lang, '/creative')} class="au-brand">
-      <img src="/logo.svg" alt="Dual-Stack Studio" width="64" height="64" style="border-radius: 25%;" />
+    <a href={l(lang, '/')} class="au-brand">
+      <img src="/logo.svg" alt="Dual-Stack Studio" width="40" height="40" style="border-radius: 25%;" />
       <span>Dual-Stack Studio</span>
     </a>
     <span class="au-header-right">
@@ -181,7 +181,7 @@ const c = copy[lang];
     <div class="au-inner au-cta-inner">
       <h2>{c.ctaTitle}</h2>
       <p>{c.ctaText}</p>
-      <a href={l(lang, '/creative#contact')} class="au-cta-btn">{c.ctaBtn}</a>
+      <a href={l(lang, '/#contact')} class="au-cta-btn">{c.ctaBtn}</a>
     </div>
   </section>
 
@@ -197,9 +197,8 @@ const c = copy[lang];
         </div>
         <div class="au-footer-col">
           <h4>{c.navTitle}</h4>
-          <a href={l(lang, '/creative#work')}>{c.navWork}</a>
-          <a href={l(lang, '/creative#services')}>{c.navServices}</a>
-          <a href={l(lang, '/creative#team')}>{c.navTeam}</a>
+          <a href={l(lang, '/#work')}>{c.navWork}</a>
+          <a href={l(lang, '/#services')}>{c.navServices}</a>
           <a href={l(lang, '/journal')}>{c.navJournal}</a>
         </div>
         <div class="au-footer-col">
@@ -229,14 +228,14 @@ const c = copy[lang];
 
   <style>
     :root {
-      --cream: #fffdf9;
-      --cream-deep: #fbf8f3;
-      --forest: #2f4436;
-      --forest-deep: #223226;
+      --cream: #0a0a0a;
+      --cream-deep: #121212;
+      --forest: #161616;
+      --forest-deep: #0a0a0a;
       --terracotta: #c1663e;
-      --terracotta-deep: #a4522f;
-      --ink: #2b2420;
-      --muted: #6b6156;
+      --terracotta-deep: #e2865a;
+      --ink: #f6f1e8;
+      --muted: #b5aca2;
     }
 
     .au-inner { max-width: 1180px; margin: 0 auto; padding: 0 1.75rem; }
@@ -259,15 +258,15 @@ const c = copy[lang];
       position: fixed;
       top: 0; left: 0;
       width: 100%;
-      padding: 1.5rem 2.5rem;
+      padding: 0.7rem 2.5rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
       z-index: 100;
-      background: rgba(34, 50, 38, 0.55);
+      background: rgba(10,10,10,0.55);
       backdrop-filter: blur(8px);
     }
-    .au-brand { display: flex; align-items: center; gap: 10px; font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600; color: #fff; }
+    .au-brand { display: flex; align-items: center; gap: 10px; font-family: 'Fraunces', serif; font-size: 16px; font-weight: 600; color: #fff; }
     .au-header-right { display: inline-flex; align-items: center; gap: 1.5rem; color: rgba(255,255,255,0.9); }
     .au-back { font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.9); }
     .au-back:hover { color: var(--terracotta); }
@@ -282,7 +281,7 @@ const c = copy[lang];
       background: var(--forest-deep);
     }
     .au-hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-    .au-hero-scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,24,16,0.15) 0%, rgba(20,24,16,0.25) 45%, rgba(20,24,16,0.9) 100%); }
+    .au-hero-scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,10,10,0.15) 0%, rgba(10,10,10,0.25) 45%, rgba(10,10,10,0.9) 100%); }
     .au-hero-content { position: relative; z-index: 5; max-width: 760px; padding: 6rem 2.5rem 4.5rem; }
     .au-hero-content h1 {
       font-family: 'Fraunces', serif;
@@ -355,13 +354,13 @@ const c = copy[lang];
       margin-bottom: 1.25rem;
       border-radius: 4px;
       overflow: hidden;
-      box-shadow: 0 12px 30px -18px rgba(43,36,32,0.35);
+      box-shadow: 0 12px 30px -18px rgba(0,0,0,0.56);
     }
     .au-item img { display: block; width: 100%; height: auto; cursor: pointer; transition: transform 0.5s ease; }
     .au-item:hover img { transform: scale(1.03); }
     /* Smooth loading: space is reserved via width/height, a soft placeholder shows
        while the photo loads, then it fades in (only when JS marks it pending). */
-    .au-item { background: rgba(43,36,32,0.07); }
+    .au-item { background: rgba(246,241,232,0.07); }
     .au-item img { transition: opacity 0.8s ease, transform 0.5s ease; }
     .au-item img.is-pending { opacity: 0; }
     @media (prefers-reduced-motion: reduce) { .au-item img { transition: none; } }
@@ -388,7 +387,7 @@ const c = copy[lang];
       position: fixed;
       inset: 0;
       z-index: 1000;
-      background: rgba(20, 16, 12, 0.92);
+      background: rgba(5,5,5,0.92);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -443,7 +442,7 @@ const c = copy[lang];
 
     /* ---------- RESPONSIVE ---------- */
     @media (max-width: 860px) {
-      .au-header { padding: 1.25rem 1.5rem; }
+      .au-header { padding: 0.6rem 1.5rem; }
       .au-masonry { column-count: 2; }
       .au-footer-grid { grid-template-columns: 1fr 1fr; }
     }
@@ -455,9 +454,9 @@ const c = copy[lang];
 
     /* phones: wordmark on one line, bigger logo kept, back link as a plain arrow */
     @media (max-width: 560px) {
-      .au-header { padding: 1rem 1.1rem; }
+      .au-header { padding: 0.6rem 1.1rem; }
       .au-brand { font-size: 14px; gap: 8px; white-space: nowrap; }
-      .au-brand img { width: 46px; height: 46px; }
+      .au-brand img { width: 34px; height: 34px; }
       .au-header-right { gap: 0.9rem; }
       .au-back { font-size: 0; }
       .au-back::before { content: '←'; font-size: 22px; font-weight: 700; }

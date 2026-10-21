@@ -61,9 +61,9 @@ const c = copy[lang];
 ---
 
 <Layout title={`${project.title} — Dual-Stack Studio`} description={project.tagline} lang={lang} langs={['en', 'de', 'es']}>
-  <header id="pd-header" style="position: sticky; top: 0; padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; z-index: 100; background: rgba(92, 92, 92, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
-    <a href={l(lang, '/web')} class="pd-header-logo" style="font-size: 20px; font-weight: 800; letter-spacing: -0.5px; display: flex; align-items: center; gap: 10px; text-decoration: none; color: #ffffff; flex-shrink: 0;">
-      <img src="/logo.svg" alt="Dual-Stack Studio" width="64" height="64" style="border-radius: 25%; flex-shrink: 0;" />
+  <header id="pd-header" style="position: sticky; top: 0; padding: 0.75rem 3rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; z-index: 100; background: rgba(10, 10, 10, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
+    <a href={l(lang, '/web')} class="pd-header-logo" style="font-size: 17px; font-weight: 800; letter-spacing: -0.5px; display: flex; align-items: center; gap: 10px; text-decoration: none; color: #ffffff; flex-shrink: 0;">
+      <img src="/logo.svg" alt="Dual-Stack Studio" width="40" height="40" style="border-radius: 25%; flex-shrink: 0;" />
       <span class="pd-header-logo-text">Dual-Stack Studio</span>
     </a>
     <a href={l(lang, '/web#work')} class="pd-back-link" style="font-size: 14px; font-weight: 600; color: #ccc; text-decoration: none; white-space: nowrap;">
@@ -303,10 +303,10 @@ const c = copy[lang];
     }
 
     .pd-page-bg {
-      background-color: #eeeeee;
+      background-color: #0a0a0a;
     }
 
-    /* Main keeps its own light backdrop and only fades to dark in a fixed-height
+    /* Main keeps its own dark backdrop and only fades to dark in a fixed-height
        band right above its own bottom edge, so the fade always sits just before
        the footer regardless of how much content main has (short or long page).
        The fade is a full-width linear band (not a radial dome) so it reaches
@@ -331,7 +331,7 @@ const c = copy[lang];
       font-weight: 700;
       letter-spacing: 0.5px;
       text-transform: uppercase;
-      color: #2f4436;
+      color: #e2865a;
       margin-bottom: 0.75rem;
     }
 
@@ -339,13 +339,13 @@ const c = copy[lang];
       font-size: clamp(32px, 4vw, 46px);
       font-weight: 800;
       letter-spacing: -1.5px;
-      color: #0a0a0a;
+      color: #f6f1e8;
       margin: 0 0 0.75rem 0;
     }
 
     .pd-tagline {
       font-size: 16px;
-      color: #555;
+      color: #b5aca2;
       font-style: italic;
       margin: 0 0 1rem 0;
     }
@@ -353,7 +353,7 @@ const c = copy[lang];
     .pd-desc {
       font-size: 16px;
       line-height: 1.75;
-      color: #444;
+      color: #c9c3ba;
       margin: 0;
     }
 
@@ -361,7 +361,7 @@ const c = copy[lang];
       border-radius: 18px;
       overflow: hidden;
       box-shadow: 0 30px 80px -25px rgba(193, 102, 62, 0.25), 0 20px 50px -20px rgba(0, 0, 0, 0.15);
-      border: 1px solid rgba(0, 0, 0, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       margin-bottom: 2.5rem;
       transition: box-shadow 0.4s ease, transform 0.4s ease;
     }
@@ -520,9 +520,9 @@ const c = copy[lang];
       width: 42px;
       height: 42px;
       border-radius: 50%;
-      border: 1px solid rgba(0, 0, 0, 0.08);
-      background: rgba(255, 255, 255, 0.92);
-      color: #0a0a0a;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(10, 10, 10, 0.72);
+      color: #f6f1e8;
       font-size: 22px;
       line-height: 1;
       display: flex;
@@ -577,7 +577,7 @@ const c = copy[lang];
       aspect-ratio: 16 / 10;
       border-radius: 14px;
       overflow: hidden;
-      border: 1px solid rgba(0, 0, 0, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       box-shadow: 0 16px 40px -20px rgba(0, 0, 0, 0.25);
       scroll-snap-align: start;
       transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
@@ -620,7 +620,7 @@ const c = copy[lang];
     .pd-main h2 {
       font-size: 22px;
       font-weight: 800;
-      color: #0a0a0a;
+      color: #f6f1e8;
       margin: 0 0 1rem 0;
     }
 
@@ -641,7 +641,7 @@ const c = copy[lang];
       padding-left: 1.6rem;
       font-size: 15px;
       line-height: 1.6;
-      color: #333;
+      color: #d8d4cc;
     }
 
     .pd-features li::before {
@@ -653,8 +653,8 @@ const c = copy[lang];
     }
 
     .pd-sidebar-block {
-      background: rgba(0, 0, 0, 0.03);
-      border: 1px solid rgba(0, 0, 0, 0.08);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 14px;
       padding: 1.5rem;
       margin-bottom: 1.25rem;
@@ -664,7 +664,7 @@ const c = copy[lang];
 
     .pd-sidebar-block:hover {
       border-color: rgba(193, 102, 62, 0.5);
-      background: rgba(0, 0, 0, 0.05);
+      background: rgba(255, 255, 255, 0.07);
     }
 
     .pd-sidebar-block h3 {
@@ -672,13 +672,13 @@ const c = copy[lang];
       font-weight: 700;
       letter-spacing: 0.6px;
       text-transform: uppercase;
-      color: #666;
+      color: #a9a29a;
       margin: 0 0 1rem 0;
     }
 
     .pd-sidebar-block p {
       font-size: 14px;
-      color: #333;
+      color: #d8d4cc;
       margin: 0;
       line-height: 1.6;
     }
@@ -694,7 +694,7 @@ const c = copy[lang];
     }
 
     .pd-growth-block h3 {
-      color: #8a4325;
+      color: #e2865a;
     }
 
     .pd-stack {
@@ -711,7 +711,7 @@ const c = copy[lang];
       padding: 0.4rem 0.75rem;
       border-radius: 6px;
       background: rgba(193, 102, 62, 0.16);
-      color: #8a4325;
+      color: #e2865a;
       border: 1px solid rgba(193, 102, 62, 0.45);
       transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s ease;
     }
@@ -741,14 +741,14 @@ const c = copy[lang];
     }
 
     .pd-more-head .pd-client {
-      color: #2f4436;
+      color: #e2865a;
     }
 
     .pd-more-title {
       font-size: clamp(28px, 4vw, 40px);
       font-weight: 800;
       letter-spacing: -1.5px;
-      color: #0a0a0a;
+      color: #f6f1e8;
       margin: 0.5rem 0 0 0;
     }
 
@@ -892,8 +892,8 @@ const c = copy[lang];
     }
 
     .pd-cta-disabled {
-      background: rgba(0, 0, 0, 0.06);
-      color: #666;
+      background: rgba(255, 255, 255, 0.08);
+      color: #a9a29a;
       box-shadow: none;
       cursor: not-allowed;
     }
@@ -941,7 +941,7 @@ const c = copy[lang];
     .footer-note {
       display: block;
       font-size: 12px;
-      color: #666;
+      color: #a9a29a;
       margin-top: 0.5rem;
     }
 
@@ -955,7 +955,7 @@ const c = copy[lang];
     .footer-bottom p {
       margin: 0;
       font-size: 12.5px;
-      color: #666;
+      color: #a9a29a;
     }
 
     @media (max-width: 500px) {
