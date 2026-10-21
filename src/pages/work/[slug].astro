@@ -61,7 +61,7 @@ const c = copy[lang];
 ---
 
 <Layout title={`${project.title} — Dual-Stack Studio`} description={project.tagline} lang={lang} langs={['en', 'de', 'es']}>
-  <header id="pd-header" style="position: sticky; top: 0; padding: 0.75rem 3rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; z-index: 100; background: rgba(10, 10, 10, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
+  <header id="pd-header" style="position: sticky; top: 0; padding: 0.75rem 3rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; z-index: 100; background: rgba(26, 26, 26, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
     <a href={l(lang, '/web')} class="pd-header-logo" style="font-size: 17px; font-weight: 800; letter-spacing: -0.5px; display: flex; align-items: center; gap: 10px; text-decoration: none; color: #ffffff; flex-shrink: 0;">
       <img src="/logo.svg" alt="Dual-Stack Studio" width="40" height="40" style="border-radius: 25%; flex-shrink: 0;" />
       <span class="pd-header-logo-text">Dual-Stack Studio</span>
@@ -303,14 +303,14 @@ const c = copy[lang];
     }
 
     .pd-page-bg {
-      background-color: #0a0a0a;
+      background-color: #1a1a1a;
     }
 
     /* Main keeps its own dark backdrop and only fades to dark in a fixed-height
        band right above its own bottom edge, so the fade always sits just before
        the footer regardless of how much content main has (short or long page).
        The fade is a full-width linear band (not a radial dome) so it reaches
-       #0a0a0a evenly edge-to-edge, matching the footer's flat color with no seam. */
+       #1a1a1a evenly edge-to-edge, matching the footer's flat color with no seam. */
     .pd-main-bg {
       background-repeat: no-repeat;
       background-position: center top, center top, center bottom;
@@ -318,11 +318,11 @@ const c = copy[lang];
       background-image:
         radial-gradient(circle at 85% 12%, rgba(193, 102, 62, 0.12) 0%, transparent 40%),
         radial-gradient(circle at 8% 10%, rgba(193, 102, 62, 0.06) 0%, transparent 32%),
-        linear-gradient(180deg, transparent 0%, #0a0a0a 100%);
+        linear-gradient(180deg, transparent 0%, #1a1a1a 100%);
     }
 
     footer {
-      background-color: #0a0a0a;
+      background-color: #1a1a1a;
     }
 
     .pd-client {
@@ -385,7 +385,7 @@ const c = copy[lang];
       aspect-ratio: 16 / 9;
       object-fit: cover;
       display: block;
-      background: #0a0a0a;
+      background: #1a1a1a;
     }
 
     /* Mobile-app demo recordings are portrait (phone-shaped) — cropping them
@@ -403,7 +403,7 @@ const c = copy[lang];
       z-index: 2;
       padding: 0.5rem 0.9rem;
       border-radius: 100px;
-      background: rgba(10, 10, 10, 0.65);
+      background: rgba(26, 26, 26, 0.65);
       backdrop-filter: blur(6px);
       border: 1px solid rgba(193, 102, 62, 0.6);
       box-shadow: 0 0 16px rgba(193, 102, 62, 0.35), inset 0 0 8px rgba(193, 102, 62, 0.12);
@@ -425,7 +425,7 @@ const c = copy[lang];
       display: flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, #2a2a2a 0%, #0a0a0a 140%);
+      background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 140%);
     }
 
     .pd-media-placeholder span {
@@ -442,7 +442,7 @@ const c = copy[lang];
       position: fixed;
       inset: 0;
       z-index: 1000;
-      background: rgba(10, 10, 10, 0.92);
+      background: rgba(26, 26, 26, 0.92);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -521,7 +521,7 @@ const c = copy[lang];
       height: 42px;
       border-radius: 50%;
       border: 1px solid rgba(255, 255, 255, 0.1);
-      background: rgba(10, 10, 10, 0.72);
+      background: rgba(26, 26, 26, 0.72);
       color: #f6f1e8;
       font-size: 22px;
       line-height: 1;
@@ -602,7 +602,7 @@ const c = copy[lang];
       display: flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, #2a2a2a 0%, #0a0a0a 140%);
+      background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 140%);
     }
 
     .pd-shot-placeholder span {
@@ -721,7 +721,7 @@ const c = copy[lang];
       background: rgba(193, 102, 62, 0.28);
     }
 
-    /* .pd-more sits inside pd-main-bg's fade-to-#0a0a0a band at the bottom of
+    /* .pd-more sits inside pd-main-bg's fade-to-#1a1a1a band at the bottom of
        the page, so it needs light text like the footer below it — not the
        dark palette the rest of the page uses on its light background. */
     /* No boxed background here — this blends straight into pd-main-bg's own

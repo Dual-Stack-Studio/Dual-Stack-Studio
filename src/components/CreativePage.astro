@@ -596,9 +596,9 @@ const c = copy[lang];
       --ink: #2b2420;
       --muted: #6b6156;
       /* dark mode in the logo's colours (same as the Web page): black, orange accents, text in cream */
-      --night: #121212;
-      --night-2: #0a0a0a;
-      --night-3: #050505;
+      --night: #202020;
+      --night-2: #1a1a1a;
+      --night-3: #141414;
       --on-dark: #f6f1e8;
       --on-dark-soft: rgba(246, 241, 232, 0.74);
       --on-dark-faint: rgba(246, 241, 232, 0.5);
@@ -725,7 +725,7 @@ const c = copy[lang];
 
     /* light links over the dark page; once it scrolls the header becomes a frosted black bar */
     .site-header.scrolled {
-      background: rgba(10, 10, 10, 0.86);
+      background: rgba(26, 26, 26, 0.86);
       backdrop-filter: blur(10px);
       box-shadow: 0 1px 0 rgba(246, 241, 232, 0.06);
       padding: 0.5rem 2.5rem;
@@ -1129,12 +1129,12 @@ const c = copy[lang];
     .cas { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 1.1rem; align-items: start; margin-top: 3rem; padding-bottom: 0.5rem; }
     .cas-item { grid-column: var(--c) / span 4; grid-row: 1; margin: calc(var(--k) * 3.2rem) 0 0 -2rem; position: relative; z-index: var(--n); }
     .cas-first { margin-left: 0; }
-    .cas-ph { display: block; overflow: hidden; box-sizing: border-box; border: 5px solid #fff; border-radius: 10px; background: #0a0a0a; box-shadow: 0 22px 44px -22px rgba(0,0,0,0.6); }
+    .cas-ph { display: block; overflow: hidden; box-sizing: border-box; border: 5px solid #fff; border-radius: 10px; background: #1a1a1a; box-shadow: 0 22px 44px -22px rgba(0,0,0,0.6); }
     .cas-r43 { aspect-ratio: 4 / 3; }
     .cas-r34 { aspect-ratio: 3 / 4; }
     .cas-ph img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.2s cubic-bezier(.2,.7,.2,1); }
     .cas-ph:hover img { transform: scale(1.035); }
-    .cas-cap { position: absolute; left: 0.7rem; top: 0.7rem; font-size: 10.5px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: #fff; background: rgba(10,10,10,0.55); backdrop-filter: blur(4px); padding: 4px 10px; border-radius: 999px; }
+    .cas-cap { position: absolute; left: 0.7rem; top: 0.7rem; font-size: 10.5px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: #fff; background: rgba(26, 26, 26,0.55); backdrop-filter: blur(4px); padding: 4px 10px; border-radius: 999px; }
     .cas-panel { display: block; color: var(--card-ink); background: var(--card-bg); border-radius: 10px; padding: 1.7rem 1.6rem 1.8rem; box-shadow: 0 22px 44px -22px rgba(34,24,16,0.6); }
     .cas-tag { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--tag-ink); background: var(--tag-bg); padding: 4px 10px; border-radius: 100px; margin-bottom: 0.9rem; }
     .cas-panel h3 { font-family: 'Fraunces', serif; font-size: 24px; font-weight: 600; line-height: 1.2; margin: 0 0 0.6rem; }
@@ -1195,7 +1195,7 @@ const c = copy[lang];
       padding: 12px 14px;
       border-radius: 10px;
       border: 1px solid rgba(226,134,90,0.28);
-      background: rgba(10,10,10,0.55);
+      background: rgba(26, 26, 26,0.55);
       font-family: inherit;
       font-size: 14px;
       color: var(--on-dark);
