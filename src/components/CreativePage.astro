@@ -1068,18 +1068,20 @@ const c = copy[lang];
     /* ---------- SERVICES ---------- */
     .services-section { background: var(--night); }
 
-    /* service cards: the same black + orange frame as the project cards; the middle one (most asked for) is
-       highlighted with a stronger orange wash. All three share the text colours. */
+    /* service cards: the slate of the project cards with a thin cream frame; orange stays only as the accent
+       (icon, kicker, pills). The middle one (most asked for) gets a soft orange wash and an orange frame. */
     .tone-green, .tone-orange, .tone-beige {
       --card-ink: #fff; --card-soft: rgba(246,241,232,0.78); --card-faint: #e2865a;
       --card-accent: #e2865a; --card-line: rgba(226,134,90,0.45); --card-icon: #e2865a;
-      --pill-bg: rgba(226,134,90,0.1); --pill-bd: rgba(226,134,90,0.4); --pill-ink: #f0c9a8; --pill-ink-local: #f0c9a8;
-      --card-bg: linear-gradient(160deg, rgba(226,134,90,0.2) 0%, rgba(226,134,90,0.06) 45%, rgba(226,134,90,0.02) 100%), #27292d;
-      --card-border: rgba(226,134,90,0.55);
+      --pill-bg: rgba(246,241,232,0.06); --pill-bd: rgba(246,241,232,0.2); --pill-ink: #f0c9a8; --pill-ink-local: #f0c9a8;
+      --card-bg: linear-gradient(160deg, rgba(246,241,232,0.06) 0%, rgba(246,241,232,0.015) 55%, rgba(246,241,232,0) 100%), #2f3136;
+      --card-border: rgba(246,241,232,0.12);
+      --card-glow: 226, 134, 90;
     }
     .tone-orange {
-      --card-bg: linear-gradient(160deg, rgba(226,134,90,0.42) 0%, rgba(193,102,62,0.2) 50%, rgba(193,102,62,0.1) 100%), #161210;
-      --card-border: #e2865a;
+      --card-bg: linear-gradient(160deg, rgba(226,134,90,0.2) 0%, rgba(226,134,90,0.07) 50%, rgba(226,134,90,0.02) 100%), #34363c;
+      --card-border: rgba(226,134,90,0.6);
+      --pill-bg: rgba(226,134,90,0.1); --pill-bd: rgba(226,134,90,0.4);
     }
 
     .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem; }
@@ -1095,8 +1097,10 @@ const c = copy[lang];
       border: 1.5px solid var(--card-border);
       border-radius: 18px;
       padding: 2.75rem;
-      box-shadow: 0 0 46px -18px rgba(226,134,90,0.35), 0 22px 44px -28px rgba(0,0,0,0.7);
+      box-shadow: 0 22px 44px -30px rgba(0,0,0,0.6);
+      transition: border-color 0.3s, box-shadow 0.3s;
     }
+    .service-block:hover { border-color: rgba(var(--card-glow), 0.55); box-shadow: 0 0 30px rgba(var(--card-glow), 0.14), 0 24px 60px -28px rgba(0,0,0,0.6); }
 
     .service-icon { color: var(--card-icon); margin-bottom: 1.5rem; }
 
