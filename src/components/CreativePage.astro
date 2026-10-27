@@ -596,9 +596,9 @@ const c = copy[lang];
       --ink: #2b2420;
       --muted: #6b6156;
       /* dark mode in the logo's colours (same as the Web page): black, orange accents, text in cream */
-      --night: #202020;
-      --night-2: #1a1a1a;
-      --night-3: #141414;
+      --night: #383b41;
+      --night-2: #2f3136;
+      --night-3: #27292d;
       --on-dark: #f6f1e8;
       --on-dark-soft: rgba(246, 241, 232, 0.74);
       --on-dark-faint: rgba(246, 241, 232, 0.5);
@@ -725,7 +725,7 @@ const c = copy[lang];
 
     /* light links over the dark page; once it scrolls the header becomes a frosted black bar */
     .site-header.scrolled {
-      background: rgba(26, 26, 26, 0.86);
+      background: rgba(47, 49, 54, 0.86);
       backdrop-filter: blur(10px);
       box-shadow: 0 1px 0 rgba(246, 241, 232, 0.06);
       padding: 0.5rem 2.5rem;
@@ -906,12 +906,12 @@ const c = copy[lang];
 
     /* Starpolar (their palette: near-black + violet) */
     .pw-sp { display: grid; grid-template-columns: 1.05fr 1fr; gap: 2.5rem; align-items: center; color: #f4f0ff; padding: 3rem 3.25rem;
-      --base: #0f0d16; --glow: 168, 140, 255; --accent: #a88cff; --soft: #cfc7e6; }
+      --base: #393a42; --glow: 168, 140, 255; --accent: #a88cff; --soft: #cfc7e6; }
     .pw-sp-logo { width: 250px; height: auto; display: block; margin-bottom: 1.4rem; }
     .pw-sp h3 { color: #f4f0ff; font-size: 30px; }
     .pw-sp p { color: #cfc7e6; }
         .pw-phones { display: flex; gap: 16px; justify-content: center; align-items: flex-end; }
-    .pw-phone { position: relative; width: 156px; aspect-ratio: 9 / 16; border-radius: 22px; overflow: hidden; background: #000; border: 3px solid #2a2540; box-shadow: 0 18px 40px rgba(0,0,0,0.5); flex: none; }
+    .pw-phone { position: relative; width: 156px; aspect-ratio: 9 / 16; border-radius: 22px; overflow: hidden; background: #000; border: 3px solid #25262c; box-shadow: 0 18px 40px rgba(0,0,0,0.4); flex: none; }
     .pw-phone img, .pw-phone video { width: 100%; height: 100%; object-fit: cover; display: block; }
     .pw-phone--mid { width: 176px; transform: translateY(-14px); }
     .pw-play { position: absolute; inset: 0; display: grid; place-items: center; background: transparent; border: 0; cursor: pointer; padding: 0; }
@@ -919,20 +919,20 @@ const c = copy[lang];
     .pw-play i::after { content: ''; margin-left: 4px; border-left: 14px solid #fff; border-top: 9px solid transparent; border-bottom: 9px solid transparent; }
     .pw-play:hover i { transform: scale(1.08); background: rgba(168,140,255,0.55); }
 
-    /* every project card follows the Starpolar pattern in its own brand colours: a dark base tinted with the
-       brand colour, a soft radial glow in the top corner, a thin brand-coloured frame and brand accents.
+    /* every project card follows the Starpolar pattern on the site's slate grey: a base with a hint of the
+       brand colour, a soft radial glow in the top corner, a neutral frame (brand-coloured on hover) and brand accents.
        --glow is the brand colour as "r, g, b"; --accent colours the tag, chips and link; --soft the text. */
     .pw-sp, .pw-card {
       position: relative; overflow: hidden; isolation: isolate; border-radius: 28px;
-      background: var(--base, #141414);
-      border: 1px solid rgba(var(--glow, 226, 134, 90), 0.3);
-      box-shadow: 0 0 46px -20px rgba(var(--glow, 226, 134, 90), 0.38), 0 22px 44px -30px rgba(0, 0, 0, 0.85);
+      background: var(--base, #27292d);
+      border: 1px solid rgba(246, 241, 232, 0.12);
+      box-shadow: 0 22px 44px -30px rgba(0, 0, 0, 0.6);
       transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
     }
     .pw-sp::before, .pw-card::before {
       content: ''; position: absolute; right: -140px; top: -170px; width: 540px; height: 540px; border-radius: 50%;
       background: radial-gradient(circle, rgba(var(--glow, 226, 134, 90), 0.26), transparent 66%);
-      pointer-events: none; z-index: -1;
+      opacity: 0.55; pointer-events: none; z-index: -1;
     }
     /* the reflection: a band of light that sweeps diagonally from the top-left corner to the bottom-right one
        (the effect from the portfolio site, turned to run top to bottom) */
@@ -949,8 +949,8 @@ const c = copy[lang];
     .pw > :nth-child(4) { --shine-delay: 2.7s; }
     .pw > :nth-child(5) { --shine-delay: 3.6s; }
     .pw-card:hover, .pw-sp:hover {
-      border-color: rgba(var(--glow, 226, 134, 90), 0.7);
-      box-shadow: 0 0 30px rgba(var(--glow, 226, 134, 90), 0.2), 0 0 70px rgba(var(--glow, 226, 134, 90), 0.12), 0 24px 60px -28px rgba(0, 0, 0, 0.85);
+      border-color: rgba(var(--glow, 226, 134, 90), 0.55);
+      box-shadow: 0 0 30px rgba(var(--glow, 226, 134, 90), 0.14), 0 24px 60px -28px rgba(0, 0, 0, 0.6);
     }
     .pw-card:hover { transform: translateY(-2px); }
     .services-grid > :nth-child(2) { --shine-delay: 1.2s; }
@@ -961,13 +961,13 @@ const c = copy[lang];
     /* client cards: photo mosaic + copy */
     .pw-card { display: grid; grid-template-columns: 1.25fr 1fr; gap: 2.25rem; align-items: center; padding: 2.1rem; color: inherit; text-decoration: none; }
     /* brand colours */
-    .pw-card--jin { --base: #0c1d17; --glow: 47, 122, 94; --accent: #e8d3a0; --soft: #cfd8d2; }       /* Mister Jin: green + champagne gold */
+    .pw-card--jin { --base: #353d3d; --glow: 47, 122, 94; --accent: #e8d3a0; --soft: #cfd8d2; }       /* Mister Jin: green + champagne gold */
     .pw-card--jin::before { background: radial-gradient(circle, rgba(47, 122, 94, 0.42), rgba(200, 162, 74, 0.08) 45%, transparent 68%); }
-    .pw-card--nonna { --base: #1f1218; --glow: 244, 166, 189; --accent: #f8c4d3; --soft: #eedbe0; }   /* La Nonna: light pink */
+    .pw-card--nonna { --base: #3d3a3e; --glow: 244, 166, 189; --accent: #f8c4d3; --soft: #eedbe0; }   /* La Nonna: light pink */
     .pw-card--nonna::before { right: -100px; top: -140px; width: 640px; height: 640px; background: radial-gradient(circle, rgba(244, 166, 189, 0.4), rgba(244, 166, 189, 0.1) 45%, transparent 70%); }
-    .pw-card--mvg { --base: #0c1717; --glow: 150, 212, 212; --accent: #a8e0e0; --soft: #d2e2e1; }     /* MVG: aqua + peach */
+    .pw-card--mvg { --base: #353d41; --glow: 150, 212, 212; --accent: #a8e0e0; --soft: #d2e2e1; }     /* MVG: aqua + peach */
     .pw-card--mvg::before { background: radial-gradient(circle, rgba(150, 212, 212, 0.3), rgba(240, 201, 184, 0.08) 45%, transparent 68%); }
-    .pw-card--jp { --base: #0d1121; --glow: 122, 148, 224; --accent: #aebef0; --soft: #d1d6ea; }      /* Japan: indigo */
+    .pw-card--jp { --base: #373b46; --glow: 122, 148, 224; --accent: #aebef0; --soft: #d1d6ea; }      /* Japan: indigo */
     .pw-card--flip { grid-template-columns: 1fr 1.25fr; }
     .pw-mosaic { display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 150px 150px; gap: 10px; min-width: 0; }
     .pw-mosaic img { width: 100%; height: 100%; object-fit: cover; border-radius: 14px; display: block; }
@@ -1074,7 +1074,7 @@ const c = copy[lang];
       --card-ink: #fff; --card-soft: rgba(246,241,232,0.78); --card-faint: #e2865a;
       --card-accent: #e2865a; --card-line: rgba(226,134,90,0.45); --card-icon: #e2865a;
       --pill-bg: rgba(226,134,90,0.1); --pill-bd: rgba(226,134,90,0.4); --pill-ink: #f0c9a8; --pill-ink-local: #f0c9a8;
-      --card-bg: linear-gradient(160deg, rgba(226,134,90,0.2) 0%, rgba(226,134,90,0.06) 45%, rgba(226,134,90,0.02) 100%), #141414;
+      --card-bg: linear-gradient(160deg, rgba(226,134,90,0.2) 0%, rgba(226,134,90,0.06) 45%, rgba(226,134,90,0.02) 100%), #27292d;
       --card-border: rgba(226,134,90,0.55);
     }
     .tone-orange {
@@ -1129,12 +1129,12 @@ const c = copy[lang];
     .cas { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 1.1rem; align-items: start; margin-top: 3rem; padding-bottom: 0.5rem; }
     .cas-item { grid-column: var(--c) / span 4; grid-row: 1; margin: calc(var(--k) * 3.2rem) 0 0 -2rem; position: relative; z-index: var(--n); }
     .cas-first { margin-left: 0; }
-    .cas-ph { display: block; overflow: hidden; box-sizing: border-box; border: 5px solid #fff; border-radius: 10px; background: #1a1a1a; box-shadow: 0 22px 44px -22px rgba(0,0,0,0.6); }
+    .cas-ph { display: block; overflow: hidden; box-sizing: border-box; border: 5px solid #fff; border-radius: 10px; background: #2f3136; box-shadow: 0 22px 44px -22px rgba(0,0,0,0.6); }
     .cas-r43 { aspect-ratio: 4 / 3; }
     .cas-r34 { aspect-ratio: 3 / 4; }
     .cas-ph img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.2s cubic-bezier(.2,.7,.2,1); }
     .cas-ph:hover img { transform: scale(1.035); }
-    .cas-cap { position: absolute; left: 0.7rem; top: 0.7rem; font-size: 10.5px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: #fff; background: rgba(26, 26, 26,0.55); backdrop-filter: blur(4px); padding: 4px 10px; border-radius: 999px; }
+    .cas-cap { position: absolute; left: 0.7rem; top: 0.7rem; font-size: 10.5px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: #fff; background: rgba(47, 49, 54,0.55); backdrop-filter: blur(4px); padding: 4px 10px; border-radius: 999px; }
     .cas-panel { display: block; color: var(--card-ink); background: var(--card-bg); border-radius: 10px; padding: 1.7rem 1.6rem 1.8rem; box-shadow: 0 22px 44px -22px rgba(34,24,16,0.6); }
     .cas-tag { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--tag-ink); background: var(--tag-bg); padding: 4px 10px; border-radius: 100px; margin-bottom: 0.9rem; }
     .cas-panel h3 { font-family: 'Fraunces', serif; font-size: 24px; font-weight: 600; line-height: 1.2; margin: 0 0 0.6rem; }
@@ -1184,7 +1184,7 @@ const c = copy[lang];
       padding: 2.4rem 2.4rem 1.8rem;
       border: 1.5px solid rgba(226,134,90,0.55);
       border-radius: 22px;
-      background: linear-gradient(160deg, rgba(226,134,90,0.18) 0%, rgba(226,134,90,0.05) 45%, rgba(226,134,90,0.02) 100%), #141414;
+      background: linear-gradient(160deg, rgba(226,134,90,0.18) 0%, rgba(226,134,90,0.05) 45%, rgba(226,134,90,0.02) 100%), #27292d;
       box-shadow: 0 0 46px -18px rgba(226,134,90,0.35), 0 22px 44px -28px rgba(0,0,0,0.7);
     }
     .cf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
@@ -1195,7 +1195,7 @@ const c = copy[lang];
       padding: 12px 14px;
       border-radius: 10px;
       border: 1px solid rgba(226,134,90,0.28);
-      background: rgba(26, 26, 26,0.55);
+      background: rgba(47, 49, 54,0.55);
       font-family: inherit;
       font-size: 14px;
       color: var(--on-dark);
